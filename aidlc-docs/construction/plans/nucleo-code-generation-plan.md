@@ -22,13 +22,13 @@ nucleo/
 
 ### T1. Primer hito: decisión con recibo (sábado antes de las 18:00)
 Objetivo: un endpoint que reciba una factura canónica y devuelva decisión y recibo con 4 reglas. Es la base de las escenas 1 y 3 del video.
-- [ ] 1.0 **Primero:** stub de API con los ejemplos del contrato (`POST /api/facturas`, `GET /api/decisiones`, `GET /api/decisiones/{id}`, `GET /api/mandato`) para desbloquear a U2, U3 y U4 desde la primera hora.
-- [ ] 1.1 Modelos del dominio desde los esquemas del contrato (factura canónica, mandato, decisión, recibo); validación con `contrato/validar.py` en pruebas.
-- [ ] 1.2 Mandato versionado: carga de `contrato/ejemplos/mandato.v1.json` y `v2.json`; sin valores quemados.
-- [ ] 1.3 Registro maestro mínimo (proveedores, cuentas registradas, acuerdos) sembrado desde datos de prueba.
-- [ ] 1.4 Motor: registro de reglas (estrategia), evaluación de todas sin cortocircuito, agregación por precedencia FRENAR, ESCALAR, PAGAR (REGISTRAR para nota de crédito), falla cerrado.
-- [ ] 1.5 Reglas del primer hito: **R2a** duplicado exacto, **R3** beneficiario permitido, **R4** cuenta registrada (escena 1: "la cuenta no es la registrada"), **R6** monto. Explicación determinista por regla, con evidencia citando el campo.
-- [ ] 1.6 Recibo: estructura, hash del documento, nonce y vigencia de 24 h inyectados; firma Ed25519 con clave inyectada; versión de clave.
+- [x] 1.0 **Primero:** stub de API con los ejemplos del contrato (`POST /api/facturas`, `GET /api/decisiones`, `GET /api/decisiones/{id}`, `GET /api/mandato`) para desbloquear a U2, U3 y U4 desde la primera hora.
+- [x] 1.1 Modelos del dominio desde los esquemas del contrato (factura canónica, mandato, decisión, recibo); validación con `contrato/validar.py` en pruebas.
+- [x] 1.2 Mandato versionado: carga de `contrato/ejemplos/mandato.v1.json` y `v2.json`; sin valores quemados.
+- [x] 1.3 Registro maestro mínimo (proveedores, cuentas registradas, acuerdos) sembrado desde datos de prueba.
+- [x] 1.4 Motor: registro de reglas (estrategia), evaluación de todas sin cortocircuito, agregación por precedencia FRENAR, ESCALAR, PAGAR (REGISTRAR para nota de crédito), falla cerrado.
+- [x] 1.5 Reglas del primer hito: **R2a** duplicado exacto, **R3** beneficiario permitido, **R4** cuenta registrada (escena 1: "la cuenta no es la registrada"), **R6** monto. Explicación determinista por regla, con evidencia citando el campo.
+- [x] 1.6 Recibo: estructura, hash del documento, nonce y vigencia de 24 h inyectados; firma Ed25519 con clave inyectada; versión de clave.
 - Pruebas (≈ 16): reglas R2a, R3, R4, R6 x3 casos (12); precedencia 2; recibo y firma 2.
 - Listo cuando: `python3 verify.py --etapa nucleo` en verde y una factura de prueba produce decisión con recibo que valida contra el esquema.
 
