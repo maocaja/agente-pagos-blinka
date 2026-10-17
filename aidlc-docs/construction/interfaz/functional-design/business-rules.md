@@ -3,7 +3,7 @@
 Fecha: 2026-10-16. Fuente: 7 respuestas del diseño funcional y 2 aclaraciones, más `requirements.md` (RF8, RF11, RF23 a RF26) y el diseño funcional del núcleo.
 
 ## Dirección y forma
-- **Sala de control:** fondo oscuro, **alto contraste y tipografía grande** pensados para proyectar. Se construye con la skill `frontend-design`; parte de la maqueta `demo-front`.
+- **Lenguaje visual alineado con blinka.co:** tema claro por defecto y tema oscuro "sala de control", **alto contraste y tipografía grande** pensados para proyectar (ver `design-system.md`). Se construye con la skill `frontend-design`; parte de la maqueta `demo-front`.
 - **Barra lateral fija** con solo las secciones que aparecen en la demo: Marcador, Bandeja, Reglas, Guardián y Pentest y arena. El recibo se abre desde la Bandeja y el Marcador, no tiene sección propia.
 - **Encabezado siempre visible:** ciclo de pagos, versión del mandato, selector de rol y botón Demo.
 - **Solo español.**

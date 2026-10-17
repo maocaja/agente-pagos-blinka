@@ -1,6 +1,6 @@
 # Sistema de diseño de la interfaz (U3)
 
-Fecha: 2026-10-17. Es la definición de colores, controles y componentes que usa el producto. La "página de controles" es `docs/design-system/guia-de-estilo.html`: una página viva con los controles y los componentes funcionando.
+Fecha: 2026-10-17. Es la definición de colores, controles y componentes que usa el producto. La "página de controles" es `docs/design-system/guia-de-estilo.html`: una página viva (generada por `construir_guia.py`) con los controles y los componentes funcionando.
 
 ## Decisión de framework
 **Tailwind CSS v4.3.3 compilado con su CLI, más Alpine.js 3.17.4.** Elegido entre cuatro opciones (CSS propio, daisyUI, React con Vite y shadcn, y esta).
@@ -10,20 +10,22 @@ Fecha: 2026-10-17. Es la definición de colores, controles y componentes que usa
 - Los componentes se estilan con tokens propios, así que no se parece a una biblioteca genérica.
 
 ## Dirección visual
-Sala de control oscura, casi monocromática (tinta azulada y texto hueso). El color queda para dos cosas: los cuatro veredictos y el sello del recibo. El recibo es **papel claro sobre la sala oscura**: es el protagonista. Un solo movimiento: el sello que se estampa al pulsar Verificar.
+Alineada con el lenguaje visual público de blinka.co (CSS leído el 2026-10-17; no hay guía de marca oficial leída, no verificado como "marca"). Tema claro por defecto: papel cálido, tinta azulada, azul de acción, botones en píldora, cifras con centavos en gris, tipografía Inter. Tema oscuro "sala de control" para proyectar. El color propio queda para los cuatro veredictos y el sello. El recibo es papel blanco en ambos temas y es el protagonista. Un solo movimiento: el sello que se estampa al pulsar Verificar. No se usa el logotipo, el nombre como marca, la Inter propia de Blinka ni sus ilustraciones. Vocabulario de Blinka en componentes: cuenta en USD, rutas de pago (ACH, wire, SWIFT, Pix y TED; calcular la ruta es mejora posterior al MVP), back office.
 
-## Tokens (en `docs/design-system/tokens.css`)
-| Grupo | Valores |
-|---|---|
-| Superficies | lienzo `#0D1520`, panel `#131F2E`, elevado `#1A293B`, línea `#2C3F55` (solo separadores), línea fuerte `#5B7694` (bordes de controles) |
-| Texto | principal `#EAF0F7`, secundario `#A9B8CC`, terciario `#8497B0` |
-| Veredictos | pagar `#3DDBA8`, frenar `#FF7A6B`, escalar `#FFB84D`, registrar `#94AEFF` |
-| Papel y sello | papel `#EEF2F5`, texto `#14202E`, secundario `#4A5A6C`, línea `#C6D0DA`, sello `#7D5F18`, latón `#C9A24A` |
-| Tipografía | Hanken Grotesk (interfaz), Source Serif 4 (solo el recibo), JetBrains Mono (solo la vista técnica) |
-| Escala | cuerpo 18 px, apoyo 15 px (mínimo), subtítulo 22, sección 28, título 40, dominante 96 |
-| Forma | radios 6 px (controles), 14 px (paneles), 2 px (papel) |
+## Tokens (fuente única: `docs/design-system/tokens.css`; componentes en `componentes.css`)
+| Grupo | Claro | Oscuro |
+|---|---|---|
+| Superficies | lienzo `#F7F7F4`, panel `#FFFFFF`, elevado `#F0F2F4`, línea `#DEDFDC`, línea fuerte `#7C879A` | lienzo `#111720`, panel `#18202C`, elevado `#1F2A3A`, línea `#2A3547`, línea fuerte `#6580A0` |
+| Texto | `#1C253A`, `#555B6A`, `#626977` | `#E9EDF1`, `#B2BBC7`, `#8E9AAD` |
+| Acento | `#2A4BD0` (texto blanco) | `#B9C8FF` (texto `#111720`) |
+| Veredictos | pagar `#0B7A55`, frenar `#B8321E`, escalar `#8F5700`, registrar `#5B3FC4` | `#3DDBA8`, `#FF7A6B`, `#FFB84D`, `#94AEFF` |
+| Sello | `#8A6A1F` | `#C9A24A` |
+| Papel (constante) | papel `#FFFFFF`, texto `#1C253A`, secundario `#555B6A`, sello `#8A6A1F` | igual |
+| Tipografía | Inter (interfaz y recibo), Geist Mono (solo vista técnica) | igual |
+| Escala | cuerpo 18 px, apoyo 15 px (mínimo), subtítulo 22, sección 28, título 42, dominante 96 | igual |
+| Forma | controles 10 px, paneles 18 px, botones en píldora | igual |
 
-Los contrastes están calculados (fórmula de luminancia relativa de WCAG 2.x) y listados en la guía. La línea decorativa (1,7:1) no es nunca el único indicador de un límite; los bordes de controles usan la línea fuerte (3,1 a 3,9:1).
+`docs/design-system/construir_guia.py` calcula los contrastes (WCAG 2.x) al generar la guía y se niega a generarla si un texto baja de 4,5:1 o un borde de control de 3:1. La línea decorativa nunca es el único indicador de un límite.
 
 ## Inventario
 | Controles | Componentes |

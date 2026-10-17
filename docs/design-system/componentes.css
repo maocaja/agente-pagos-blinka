@@ -1,0 +1,41 @@
+/* Componentes del agente de pagos. Usan solo los tokens de tokens.css. */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border: 1px solid transparent; border-radius: 9999px; padding: .6rem 1.4rem; font-weight: 600; line-height: 1.2; cursor: pointer; transition: background-color .15s, border-color .15s; }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: .5; cursor: not-allowed; }
+.btn-primario { background: var(--acento); color: var(--acento-txt); }
+.btn-primario:hover:not(:disabled) { background: var(--acento-fuerte); }
+.btn-sec { border-color: var(--linea-fuerte); color: var(--texto); background: transparent; }
+.btn-sec:hover:not(:disabled) { background: var(--elevado); }
+.btn-peligro { border-color: var(--veredicto-frenar); color: var(--veredicto-frenar); background: transparent; }
+.btn-peligro:hover:not(:disabled) { background: color-mix(in srgb, var(--veredicto-frenar) 10%, transparent); }
+.btn-fantasma { color: var(--texto-2); text-decoration: underline; text-underline-offset: 4px; padding-inline: .75rem; }
+.btn-fantasma:hover { color: var(--texto); }
+
+.panel { background: var(--panel); border: 1px solid var(--linea); border-radius: var(--radius-panel); }
+.panel-fuerte { border-color: var(--linea-fuerte); }
+.input { width: 100%; background: var(--panel); color: var(--texto); border: 1px solid var(--linea-fuerte); border-radius: var(--radius-control); padding: .6rem .8rem; }
+.input:focus-visible { outline-offset: 0; border-color: var(--foco); }
+.input-error { border-color: var(--veredicto-frenar); }
+.segmento { display: inline-flex; border: 1px solid var(--linea-fuerte); border-radius: 9999px; padding: .2rem; background: var(--panel); }
+.segmento > button { border-radius: 9999px; padding: .4rem 1.1rem; color: var(--texto-2); }
+.segmento > button:hover { color: var(--texto); }
+.segmento > button[aria-checked="true"] { background: var(--acento); color: var(--acento-txt); font-weight: 600; }
+
+.chip { display: inline-flex; align-items: center; gap: .4rem; border: 1px solid currentColor; border-radius: 9999px; padding: .15rem .75rem; font-weight: 600; font-size: .9rem; line-height: 1.4; }
+.chip-pagar { color: var(--veredicto-pagar); background: color-mix(in srgb, var(--veredicto-pagar) 10%, transparent); }
+.chip-frenar { color: var(--veredicto-frenar); background: color-mix(in srgb, var(--veredicto-frenar) 10%, transparent); }
+.chip-escalar { color: var(--veredicto-escalar); background: color-mix(in srgb, var(--veredicto-escalar) 12%, transparent); }
+.chip-registrar { color: var(--veredicto-registrar); background: color-mix(in srgb, var(--veredicto-registrar) 10%, transparent); }
+.chip-sombra { color: var(--texto-2); border-style: dashed; }
+.etiqueta-simulada { border: 1px dashed var(--sello); color: var(--sello); border-radius: 9999px; padding: .1rem .75rem; font-size: .9rem; }
+
+/* cifras: los centavos van en gris y mas pequenos, como en blinka.co */
+.cifra { font-variant-numeric: tabular-nums; }
+.cifra .cent { color: var(--texto-3); font-size: .72em; }
+
+.recibo { background: var(--papel); color: var(--papel-texto); border: 1px solid var(--papel-linea); border-radius: var(--radius-panel); box-shadow: var(--sombra); }
+.recibo .apoyo { color: var(--papel-2); }
+.recibo .linea { border-color: var(--papel-linea); }
+.recibo .btn-recibo { background: var(--papel-texto); color: var(--papel); }
+.recibo .btn-recibo:hover { background: #000; }
+.recibo .btn-recibo-sec { border-color: var(--papel-2); color: var(--papel-texto); background: transparent; }
+.recibo .btn-recibo-sec:hover { background: var(--papel-linea); }

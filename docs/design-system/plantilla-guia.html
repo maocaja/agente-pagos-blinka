@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agente de Pagos, guía de estilo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="guia.css">
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.4/dist/cdn.min.js"></script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-pagar" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 10.5l2.8 2.8L14 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-frenar" viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-escalar" viewBox="0 0 20 20"><path d="M10 3l8 14H2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 8v4M10 14.2v.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-registrar" viewBox="0 0 20 20"><path d="M5 2.5h7l3 3v12H5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 9h4M8 12.5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-sombra" viewBox="0 0 20 20"><path d="M2 10s3-5.5 8-5.5S18 10 18 10s-3 5.5-8 5.5S2 10 2 10z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="10" r="2.2" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<div x-data="{ tema: 'claro', rol: 'cfo', filtro: 'pendientes', r10: true, nota: '', errorNota: false, cargando: false, modo: 'autonomo', paso: 0,
+               aviso: null, cajon: false, reinicio: false, recibo: 'sin', sellando: false, tecnico: false,
+               avisar(t, m) { this.aviso = { t, m }; setTimeout(() => this.aviso = null, 3500) },
+               verificar(valido) { this.recibo = valido ? 'ok' : 'mal'; this.sellando = true; setTimeout(() => this.sellando = false, 600) },
+               pasos: ['Marcador', 'Recibo con instrucción oculta', 'Guardián', 'Pentest', 'Rol CFO'] }"
+     x-init="$watch('tema', v => document.documentElement.dataset.tema = v)"
+     @keydown.window.arrow-right="paso = Math.min(paso + 1, 4)" @keydown.window.arrow-left="paso = Math.max(paso - 1, 0)"
+     @keydown.window.escape="cajon = false; reinicio = false"
+     class="md:grid md:grid-cols-[16.5rem_1fr] min-h-screen bg-lienzo text-texto">
+
+  <nav class="md:sticky md:top-0 md:h-screen border-b md:border-b-0 md:border-r border-linea bg-panel px-5 py-6 overflow-x-auto" aria-label="Secciones de la guía">
+    <p class="text-[13px] text-texto-3">Back office</p>
+    <p class="font-semibold text-[24px] leading-tight">Agente de pagos</p>
+    <p class="text-texto-2 text-[15px] mt-1">Guía de estilo</p>
+    <div role="radiogroup" aria-label="Tema" class="segmento mt-5 text-[15px]">
+      <button role="radio" :aria-checked="tema === 'claro'" @click="tema = 'claro'">Claro</button>
+      <button role="radio" :aria-checked="tema === 'oscuro'" @click="tema = 'oscuro'">Oscuro</button>
+    </div>
+    <ul class="mt-6 flex md:block gap-4 text-[17px]">
+      <li><a class="block py-1.5 text-texto-2 hover:text-texto" href="#alineacion">Alineación con Blinka</a></li>
+      <li><a class="block py-1.5 text-texto-2 hover:text-texto" href="#color">Color</a></li>
+      <li><a class="block py-1.5 text-texto-2 hover:text-texto" href="#tipografia">Tipografía</a></li>
+      <li><a class="block py-1.5 text-texto-2 hover:text-texto" href="#controles">Controles</a></li>
+      <li><a class="block py-1.5 text-texto-2 hover:text-texto" href="#componentes">Componentes</a></li>
+      <li><a class="block py-1.5 text-texto-2 hover:text-texto" href="#estados">Estados</a></li>
+      <li><a class="block py-1.5 text-texto-2 hover:text-texto" href="#contraste">Contraste</a></li>
+    </ul>
+  </nav>
+
+  <main class="px-6 md:px-12 py-10 max-w-[64rem]">
+    <header class="mb-14">
+      <h1 class="text-[42px] leading-[1.08] font-semibold tracking-[-0.01em] max-w-[36rem]">El agente de pagos, con el lenguaje visual de Blinka</h1>
+      <p class="text-texto-2 text-[19px] mt-4 max-w-[40rem]">Colores, controles y componentes del módulo, pensados para vivir dentro del back office de Blinka. Cambia de tema en la barra y prueba los controles: responden de verdad.</p>
+    </header>
+
+    <section id="alineacion" class="mb-20">
+      <h2 class="text-[28px] font-semibold">Alineación con Blinka</h2>
+      <p class="text-texto-2 mt-2 max-w-[42rem]">Tomamos el lenguaje visual público de blinka.co para que el agente se sienta parte de su producto, y añadimos solo lo que el agente necesita: veredictos, recibo y sello.</p>
+      <div class="grid md:grid-cols-2 gap-4 mt-6">
+        <div class="panel p-5"><p class="font-semibold text-[20px]">Lo que tomamos</p>
+          <ul class="mt-3 space-y-2 text-[17px] list-disc pl-5">
+            <li>Papel cálido <span class="font-medium">#F7F7F4</span>, tinta azulada <span class="font-medium">#1C253A</span> y azul de acción <span class="font-medium">#2A4BD0</span>.</li>
+            <li>Un tema oscuro con sus tonos (<span class="font-medium">#111720</span> y <span class="font-medium">#E9ECEF</span>), que es nuestra sala de control.</li>
+            <li>Tipografía Inter y Geist Mono para lo técnico.</li>
+            <li>Botones de acción en píldora, tarjetas blancas con aire y las cifras con los centavos en gris.</li>
+            <li>Su vocabulario: cuenta en USD, rutas de pago, back office.</li></ul></div>
+        <div class="panel p-5"><p class="font-semibold text-[20px]">Lo que no usamos</p>
+          <ul class="mt-3 space-y-2 text-[17px] list-disc pl-5">
+            <li>Su logotipo ni su nombre como marca de este módulo.</li>
+            <li>Su tipografía propia: ellos usan una Inter personalizada; nosotros, Inter estándar.</li>
+            <li>Sus ilustraciones, tarjetas ni fotografías.</li></ul>
+          <p class="mt-4 text-texto-3 text-[15px]">Los valores salen del CSS público de blinka.co, leído el 2026-10-17. No hay una guía de marca oficial leída, así que no está verificado que sean "la marca" ni que Blinka los respalde. Esta guía es una propuesta del equipo, no un documento de Blinka.</p></div>
+      </div>
+    </section>
+
+    <section id="color" class="mb-20">
+      <h2 class="text-[28px] font-semibold">Color</h2>
+      <p class="text-texto-2 mt-2 max-w-[42rem]">La interfaz es neutra: papel y tinta, con el azul para actuar. El color propio queda para lo que cambia una decisión: los cuatro veredictos y el sello del recibo.</p>
+      <h3 class="text-[20px] font-semibold mt-8">Tema claro, el predeterminado</h3>
+      <div class="mt-3">@@MUESTRAS_CLARO@@</div>
+      <h3 class="text-[20px] font-semibold mt-10">Tema oscuro, la sala de control</h3>
+      <div class="mt-3">@@MUESTRAS_OSCURO@@</div>
+      <p class="mt-5 text-texto-2 max-w-[42rem]">Cada veredicto lleva siempre su ícono y su palabra. El color nunca va solo.</p>
+      <div class="flex flex-wrap gap-3 mt-3">
+        <span class="chip chip-pagar"><svg class="w-5 h-5" aria-hidden="true"><use href="#i-pagar"/></svg>Pagar</span>
+        <span class="chip chip-frenar"><svg class="w-5 h-5" aria-hidden="true"><use href="#i-frenar"/></svg>Frenar</span>
+        <span class="chip chip-escalar"><svg class="w-5 h-5" aria-hidden="true"><use href="#i-escalar"/></svg>Escalar</span>
+        <span class="chip chip-registrar"><svg class="w-5 h-5" aria-hidden="true"><use href="#i-registrar"/></svg>Registrar</span>
+        <span class="chip chip-sombra"><svg class="w-5 h-5" aria-hidden="true"><use href="#i-sombra"/></svg>Modo sombra</span>
+      </div>
+    </section>
+
+    <section id="tipografia" class="mb-20">
+      <h2 class="text-[28px] font-semibold">Tipografía</h2>
+      <p class="text-texto-2 mt-2 max-w-[42rem]">Dos familias con un trabajo cada una. El cuerpo parte de 18 px porque se proyecta.</p>
+      <div class="grid md:grid-cols-2 gap-4 mt-6">
+        <div class="panel p-5"><p class="text-[34px] font-semibold leading-none">Inter</p><p class="text-texto-2 text-[15px] mt-3">Toda la interfaz y el recibo. Pesos 400, 500, 600 y 700.</p></div>
+        <div class="panel p-5"><p class="font-tec text-[30px] font-medium leading-none">Geist Mono</p><p class="text-texto-2 text-[15px] mt-3">Solo la vista técnica: hashes y el JSON firmado.</p></div>
+      </div>
+      <div class="mt-8 space-y-4">
+        <div class="flex items-baseline gap-6 border-b border-linea pb-3"><span class="text-texto-3 w-28 shrink-0 text-[15px]">Dominante, 96</span><span class="text-[96px] leading-none font-medium tabular-nums">0</span></div>
+        <div class="flex items-baseline gap-6 border-b border-linea pb-3"><span class="text-texto-3 w-28 shrink-0 text-[15px]">Título, 42</span><span class="text-[42px] leading-tight font-semibold tracking-[-0.01em]">Pagos fuera de reglas</span></div>
+        <div class="flex items-baseline gap-6 border-b border-linea pb-3"><span class="text-texto-3 w-28 shrink-0 text-[15px]">Sección, 28</span><span class="text-[28px] leading-tight font-semibold">Escaladas pendientes</span></div>
+        <div class="flex items-baseline gap-6 border-b border-linea pb-3"><span class="text-texto-3 w-28 shrink-0 text-[15px]">Subtítulo, 22</span><span class="text-[22px] leading-snug font-semibold">Pixel Studio Ltda, factura PX-2211</span></div>
+        <div class="flex items-baseline gap-6 border-b border-linea pb-3"><span class="text-texto-3 w-28 shrink-0 text-[15px]">Cuerpo, 18</span><span class="text-[18px] max-w-[38rem]">La factura trae una cuenta en Colombia y la registrada es de Brasil. El motor la escala a una persona.</span></div>
+        <div class="flex items-baseline gap-6 border-b border-linea pb-3"><span class="text-texto-3 w-28 shrink-0 text-[15px]">Apoyo, 15</span><span class="text-[15px] text-texto-2">Texto de apoyo y evidencia. Es el tamaño mínimo de la interfaz.</span></div>
+        <div class="flex items-baseline gap-6"><span class="text-texto-3 w-28 shrink-0 text-[15px]">Cifras</span><span class="cifra text-[40px] font-medium">USD 2.700<span class="cent">,00</span></span><span class="text-texto-2 text-[15px]">Los centavos van en gris y más pequeños, como en blinka.co.</span></div>
+      </div>
+    </section>
+
+    <section id="controles" class="mb-20">
+      <h2 class="text-[28px] font-semibold">Controles</h2>
+      <p class="text-texto-2 mt-2 max-w-[42rem]">Un botón principal por situación. Un control deshabilitado dice por qué.</p>
+
+      <h3 class="text-[20px] font-semibold mt-8">Botones</h3>
+      <div class="flex flex-wrap gap-3 mt-3 items-center">
+        <button class="btn btn-primario" @click="avisar('ok','Aprobada. La reevaluación pasó y se emitió el recibo.')">Aprobar</button>
+        <button class="btn btn-sec">Corregir y reevaluar</button>
+        <button class="btn btn-peligro">Rechazar con motivo</button>
+        <button class="btn btn-fantasma">Cerrar</button>
+      </div>
+      <div class="flex flex-wrap gap-3 mt-3 items-center">
+        <button class="btn btn-primario" disabled aria-disabled="true">Aprobar</button>
+        <span class="text-texto-2 text-[15px]">Deshabilitado: solo el CFO aprueba.</span>
+        <button class="btn btn-sec" @click="cargando = true; setTimeout(() => cargando = false, 1500)" :aria-busy="cargando">
+          <span x-show="cargando" class="w-4 h-4 rounded-full border-2 border-texto border-t-transparent animate-spin" aria-hidden="true"></span>
+          <span x-text="cargando ? 'Reevaluando' : 'Probar estado de carga'"></span>
+        </button>
+      </div>
+
+      <h3 class="text-[20px] font-semibold mt-10">Selector de rol</h3>
+      <p class="text-texto-2 mt-1 max-w-[42rem]">Siempre visible en el encabezado. La etiqueta recuerda que es una simulación, no una sesión real.</p>
+      <div class="mt-3 flex flex-wrap items-center gap-4">
+        <div role="radiogroup" aria-label="Rol simulado" class="segmento">
+          <button role="radio" :aria-checked="rol === 'analista'" @click="rol = 'analista'">Analista</button>
+          <button role="radio" :aria-checked="rol === 'cfo'" @click="rol = 'cfo'">CFO</button>
+        </div>
+        <span class="etiqueta-simulada">rol simulado</span>
+        <span class="text-texto-2 text-[15px]" x-text="rol === 'analista' ? 'El analista corrige y pasa al CFO. No ve Aprobar ni Rechazar.' : 'El CFO aprueba, rechaza y propone mandatos.'"></span>
+      </div>
+
+      <h3 class="text-[20px] font-semibold mt-10">Filtros de la bandeja</h3>
+      <div role="tablist" aria-label="Filtrar decisiones" class="mt-3 flex flex-wrap gap-x-6 border-b border-linea">
+        <template x-for="f in [['pendientes','Pendientes',7],['pagadas','Pagadas',6],['frenadas','Frenadas',3],['registradas','Registradas',1],['todas','Todas',18]]" :key="f[0]">
+          <button role="tab" :aria-selected="filtro === f[0]" @click="filtro = f[0]" :class="filtro === f[0] ? 'border-acento text-texto font-semibold' : 'border-transparent text-texto-2 hover:text-texto'" class="py-2.5 border-b-2 -mb-px">
+            <span x-text="f[1]"></span> <span class="tabular-nums text-texto-3" x-text="f[2]"></span>
+          </button>
+        </template>
+      </div>
+
+      <h3 class="text-[20px] font-semibold mt-10">Campos</h3>
+      <div class="grid md:grid-cols-2 gap-x-8 gap-y-5 mt-3 max-w-[48rem]">
+        <label class="block"><span class="block mb-1.5 text-[16px]">Umbral de aprobación</span>
+          <span class="flex items-center input !p-0 focus-within:border-foco"><input type="number" value="3000" class="bg-transparent px-3 py-2.5 w-full tabular-nums outline-none"><span class="px-3 text-texto-2">USD</span></span>
+          <span class="block mt-1 text-texto-3 text-[15px]">Sobre este monto decide una persona.</span></label>
+        <label class="block"><span class="block mb-1.5 text-[16px]">Periodo del presupuesto</span>
+          <select class="input"><option>Mes calendario</option><option>Semana calendario</option><option>Ventana de 30 días</option></select></label>
+        <label class="block"><span class="block mb-1.5 text-[16px]">Semilla de la arena</span>
+          <input type="number" value="7" class="input tabular-nums">
+          <span class="block mt-1 text-texto-3 text-[15px]">Fija por defecto. Cambia el número para probar otra.</span></label>
+        <div><span class="block mb-1.5 text-[16px]">Tope acumulado por proveedor</span>
+          <button role="switch" :aria-checked="r10" @click="r10 = !r10" class="input flex items-center gap-3 text-left">
+            <span class="w-11 h-6 rounded-full p-0.5 transition-colors shrink-0" :class="r10 ? 'bg-pagar' : 'bg-linea-fuerte'"><span class="block w-5 h-5 rounded-full bg-panel transition-transform" :class="r10 ? 'translate-x-5' : ''"></span></span>
+            <span x-text="r10 ? 'Activo en el mandato v2' : 'Inactivo, como en el mandato v1'"></span></button></div>
+        <fieldset class="md:col-span-2"><legend class="mb-1.5 text-[16px]">Monedas permitidas</legend>
+          <div class="flex flex-wrap gap-x-6 gap-y-2"><label class="flex items-center gap-2"><input type="checkbox" checked class="w-5 h-5 accent-acento"> USD</label><label class="flex items-center gap-2"><input type="checkbox" checked class="w-5 h-5 accent-acento"> COP</label><label class="flex items-center gap-2"><input type="checkbox" checked class="w-5 h-5 accent-acento"> BRL</label><label class="flex items-center gap-2"><input type="checkbox" checked class="w-5 h-5 accent-acento"> MXN</label><label class="flex items-center gap-2"><input type="checkbox" class="w-5 h-5 accent-acento"> ARS</label></div></fieldset>
+        <div class="md:col-span-2"><label class="block"><span class="block mb-1.5 text-[16px]">Motivo del rechazo</span>
+          <textarea x-model="nota" rows="2" :class="errorNota ? 'input-error' : ''" class="input" :aria-invalid="errorNota" placeholder="Por qué se rechaza"></textarea></label>
+          <p x-show="errorNota" x-cloak class="mt-1 text-frenar text-[15px]" role="alert">El motivo es obligatorio al rechazar. Escribe por qué.</p>
+          <button class="btn btn-peligro mt-3" @click="errorNota = nota.trim() === ''; if (!errorNota) avisar('ok','Rechazada. Quedó en el registro con tu motivo.')">Rechazar con motivo</button></div>
+      </div>
+    </section>
+
+    <section id="componentes" class="mb-20">
+      <h2 class="text-[28px] font-semibold">Componentes</h2>
+
+      <h3 class="text-[20px] font-semibold mt-8">Encabezado del ciclo</h3>
+      <div class="panel mt-3 flex flex-wrap items-center gap-x-6 gap-y-3 px-5 py-3.5">
+        <span class="font-semibold text-[20px]">Ciclo de octubre 2026</span>
+        <span class="chip chip-escalar"><svg class="w-5 h-5" aria-hidden="true"><use href="#i-escalar"/></svg>En revisión, 7 por atender</span>
+        <span class="text-texto-2">Mandato v2</span>
+        <span class="ml-auto etiqueta-simulada" x-text="'rol simulado: ' + (rol === 'cfo' ? 'CFO' : 'analista')"></span>
+      </div>
+
+      <h3 class="text-[20px] font-semibold mt-10">Número dominante del marcador</h3>
+      <div class="panel mt-3 p-6">
+        <div class="flex flex-wrap items-end gap-x-6 gap-y-2"><span class="text-[96px] leading-none font-medium tabular-nums text-pagar">0</span>
+          <div class="pb-2"><p class="text-[28px] font-semibold leading-tight">pagos fuera de reglas</p><p class="text-texto-2">en 18 casos, según el verificador independiente</p></div></div>
+        <p class="mt-4 text-texto-3 text-[15px] max-w-[38rem]">Lo que esta cifra no prueba: la lectura real del modelo, los PDF reales, la concurrencia ni el comportamiento del servidor.</p>
+        <button class="btn btn-sec mt-4 !border-escalar !text-escalar"><svg class="w-5 h-5" aria-hidden="true"><use href="#i-escalar"/></svg>7 escaladas esperan a una persona. Ir a la bandeja</button>
+      </div>
+
+      <h3 class="text-[20px] font-semibold mt-10">Cifras del marcador y costo</h3>
+      <dl class="mt-3 grid sm:grid-cols-2 gap-x-10 gap-y-0 max-w-[48rem]">
+        <div class="flex justify-between border-b border-linea py-2.5"><dt class="text-texto-2">Aciertos de reglas</dt><dd class="font-semibold tabular-nums">17 de 18</dd></div>
+        <div class="flex justify-between border-b border-linea py-2.5"><dt class="text-texto-2">Aciertos de extremo a extremo</dt><dd class="font-semibold tabular-nums">18 de 18</dd></div>
+        <div class="flex justify-between border-b border-linea py-2.5"><dt class="text-texto-2">Autonomía</dt><dd class="font-semibold tabular-nums">39%</dd></div>
+        <div class="flex justify-between border-b border-linea py-2.5"><dt class="text-texto-2">Escalada innecesaria</dt><dd class="font-semibold tabular-nums">6%</dd></div>
+        <div class="flex justify-between border-b border-linea py-2.5"><dt class="text-texto-2">Costo de las lecturas guardadas</dt><dd class="cifra font-semibold">USD 0<span class="cent">,0072</span></dd></div>
+        <div class="flex justify-between border-b border-linea py-2.5"><dt class="text-texto-2">Costo de esta sesión</dt><dd class="cifra font-semibold">USD 0<span class="cent">,00</span></dd></div>
+      </dl>
+
+      <h3 class="text-[20px] font-semibold mt-10">Fila de la bandeja</h3>
+      <p class="text-texto-2 mt-1 max-w-[42rem]">La razón va antes del botón. El botón principal cambia con el rol.</p>
+      <div class="panel mt-3 p-5 grid sm:grid-cols-[1fr_auto] gap-4 items-center">
+        <div>
+          <div class="flex flex-wrap items-center gap-3"><span class="text-[22px] font-semibold">Pixel Studio Ltda</span><span class="chip chip-escalar !text-[15px]"><svg class="w-4 h-4" aria-hidden="true"><use href="#i-escalar"/></svg>Escalar</span></div>
+          <p class="mt-1 text-[18px]">La factura trae una cuenta en Colombia y la registrada es de Brasil.</p>
+          <p class="mt-1 text-texto-2 text-[15px]">Factura PX-2211, <span class="cifra">BRL 7.500<span class="cent">,00</span></span>, unos USD 1.500. Cambio de cuenta de un proveedor conocido.</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <template x-if="rol === 'cfo'"><button class="btn btn-primario" @click="cajon = true">Revisar y aprobar</button></template>
+          <template x-if="rol === 'analista'"><button class="btn btn-sec" @click="cajon = true">Corregir o pasar al CFO</button></template>
+        </div>
+      </div>
+
+      <h3 class="text-[20px] font-semibold mt-10">Cuenta de pago y ruta propuesta</h3>
+      <p class="text-texto-2 mt-1 max-w-[42rem]">Con el vocabulario de Blinka. La ruta es una propuesta de la orden de pago; calcularla es una mejora posterior al MVP.</p>
+      <div class="panel mt-3 p-5 max-w-[34rem]">
+        <div class="flex items-center justify-between"><span class="flex items-center gap-2 font-medium"><span class="inline-flex items-center justify-center rounded-md border border-linea-fuerte text-[12px] font-semibold px-1.5 py-0.5">BR</span>Cuenta registrada de Pixel Studio</span><span class="text-texto-2 tabular-nums">···· 4821</span></div>
+        <p class="mt-4 text-texto-2 text-[15px]">Disponible para pagar este ciclo</p>
+        <p class="cifra text-[36px] font-medium leading-tight">USD 2.700<span class="cent">,00</span></p>
+        <div class="mt-4 flex flex-wrap gap-2"><span class="chip chip-sombra !font-medium">Pix y TED</span><span class="chip chip-sombra !font-medium">ACH y wire</span><span class="chip chip-sombra !font-medium">SWIFT</span></div>
+      </div>
+
+      <h3 class="text-[20px] font-semibold mt-10">Fila de regla</h3>
+      <ul class="mt-3 max-w-[48rem] divide-y divide-linea border-y border-linea">
+        <li class="py-3 flex gap-3"><svg class="w-6 h-6 text-pagar shrink-0 mt-0.5" aria-hidden="true"><use href="#i-pagar"/></svg><div><p class="font-semibold">R3 Beneficiario permitido <span class="font-normal text-texto-2">cumple</span></p><p class="text-texto-2 text-[15px]">Pixel Studio Ltda está en el registro.</p></div></li>
+        <li class="py-3 flex gap-3"><svg class="w-6 h-6 text-escalar shrink-0 mt-0.5" aria-hidden="true"><use href="#i-escalar"/></svg><div><p class="font-semibold">R4 Cuenta registrada <span class="font-normal text-escalar">falla, escala</span></p><p class="text-texto-2 text-[15px]">La cuenta está en CO y la registrada es de BR.</p></div></li>
+        <li class="py-3 flex gap-3"><svg class="w-6 h-6 text-frenar shrink-0 mt-0.5" aria-hidden="true"><use href="#i-frenar"/></svg><div><p class="font-semibold">R7 Moneda <span class="font-normal text-frenar">falla, frena</span></p><p class="text-texto-2 text-[15px]">ARS no está entre las monedas permitidas. No se puede aprobar.</p></div></li>
+        <li class="py-3 flex gap-3"><svg class="w-6 h-6 text-texto-3 shrink-0 mt-0.5" aria-hidden="true"><use href="#i-sombra"/></svg><div><p class="font-semibold">R9 Presupuesto <span class="font-normal text-texto-2">no evaluada</span></p><p class="text-texto-2 text-[15px]">Otra regla ya falló y no se reserva dinero.</p></div></li>
+      </ul>
+
+      <h3 class="text-[20px] font-semibold mt-10">Recibo</h3>
+      <p class="text-texto-2 mt-1 max-w-[42rem]">El protagonista de la interfaz: un documento blanco en cualquiera de los dos temas. Pulsa Verificar para ver el sello.</p>
+      <div class="mt-4 max-w-[34rem]">
+        <article class="recibo p-7">
+          <header class="flex items-start justify-between gap-4 border-b linea pb-4">
+            <div><h4 class="text-[24px] font-semibold leading-tight">Recibo de decisión</h4><p class="apoyo text-[16px]">Factura PX-2211, Pixel Studio Ltda</p></div>
+            <span class="inline-flex items-center gap-1.5 border border-papel-texto font-semibold px-3 py-1 rounded-full text-[15px]"><svg class="w-4 h-4" aria-hidden="true"><use href="#i-pagar"/></svg>Pagar</span>
+          </header>
+          <div x-show="!tecnico" class="mt-4 text-[17px] space-y-2.5">
+            <p><span class="apoyo">Monto:</span> <span class="cifra">BRL 7.500<span class="text-papel-2 text-[.72em]">,00</span></span>, unos USD 1.500</p>
+            <p><span class="apoyo">Reglas:</span> las once cumplen. R9 reservó USD 1.500 del presupuesto.</p>
+            <p><span class="apoyo">Evidencia:</span> "Total: R$ 7.500,00" en la línea 14 del correo.</p>
+            <p class="apoyo">Mandato v2, aprobado por el CFO (rol simulado), vence en 24 horas.</p>
+          </div>
+          <pre x-show="tecnico" x-cloak class="mt-4 font-tec text-[13px] leading-relaxed whitespace-pre-wrap break-all">{
+  "factura_id": "f_11",
+  "veredicto": "PAGAR",
+  "monto_menor": "750000",
+  "moneda": "BRL",
+  "mandato_version": "v2",
+  "nonce": "n_9f3c1a7b2d",
+  "firma": "MEUCIQ..."
+}</pre>
+          <footer class="mt-5 pt-4 border-t linea flex flex-wrap items-center gap-3">
+            <div class="w-[4.5rem] h-[4.5rem] shrink-0" aria-live="polite">
+              <svg viewBox="0 0 72 72" class="w-full h-full" :class="sellando ? 'animate-sellar' : ''" role="img" :aria-label="recibo === 'ok' ? 'Firma válida' : recibo === 'mal' ? 'Firma no válida' : 'Sin verificar'">
+                <circle cx="36" cy="36" r="31" fill="none" :stroke="recibo === 'mal' ? '#B8321E' : '#8A6A1F'" stroke-width="3" :stroke-dasharray="recibo === 'sin' ? '5 5' : '0'"/>
+                <circle cx="36" cy="36" r="25" fill="none" :stroke="recibo === 'mal' ? '#B8321E' : '#8A6A1F'" stroke-width="1.2"/>
+                <path x-show="recibo === 'ok'" d="M24 37l8 8 16-17" fill="none" stroke="#8A6A1F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path x-show="recibo === 'mal'" d="M26 26l20 20M46 26L26 46" fill="none" stroke="#B8321E" stroke-width="5" stroke-linecap="round"/>
+                <g x-show="recibo === 'sin'" fill="#555B6A" font-family="Inter, sans-serif" font-size="11" text-anchor="middle"><text x="36" y="34">sin</text><text x="36" y="47">verificar</text></g>
+              </svg></div>
+            <div class="flex flex-wrap gap-2">
+              <button class="btn btn-recibo" @click="verificar(true)">Verificar</button>
+              <button class="btn btn-recibo-sec" @click="verificar(false)">Alterar y verificar</button>
+              <button class="btn btn-fantasma !text-papel-texto" @click="tecnico = !tecnico" x-text="tecnico ? 'Ver legible' : 'Ver técnico'"></button>
+            </div>
+          </footer>
+        </article>
+        <p class="mt-2 text-texto-3 text-[15px]">Etiquetas visibles en el producto: "firma de demo" y, en la app pública, "lectura guardada".</p>
+      </div>
+
+      <h3 class="text-[20px] font-semibold mt-10">Verificaciones del guardián</h3>
+      <ul class="mt-3 max-w-[40rem] space-y-2">
+        <li class="rounded-[14px] border border-frenar bg-frenar/10 px-4 py-3 flex gap-3"><svg class="w-6 h-6 text-frenar shrink-0" aria-hidden="true"><use href="#i-frenar"/></svg><div><p class="font-semibold">La firma del recibo es válida</p><p class="text-[15px] text-texto-2">La firma no corresponde al contenido del recibo.</p></div></li>
+        <li class="rounded-[14px] border border-linea px-4 py-3 flex gap-3 opacity-75"><span class="w-6 text-center text-texto-3" aria-hidden="true">-</span><div><p>El hash de la factura coincide</p><p class="text-[15px] text-texto-2">No se evalúa: una verificación anterior falló.</p></div></li>
+        <li class="rounded-[14px] border border-linea px-4 py-3 flex gap-3 opacity-75"><span class="w-6 text-center text-texto-3" aria-hidden="true">-</span><div><p>Monto y beneficiario son los del recibo</p><p class="text-[15px] text-texto-2">No se evalúa: una verificación anterior falló.</p></div></li>
+      </ul>
+      <p class="mt-3 text-frenar font-semibold" role="status">Orden rechazada: la firma no corresponde al contenido del recibo.</p>
+
+      <h3 class="text-[20px] font-semibold mt-10">Resultado del pentest</h3>
+      <div class="mt-3 max-w-[52rem] overflow-x-auto"><table class="w-full text-left"><thead><tr class="text-texto-2 text-[15px] border-b border-linea-fuerte"><th class="py-2 pr-4 font-medium">Estrategia</th><th class="py-2 pr-4 font-medium">Esperado</th><th class="py-2 pr-4 font-medium">Resultado</th><th class="py-2 font-medium">Hallazgo</th></tr></thead>
+        <tbody>
+          <tr class="border-b border-linea"><td class="py-3 pr-4">Partir en facturas bajo el umbral</td><td class="py-3 pr-4">Pagar y pagar</td><td class="py-3 pr-4 cifra">Pagar y pagar, USD 5.800</td><td class="py-3"><span class="chip chip-frenar"><svg class="w-4 h-4" aria-hidden="true"><use href="#i-frenar"/></svg>Hueco</span></td></tr>
+          <tr class="border-b border-linea"><td class="py-3 pr-4">Una factura justo bajo el umbral</td><td class="py-3 pr-4">Pagar</td><td class="py-3 pr-4">Pagar</td><td class="py-3"><span class="chip chip-pagar"><svg class="w-4 h-4" aria-hidden="true"><use href="#i-pagar"/></svg>Sin hueco</span></td></tr>
+        </tbody></table></div>
+      <p class="mt-2 text-texto-3 text-[15px]">Mandato v1 sin tope acumulado, semilla 7. Las estrategias que propuso un agente se muestran aparte, etiquetadas "estrategias grabadas".</p>
+
+      <h3 class="text-[20px] font-semibold mt-10">Proveedor y autonomía</h3>
+      <div class="panel mt-3 max-w-[40rem] px-5 py-4 flex flex-wrap items-center gap-4 justify-between">
+        <div><p class="font-semibold text-[20px]">Nuevo Logos LLC</p><p class="text-texto-2 text-[15px]">Registrado hace 3 días</p></div>
+        <div class="flex items-center gap-3">
+          <span class="chip" :class="modo === 'autonomo' ? 'chip-pagar' : 'chip-sombra'"><svg class="w-5 h-5" aria-hidden="true"><use :href="modo === 'autonomo' ? '#i-pagar' : '#i-sombra'"/></svg><span x-text="modo === 'autonomo' ? 'Autónomo bajo reglas' : 'Modo sombra'"></span></span>
+          <button class="btn btn-sec" :disabled="rol !== 'cfo'" @click="modo = modo === 'autonomo' ? 'sombra' : 'autonomo'" x-text="modo === 'autonomo' ? 'Pasar a sombra' : 'Promover a autónomo'"></button>
+        </div>
+        <p x-show="rol !== 'cfo'" class="basis-full text-texto-2 text-[15px]">Solo el CFO promueve a un proveedor.</p>
+      </div>
+
+      <h3 class="text-[20px] font-semibold mt-10">Aviso, cajón, confirmación y guía de la demo</h3>
+      <div class="mt-3 flex flex-wrap gap-3">
+        <button class="btn btn-sec" @click="avisar('ok','Aprobada. Se emitió el recibo y el guardián lo verificó.')">Mostrar aviso de éxito</button>
+        <button class="btn btn-sec" @click="avisar('error','No pude leer la factura PX-2211. Se escaló sin pagar; abre el original para corregir.')">Mostrar aviso de error</button>
+        <button class="btn btn-sec" @click="cajon = true">Abrir cajón de detalle</button>
+        <button class="btn btn-sec" @click="reinicio = true">Reiniciar la sesión</button>
+      </div>
+      <div class="panel mt-6 max-w-[48rem] p-5">
+        <p class="font-semibold text-[20px]">Guía de la demo</p>
+        <ol class="mt-3 flex flex-wrap gap-2">
+          <template x-for="(n, i) in pasos" :key="i">
+            <li><button @click="paso = i" :aria-current="paso === i ? 'step' : null" :class="paso === i ? 'bg-acento text-acento-txt font-semibold' : 'border border-linea-fuerte text-texto-2 hover:text-texto'" class="rounded-full px-4 py-1.5 text-[16px]"><span x-text="(i + 1) + '. ' + n"></span></button></li>
+          </template>
+        </ol>
+        <p class="mt-3 text-texto-2 text-[15px]">Flecha derecha avanza, flecha izquierda retrocede y Esc sale. Paso actual: <span class="text-texto font-semibold" x-text="pasos[paso]"></span>.</p>
+      </div>
+    </section>
+
+    <section id="estados" class="mb-20">
+      <h2 class="text-[28px] font-semibold">Estados</h2>
+      <p class="text-texto-2 mt-2 max-w-[42rem]">Un error dice qué pasó y qué hacer. Un estado vacío invita a actuar. Ningún estado finge un éxito.</p>
+      <div class="grid md:grid-cols-2 gap-4 mt-6">
+        <div class="panel p-5"><p class="font-semibold text-[20px]">Vacío</p><p class="text-texto-2 mt-1">No hay escaladas pendientes. Todas tienen una acción humana.</p><button class="btn btn-primario mt-3">Cerrar ciclo y exportar</button></div>
+        <div class="panel p-5" aria-busy="true"><p class="font-semibold text-[20px]">Cargando</p><div class="mt-3 space-y-2 animate-pulse"><div class="h-4 rounded bg-elevado w-4/5"></div><div class="h-4 rounded bg-elevado w-3/5"></div><div class="h-4 rounded bg-elevado w-2/3"></div></div></div>
+        <div class="panel p-5 !border-frenar" role="alert"><p class="font-semibold text-[20px] text-frenar">Error de lectura</p><p class="mt-1">No pude leer la factura PX-2211: el modelo rechazó la solicitud. Se escaló sin pagar.</p><p class="text-texto-2 text-[15px] mt-1">Abre el original y usa Corregir.</p></div>
+        <div class="panel p-5 !border-escalar"><p class="font-semibold text-[20px] text-escalar">Sin permiso</p><p class="mt-1">El analista no puede aprobar.</p><p class="text-texto-2 text-[15px] mt-1">Cambia a CFO o pasa la decisión al CFO.</p></div>
+        <div class="panel p-5 !border-escalar"><p class="font-semibold text-[20px] text-escalar">Aprobación vencida</p><p class="mt-1">La aprobación venció a las 24 horas.</p><p class="text-texto-2 text-[15px] mt-1">Reevalúa la factura para emitir un recibo nuevo.</p></div>
+        <div class="panel p-5"><p class="font-semibold text-[20px]">Lectura guardada</p><p class="mt-1">Esta factura se leyó antes con la API real y se congeló; la app pública no llama a la API.</p><span class="etiqueta-simulada inline-block mt-2">lectura guardada</span></div>
+      </div>
+    </section>
+
+    <section id="contraste" class="mb-10">
+      <h2 class="text-[28px] font-semibold">Contraste y accesibilidad</h2>
+      <p class="text-texto-2 mt-2 max-w-[44rem]">Calculado al construir la guía con la fórmula de luminancia relativa de WCAG 2.x. Si un par no cumple (texto 4,5:1, bordes 3:1), la guía no se genera.</p>
+      <h3 class="text-[20px] font-semibold mt-6">Tema claro</h3><div class="mt-2">@@TABLA_CLARO@@</div>
+      <h3 class="text-[20px] font-semibold mt-8">Tema oscuro</h3><div class="mt-2">@@TABLA_OSCURO@@</div>
+      <ul class="mt-6 list-disc pl-6 space-y-1.5 max-w-[44rem]">
+        <li>@@EXTRA_CONTRASTE@@</li>
+        <li>La línea decorativa nunca es el único indicador de un límite: los bordes de controles usan la línea fuerte.</li>
+        <li>Ningún estado depende solo del color: lleva ícono o palabra.</li>
+        <li>Todo se opera con teclado; las flechas y Esc controlan la guía de la demo. El foco es un contorno de 2 px con separación. Se respeta la preferencia de reducir el movimiento.</li>
+        <li>El único movimiento propio es el sello que se estampa al pulsar Verificar.</li>
+      </ul>
+    </section>
+  </main>
+
+  <div class="fixed bottom-5 right-5 z-30" role="status" aria-live="polite">
+    <div x-show="aviso" x-cloak x-transition class="max-w-sm rounded-[14px] border bg-panel px-5 py-4" style="box-shadow:var(--sombra)" :class="aviso && aviso.t === 'ok' ? 'border-pagar' : 'border-frenar'">
+      <p class="font-semibold" :class="aviso && aviso.t === 'ok' ? 'text-pagar' : 'text-frenar'" x-text="aviso && aviso.t === 'ok' ? 'Listo' : 'No se pudo'"></p>
+      <p class="mt-0.5" x-text="aviso && aviso.m"></p>
+    </div>
+  </div>
+
+  <div x-show="cajon" x-cloak class="fixed inset-0 z-20 bg-black/50" @click="cajon = false"></div>
+  <aside x-show="cajon" x-cloak x-transition.opacity role="dialog" aria-modal="true" aria-label="Detalle de la decisión" class="fixed top-0 right-0 bottom-0 z-30 w-full max-w-[30rem] bg-panel border-l border-linea-fuerte p-6 overflow-y-auto" style="box-shadow:var(--sombra)">
+    <div class="flex items-start justify-between gap-4"><div><p class="text-[22px] font-semibold">Pixel Studio Ltda</p><p class="text-texto-2">Factura PX-2211, BRL 7.500</p></div><button class="btn btn-fantasma" @click="cajon = false">Cerrar</button></div>
+    <p class="mt-4 text-[18px]">La factura trae una cuenta en Colombia y la registrada es de Brasil.</p>
+    <div class="mt-5 rounded-[14px] border border-linea-fuerte p-4"><p class="font-semibold">Qué cambia si apruebo</p><dl class="mt-2 space-y-1 text-[16px]"><div class="flex justify-between"><dt class="text-texto-2">Presupuesto restante, antes</dt><dd class="cifra">USD 4.200<span class="cent">,00</span></dd></div><div class="flex justify-between"><dt class="text-texto-2">Presupuesto restante, después</dt><dd class="cifra">USD 2.700<span class="cent">,00</span></dd></div><div class="flex justify-between"><dt class="text-texto-2">Acumulado con este proveedor</dt><dd class="cifra">USD 1.500<span class="cent">,00</span></dd></div><div class="flex justify-between"><dt class="text-texto-2">Fallas que se aprobarían</dt><dd>R4 cuenta registrada</dd></div></dl></div>
+    <div class="mt-5 flex flex-wrap gap-3">
+      <template x-if="rol === 'cfo'"><div class="flex flex-wrap gap-3"><button class="btn btn-primario" @click="cajon = false; avisar('ok','Aprobada. Se emitió un recibo nuevo.')">Aprobar</button><button class="btn btn-peligro">Rechazar con motivo</button></div></template>
+      <template x-if="rol === 'analista'"><div class="flex flex-wrap gap-3"><button class="btn btn-sec">Corregir y reevaluar</button><button class="btn btn-primario">Pasar al CFO</button></div></template>
+    </div>
+  </aside>
+
+  <div x-show="reinicio" x-cloak class="fixed inset-0 z-40 flex items-center justify-center bg-black/60 p-4">
+    <div role="dialog" aria-modal="true" aria-labelledby="t-reinicio" class="max-w-md panel p-6" style="box-shadow:var(--sombra)">
+      <p id="t-reinicio" class="text-[22px] font-semibold">¿Reiniciar la sesión?</p>
+      <p class="mt-2 text-texto-2">Vuelves al set original y se pierden tus aprobaciones y correcciones. Las claves de la sesión cambian.</p>
+      <div class="mt-5 flex gap-3"><button class="btn btn-sec" @click="reinicio = false">Cancelar</button><button class="btn btn-primario" @click="reinicio = false; avisar('ok','Sesión reiniciada. Vuelves al set original.')">Reiniciar</button></div>
+    </div>
+  </div>
+</div>
+<style>[x-cloak]{display:none !important}</style>
+</body>
+</html>
