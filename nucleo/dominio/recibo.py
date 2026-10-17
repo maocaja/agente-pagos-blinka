@@ -11,7 +11,7 @@ def serializar(recibo: dict) -> bytes:
     return json.dumps(sin, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
 
 
-def emitir_recibo(decision, f, m, ids, nonce, reloj, firmador) -> dict:
+def emitir_recibo(decision, f, m, ids, nonce, reloj, firmador, fallas_aprobadas=()) -> dict:
     ahora = reloj()
     fmt = "%Y-%m-%dT%H:%M:%SZ"
     mo = f["montos"]
@@ -22,7 +22,7 @@ def emitir_recibo(decision, f, m, ids, nonce, reloj, firmador) -> dict:
         "monto_base_menor": str(a_base_menor(mo["total_menor"], mo["moneda"], m)),
         "veredicto": decision["veredicto"], "modo_autonomia": decision["modo_autonomia"],
         "reglas": [{"id": x["id"], "estado": x["estado"]} for x in decision["reglas"]],
-        "fallas_aprobadas": [], "mandato_version": m.version, "nonce": nonce(),
+        "fallas_aprobadas": list(fallas_aprobadas), "mandato_version": m.version, "nonce": nonce(),
         "emitido_en": ahora.strftime(fmt),
         "vence_en": (ahora + timedelta(hours=m.p["vigencia_recibo_h"])).strftime(fmt),
         "clave_version": firmador.clave_version,
