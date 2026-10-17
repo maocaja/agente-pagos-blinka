@@ -1,0 +1,79 @@
+{
+  "id": "f_pdf-02-cloud-recibo",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_pdf-02-cloud-recibo",
+    "hash": "a267a2054ca3eb42542190f8cb8bac9e3769f27f13e1da2a5040efe7b6e8d6be",
+    "canal": "pdf",
+    "formato": "pdf",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-12T09:00:00Z"
+  },
+  "emisor": {
+    "nombre": "Cloud Advisors LLC",
+    "nombre_normalizado": "CLOUDADVISORSLLC",
+    "id_fiscal": "",
+    "pais": "US"
+  },
+  "referencias": {
+    "numero": "R-7781",
+    "numero_normalizado": "R7781",
+    "acuerdo_ref": ""
+  },
+  "fechas": {
+    "emision": "2026-10-12",
+    "vencimiento": null
+  },
+  "montos": {
+    "moneda": "USD",
+    "total_menor": "180000",
+    "suma_lineas_menor": null,
+    "lineas": []
+  },
+  "cuenta": {
+    "pais": "US",
+    "ultimos4": "6052"
+  },
+  "evidencia": {
+    "tipo_documento": "*** RECIBO ***",
+    "numero_factura": "No. R-7781",
+    "monto_total": "TOTAL USD 1.800,00",
+    "moneda": "TOTAL USD",
+    "proveedor": "Cloud Advisors LLC",
+    "cuenta": "Cuenta ****6052 (US)"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.95,
+    "monto_total": 0.95,
+    "moneda": 0.95,
+    "proveedor": 0.95,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "no_aplica",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  },
+  "proveedor_asignado": {
+    "proveedor_id": "prov_cloud",
+    "metodo": "nombre",
+    "pista": null
+  }
+}

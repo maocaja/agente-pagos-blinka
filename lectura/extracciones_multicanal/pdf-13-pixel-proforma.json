@@ -1,0 +1,84 @@
+{
+  "id": "f_pdf-13-pixel-proforma",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_pdf-13-pixel-proforma",
+    "hash": "0b864e00407ba48eb27b0ddd157f881b1263af83f167c0debcd121543265772a",
+    "canal": "pdf",
+    "formato": "pdf",
+    "tipo_documento": "proforma",
+    "recibido_en": "2026-10-12T09:00:00Z"
+  },
+  "emisor": {
+    "nombre": "Pixel Studio Ltda",
+    "nombre_normalizado": "PIXELSTUDIOLTDA",
+    "id_fiscal": "00.000.000/0001-00",
+    "pais": "BR"
+  },
+  "referencias": {
+    "numero": "PF-0042",
+    "numero_normalizado": "PF0042",
+    "acuerdo_ref": ""
+  },
+  "fechas": {
+    "emision": "2026-10-12",
+    "vencimiento": "2026-11-11"
+  },
+  "montos": {
+    "moneda": "USD",
+    "total_menor": "400000",
+    "suma_lineas_menor": "400000",
+    "lineas": [
+      {
+        "descripcion": "Campana de lanzamiento",
+        "total_menor": "400000"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "BR",
+    "ultimos4": "8830"
+  },
+  "evidencia": {
+    "tipo_documento": "PROFORMA No. PF-0042",
+    "numero_factura": "PF-0042",
+    "proveedor": "PIXEL STUDIO LTDA",
+    "moneda": "Valor USD",
+    "cuenta": "Cuenta terminada en 8830, pais BR",
+    "monto_total": "TOTAL A PAGAR 4.000,00"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.95,
+    "monto_total": 0.95,
+    "moneda": 0.95,
+    "proveedor": 0.95,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "ok",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  },
+  "proveedor_asignado": {
+    "proveedor_id": "prov_pixel",
+    "metodo": "id_fiscal",
+    "pista": null
+  }
+}

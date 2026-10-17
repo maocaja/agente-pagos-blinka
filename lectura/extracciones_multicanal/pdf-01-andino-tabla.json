@@ -1,0 +1,92 @@
+{
+  "id": "f_pdf-01-andino-tabla",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_pdf-01-andino-tabla",
+    "hash": "18382b5f119fa0a887f77382d990c2d27d3d712ca34f3f70518e90cadc12c447",
+    "canal": "pdf",
+    "formato": "pdf",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-12T09:00:00Z"
+  },
+  "emisor": {
+    "nombre": "Estudio Andino SAS",
+    "nombre_normalizado": "ESTUDIOANDINOSAS",
+    "id_fiscal": "900.000.111-0",
+    "pais": "CO"
+  },
+  "referencias": {
+    "numero": "INV-0501",
+    "numero_normalizado": "INV0501",
+    "acuerdo_ref": ""
+  },
+  "fechas": {
+    "emision": "2026-10-12",
+    "vencimiento": "2026-11-11"
+  },
+  "montos": {
+    "moneda": "USD",
+    "total_menor": "714000",
+    "suma_lineas_menor": "714000",
+    "lineas": [
+      {
+        "descripcion": "Identidad visual, entrega final",
+        "total_menor": "420000"
+      },
+      {
+        "descripcion": "Manual de marca",
+        "total_menor": "180000"
+      },
+      {
+        "descripcion": "IVA 19%",
+        "total_menor": "114000"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "CO",
+    "ultimos4": "4417"
+  },
+  "evidencia": {
+    "tipo_documento": "FACTURA DE VENTA No. INV-0501",
+    "numero_factura": "INV-0501",
+    "proveedor": "ESTUDIO ANDINO SAS",
+    "moneda": "Valor USD",
+    "cuenta": "Cuenta terminada en 4417, pais CO",
+    "monto_total": "TOTAL A PAGAR 7.140,00"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.95,
+    "monto_total": 0.95,
+    "moneda": 0.95,
+    "proveedor": 0.95,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "ok",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  },
+  "proveedor_asignado": {
+    "proveedor_id": "prov_andino",
+    "metodo": "id_fiscal",
+    "pista": null
+  }
+}

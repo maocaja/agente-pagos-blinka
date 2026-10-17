@@ -1,0 +1,80 @@
+{
+  "id": "f_eml-05-devnorte-replyto",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_eml-05-devnorte-replyto",
+    "hash": "bb39931d48fd5fcdce80b261b040cefada19edaecc125a5354611844df1fae3b",
+    "canal": "correo",
+    "formato": "texto",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-12T09:00:00Z"
+  },
+  "emisor": {
+    "nombre": "DevNorte SA de CV",
+    "nombre_normalizado": "DEVNORTESADECV",
+    "id_fiscal": "",
+    "pais": "MX"
+  },
+  "referencias": {
+    "numero": "DN-2201",
+    "numero_normalizado": "DN2201",
+    "acuerdo_ref": ""
+  },
+  "fechas": {
+    "emision": "2026-10-12",
+    "vencimiento": null
+  },
+  "montos": {
+    "moneda": "USD",
+    "total_menor": "520000",
+    "suma_lineas_menor": null,
+    "lineas": []
+  },
+  "cuenta": {
+    "pais": "MX",
+    "ultimos4": "3306"
+  },
+  "evidencia": {
+    "tipo_documento": "*** FACTURA ***",
+    "numero_factura": "No. DN-2201",
+    "monto_total": "TOTAL USD 5.200,00",
+    "moneda": "TOTAL USD",
+    "proveedor": "DevNorte SA de CV",
+    "cuenta": "Cuenta ****3306 (MX)",
+    "reply_to": "Reply-To: cobros.devnorte@correo-externo.example"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.95,
+    "monto_total": 0.95,
+    "moneda": 0.95,
+    "proveedor": 0.95,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "no_aplica",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  },
+  "proveedor_asignado": {
+    "proveedor_id": "prov_devnorte",
+    "metodo": "nombre",
+    "pista": null
+  }
+}
