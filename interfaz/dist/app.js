@@ -1,15 +1,3 @@
-const VEREDICTOS = {
-  PAGAR: { icono: "✓", clase: "chip-pagar", texto: "Pagar" },
-  FRENAR: { icono: "✕", clase: "chip-frenar", texto: "Frenar" },
-  ESCALAR: { icono: "▲", clase: "chip-escalar", texto: "Escalar" },
-  REGISTRAR: { icono: "●", clase: "chip-registrar", texto: "Registrar" },
-};
-const ESTADO_VERIF = {
-  ok: { icono: "✓", texto: "Cumple", clase: "text-pagar" },
-  falla: { icono: "✕", texto: "Falla", clase: "text-frenar" },
-  no_evaluada: { icono: "–", texto: "No evaluada", clase: "text-texto-3" },
-};
-
 function app() {
   return {
     rol: "analista", tema: "claro", sesion: null, monedas: {},
@@ -24,8 +12,14 @@ function app() {
         this.monedas = (await (await fetch("monedas.json")).json()).monedas;
         this.sesion = await api.iniciar();
         this.decisiones = await api.decisiones();
+        await this.abrirDesdeUrl();
       } catch (e) { this.error = e.message; }
       this.cargando = false;
+    },
+    async abrirDesdeUrl() {
+      const q = new URLSearchParams(location.search);
+      const d = this.decisiones.find((x) => x.id === q.get("decision"));
+      if (d) { await this.abrir(d); this.tecnica = q.get("tecnica") === "1"; }
     },
     get visibles() {
       return this.filtro === "TODAS" ? this.decisiones : this.decisiones.filter((d) => d.veredicto === this.filtro);
@@ -39,15 +33,8 @@ function app() {
         if (d.recibo_id) { this.recibo = await api.recibo(d.id); this.copia = JSON.stringify(this.recibo, null, 2); }
       } catch (e) { this.error = e.message; }
     },
-    entero(menor, moneda) {
-      const exp = (this.monedas[moneda] || { exponente: 2 }).exponente;
-      const s = String(menor).padStart(exp + 1, "0");
-      return s.slice(0, s.length - exp).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    },
-    centavos(menor, moneda) {
-      const exp = (this.monedas[moneda] || { exponente: 2 }).exponente;
-      return exp ? "," + String(menor).padStart(exp + 1, "0").slice(-exp) : "";
-    },
+    entero(menor, moneda) { return dinero.entero(menor, dinero.exponente(this.monedas, moneda)); },
+    centavos(menor, moneda) { return dinero.centavos(menor, dinero.exponente(this.monedas, moneda)); },
     async verificar() {
       this.error = null;
       try { this.verifRecibo = await api.verificarRecibo(this.sel.id); } catch (e) { this.error = e.message; }

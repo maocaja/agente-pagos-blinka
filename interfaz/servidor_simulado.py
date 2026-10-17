@@ -6,6 +6,8 @@ from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 
+from rutas_ola4 import registrar_ola4
+
 RAIZ = Path(__file__).resolve().parent
 EJEMPLOS = RAIZ.parent / "contrato" / "ejemplos"
 
@@ -40,6 +42,7 @@ def _guardian(recibo: dict) -> dict:
 def crear_app() -> FastAPI:
     app = FastAPI(title="Servidor simulado de la interfaz")
     decisiones = {d["id"]: d for d in _decisiones()}
+    facturas = {}
 
     @app.post("/api/sesion", status_code=201)
     def sesion():
@@ -53,7 +56,7 @@ def crear_app() -> FastAPI:
     def detalle(id: str):
         if id not in decisiones:
             raise HTTPException(404, "Decision no encontrada")
-        return {"decision": decisiones[id], "factura": _ejemplo("factura-canonica.f11.json")}
+        return {"decision": decisiones[id], "factura": facturas.get(id) or _ejemplo("factura-canonica.f11.json")}
 
     @app.get("/api/recibos/{id}")
     def recibo(id: str):
@@ -69,6 +72,8 @@ def crear_app() -> FastAPI:
     def guardian(cuerpo: dict):
         return _guardian(cuerpo.get("recibo", {}))
 
+    registrar_ola4(app, decisiones, facturas, _ejemplo("decision.f11.json"), _ejemplo("factura-canonica.f11.json"),
+                   _ejemplo("mandato.v2.json"), _ejemplo("resultados.arena.json"))
     app.mount("/", StaticFiles(directory=RAIZ / "dist", html=True), name="dist")
     return app
 

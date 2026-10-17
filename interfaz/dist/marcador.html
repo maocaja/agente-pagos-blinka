@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marcador</title>
+  <link rel="stylesheet" href="app.css">
+  <script src="api.js"></script>
+  <script src="paginas.js"></script>
+  <script src="nav.js"></script>
+  <script defer src="alpine.min.js"></script>
+</head>
+<body x-data="marcador()" x-init="init()" class="min-h-screen pb-40">
+  <header class="flex flex-wrap items-center gap-4 px-6 py-4">
+    <h1 class="text-xl font-semibold">Marcador</h1>
+    <span class="etiqueta-simulada">resultados simulados</span>
+  </header>
+  <p x-show="error" x-cloak class="mx-6 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="error" x-text="error"></p>
+  <main class="grid gap-6 p-6" x-show="m" x-cloak>
+    <section class="panel panel-fuerte p-6" aria-label="Cifra principal">
+      <p class="apoyo">Pagos fuera de reglas</p>
+      <p class="cifra text-7xl font-bold" data-testid="cifra-principal" x-text="cifra"></p>
+      <p class="text-texto-2" x-text="'en ' + (m && m.verificados) + ' casos verificados por un verificador independiente'"></p>
+    </section>
+    <section class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-label="Metricas">
+      <template x-for="t in tarjetas" :key="t.id">
+        <div class="panel p-4"><p class="apoyo text-sm" x-text="t.texto"></p><p class="cifra text-3xl" :data-testid="'metrica-' + t.id" x-text="t.valor"></p></div>
+      </template>
+      <a href="index.html" class="panel p-4 hover:bg-elevado" data-testid="pendientes"><span class="apoyo block text-sm">Pendientes de una persona</span><span class="cifra text-3xl" x-text="m && m.pendientes"></span></a>
+    </section>
+    <section class="panel p-5" aria-label="Lo que no prueba" data-testid="no-prueba">
+      <h2 class="text-lg font-semibold">Lo que esta cifra no prueba</h2>
+      <ul class="mt-2 list-disc pl-6 text-texto-2"><template x-for="t in noPrueba" :key="t"><li x-text="t"></li></template></ul>
+    </section>
+  </main>
+  <style>[x-cloak]{display:none !important}</style>
+</body>
+</html>

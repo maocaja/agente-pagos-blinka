@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ataque</title>
+  <link rel="stylesheet" href="app.css">
+  <script src="api.js"></script>
+  <script src="paginas.js"></script>
+  <script src="nav.js"></script>
+  <script defer src="alpine.min.js"></script>
+</head>
+<body x-data="ataque()" x-init="init()" class="min-h-screen pb-40">
+  <header class="flex flex-wrap items-center gap-4 px-6 py-4">
+    <h1 class="text-xl font-semibold">Ataque</h1>
+    <label class="apoyo text-sm" for="semilla">Semilla</label>
+    <input id="semilla" type="number" class="input w-28" x-model="semilla" data-testid="semilla">
+    <button type="button" class="btn btn-primario" data-testid="ejecutar" :disabled="ocupado" @click="ejecutar()">Ejecutar ataque</button>
+  </header>
+  <p x-show="error" x-cloak class="mx-6 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="error" x-text="error"></p>
+  <main class="grid gap-6 p-6 lg:grid-cols-2" x-show="v1" x-cloak>
+    <section class="panel p-5" aria-label="Estrategias del atacante">
+      <h2 class="text-lg font-semibold">Estrategias del atacante</h2>
+      <p class="apoyo mt-1 text-sm">Mandato v1 contra mandato v2, misma semilla.</p>
+      <ul class="mt-4 grid gap-2" data-testid="estrategias">
+        <template x-for="(f, i) in filas" :key="i">
+          <li><button type="button" class="w-full rounded p-3 text-left hover:bg-elevado" :class="f.hueco ? 'border border-frenar' : 'border border-linea'" @click="sel = f" :data-testid="'estrategia-' + (i + 1)">
+            <span class="block" x-text="(i + 1) + '. ' + f.nombre"></span>
+            <span class="mt-1 flex flex-wrap gap-2 text-sm">
+              <span class="chip" :class="f.hueco ? 'chip-frenar' : 'chip-pagar'" x-text="'v1: ' + f.resultado + (f.hueco ? ' (hueco)' : '')"></span>
+              <span class="chip" :class="f.v2.hueco ? 'chip-frenar' : 'chip-pagar'" x-text="'v2: ' + f.v2.resultado + (f.v2.hueco ? ' (hueco)' : '')"></span>
+            </span>
+          </button></li>
+        </template>
+      </ul>
+    </section>
+    <section class="grid content-start gap-6" aria-label="Marcador del ataque">
+      <div class="panel panel-fuerte p-5" data-testid="marcador-ataque">
+        <p class="apoyo">Pagos indebidos en la arena</p>
+        <p class="cifra text-6xl font-bold" data-testid="arena-pagos" x-text="arena && arena.pagos_indebidos"></p>
+        <p class="text-texto-2" x-text="arena && (arena.lanzadas + ' variantes lanzadas, ' + arena.verificadas + ' verificadas, ' + arena.desvios_conservadores + ' desvios conservadores')"></p>
+        <p class="mt-3" data-testid="huecos" x-text="'Huecos con el mandato v1: ' + huecos + '. Con el v2: ' + huecosV2 + '.'"></p>
+      </div>
+      <div class="panel p-5" data-testid="motivo-bloqueo">
+        <h2 class="font-semibold">Motivo del bloqueo</h2>
+        <p class="mt-2" :class="sel && sel.hueco ? 'text-frenar' : ''" x-text="sel ? motivo(sel) : 'Elija una estrategia de la izquierda.'"></p>
+      </div>
+      <div class="panel p-5" data-testid="no-prueba-ataque">
+        <h2 class="font-semibold">Lo que no probamos</h2>
+        <ul class="mt-2 list-disc pl-6 text-texto-2"><template x-for="t in (arena ? arena.no_prueba : [])" :key="t"><li x-text="t"></li></template></ul>
+      </div>
+    </section>
+  </main>
+  <style>[x-cloak]{display:none !important}</style>
+</body>
+</html>

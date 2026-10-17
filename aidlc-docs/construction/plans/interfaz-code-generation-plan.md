@@ -33,21 +33,21 @@ Primer hito: la factura con su decisión, el motivo escrito y el recibo.
 - Pruebas (≈ 3): permisos por rol y capacidades 2; rechazo mostrado con motivo 1.
 
 ### T3. Pantalla de Reglas, la que pide el reto (sábado)
-- [ ] 3.1 La empresa define sus reglas: umbral de aprobación, límites por pago y por periodo, monedas y tope acumulado por proveedor (los beneficiarios permitidos no están en el mandato: salen del registro de proveedores y se ven en una lista de solo lectura desde `/api/proveedores`); edición como mandato nuevo con versión (CFO propone, analista contrafirma).
-- [ ] 3.2 Vista previa "qué cambia si se aprueba" y autonomía visible por proveedor.
+- [x] 3.1 La empresa define sus reglas: umbral de aprobación, límites por pago y por periodo, monedas y tope acumulado por proveedor (los beneficiarios permitidos no están en el mandato: salen del registro de proveedores y se ven en una lista de solo lectura desde `/api/proveedores`); edición como mandato nuevo con versión (CFO propone, analista contrafirma).
+- [x] 3.2 Vista previa "qué cambia si se aprueba" y autonomía visible por proveedor.
 - [ ] 3.3 Bandeja del aprobador: razón en una frase, un botón por rol, aprobar siempre reevalúa.
 - Pruebas (≈ 4): aprobar con reevaluación 2; mandato con dos firmas 1; modo público de solo lectura 1.
 
 ### T4. Marcador y escena del ataque (sábado por la noche)
-- [ ] 4.1 Marcador: número dominante, aciertos de reglas y de extremo a extremo por separado, autonomía, escalada innecesaria y costo; nota "lo que esta cifra no prueba".
-- [ ] 4.2 Vista dividida del ataque: a la izquierda las estrategias del atacante, a la derecha el marcador y el motivo de cada bloqueo; mandato v1 contra v2 con el hueco en rojo si la arena lo encontró.
-- [ ] 4.3 Pantalla de Pentest y arena con resultados de U4 y semilla fija editable.
+- [x] 4.1 Marcador: número dominante, aciertos de reglas y de extremo a extremo por separado, autonomía, escalada innecesaria y costo; nota "lo que esta cifra no prueba".
+- [x] 4.2 Vista dividida del ataque: a la izquierda las estrategias del atacante, a la derecha el marcador y el motivo de cada bloqueo; mandato v1 contra v2 con el hueco en rojo si la arena lo encontró.
+- [x] 4.3 Pantalla de Pentest y arena con resultados de U4 y semilla fija editable.
 - Pruebas (≈ 1): reinicio de la guía.
 
 ### T5. Bandeja simulada, guion y pulido (sábado de madrugada a domingo)
-- [ ] 5.1 **Bandeja simulada** de entrada con la etiqueta visible: llegan correo, chat, PDF y foto de la factura; abrir un mensaje muestra el original junto a lo leído.
-- [ ] 5.2 Modo guiado (botón Demo) que reinicia la sesión con confirmación y recorre las escenas del guion; flechas y Esc.
-- [ ] 5.3 Revisión con Chrome DevTools MCP: consola sin errores, contraste, foco por teclado, ancho de teléfono.
+- [x] 5.1 **Bandeja simulada** de entrada con la etiqueta visible: llegan correo, chat, PDF y foto de la factura; abrir un mensaje muestra el original junto a lo leído.
+- [x] 5.2 Modo guiado (botón Demo) que reinicia la sesión con confirmación y recorre las escenas del guion; flechas y Esc.
+- [x] 5.3 Revisión con Chrome DevTools MCP: consola sin errores, contraste, foco por teclado, ancho de teléfono.
 - [ ] 5.4 Versión para la app pública: modo guardado, etiqueta "lectura guardada", sin llamadas a la API de Claude.
 - Pruebas (≈ 1): modo guiado reinicia.
 
