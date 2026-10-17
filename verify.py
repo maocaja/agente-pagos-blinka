@@ -6,6 +6,7 @@
   python3 verify.py --etapa nucleo una sola etapa
 Codigo de salida 0 si todo esta en verde; 1 si no.
 """
+import calidad
 import argparse
 import importlib.util
 import json
@@ -83,6 +84,10 @@ def etapa_unidad(nombre):
         estado, nota = "FALLA", salida[-400:]
     elif conteo["total"] > cfg["max"]:
         estado, nota = "EXCEDE_PRESUPUESTO", f"{conteo['total']} pruebas; el maximo es {cfg['max']}"
+    else:
+        hallazgos = calidad.revisar([RAIZ / nombre])
+        if hallazgos:
+            estado, nota = "CALIDAD", f"{len(hallazgos)} hallazgos; el primero: {hallazgos[0]}"
     return {"estado": estado, "pruebas": conteo, "segundos": seg, "nota": nota}, huella
 
 
