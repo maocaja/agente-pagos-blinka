@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@import "../docs/design-system/tokens.css";
+@import "../docs/design-system/componentes.css";
+@source "./dist";
+
+/* sello partido: dos mitades que se separan */
+.sello-roto { display: inline-flex; }
+.sello-roto > span:first-child { transform: translate(-.3rem, .1rem) rotate(-9deg); clip-path: polygon(0 0, 100% 0, 80% 100%, 0 100%); }
+.sello-roto > span:last-child { transform: translate(.3rem, -.1rem) rotate(7deg); clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%); margin-left: -1.6rem; }

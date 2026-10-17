@@ -1,0 +1,12 @@
+{
+  "name": "interfaz",
+  "private": true,
+  "scripts": {
+    "build": "tailwindcss -i entrada.css -o dist/app.css --minify && cp node_modules/alpinejs/dist/cdn.min.js dist/alpine.min.js && cp ../contrato/monedas.json dist/monedas.json"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "4.3.3",
+    "tailwindcss": "4.3.3",
+    "alpinejs": "3.17.4"
+  }
+}
