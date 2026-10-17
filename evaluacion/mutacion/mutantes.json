@@ -1,0 +1,121 @@
+[
+ {
+  "id": "M01",
+  "archivo": "nucleo/dominio/motor.py",
+  "original": "PRECEDENCIA = (\"FRENAR\", \"ESCALAR\")",
+  "mutado": "PRECEDENCIA = (\"ESCALAR\", \"FRENAR\")",
+  "rompe": "precedencia invertida: ESCALAR gana a FRENAR"
+ },
+ {
+  "id": "M02",
+  "archivo": "nucleo/dominio/motor.py",
+  "original": "TIPO_DESCONOCIDO = (\"ESCALAR\",",
+  "mutado": "TIPO_DESCONOCIDO = (\"PAGAR\",",
+  "rompe": "tipo desconocido da PAGAR"
+ },
+ {
+  "id": "M03",
+  "archivo": "nucleo/dominio/motor.py",
+  "original": "salida = fallas_por_regla_faltante(reglas, pedidas)",
+  "mutado": "salida = []",
+  "rompe": "regla del registro sin implementar no escala"
+ },
+ {
+  "id": "M04",
+  "archivo": "nucleo/dominio/motor.py",
+  "original": "r = Resultado(\"falla\", \"ESCALAR\", False, f\"No se pudo evaluar: {e}\", None)",
+  "mutado": "r = Resultado(\"cumple\", None, True, f\"No se pudo evaluar: {e}\", None)",
+  "rompe": "error al evaluar una regla cuenta como cumple"
+ },
+ {
+  "id": "M05",
+  "archivo": "nucleo/dominio/motor.py",
+  "original": "if not any(r.estado == \"falla\" for _, r in salida):",
+  "mutado": "if False:",
+  "rompe": "R9 (AL_FINAL) nunca se evalua"
+ },
+ {
+  "id": "M06",
+  "archivo": "nucleo/dominio/reglas.py",
+  "original": "if total > int(tope[\"monto_menor\"]):",
+  "mutado": "if total >= int(tope[\"monto_menor\"]):",
+  "rompe": "R10 limite desplazado (>=)"
+ },
+ {
+  "id": "M07",
+  "archivo": "nucleo/dominio/reglas.py",
+  "original": "if base is not None and base > quedan:",
+  "mutado": "if base is not None and base > quedan + 1:",
+  "rompe": "R9 limite desplazado"
+ },
+ {
+  "id": "M08",
+  "archivo": "nucleo/dominio/reglas.py",
+  "original": "    if causas:\n        return falla(\"ESCALAR\", False, \"Lectura no confiable",
+  "mutado": "    if False:\n        return falla(\"ESCALAR\", False, \"Lectura no confiable",
+  "rompe": "R1 devuelve cumple sin evaluar"
+ },
+ {
+  "id": "M09",
+  "archivo": "nucleo/dominio/reglas.py",
+  "original": "if o[\"documento\"][\"hash\"] == h:",
+  "mutado": "if False:",
+  "rompe": "R2a ignora el hash identico"
+ },
+ {
+  "id": "M10",
+  "archivo": "nucleo/dominio/reglas_simples.py",
+  "original": "\"bloqueado\": (FRENAR, False,",
+  "mutado": "\"bloqueado\": (ESCALAR, False,",
+  "rompe": "R3 proveedor bloqueado escala en vez de frenar"
+ },
+ {
+  "id": "M11",
+  "archivo": "nucleo/dominio/reglas_simples.py",
+  "original": "\"sobre_tope\": (FRENAR, False,",
+  "mutado": "\"sobre_tope\": (ESCALAR, False,",
+  "rompe": "R6 sobre el tope escala en vez de frenar"
+ },
+ {
+  "id": "M12",
+  "archivo": "nucleo/dominio/reglas_simples.py",
+  "original": "\"no_permitida\": (FRENAR, False,",
+  "mutado": "\"no_permitida\": (ESCALAR, False,",
+  "rompe": "R7 moneda no permitida escala en vez de frenar"
+ },
+ {
+  "id": "M13",
+  "archivo": "nucleo/dominio/guardian.py",
+  "original": "return None if ctx.consumir_nonce(r[\"nonce\"], r[\"id\"]) else",
+  "mutado": "return None if True else",
+  "rompe": "el guardian no revisa el nonce usado"
+ },
+ {
+  "id": "M14",
+  "archivo": "nucleo/dominio/guardian.py",
+  "original": "if v not in (\"PAGAR\", \"ESCALAR\"):",
+  "mutado": "if v not in (\"PAGAR\", \"ESCALAR\", \"FRENAR\"):",
+  "rompe": "el guardian autoriza un recibo FRENAR"
+ },
+ {
+  "id": "M15",
+  "archivo": "nucleo/dominio/guardian.py",
+  "original": "if _t(r[\"vence_en\"]) < ctx.ahora:",
+  "mutado": "if False:",
+  "rompe": "el guardian ignora el recibo vencido"
+ },
+ {
+  "id": "M16",
+  "archivo": "nucleo/infra/libro.py",
+  "original": "CREATE TRIGGER sin_delete_mov BEFORE DELETE ON movimientos BEGIN SELECT RAISE(ABORT, 'solo adicion'); END;\n",
+  "mutado": "",
+  "rompe": "el registro permite borrar movimientos"
+ },
+ {
+  "id": "M17",
+  "archivo": "nucleo/infra/libro.py",
+  "original": "            if viva <= 0:\n                return False",
+  "mutado": "            if False:\n                return False",
+  "rompe": "consumir_nonce ignora reserva liberada"
+ }
+]

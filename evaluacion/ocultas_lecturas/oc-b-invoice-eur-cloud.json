@@ -1,0 +1,88 @@
+{
+  "id": "f_oc-b",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_oc-b",
+    "hash": "cf1e1ab0aadec2eea6c38100126b08d40352dbac3942d5fab5cbe987cc63f1db",
+    "canal": "correo",
+    "formato": "texto",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-13T09:00:00Z"
+  },
+  "emisor": {
+    "nombre": "Cloud Advisors LLC",
+    "nombre_normalizado": "CLOUDADVISORSLLC",
+    "id_fiscal": "",
+    "pais": "US"
+  },
+  "referencias": {
+    "numero": "CA-410",
+    "numero_normalizado": "CA410",
+    "acuerdo_ref": "MSA-CLOUD-2026-07"
+  },
+  "fechas": {
+    "emision": "2026-10-13",
+    "vencimiento": "2026-11-12"
+  },
+  "montos": {
+    "moneda": "EUR",
+    "total_menor": "180000",
+    "suma_lineas_menor": "180000",
+    "lineas": [
+      {
+        "descripcion": "Compliance advisory pack",
+        "total_menor": "110000"
+      },
+      {
+        "descripcion": "Regional training",
+        "total_menor": "70000"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "US",
+    "ultimos4": "6052"
+  },
+  "proveedor_asignado": {
+    "proveedor_id": "prov_cloud",
+    "metodo": "nombre",
+    "pista": null
+  },
+  "evidencia": {
+    "tipo_documento": "INVOICE CA-410",
+    "numero_factura": "INVOICE CA-410",
+    "monto_total": "TOTAL DUE                             EUR 1,800.00",
+    "moneda": "Amount (EUR)",
+    "proveedor": "Cloud Advisors LLC",
+    "cuenta": "Account country: United States   Ending 6052"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.95,
+    "monto_total": 0.95,
+    "moneda": 0.95,
+    "proveedor": 0.95,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "ok",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  }
+}

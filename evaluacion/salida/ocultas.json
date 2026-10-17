@@ -1,0 +1,207 @@
+{
+  "mandato_version": "v2",
+  "sello": "ok",
+  "documentos": 4,
+  "coinciden": 2,
+  "pagados": [
+    4
+  ],
+  "discrepancias": [
+    {
+      "orden": 1,
+      "archivo": "oc-a-nota-de-voz-devnorte.txt",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R4"
+        ]
+      },
+      "esperado": {
+        "veredicto": "PAGAR",
+        "reglas": []
+      },
+      "coincide": false,
+      "motivos": [
+        "veredicto ESCALAR contra esperado PAGAR",
+        "reglas ['R4'] contra esperadas []"
+      ],
+      "evidencia": [
+        {
+          "regla": "R4",
+          "dato": "cuenta",
+          "detalle": "La cuenta esta en MX terminada en 8821 y la registrada es de MX terminada en 3306."
+        }
+      ],
+      "cuenta_leida": {
+        "pais": "MX",
+        "ultimos4": "8821"
+      },
+      "motivo_corto": "La cuenta esta en MX terminada en 8821 y la registrada es de MX terminada en 3306."
+    },
+    {
+      "orden": 3,
+      "archivo": "oc-c-correo-sin-datos-marta.txt",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R1",
+          "R3",
+          "R5"
+        ]
+      },
+      "esperado": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R1"
+        ]
+      },
+      "coincide": false,
+      "motivos": [
+        "reglas ['R1', 'R3', 'R5'] contra esperadas ['R1']"
+      ],
+      "evidencia": [
+        {
+          "regla": "R1",
+          "dato": null,
+          "detalle": "Lectura no confiable: confianza 0.5 en tipo_documento, minimo 0.8; confianza 0.5 en numero_factura, minimo 0.8; confianza 0.5 en monto_total, minimo 0.9; confianza 0.7 en proveedor, minimo 0.9; confianza 0.5 en cuenta, minimo 0.9."
+        },
+        {
+          "regla": "R3",
+          "dato": "proveedor_asignado.proveedor_id",
+          "detalle": "Marta no esta en el registro maestro."
+        },
+        {
+          "regla": "R5",
+          "dato": "montos.total_menor",
+          "detalle": "No hay acuerdo registrado para este proveedor."
+        }
+      ],
+      "cuenta_leida": null,
+      "motivo_corto": "Lectura no confiable: confianza 0.5 en tipo_documento, minimo 0.8; confianza 0.5 en numero_factura, minimo 0.8; confianza 0.5 en monto_total, minimo 0.9; confianza 0.7 en proveedor, minimo 0.9; confianza 0.5 en cuenta, minimo 0.9."
+    }
+  ],
+  "casos": [
+    {
+      "orden": 1,
+      "archivo": "oc-a-nota-de-voz-devnorte.txt",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R4"
+        ]
+      },
+      "esperado": {
+        "veredicto": "PAGAR",
+        "reglas": []
+      },
+      "coincide": false,
+      "motivos": [
+        "veredicto ESCALAR contra esperado PAGAR",
+        "reglas ['R4'] contra esperadas []"
+      ],
+      "evidencia": [
+        {
+          "regla": "R4",
+          "dato": "cuenta",
+          "detalle": "La cuenta esta en MX terminada en 8821 y la registrada es de MX terminada en 3306."
+        }
+      ],
+      "cuenta_leida": {
+        "pais": "MX",
+        "ultimos4": "8821"
+      },
+      "motivo_corto": "La cuenta esta en MX terminada en 8821 y la registrada es de MX terminada en 3306."
+    },
+    {
+      "orden": 2,
+      "archivo": "oc-b-invoice-eur-cloud.txt",
+      "motor": {
+        "veredicto": "FRENAR",
+        "reglas": [
+          "R7"
+        ]
+      },
+      "esperado": {
+        "veredicto": "FRENAR",
+        "reglas": [
+          "R7"
+        ]
+      },
+      "coincide": true,
+      "motivos": [],
+      "evidencia": [
+        {
+          "regla": "R7",
+          "dato": "montos.moneda",
+          "detalle": "EUR no es una moneda permitida o no tiene tasa en el mandato."
+        }
+      ],
+      "cuenta_leida": {
+        "pais": "US",
+        "ultimos4": "6052"
+      },
+      "motivo_corto": "EUR no es una moneda permitida o no tiene tasa en el mandato."
+    },
+    {
+      "orden": 3,
+      "archivo": "oc-c-correo-sin-datos-marta.txt",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R1",
+          "R3",
+          "R5"
+        ]
+      },
+      "esperado": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R1"
+        ]
+      },
+      "coincide": false,
+      "motivos": [
+        "reglas ['R1', 'R3', 'R5'] contra esperadas ['R1']"
+      ],
+      "evidencia": [
+        {
+          "regla": "R1",
+          "dato": null,
+          "detalle": "Lectura no confiable: confianza 0.5 en tipo_documento, minimo 0.8; confianza 0.5 en numero_factura, minimo 0.8; confianza 0.5 en monto_total, minimo 0.9; confianza 0.7 en proveedor, minimo 0.9; confianza 0.5 en cuenta, minimo 0.9."
+        },
+        {
+          "regla": "R3",
+          "dato": "proveedor_asignado.proveedor_id",
+          "detalle": "Marta no esta en el registro maestro."
+        },
+        {
+          "regla": "R5",
+          "dato": "montos.total_menor",
+          "detalle": "No hay acuerdo registrado para este proveedor."
+        }
+      ],
+      "cuenta_leida": null,
+      "motivo_corto": "Lectura no confiable: confianza 0.5 en tipo_documento, minimo 0.8; confianza 0.5 en numero_factura, minimo 0.8; confianza 0.5 en monto_total, minimo 0.9; confianza 0.7 en proveedor, minimo 0.9; confianza 0.5 en cuenta, minimo 0.9."
+    },
+    {
+      "orden": 4,
+      "archivo": "oc-d-tabla-codigo-verde.txt",
+      "motor": {
+        "veredicto": "PAGAR",
+        "reglas": []
+      },
+      "esperado": {
+        "veredicto": "PAGAR",
+        "reglas": []
+      },
+      "coincide": true,
+      "motivos": [],
+      "evidencia": [],
+      "cuenta_leida": {
+        "pais": "CO",
+        "ultimos4": "1096"
+      },
+      "motivo_corto": "Cumple las reglas evaluadas."
+    }
+  ]
+}

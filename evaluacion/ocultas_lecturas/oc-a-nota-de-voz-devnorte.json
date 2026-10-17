@@ -1,0 +1,88 @@
+{
+  "id": "f_oc-a",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_oc-a",
+    "hash": "2b19c5e5a08a3ca54ac93b6b88b7c1f4dec0ce18c26324cde24d96d0c4e91ba4",
+    "canal": "chat",
+    "formato": "texto",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-12T19:05:00Z"
+  },
+  "emisor": {
+    "nombre": "DevNorte SA de CV",
+    "nombre_normalizado": "DEVNORTESADECV",
+    "id_fiscal": "",
+    "pais": "MX"
+  },
+  "referencias": {
+    "numero": "DN-95",
+    "numero_normalizado": "DN95",
+    "acuerdo_ref": "AC-DEVNORTE-2026-04"
+  },
+  "fechas": {
+    "emision": "2026-10-12",
+    "vencimiento": "2026-11-11"
+  },
+  "montos": {
+    "moneda": "MXN",
+    "total_menor": "3400000",
+    "suma_lineas_menor": "3400000",
+    "lineas": [
+      {
+        "descripcion": "Soporte mensual",
+        "total_menor": "1700000"
+      },
+      {
+        "descripcion": "Modulo de reportes",
+        "total_menor": "1700000"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "MX",
+    "ultimos4": "8821"
+  },
+  "proveedor_asignado": {
+    "proveedor_id": "prov_devnorte",
+    "metodo": "nombre",
+    "pista": null
+  },
+  "evidencia": {
+    "tipo_documento": "la factura del soporte\nmensual",
+    "numero_factura": "es la DN-95",
+    "monto_total": "treinta\ny cuatro mil en total",
+    "moneda": "diecisiete mil pesos\nmexicanos",
+    "proveedor": "habla Luis de DevNorte",
+    "cuenta": "en Mexico, la que\ntermina en ocho ocho dos uno"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.95,
+    "monto_total": 0.95,
+    "moneda": 0.95,
+    "proveedor": 0.95,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "ok",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  }
+}
