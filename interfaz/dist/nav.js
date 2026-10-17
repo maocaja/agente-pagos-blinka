@@ -33,8 +33,13 @@ function aplicarTema(t) { document.documentElement.dataset.tema = t === "oscuro"
 const ROLES = [["analista", "Analista"], ["cfo", "CFO"]];
 
 function montarTema() {
-  const tema = el("button", { type: "button", class: "btn btn-sec px-4! py-1.5!", "data-testid": "cambiar-tema" });
-  const rotular = () => { tema.textContent = memoria.leer("tema") === "oscuro" ? "Tema claro" : "Tema oscuro"; };
+  const tema = el("button", { type: "button", class: "btn btn-sec px-3! py-1.5!", "data-testid": "cambiar-tema" });
+  const rotular = () => {
+    const oscuro = memoria.leer("tema") === "oscuro";
+    tema.textContent = oscuro ? "☀" : "☾";
+    tema.setAttribute("aria-label", oscuro ? "Cambiar a tema claro" : "Cambiar a tema oscuro");
+    tema.title = tema.getAttribute("aria-label");
+  };
   tema.onclick = () => { memoria.guardar("tema", memoria.leer("tema") === "oscuro" ? "claro" : "oscuro"); aplicarTema(memoria.leer("tema")); rotular(); };
   rotular();
   return tema;
@@ -53,7 +58,7 @@ function montarRol() {
   });
   marcar();
   const grupo = el("div", { class: "segmento", role: "radiogroup", "aria-label": "Rol simulado" }, "", botones);
-  return el("div", { class: "flex items-center gap-2", "data-testid": "selector-rol" }, "", [el("span", { class: "etiqueta-simulada" }, "rol simulado"), grupo]);
+  return el("div", { class: "flex items-center gap-2", "data-testid": "selector-rol" }, "", [el("span", { class: "etiqueta-simulada whitespace-nowrap" }, "rol simulado"), grupo]);
 }
 
 function montarDemo() {
@@ -80,14 +85,14 @@ function montarDemo() {
 }
 
 function montarEncabezado(actual) {
-  const empresa = el("span", { class: "font-semibold", "data-testid": "miga-empresa" }, "Mesa de pagos");
+  const empresa = el("span", { class: "truncate font-semibold", "data-testid": "miga-empresa" }, "Mesa de pagos");
   const seccion = PAGINAS.find((p) => p.href === actual) || PAGINAS[0];
-  const migas = el("nav", { "aria-label": "Ubicación", class: "flex items-center gap-2", "data-testid": "migas" }, "", [empresa, el("span", { "aria-hidden": "true", class: "text-texto-3" }, "›"), el("span", {}, seccion.texto)]);
-  const mandato = el("span", { class: "text-texto-2", "data-testid": "encabezado-mandato" });
-  const ciclo = el("span", { class: "text-texto-2", "data-testid": "encabezado-ciclo" });
+  const migas = el("nav", { "aria-label": "Ubicación", class: "flex min-w-0 items-center gap-2 whitespace-nowrap", "data-testid": "migas" }, "", [empresa, el("span", { "aria-hidden": "true", class: "text-texto-3" }, "›"), el("span", {}, seccion.texto)]);
+  const mandato = el("span", { class: "whitespace-nowrap text-texto-2", "data-testid": "encabezado-mandato" });
+  const ciclo = el("span", { class: "whitespace-nowrap text-texto-2", "data-testid": "encabezado-ciclo" });
   document.addEventListener("sesion-lista", () => { mandato.textContent = "Mandato " + api.mandato_version; });
   document.addEventListener("ciclo-listo", (ev) => { empresa.textContent = ev.detail.empresa; ciclo.textContent = "Ciclo " + ev.detail.ciclo_id; });
-  return el("header", { class: "sticky top-0 z-10 flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-linea bg-lienzo px-4 py-3 sm:px-6", "data-testid": "encabezado" }, "", [migas, mandato, ciclo, el("span", { class: "ml-auto" }), montarRol(), ...montarDemo(), montarTema()]);
+  return el("header", { class: "sticky top-0 z-10 flex min-h-[64px] flex-wrap items-center gap-x-4 gap-y-2 border-b border-linea bg-lienzo px-4 py-2 sm:px-6 min-[1100px]:flex-nowrap", "data-testid": "encabezado" }, "", [migas, mandato, ciclo, el("span", { class: "ml-auto" }), montarRol(), ...montarDemo(), montarTema()]);
 }
 
 function montarPaquete() {

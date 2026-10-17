@@ -19,25 +19,35 @@ function riesgo(d) {
   return (d.estado === "pendiente" ? 0 : 10) + (fallas.length ? Math.min(...fallas) : 6);
 }
 
-// Una frase por paso, con lo que dice la factura canonica y la decision.
+const NIVEL = { ok: { icono: "✓", color: "text-pagar" }, aviso: { icono: "!", color: "text-escalar" }, falla: { icono: "✕", color: "text-frenar" } };
+
+// Un paso por etapa, con lo que dicen la factura canonica y la decision: frase corta y detalle.
 function pasosProceso(f, d, nombres) {
-  const l = f.lectura, v = f.verificaciones, fallan = d.reglas.filter((r) => r.estado === "falla");
+  const l = f.lectura, v = f.verificaciones, evaluadas = d.reglas.filter((r) => r.estado !== "omitida");
+  const fallan = evaluadas.filter((r) => r.estado === "falla");
   const malas = [["esquema", "esquema"], ["dinero_presente", "importes"], ["suma_lineas", "suma de líneas"]].filter(([k]) => v[k] === "falla").map(([, t]) => t);
   if (v.cita_evidencia === "falla") malas.push("cita en el documento");
   if (v.tipo === "discrepancia") malas.push("tipo de documento");
   if (v.segunda_lectura.estado === "difiere") malas.push("segunda lectura");
+  const sinCita = v.cita_evidencia === "no_verificable";
   const conf = Math.round(Math.min(...Object.values(f.confianza), 1) * 100);
+  const nivelValidacion = malas.length ? "falla" : sinCita ? "aviso" : "ok";
+  const nivelReglas = !fallan.length ? "ok" : fallan.some((r) => r.accion_si_falla === "FRENAR") ? "falla" : "aviso";
+  const ver = VEREDICTOS[d.veredicto];
   return [
-    { id: "lectura", titulo: "Lectura", ok: !l.motivo_falla, texto: l.motivo_falla ? "No se pudo leer: " + l.motivo_falla.replaceAll("_", " ") + "." : `Leída ${l.metodo === "modelo" ? "con modelo" : "con lector estructurado"}${l.desde_cache ? " (lectura guardada)" : ""}; confianza mínima ${conf} %.` },
-    { id: "validacion", titulo: "Validación", ok: !malas.length, texto: malas.length ? "No coincide: " + malas.join(", ") + "." : "Esquema, importes y suma de líneas coinciden." + (v.cita_evidencia === "no_verificable" ? " La cita no se pudo comprobar en el original." : "") },
-    { id: "reglas", titulo: "Reglas", ok: !fallan.length, texto: fallan.length ? `${fallan.length} de ${d.reglas.length} no cumplen: ${fallan.map((r) => nombres[r.id] || r.id).join(", ")}.` : `Las ${d.reglas.length} reglas cumplen.` },
-    { id: "decision", titulo: "Decisión", ok: d.veredicto === "PAGAR", texto: ROTULO[d.veredicto] + (d.modo_autonomia === "autonomo" ? "" : " (modo sombra)") + "." },
+    { id: "lectura", titulo: "Lectura", ...NIVEL[l.motivo_falla ? "falla" : "ok"], corto: l.motivo_falla ? "No se pudo leer" : `Confianza ${conf} %`,
+      texto: l.motivo_falla ? "No se pudo leer: " + l.motivo_falla.replaceAll("_", " ") + "." : `Leída ${l.metodo === "modelo" ? "con modelo" : "con lector estructurado"}${l.desde_cache ? " (lectura guardada)" : ""}; confianza mínima ${conf} %.` },
+    { id: "validacion", titulo: "Validación", ...NIVEL[nivelValidacion], corto: malas.length ? "No coincide" : sinCita ? "Cita sin comprobar" : "Coincide",
+      texto: malas.length ? "No coincide: " + malas.join(", ") + "." : "Esquema, importes y suma de líneas coinciden." + (sinCita ? " La cita no se pudo comprobar en el original." : "") },
+    { id: "reglas", titulo: "Reglas", ...NIVEL[nivelReglas], corto: fallan.length ? `${fallan.length} de ${evaluadas.length} no cumplen` : `${evaluadas.length} cumplen`,
+      texto: fallan.length ? `${fallan.length} de ${evaluadas.length} reglas evaluadas no cumplen: ${fallan.map((r) => nombres[r.id] || r.id).join(", ")}.` : `Las ${evaluadas.length} reglas evaluadas cumplen.` },
+    { id: "decision", titulo: "Decisión", icono: ver.icono, color: ver.color, corto: ROTULO[d.veredicto], texto: ROTULO[d.veredicto] + (d.modo_autonomia === "autonomo" ? "" : " (modo sombra)") + "." },
   ];
 }
 
 function app() {
   return {
-    rol: api.rol, sesion: null, monedas: {}, nombresRegla: {},
+    rol: api.rol, sesion: null, monedas: {}, nombresRegla: {}, registro: {},
     decisiones: [], facturas: {}, filtro: "TODAS", busqueda: "", formato: "", canalFiltro: "", masFiltros: false, campo: "", error: null, cargando: true,
     sel: null, factura: null, recibo: null, tecnica: false, pestana: "resumen",
     pestanas: [["resumen", "Resumen"], ["documento", "Documento"], ["recibo", "Recibo"], ["historial", "Historial"]],
@@ -50,6 +60,7 @@ function app() {
         this.nombresRegla = Object.fromEntries((await (await fetch("reglas.registro.json")).json()).reglas.map((r) => [r.id, r.nombre]));
         document.addEventListener("rol-cambiado", (ev) => { this.rol = ev.detail; });
         this.sesion = await api.iniciar();
+        api.proveedores().then((ps) => { this.registro = Object.fromEntries(ps.map((p) => [p.id, p.nombre])); }, () => {});
         api.muestras().then((m) => { this.muestras = m; }, () => {});
         await this.cargarLista();
         await this.abrirDesdeUrl();
@@ -108,7 +119,7 @@ function app() {
     importe(d) { const m = this.f(d)?.montos; return m ? m.moneda + " " + this.entero(m.total_menor, m.moneda) : ""; },
     centimos(d) { const m = this.f(d)?.montos; return m ? this.centavos(m.total_menor, m.moneda) : ""; },
     f(d) { return this.facturas[d.id]; },
-    proveedor(d) { return this.f(d)?.emisor?.nombre || d.factura_id; },
+    proveedor(d) { const f = this.f(d); return this.registro[f?.proveedor_asignado?.proveedor_id] || f?.emisor?.nombre || d.factura_id; },
     canal(d) { return this.f(d)?.documento?.canal || ""; },
     aprobo(d) { return d.reevaluacion_de ? "CFO" : ""; },
     async abrir(d, pestana) {
@@ -163,10 +174,10 @@ function app() {
     get proceso() { return this.sel && this.factura ? pasosProceso(this.factura, this.sel, this.nombresRegla) : []; },
     get diferencias() { return this.sel ? this.sel.reglas.filter((r) => r.estado === "falla") : []; },
     get etapas() {
-      const o = this.estadoOrden;
-      return [["decision", "Decisión", this.sel ? ROTULO[this.sel.veredicto] : "", true],
-        ["autorizada", "Autorizada", o ? "Sí" : "No", !!o],
-        ["orden", "Orden emitida (simulada)", o === "orden_simulada_emitida" ? "Sí" : "No", o === "orden_simulada_emitida"]];
+      const o = this.estadoOrden, v = this.sel ? VEREDICTOS[this.sel.veredicto] : {};
+      return [["decision", "Decisión", this.sel ? ROTULO[this.sel.veredicto] : "", v.color],
+        ["autorizada", "Autorizada", o ? "Sí" : "No", o ? "text-pagar" : "text-texto-2"],
+        ["orden", "Orden emitida (simulada)", o === "orden_simulada_emitida" ? "Sí" : "No", o === "orden_simulada_emitida" ? "text-pagar" : "text-texto-2"]];
     },
     // El servidor manda eventos en minuscula; se muestran con inicial mayuscula y el rol del CFO en siglas.
     evento(h) { return h.evento.charAt(0).toUpperCase() + h.evento.slice(1) + " · " + (h.actor === "cfo" ? "CFO" : h.actor); },

@@ -1,8 +1,8 @@
 const VEREDICTOS = {
-  PAGAR: { icono: "✓", clase: "chip-pagar", texto: "Pagar", autonomia: "Autónomo bajo reglas" },
-  FRENAR: { icono: "✕", clase: "chip-frenar", texto: "Frenar", autonomia: "Frenada por las reglas" },
-  ESCALAR: { icono: "▲", clase: "chip-escalar", texto: "Escalar", autonomia: "Requiere una persona" },
-  REGISTRAR: { icono: "●", clase: "chip-registrar", texto: "Registrar", autonomia: "Solo registrada" },
+  PAGAR: { color: "text-pagar", icono: "✓", clase: "chip-pagar", texto: "Pagar", autonomia: "Autónomo bajo reglas" },
+  FRENAR: { color: "text-frenar", icono: "✕", clase: "chip-frenar", texto: "Frenar", autonomia: "Frenada por las reglas" },
+  ESCALAR: { color: "text-escalar", icono: "▲", clase: "chip-escalar", texto: "Escalar", autonomia: "Requiere una persona" },
+  REGISTRAR: { color: "text-registrar", icono: "●", clase: "chip-registrar", texto: "Registrar", autonomia: "Solo registrada" },
 };
 
 // El servidor manda ISO UTC; se muestra HH:MM local, o el texto tal cual si no es una fecha.

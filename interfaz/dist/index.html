@@ -76,7 +76,7 @@
             </div>
             <span class="chip" :class="estadoDe(sel).clase" data-testid="estado-decision"><span aria-hidden="true" x-text="estadoDe(sel).icono"></span><span x-text="estadoDe(sel).texto"></span></span>
           </div>
-          <p class="mt-2 text-lg" data-testid="motivo" x-text="sel.motivo_corto"></p>
+          <p class="mt-1" data-testid="motivo" x-text="sel.motivo_corto"></p>
           <p class="mt-2 font-semibold text-texto-2" x-show="aprobo(sel)" data-testid="aprobo-detalle" x-text="'Aprobó: ' + aprobo(sel) + ', que reevaluó la decisión ' + sel.reevaluacion_de"></p>
 
           <div x-show="resultado" x-cloak class="mt-3 flex items-center gap-4" data-testid="sello" role="status">
@@ -102,7 +102,7 @@
             <p class="mt-2" data-testid="explicacion" x-show="sel.explicacion && sel.explicacion !== sel.motivo_corto" x-text="sel.explicacion"></p>
             <p class="mt-2 border-l-4 border-linea-fuerte pl-3 font-semibold" data-testid="que-hacer" x-show="sel.que_hacer"><span class="apoyo">Siguiente paso: </span><span x-text="sel.que_hacer"></span></p>
             <ol class="mt-4 grid gap-2 sm:grid-cols-3" data-testid="etapas" aria-label="Estado del trámite">
-              <template x-for="e in etapas" :key="e[0]"><li class="panel p-3" :data-testid="'etapa-' + e[0]"><span class="block text-sm text-texto-2" x-text="e[1]"></span><span class="font-semibold" :class="e[3] ? 'text-pagar' : 'text-texto-2'" x-text="e[2]"></span></li></template>
+              <template x-for="e in etapas" :key="e[0]"><li class="panel p-3" :data-testid="'etapa-' + e[0]"><span class="block text-sm text-texto-2" x-text="e[1]"></span><span class="font-semibold" :class="e[3]" x-text="e[2]"></span></li></template>
             </ol>
             <p class="mt-2 text-sm text-texto-2" data-testid="sin-pago-confirmado">No hay "pago confirmado": este producto no mueve dinero. La orden emitida es una simulación.</p>
 
@@ -130,16 +130,17 @@
           </div>
 
           <div id="panel-documento" role="tabpanel" aria-labelledby="tab-documento" x-show="pestana === 'documento'" x-cloak class="mt-4" data-testid="documento-leido">
-            <ol class="grid gap-2 sm:grid-cols-2" data-testid="proceso" aria-label="Proceso de la decisión">
+            <ol class="grid grid-cols-2 gap-2 md:grid-cols-4" data-testid="proceso" aria-label="Proceso de la decisión">
               <template x-for="(p, i) in proceso" :key="p.id">
-                <li class="panel p-3" :data-testid="'proceso-' + p.id">
-                  <span class="flex items-center gap-2 text-sm font-semibold" :class="p.ok ? 'text-pagar' : 'text-frenar'"><span aria-hidden="true" x-text="p.ok ? '✓' : '✕'"></span><span x-text="(i + 1) + '. ' + p.titulo"></span></span>
-                  <span class="block text-sm" x-text="p.texto"></span>
+                <li class="rounded-[10px] border border-linea px-2 py-1.5" :title="p.texto" :data-testid="'proceso-' + p.id">
+                  <span class="flex items-center gap-1.5 text-sm font-semibold" :class="p.color"><span aria-hidden="true" x-text="p.icono"></span><span x-text="p.titulo"></span></span>
+                  <span class="block text-sm leading-tight text-texto-2" x-text="p.corto"></span>
+                  <span class="sr-only" x-text="p.texto"></span>
                 </li>
               </template>
             </ol>
-            <p class="mt-3 text-sm text-texto-2" x-show="!original && !factura">No hay documento para esta decisión.</p>
-            <div class="mt-4 grid gap-4 md:grid-cols-2" x-show="original || factura">
+            <p class="mt-2 text-sm text-texto-2" x-show="!original && !factura">No hay documento para esta decisión.</p>
+            <div class="mt-3 grid gap-4 md:grid-cols-2" x-show="original || factura">
               <div x-show="original"><h3 class="apoyo text-sm">Documento original</h3>
                 <img x-show="tipoOriginal === 'imagen' && !imagenFalla" :src="tipoOriginal === 'imagen' ? urlArchivo : null" @error="imagenFalla = true" :alt="'Foto original del documento ' + (factura ? factura.referencias.numero : '')" class="panel mt-1 w-full" style="max-height:20rem;object-fit:contain" data-testid="original-imagen">
                 <p class="mt-1 text-sm text-texto-2" x-show="tipoOriginal === 'imagen' && imagenFalla" data-testid="original-imagen-error">No se pudo cargar la imagen del documento.</p>
