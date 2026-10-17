@@ -16,7 +16,7 @@ def ultimo_cambio(rutas):
 
 
 def revisar():
-    codigo = ultimo_cambio(CODIGO)
+    codigo = ultimo_cambio(CODIGO + [":(exclude)contrato/README.md"])
     h = [f"{c} esta detras del ultimo cambio de codigo; actualizar antes de cerrar la tanda"
          for c in CONTROL if ultimo_cambio([c]) < codigo]
     if ultimo_cambio(["contrato/README.md"]) < ultimo_cambio(CONTRATO):
