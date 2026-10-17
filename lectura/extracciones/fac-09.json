@@ -39,7 +39,11 @@
     "pais": "US",
     "ultimos4": "3318"
   },
-  "proveedor_asignado": null,
+  "proveedor_asignado": {
+    "proveedor_id": null,
+    "metodo": "ninguno",
+    "pista": null
+  },
   "evidencia": {
     "tipo_documento": "Invoice No. NL-7",
     "numero_factura": "NL-7",
