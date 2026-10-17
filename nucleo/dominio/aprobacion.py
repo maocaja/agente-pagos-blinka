@@ -3,10 +3,10 @@ from datetime import timedelta
 
 from .errores import ErrorAccion
 from .motor import decidir
-from .recibo import serializar
+from .recibo import orden_desde_recibo, serializar
 
 # Capacidades por rol: el servidor valida aunque la interfaz oculte el boton.
-CAPACIDADES = {"aprobar": {"cfo"}, "rechazar": {"cfo"}}
+CAPACIDADES = {"aprobar": {"cfo"}, "rechazar": {"cfo"}, "autorizar": {"analista", "cfo"}}
 _FMT = "%Y-%m-%dT%H:%M:%SZ"
 
 
@@ -78,3 +78,17 @@ def rechazar(s, decision_id, rol, nota) -> dict:
     d["estado"] = "rechazada"
     _aprobacion(s, "rechazar", d["id"], None, rol, nota, [r["id"] for r in _fallas(d)])
     return d
+
+
+def autorizar(s, decision_id, rol, nota="") -> dict:
+    """Pide al guardian la orden de una decision con recibo; no replica sus verificaciones."""
+    d = s.decisiones.get(decision_id)
+    if d is None:
+        raise ErrorAccion(404, "no_encontrado", "La decision no existe.")
+    if rol not in CAPACIDADES["autorizar"]:
+        raise ErrorAccion(403, "rol_no_permitido", f"El rol {rol or 'sin rol'} no puede autorizar.")
+    if d["estado"] != "con_recibo" or d["veredicto"] == "FRENAR":
+        raise ErrorAccion(409, "conflicto", f"La decision esta {d['estado']} ({d['veredicto']}): no es autorizable.")
+    recibo = s.recibos[d["recibo_id"]]
+    aprobacion = next((a for a in s.aprobaciones.values() if a["recibo_id"] == recibo["id"] and a["accion"] == "aprobar"), None)
+    return s.verificar_orden(orden_desde_recibo(recibo), recibo, aprobacion)

@@ -5,10 +5,11 @@ from .errores import FallaCerrada
 from .explicacion import fallas_por_precedencia
 
 _ACCION = {"aprobar": "aprobada", "rechazar": "rechazada"}
-_VEREDICTO = {"PAGAR": "Autorizada", "FRENAR": "Frenada", "ESCALAR": "Escalada", "REGISTRAR": "Registrada"}
+_VEREDICTO = {"PAGAR": "Decisión de pagar", "FRENAR": "Frenada", "ESCALAR": "Escalada", "REGISTRAR": "Registrada"}
 _TEXTO = {"decidida": "{veredicto}: {detalle}{regla}",
           "aprobada": "Aprobada por {actor}: {detalle}",
-          "rechazada": "Rechazada por {actor}: {detalle}"}
+          "rechazada": "Rechazada por {actor}: {detalle}",
+          "autorizada": "Autorizada por el guardián: {detalle}"}
 
 
 def _ev(hora, evento, actor, nota=None) -> dict:
@@ -23,6 +24,8 @@ def _propios(s, d) -> list:
     for ap in s.aprobaciones.values():
         if ap["decision_id"] == d["id"]:
             ev.append(_ev(ap["emitida_en"], _ACCION[ap["accion"]], ap["rol"], ap["nota"]))
+    if d["id"] in s.autorizadas:
+        ev.append(_ev(s.autorizadas[d["id"]], "autorizada", "guardián"))
     sucesora = next((x for x in s.decisiones.values() if x.get("reevaluacion_de") == d["id"]), None)
     if sucesora:
         ev.append(_ev(sucesora["creada_en"], "reevaluada", "motor"))
@@ -43,7 +46,8 @@ def estado_orden(s, d):
 def _detalle(s, d) -> tuple:
     """Proveedor e importe legibles (no el id de la factura) y la regla que decide, si falla alguna."""
     f = s.facturas.get(d["factura_id"]) or {}
-    nombre = (f.get("emisor") or {}).get("nombre") or d["factura_id"]
+    registrado = s.reg.proveedor((f.get("proveedor_asignado") or {}).get("proveedor_id"))
+    nombre = (registrado or {}).get("nombre") or (f.get("emisor") or {}).get("nombre") or d["factura_id"]
     try:
         base = base_de(f, s.m)
     except (KeyError, FallaCerrada):

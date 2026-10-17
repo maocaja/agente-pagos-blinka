@@ -57,25 +57,25 @@ def _moneda(f, m, reg):
     return ("permitida" if convertible(moneda, m) else "no_permitida"), {"moneda": moneda}
 
 
-_NO_CONVERTIBLE = (None, True, "Sin conversion a la base; la decide R7.")
+_NO_CONVERTIBLE = (None, True, "Sin conversión a la base; la decide R7.")
 FILAS = (
     {"id": "R3", "campo": "proveedor_asignado.proveedor_id", "medida": _estado_proveedor, "estados": {
-        "activo": (None, True, "{nombre} esta en el registro."),
-        "no_registrado": (ESCALAR, True, "{nombre} no esta en el registro maestro."),
-        "bloqueado": (FRENAR, False, "{nombre} esta bloqueado en el registro maestro.")}},
+        "activo": (None, True, "{nombre} está en el registro."),
+        "no_registrado": (ESCALAR, True, "{nombre} no está en el registro maestro."),
+        "bloqueado": (FRENAR, False, "{nombre} está bloqueado en el registro maestro.")}},
     {"id": "R4", "campo": "cuenta", "medida": _cuenta, "estados": {
         "coincide": (None, True, "La cuenta coincide con la registrada."),
         "sin_cuenta": (None, True, "La factura no trae cuenta: el pago va a la registrada."),
         "sin_proveedor": (None, True, "Sin proveedor registrado; lo decide R3."),
-        "distinta": (ESCALAR, True, "La cuenta esta en {pais} terminada en {u4} y la registrada es de {rpais} terminada en {ru4}.")}},
+        "distinta": (ESCALAR, True, "La cuenta está en {pais} terminada en {u4} y la registrada es de {rpais} terminada en {ru4}.")}},
     {"id": "R5", "campo": "montos.total_menor", "medida": _acuerdo, "estados": {
-        "dentro": (None, True, "{base}, dentro de lo acordado ({maximo} mas {pct}%)."),
-        "excede": (ESCALAR, True, "{base} superan lo acordado ({maximo} mas {pct}%)."),
+        "dentro": (None, True, "{base}, dentro de lo acordado ({maximo} más {pct}%)."),
+        "excede": (ESCALAR, True, "{base} superan lo acordado ({maximo} más {pct}%)."),
         "sin_acuerdo": (ESCALAR, True, "No hay acuerdo registrado para este proveedor."),
         "no_convertible": _NO_CONVERTIBLE}},
     {"id": "R6", "campo": "montos.total_menor", "medida": _monto, "estados": {
         "dentro": (None, True, "{base}, bajo el umbral de {umbral}."),
-        "sobre_umbral": (ESCALAR, True, "{base} superan el umbral de aprobacion de {umbral}."),
+        "sobre_umbral": (ESCALAR, True, "{base} superan el umbral de aprobación de {umbral}."),
         "sobre_tope": (FRENAR, False, "{base} superan el tope por pago de {tope}."),
         "no_convertible": _NO_CONVERTIBLE}},
     {"id": "R7", "campo": "montos.moneda", "medida": _moneda, "estados": {

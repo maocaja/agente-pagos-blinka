@@ -19,6 +19,7 @@ class ServicioDecision:
         self.aprobaciones: dict = {}
         self.cargadores: dict = {}
         self.ordenes_emitidas: set = set()
+        self.autorizadas: dict = {}
 
     def modo_de(self, pid) -> str:
         dias = self.reg.dias_de_alta(pid, self.reloj().date()) if pid else None
@@ -81,6 +82,7 @@ class ServicioDecision:
             return
         if res["autorizada"]:
             d["estado"] = "autorizada"
+            self.autorizadas[d["id"]] = self.reloj().strftime("%Y-%m-%dT%H:%M:%SZ")
         elif n in (4, 5):
             self.libro.liberar(recibo["id"])
             d["estado"] = "denegada"

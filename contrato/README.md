@@ -69,3 +69,6 @@ Hay valores que se calibran despues: `umbral_senal_texto`, `dias_proveedor_nuevo
 
 ## Cambios de 1.1.0-rc4 (aditivos, Ola 15)
 - `api.openapi.yaml`: ruta nueva `GET /api/muestras/{id}/archivo` (archivo original de la muestra; 404 si el id no existe).
+
+## Cambios de 1.1.0-rc5 (aditivos, Ola 16)
+- `api.openapi.yaml`: ruta nueva `POST /api/decisiones/{id}/autorizar` (analista o CFO): pide al guardian la orden de una decision con recibo y devuelve sus verificaciones; 409 si no es autorizable. El historial anade el evento `autorizada`.

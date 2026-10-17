@@ -39,8 +39,8 @@ def _causas_lectura(f, m):
     for campo, c in f["confianza"].items():
         minimo = p["conf_min_dinero"] if campo in _DINERO else p["conf_min_general"]
         if c < minimo:
-            causas.append(f"confianza {c} en {campo}, minimo {minimo}")
-    causas += [f"verificacion {k} fallida" for k in ("esquema", "dinero_presente", "cita_evidencia") if v[k] == "falla"]
+            causas.append(f"confianza {c} en {campo}, mínimo {minimo}")
+    causas += [f"verificación {k} fallida" for k in ("esquema", "dinero_presente", "cita_evidencia") if v[k] == "falla"]
     if v["tipo"] != "ok":
         causas.append("el tipo declarado contradice el texto")
     suma = mo["suma_lineas_menor"]
@@ -63,7 +63,7 @@ def lectura_confiable(f, m, reg):
     causas = _causas_lectura(f, m) + _causa_remitente(f)
     if causas:
         return falla("ESCALAR", False, "Lectura no confiable: " + "; ".join(causas) + ".")
-    return cumple("Lecturas coinciden y la confianza supera el minimo.")
+    return cumple("Lecturas coinciden y la confianza supera el mínimo.")
 
 
 @regla("R2a")
@@ -75,9 +75,9 @@ def duplicado_exacto(f, m, reg):
         if o["id"] == f["id"]:
             continue
         if o["documento"]["hash"] == h:
-            return falla("FRENAR", False, f"El archivo es identico al de la factura {o['id']}.", "documento.hash")
+            return falla("FRENAR", False, f"El archivo es idéntico al de la factura {o['id']}.", "documento.hash")
         if prov and o["proveedor_asignado"]["proveedor_id"] == prov and o["referencias"]["numero_normalizado"] == num:
-            return falla("FRENAR", False, f"El numero {num} del mismo proveedor ya se recibio en {o['id']}.", "referencias.numero_normalizado")
+            return falla("FRENAR", False, f"El número {num} del mismo proveedor ya se recibió en {o['id']}.", "referencias.numero_normalizado")
     return cumple("Sin duplicado exacto.")
 
 
@@ -132,5 +132,5 @@ def tope_acumulado(f, m, reg):
         return cumple("Tope acumulado inactivo o sin proveedor que acumular.")
     total = reg.libro.acumulado(f["ciclo_id"], pid) + base
     if total > int(tope["monto_menor"]):
-        return falla("ESCALAR", True, f"Lo pagado y reservado al proveedor mas esta factura suma {importe(total, m)}, sobre el tope de {importe(tope['monto_menor'], m)}.", "montos.total_menor")
+        return falla("ESCALAR", True, f"Lo pagado y reservado al proveedor más esta factura suma {importe(total, m)}, sobre el tope de {importe(tope['monto_menor'], m)}.", "montos.total_menor")
     return cumple(f"El acumulado del proveedor, {importe(total, m)}, esta bajo el tope.")

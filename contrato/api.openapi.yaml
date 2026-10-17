@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Agente de Pagos con Garantia, API del nucleo
-  version: 1.1.0-rc4
+  version: 1.1.0-rc5
   description: |
     Contrato entre U1 (nucleo), U2 (lectura), U3 (interfaz) y U4 (evaluacion). Escrito primero; cambia solo de comun acuerdo.
     Cada peticion (menos POST /api/sesion) lleva el encabezado X-Sesion-Id. El rol es simulado y viaja en X-Rol.
@@ -337,7 +337,7 @@ paths:
                       required: [hora, evento, actor, nota]
                       properties:
                         hora: {type: string}
-                        evento: {type: string, enum: [recibida, decidida, aprobada, rechazada, reevaluada]}
+                        evento: {type: string, enum: [recibida, decidida, aprobada, rechazada, reevaluada, autorizada]}
                         actor: {type: string, description: motor o el rol}
                         nota: {type: [string, 'null']}
                   estado_orden:
@@ -403,6 +403,16 @@ paths:
         '200': {description: Rechazada, content: {application/json: {schema: {$ref: '#/components/schemas/Decision'}}}}
         '403': {$ref: '#/components/responses/RolNoPermitido'}
         '422': {$ref: '#/components/responses/Invalido'}
+  /api/decisiones/{id}/autorizar:
+    post:
+      tags: [decisiones]
+      summary: Pide al guardian autorizar la orden de una decision con recibo (analista o CFO)
+      parameters: [{$ref: '#/components/parameters/IdDecision'}, {$ref: '#/components/parameters/Rol'}, {$ref: '#/components/parameters/ClaveIdempotencia'}]
+      responses:
+        '200': {description: Resultado del guardian; autorizada puede ser false, content: {application/json: {schema: {$ref: '#/components/schemas/VerificacionGuardian'}}}}
+        '403': {$ref: '#/components/responses/RolNoPermitido'}
+        '404': {$ref: '#/components/responses/NoEncontrado'}
+        '409': {description: La decision no es autorizable (FRENAR, sin aprobacion o ya autorizada)}
   /api/decisiones/{id}/escalar:
     post:
       tags: [decisiones]
