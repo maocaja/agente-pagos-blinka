@@ -98,3 +98,12 @@ Consumo medido: unos 900.000 tokens de subagentes en estas olas; acumulado cerca
 Documentación: nuevos `personas.md`, `recorridos.md` y `demo-operativo.md`; vocabulario de estados corregido (nunca "pagado"); regla de cierre de interfaz en el navegador y de documentación siempre al día en `CLAUDE.md`.
 Sin revisar a mano: escenas 2, 4 y 5 del modo Demo, tema oscuro, alterar un campo del recibo en la pestaña Recibo, y la tarjeta de la guía que tapa parte de la pantalla.
 Presupuesto de pruebas: 207 de 210 (tope subido de 200). Consumo medido: unos 1,5 M tokens de subagentes en estas olas; acumulado cerca de 5,8 M.
+
+## Olas 18 y 19 (2026-10-17)
+| Unidad | Tanda | Pruebas | Resultado | Hallazgos |
+|---|---|---|---|---|
+| U3 Interfaz | Ola 18: barra lateral y encabezado compartidos, Decisiones y detalle adaptados de la referencia del equipo (matriz en `adaptacion-biblioteca.md`). Ola 19: bandeja de notificaciones, botón de prueba e indicador de salud | 22 | verde | Corregidos tras mi revisión en Chrome: encabezado en dos filas, color de veredicto en Escalada, línea de proceso demasiado alta, "estado" de salud (la interfaz esperaba "operativo" y el contrato dice "ok"). Pendiente: el contador lateral no se refresca tras enviar una prueba |
+| U1 Núcleo | Ola 19: puerto `Notificador`, adaptadores de Telegram, correo y bandeja, enrutamiento por tabla de datos, envío en segundo plano con espaciado y reintento, `/api/notificaciones`, `/api/notificaciones/prueba`, `/api/salud`, registros JSON con correlación | 81 | verde | Contrato 1.1.0-rc6. Resumen por lote, no por ventana de 10 s. El enlace del aviso apuntaba a una ruta inexistente: corregido a `/?decision=<id>`. La espera de Telegram ante un 429 sale de `retry_after` (NO VERIFICADO en vivo) |
+Pruebas de punta a punta con la app real (simuladas, sin tokens): al cargar el set curado se generan 13 avisos "simulada, sin configurar" y el texto no incluye la cita del documento ni cuentas.
+Sin enviar nada real: no hay `TELEGRAM_BOT_TOKEN` ni `SMTP_*` configurados. Pendiente de una persona: crear el bot con @BotFather y definir las variables.
+Presupuesto de pruebas: 213 de 216. Consumo medido: unos 1,1 M tokens de subagentes en estas olas; acumulado cerca de 7 M.

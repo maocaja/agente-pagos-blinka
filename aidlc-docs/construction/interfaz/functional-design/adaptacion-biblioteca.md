@@ -8,7 +8,7 @@ Fecha: 2026-10-17. Estado: **ADAPTACIÓN PROPUESTA; fase 1 (Decisiones y su deta
 | `recorridos.md`, `personas.md` | Aprobado | Decisiones como entrada operativa; dos recorridos; vocabulario: decisión de pagar, autorizada por el guardián, orden emitida simulada; nunca "pagado" |
 | `business-rules.md` y `frontend-components.md` (interfaz) | Aprobado | Barra lateral fija; encabezado con ciclo, mandato, selector de rol con la etiqueta "rol simulado" y botón Demo; permisos por rol (el analista no ve aprobar ni rechazar; una frenada no ofrece aprobación; R1 y R9 no ofrecen aprobar); orden por riesgo; etiquetas "firma de demo" y "lectura guardada" |
 | `design-system.md`, `docs/design-system/` | Aprobado | Tokens, Inter y Geist Mono, escala (cuerpo 18 px, apoyo 15 px mínimo), formas (controles 10 px, paneles 18 px, botones en píldora), componentes de la guía |
-| `contrato/` 1.1.0-rc5 | Aprobado | Datos y rutas disponibles; no se inventan campos |
+| `contrato/` 1.1.0-rc6 | Aprobado | Datos y rutas disponibles; no se inventan campos |
 | `direccion-visual.md`, `docs/propuesta-pantalla-principal.html` | Propuesta mía, reemplazada en estructura | |
 | Referencia del equipo | Propuesta | Acabado, composición y relación campo a evidencia |
 

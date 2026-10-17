@@ -133,9 +133,9 @@ function montarSalud() {
   document.addEventListener("sesion-lista", async () => {
     try {
       const s = await api.salud();
-      const vivo = s.estado === "operativo";
+      const vivo = s.estado === "ok";
       icono.textContent = vivo ? "✓" : "✕";
-      texto.textContent = vivo ? "Sistema operativo" : "Sistema con fallas";
+      texto.textContent = vivo ? "Sistema operativo" : "Sistema degradado";
       caja.classList.toggle("text-frenar", !vivo);
       canales.textContent = `Telegram ${estado(s.notificaciones.telegram)}, correo ${estado(s.notificaciones.correo)}`;
     } catch { icono.textContent = "✕"; texto.textContent = "Sin respuesta del sistema"; caja.classList.add("text-frenar"); }

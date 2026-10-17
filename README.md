@@ -15,7 +15,7 @@ Páginas publicadas (GitHub Pages): https://maocaja.github.io/agente-pagos-blink
 | Cómo se decide cada pago (reglas, mandato, recibo, guardián) | `aidlc-docs/construction/nucleo/functional-design/` |
 | Las notificaciones por Telegram y correo | `aidlc-docs/construction/nucleo/functional-design/notificaciones.md` |
 | La dirección visual y la adaptación de la referencia | `aidlc-docs/construction/interfaz/functional-design/adaptacion-biblioteca.md` |
-| El contrato de la API | `contrato/` (versión 1.1.0-rc5) |
+| El contrato de la API | `contrato/` (versión 1.1.0-rc6) |
 | El estado y el historial del desarrollo | `aidlc-docs/aidlc-state.md` y `aidlc-docs/construction/tandas.md` |
 | Las reglas de trabajo | `CLAUDE.md` |
 

@@ -91,7 +91,7 @@ def _rutas_notificaciones(app, decisiones):
 
     @app.get("/api/salud")
     def salud():
-        return {"estado": "operativo", "version": "1.1.0-rc6", "mandato": "v2", "lectura": "guardada",
+        return {"estado": "ok", "version": "1.1.0-rc6", "mandato": "v2", "lectura": "guardada",
                 "libro": "ok", "notificaciones": {"telegram": "simulado", "correo": "simulado"}}
 
 

@@ -68,7 +68,7 @@ class Notificaciones:
 
     def _encolar(self, evento, datos, contexto) -> list:
         base = self.enlace_base.rstrip("/")
-        datos = defaultdict(str, {**datos, "enlace": f"{base}/decisiones/{datos['decision']}" if base and datos.get("decision") else ""})
+        datos = defaultdict(str, {**datos, "enlace": f"{base}/?decision={datos['decision']}" if base and datos.get("decision") else ""})
         texto = limpiar(self.plantillas[evento].format_map(datos), self.p["corte"])
         trabajos, entradas = [], []
         for nombre in self.rutas[evento]:
