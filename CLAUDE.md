@@ -31,6 +31,13 @@ Una tanda es un conjunto de pasos de un plan de codigo entregados a un subagente
 4. Anotar la tanda en `aidlc-docs/construction/tandas.md` (fecha, unidad, pasos, pruebas, hallazgos).
 5. Si hay repositorio git: commit local con mensaje corto; **nunca `git push`** sin permiso.
 
+### Control del avance (obligatorio, para todas las personas y agentes)
+Para no perdernos, ninguna tanda ni ola se da por cerrada sin esto. No es opcional y aplica igual con mas desarrolladores:
+- **Quien ejecuta** (persona o subagente): marca las casillas del plan de codigo de su unidad y entrega en su informe la fila para `tandas.md` (unidad, pasos, pruebas, hallazgos).
+- **Quien orquesta o integra:** anota la fila en `aidlc-docs/construction/tandas.md`, actualiza `aidlc-docs/aidlc-state.md` (hecho y pendiente por unidad, y la fecha), y recien entonces hace commit y merge. Una ola termina con estado al dia, no con el codigo.
+- **Comprobacion mecanica:** `python3 verify.py --gate` (y `python3 control.py`) falla si `aidlc-state.md` o `tandas.md` tienen un commit mas viejo que el ultimo cambio en `nucleo/`, `lectura/`, `interfaz/`, `evaluacion/`, `contrato/` o `datos/`.
+- Todo recorte frente al diseno se anota en `inception/architecture-target-vs-mvp.md`; todo cambio del contrato, con el acuerdo de las dos personas desarrolladoras.
+
 ## 5. Reglas de codigo
 - **Nada quemado:** todo valor de negocio vive en el mandato. **Falla cerrado:** error, duda o tipo desconocido producen ESCALAR (o FRENAR si la regla lo dice), nunca PAGAR.
 - Dinero en enteros de unidades menores, como texto; el modelo no convierte unidades. Costo en `_microusd`.

@@ -7,6 +7,7 @@
 Codigo de salida 0 si todo esta en verde; 1 si no.
 """
 import calidad
+import control
 import argparse
 import importlib.util
 import json
@@ -141,6 +142,8 @@ def main():
     segundos = sum(r["segundos"] for r in res.values()) * corridas
     if segundos > P["segundos_max_total"]:
         problemas.append(f"{segundos:.0f} s en total; el maximo es {P['segundos_max_total']}")
+    if a.gate:
+        problemas += [f"CONTROL: {x}" for x in control.revisar()]
     for e, r in res.items():
         if r["estado"] == "PENDIENTE" and a.gate:
             problemas.append(f"etapa {e} pendiente: en la puerta de calidad es obligatoria")

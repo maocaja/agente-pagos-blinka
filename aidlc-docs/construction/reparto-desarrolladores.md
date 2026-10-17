@@ -22,4 +22,5 @@ Orden:
 Pitch y video según `inception/demo-script.md` v3. Dos ensayos con cronómetro y versión de respaldo el sábado.
 
 ## Reglas comunes
+Control del avance obligatorio (`CLAUDE.md`, seccion 4): al cerrar cada tanda, casillas del plan, fila en `tandas.md` y `aidlc-state.md` al dia, antes del commit y el merge; `python3 control.py` lo comprueba.
 Cada uno mezcla `main` en su rama al empezar y al cerrar; el contrato (`contrato/`) solo cambia con acuerdo de los dos. Antes de congelar (domingo 10:00): `python3 verify.py --gate`.
