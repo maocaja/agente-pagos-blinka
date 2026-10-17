@@ -36,6 +36,9 @@ El CFO aprobando una escalada queda como extra fuera del video principal.
 - Escena 4: pentest, mandatos v1 y v2, R10, arena y verificador independiente (U1, U4, U3). El hueco es de política (mandato v1 sin R10) y así se cuenta; se comprueba que el v2 lo cierra y que ninguna otra estrategia pasa.
 - Escena 5: marcador con la cifra y la lista de lo no probado (U3, U4).
 
+## Recorrido sobre la aplicación (Ola 14)
+El video recorre la mesa de trabajo: trabajo recibido, excepción explicada, intervención humana del CFO con su historial, recibo verificable, intento de manipulación rechazado, evaluación de la política. Paso a paso en `demo-operativo.md`.
+
 ## Capacidades que el video puede mostrar (añadidas 2026-10-17)
 - **Explicación en lenguaje claro:** cada decisión dice qué regla la detuvo y qué hacer (escenas 1 y 2).
 - **Detector determinista de instrucciones:** R8 no depende solo del modelo; las trampas se ven con la regla que las detuvo (escena 2).

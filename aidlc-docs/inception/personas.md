@@ -46,3 +46,6 @@ Fecha: 2026-10-17. Personas inferidas del reto y de los roles del producto; NO v
 - El auditor no puede filtrar decisiones por regla ni ver quién aprobó en la lista; hoy lo ve en el recibo.
 - No hay una vista "pendientes de aprobación" como lista propia para la directora; está dentro del detalle.
 - Las personas no se han validado con usuarios reales: es la primera pregunta para cualquier entrevista posterior.
+
+## Tareas completas por persona
+Ver `construction/interfaz/functional-design/recorridos.md`: el analista contrasta el original con lo leído y prepara la resolución; el CFO la resuelve y ve el historial; el auditor reconstruye la decisión y verifica el recibo fuera de la aplicación; el jurado sigue esos recorridos en el video.

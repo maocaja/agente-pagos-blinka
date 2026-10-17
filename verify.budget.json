@@ -1,7 +1,7 @@
 {
   "semilla": 7,
   "reloj_congelado": "2026-10-17T12:00:00Z",
-  "total_max": 200,
+  "total_max": 210,
   "arena_variantes_max": 500,
   "segundos_max_total": 300,
   "etapas": {

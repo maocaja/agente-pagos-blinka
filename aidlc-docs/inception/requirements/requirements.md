@@ -97,3 +97,4 @@ Tres revisiones independientes (seguridad de agentes, arquitectura y evaluación
 - **Contrato:** 1.1.0-rc2, solo cambios aditivos.
 - **Ejecución:** código ligero (`CLAUDE.md` 5c); la arquitectura profesional completa vive en `inception/architecture-target-vs-mvp.md`.
 - **Personas:** `inception/personas.md` define qué espera ver cada persona (directora financiera, analista, auditor, jurado) y las brechas actuales de la interfaz.
+- **Experiencia de producto:** la aplicación es una mesa de trabajo de cuentas por pagar con dos recorridos de aceptación (`construction/interfaz/functional-design/recorridos.md`): del documento a la resolución (analista y CFO) y reconstruir y verificar (auditor). Estados distintos: decisión, autorizada, orden emitida simulada; nunca "pagado". Contexto de empresa, periodo y presupuesto al abrir; historial de cada decisión.

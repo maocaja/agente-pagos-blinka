@@ -21,7 +21,7 @@ Entrega: domingo 2026-10-18 12:00; se congela a las 10:00. Estas reglas se cumpl
 - Lee fragmentos (`offset`/`limit`), no archivos enteros. No releas un archivo recien editado. Agrupa llamadas independientes en un solo turno.
 - Revisa con `git diff --stat`, los archivos de riesgo y `tail` de logs; no vuelques salidas. Respuestas a la persona responsable, cortas.
 - Los modelos del producto (Haiku 5.5, Sonnet 5.5) los gobierna el mandato (contador y tope de gasto). **Ninguna prueba de `verify` llama a un modelo ni usa la red.**
-- Pocas pruebas y que cubran riesgo: maximo 200 en total; una prueba nueva que supere el presupuesto de su unidad se discute antes de escribirla.
+- Pocas pruebas y que cubran riesgo: maximo 210 en total; una prueba nueva que supere el presupuesto de su unidad se discute antes de escribirla.
 
 ## 4. Tanda de trabajo
 Una tanda es un conjunto de pasos de un plan de codigo entregados a un subagente. Al terminar **cada tanda**, en este orden:
@@ -53,6 +53,7 @@ Para no perdernos, ninguna tanda ni ola se da por cerrada sin esto. No es opcion
 - Salida escapada: ningun `innerHTML` con datos de facturas. Sin secretos en el repositorio.
 - El contrato manda. Cambiarlo exige el acuerdo de las dos personas desarrolladoras y subir la version.
 - Comentarios: nunca emojis ni lineas decorativas; cortos (1 a 3 lineas) y solo el porque que el codigo no dice. La historia va al commit o a la documentacion.
+- **Cierre de interfaz:** una tanda de interfaz no se cierra sin recorrer en el navegador, contra la app real y no contra el simulador, los recorridos de `aidlc-docs/construction/interfaz/functional-design/recorridos.md`, y sin informar lo que se vio.
 - Interfaz: Tailwind compilado + Alpine.js, con los tokens y componentes de `docs/design-system/` (no se inventan colores ni componentes nuevos sin pasar por la guía); skill `frontend-design`; `data-testid` estable en cada elemento interactivo; `x-text`, nunca `x-html` con datos de facturas.
 
 ## 5b. Patrones de diseño
