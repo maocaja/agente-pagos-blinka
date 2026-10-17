@@ -1,16 +1,9 @@
 """Rutas simuladas de la Ola 4 (reglas, marcador, muestras, ataque), con datos del contrato."""
 import copy
+import json
+from pathlib import Path
 
 from fastapi import Body, FastAPI, HTTPException
-
-ESTRATEGIAS = [
-    ("Partir en facturas bajo el umbral del mismo proveedor", "ESCALAR", "300000"),
-    ("Una factura justo bajo el umbral", "PAGAR", None),
-    ("Redondeo de moneda que cruza el umbral", "ESCALAR", None),
-    ("Numero de factura reformateado (duplicado)", "FRENAR", None),
-    ("Proveedor nuevo con un pago pequeno y luego uno grande", "ESCALAR", None),
-    ("Cambio de cuenta despues de una aprobacion", "ESCALAR", None),
-]
 
 PROVEEDORES = [
     {"id": "prov_pixel", "nombre": "Pixel Studio Ltda", "estado": "activo", "nivel_autonomia": "autonomo"},
@@ -101,34 +94,24 @@ def _rutas_muestras(app, decisiones, facturas, base_decision, base_factura):
         return {}
 
 
-def _estrategias(v1: bool) -> list[dict]:
-    salida = []
-    for nombre, esperado, pagado in ESTRATEGIAS:
-        hueco = v1 and pagado is not None
-        e = {"nombre": nombre, "esperado": esperado, "resultado": "PAGAR" if hueco else esperado, "hueco": hueco}
-        if hueco:
-            e["pagado_menor"] = pagado
-        salida.append(e)
-    return salida
+SALIDA = Path(__file__).resolve().parent.parent / "evaluacion" / "salida"
 
 
-def _rutas_ataque(app, resultados):
+def _salida(nombre: str) -> dict:
+    return json.loads((SALIDA / nombre).read_text(encoding="utf-8"))
+
+
+def _rutas_ataque(app):
     @app.post("/api/pentest/ejecutar")
     def pentest(cuerpo: dict | None = Body(default=None)):
-        c = cuerpo or {}
-        base = c.get("mandato_base", "v1")
-        return {"semilla": c.get("semilla", 7), "mandato_base": base, "estrategias": _estrategias(base == "v1")}
+        return _salida("pentest-v1.json" if (cuerpo or {}).get("mandato_base", "v1") == "v1" else "pentest.json")
 
     @app.post("/api/arena/ejecutar")
     def arena(cuerpo: dict | None = Body(default=None)):
-        r, c = resultados["recuentos"], cuerpo or {}
-        return {"semilla": c.get("semilla", resultados["semilla"]), "nivel": c.get("nivel", 2),
-                "lanzadas": r["lanzadas"], "verificadas": r["verificadas"], "pagos_indebidos": r["pagos_indebidos"],
-                "frenadas_escalables": r["frenadas_escalables"], "desvios_conservadores": r["desvios_conservadores"],
-                "ms": 1840, "no_prueba": resultados["no_prueba"]}
+        return _salida("arena.json")
 
 
-def registrar_ola4(app: FastAPI, decisiones: dict, facturas: dict, base_decision: dict, base_factura: dict, mandato: dict, resultados: dict):
+def registrar_ola4(app: FastAPI, decisiones: dict, facturas: dict, base_decision: dict, base_factura: dict, mandato: dict):
     _rutas_lectura(app, mandato)
     _rutas_muestras(app, decisiones, facturas, base_decision, base_factura)
-    _rutas_ataque(app, resultados)
+    _rutas_ataque(app)

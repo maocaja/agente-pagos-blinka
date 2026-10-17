@@ -65,7 +65,7 @@ function marcador() {
 
 function bandeja() {
   return {
-    muestras: [], cargadas: {}, sel: null, nombres: {}, error: null, ocupado: false, veredictos: VEREDICTOS,
+    muestras: [], cargadas: {}, sel: null, nombres: {}, error: null, ocupado: false, progreso: "", fallos: [], veredictos: VEREDICTOS,
     async init() {
       try {
         await api.iniciar();
@@ -73,29 +73,48 @@ function bandeja() {
         this.nombres = Object.fromEntries((await (await fetch("reglas.registro.json")).json()).reglas.map((r) => [r.id, r.nombre]));
       } catch (e) { this.error = e.message; }
     },
+    async cargar(m) {
+      if (this.cargadas[m.id]) return;
+      const decision = await api.cargarMuestra(m.id);
+      this.cargadas[m.id] = { decision, factura: (await api.detalle(decision.id)).factura };
+    },
     async abrir(m) {
       this.error = null; this.ocupado = true;
       try {
-        if (!this.cargadas[m.id]) {
-          const decision = await api.cargarMuestra(m.id);
-          this.cargadas[m.id] = { decision, factura: (await api.detalle(decision.id)).factura };
-        }
+        await this.cargar(m);
         this.sel = m;
       } catch (e) { this.error = e.message; }
       this.ocupado = false;
     },
-    async cargarTodas() { for (const m of this.muestras) await this.abrir(m); },
+    async cargarSet() {
+      this.fallos = []; this.progreso = ""; this.ocupado = true;
+      for (const [i, m] of this.muestras.entries()) {
+        this.progreso = "Cargando " + (i + 1) + " de " + this.muestras.length + ": " + m.titulo;
+        try { await this.cargar(m); } catch (e) { this.fallos.push(m.titulo + ": " + e.message); }
+      }
+      this.progreso = "Set cargado: " + (this.muestras.length - this.fallos.length) + " de " + this.muestras.length + ".";
+      this.ocupado = false;
+    },
     get actual() { return this.sel && this.cargadas[this.sel.id]; },
     get detuvo() { return this.actual ? this.actual.decision.reglas.filter((r) => r.estado === "falla") : []; },
   };
 }
 
+const ESTRATEGIAS = {
+  E1: "Partir una compra en facturas bajo el umbral del mismo proveedor",
+  E2: "Facturas justo en el umbral y una unidad menor sobre el",
+  E3: "Redondeo de moneda que cruza el umbral",
+  E4: "Numero de factura reformateado para repetir un pago",
+  E5: "Proveedor nuevo: pago pequeno y luego uno grande",
+  E6: "Cambio de cuenta despues de una aprobacion",
+};
+const CLASES = { verificada: "Coincide con el verificador", pago_indebido: "Pago indebido", desvio_conservador: "Desvio conservador" };
+const porEstrategia = (casos) => casos.reduce((g, c) => { (g[c.id.split("-")[0]] ||= []).push(c); return g; }, {});
+
 function ataque() {
   return {
-    semilla: 7, v1: null, v2: null, arena: null, monedas: {}, base: "USD", sel: null, error: null, ocupado: false,
-    async init() {
-      try { this.monedas = await cargarMonedas(); await api.iniciar(); this.base = (await api.mandato()).parametros.moneda_base; await this.ejecutar(); } catch (e) { this.error = e.message; }
-    },
+    semilla: 7, v1: null, v2: null, arena: null, sel: null, error: null, ocupado: false, clases: CLASES,
+    async init() { try { await api.iniciar(); await this.ejecutar(); } catch (e) { this.error = e.message; } },
     async ejecutar() {
       this.error = null; this.ocupado = true; this.sel = null;
       try {
@@ -104,13 +123,14 @@ function ataque() {
       } catch (e) { this.error = e.message; }
       this.ocupado = false;
     },
-    get filas() { return this.v1 ? this.v1.estrategias.map((e, i) => ({ ...e, v2: this.v2.estrategias[i] })) : []; },
-    get huecos() { return this.filas.filter((f) => f.hueco).length; },
-    get huecosV2() { return this.filas.filter((f) => f.v2.hueco).length; },
-    motivo(f) {
-      if (!f.hueco) return "El motor devolvio " + f.resultado + ", igual a lo esperado: bloqueada.";
-      const pago = f.pagado_menor ? " Se habrian pagado " + dinero.texto(f.pagado_menor, this.base, this.monedas) + "." : "";
-      return "Hueco de politica en el mandato v1." + pago + (f.v2.hueco ? " El v2 no lo cierra." : " El v2 lo cierra.");
+    get filas() {
+      if (!this.v1) return [];
+      const g1 = porEstrategia(this.v1.casos), g2 = porEstrategia(this.v2.casos);
+      return Object.keys(g1).map((k) => ({ clave: k, nombre: ESTRATEGIAS[k] || k, v1: g1[k], v2: g2[k] || [], hueco: g1[k].some((c) => c.clase === "pago_indebido"), huecoV2: (g2[k] || []).some((c) => c.clase === "pago_indebido") }));
     },
+    get huecos() { return this.v1 ? this.v1.recuentos.pagos_indebidos : 0; },
+    get huecosV2() { return this.v2 ? this.v2.recuentos.pagos_indebidos : 0; },
+    resumen(casos) { const n = casos.filter((c) => c.clase === "pago_indebido").length; return n ? n + " pago(s) indebido(s)" : "sin pagos indebidos"; },
+    get noPrueba() { return this.arena ? this.arena.no_prueba : []; },
   };
 }

@@ -37,7 +37,11 @@ function montarNav() {
     if (p.href === actual) a.setAttribute("aria-current", "page");
     barra.append(a);
   });
-  const confirmar = el("span", { class: "ml-auto hidden items-center gap-2", "data-testid": "demo-confirmacion", role: "alertdialog" }, "Reiniciar la sesion y empezar el guion?");
+  const lectura = el("span", { class: "etiqueta-simulada ml-auto", "data-testid": "lectura" });
+  const rotular = () => { lectura.textContent = api.lectura === "en_vivo" ? "Lectura en vivo" : api.lectura === "guardada" ? "Lectura guardada" : ""; };
+  document.addEventListener("sesion-lista", rotular);
+  rotular();
+  const confirmar = el("span", { class: "hidden items-center gap-2", "data-testid": "demo-confirmacion", role: "alertdialog" }, "Reiniciar la sesion y empezar el guion?");
   const demo = el("button", { type: "button", class: "btn btn-primario", "data-testid": "demo" }, "Demo");
   const si = el("button", { type: "button", class: "btn btn-peligro", "data-testid": "demo-confirmar" }, "Reiniciar");
   const no = el("button", { type: "button", class: "btn btn-sec", "data-testid": "demo-cancelar" }, "Cancelar");
@@ -49,7 +53,7 @@ function montarNav() {
     si.disabled = true;
     try { await api.pedir("POST", "/api/sesion/reiniciar"); irA(1); } catch (e) { confirmar.textContent = e.message; }
   };
-  barra.append(confirmar, demo);
+  barra.append(lectura, confirmar, demo);
   document.body.prepend(barra);
   if (paso >= 1 && paso <= ESCENAS.length) montarGuia(paso);
   document.addEventListener("keydown", (ev) => { if (ev.key === "Escape") cerrar(); });

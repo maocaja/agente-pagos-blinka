@@ -33,7 +33,7 @@
       <div class="mt-4 grid gap-3 sm:grid-cols-3">
         <template x-for="p in editables" :key="p.k">
           <div class="grid gap-1"><label :for="'ed-' + p.k" class="apoyo text-sm" x-text="p.texto"></label>
-            <input :id="'ed-' + p.k" type="text" inputmode="numeric" class="input cifra" x-model="edicion[p.k]" :placeholder="mandato.parametros[p.k]" :data-testid="'edit-' + p.k"></div>
+            <input :id="'ed-' + p.k" type="text" inputmode="numeric" class="input cifra" x-model="edicion[p.k]" :placeholder="mandato && mandato.parametros[p.k]" :data-testid="'edit-' + p.k"></div>
         </template>
       </div>
       <button type="button" class="btn btn-primario mt-4" data-testid="vista-previa" :disabled="ocupado" @click="verPrevia()">Vista previa</button>

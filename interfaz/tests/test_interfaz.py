@@ -74,13 +74,24 @@ def test_mandato_y_marcador_validan_contra_el_contrato():
     assert {p["nivel_autonomia"] for p in cliente.get("/api/proveedores").json()} == {"autonomo", "sombra"}
 
 
-def test_pentest_v1_tiene_hueco_y_v2_lo_cierra():
+def test_simulador_devuelve_la_forma_de_resultados_y_v1_tiene_hueco():
+    esquema = _esquema("resultados.schema.json")
     v1 = cliente.post("/api/pentest/ejecutar", json={"mandato_base": "v1", "semilla": 7}).json()
     v2 = cliente.post("/api/pentest/ejecutar", json={"mandato_base": "v2", "semilla": 7}).json()
-    assert len(v1["estrategias"]) == 6 and [e["hueco"] for e in v1["estrategias"]].count(True) == 1
-    assert not any(e["hueco"] for e in v2["estrategias"])
     arena = cliente.post("/api/arena/ejecutar", json={"semilla": 7}).json()
-    assert arena["pagos_indebidos"] == 0 and arena["no_prueba"]
+    for r in (v1, v2, arena):
+        assert validar(r, esquema) == []
+    assert v1["recuentos"]["pagos_indebidos"] == 1 and v2["recuentos"]["pagos_indebidos"] == 0
+    assert arena["recuentos"]["pagos_indebidos"] == 0 and arena["no_prueba"]
+    assert cliente.post("/api/sesion").json()["lectura"] == "guardada"
+
+
+def test_ataque_agrupa_casos_por_estrategia_con_los_archivos_reales():
+    codigo = (RAIZ / "dist" / "paginas.js").read_text(encoding="utf-8")
+    assert 'c.id.split("-")[0]' in codigo
+    ids = [c["id"] for c in cliente.post("/api/pentest/ejecutar", json={"mandato_base": "v1"}).json()["casos"]]
+    assert {i.split("-")[0] for i in ids} == {f"E{n}" for n in range(1, 7)}
+    assert all(f'{k}: "' in codigo for k in {i.split("-")[0] for i in ids})
 
 
 def test_muestras_cargan_decisiones_validas_con_la_regla_que_detuvo():

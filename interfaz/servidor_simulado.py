@@ -50,7 +50,7 @@ def crear_app() -> FastAPI:
 
     @app.post("/api/sesion", status_code=201)
     def sesion():
-        return {"sesion_id": "s_01", "clave_publica": "base64...", "clave_version": "k1", "mandato_version": "v2", "ciclo_id": "2026-10"}
+        return {"sesion_id": "s_01", "clave_publica": "base64...", "clave_version": "k1", "mandato_version": "v2", "ciclo_id": "2026-10", "lectura": "guardada"}
 
     @app.get("/api/decisiones")
     def listar(estado: str = "todas"):
@@ -77,7 +77,7 @@ def crear_app() -> FastAPI:
         return _guardian(cuerpo.get("recibo", {}))
 
     registrar_ola4(app, decisiones, facturas, _ejemplo("decision.f11.json"), _ejemplo("factura-canonica.f11.json"),
-                   _ejemplo("mandato.v2.json"), _ejemplo("resultados.arena.json"))
+                   _ejemplo("mandato.v2.json"))
     registrar_ola6(app, decisiones, _ejemplo("aprobacion.ejemplo.json"), _ejemplo("recibo.pagar.json"), _ejemplo("mandato.v2.json"))
     app.mount("/", StaticFiles(directory=RAIZ / "dist", html=True), name="dist")
     return app
