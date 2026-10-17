@@ -55,7 +55,7 @@
   "53": "Reglas de la interfaz: U3",
   "54": "monto_menor",
   "55": "nonce",
-  "56": "vence_en",
+  "56": "verify.py",
   "57": "items",
   "58": "Reglas de negocio: U4 Evaluación",
   "59": "moneda_base",
@@ -70,7 +70,7 @@
   "68": "Agente de pagos con garantia: reglas del proyecto",
   "69": "enum",
   "70": "properties",
-  "71": "required",
+  "71": "Estrategia de verificación",
   "72": "required",
   "73": "Modelo de lógica de negocio: U1 Núcleo",
   "74": "Plan de ejecución",
@@ -133,8 +133,13 @@
   "131": "tandas.md",
   "132": "components.md",
   "133": "dup_tolerancia_monto_pct",
-  "134": "decision_id",
+  "134": "Sistema de diseño de la interfaz (U3)",
   "135": "ejecutor-de-unidad.md",
   "136": "explorador.md",
-  "137": "revisor.md"
+  "137": "revisor.md",
+  "138": "factura-canonica.schema.json",
+  "139": "recibo.schema.json",
+  "140": "conftest.py",
+  "141": "properties",
+  "142": "suma_lineas_menor"
 }

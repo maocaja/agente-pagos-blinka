@@ -17,7 +17,7 @@ Versión reducida para hackathon. Entrega: domingo 2026-10-18, 12:00.
 | Diseño funcional: lectura (U2) | Aprobado |
 | Diseño funcional: evaluación (U4) | Aprobado |
 | Contrato compartido | Aprobado (`contrato/`, 1.0.0-rc1) |
-| **Plan de ejecución** | **Generado en `inception/plans/execution-plan.md`; pendiente de tu aprobación** |
+| Plan de ejecución | Aprobado (2026-10-17); sus 6 preguntas abiertas esperan respuesta una por una |
 | Reglas del proyecto, subagentes y graphify | Instalados: `CLAUDE.md`, `.claude/agents/`, hook de fin de turno, grafo inicial |
 | Planes de código por unidad (x4) | Siguiente |
 | NFR e infraestructura (nota fusionada) | Aprobada |
