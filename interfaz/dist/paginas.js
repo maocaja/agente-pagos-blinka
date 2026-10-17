@@ -65,34 +65,39 @@ function marcador() {
 
 function bandeja() {
   return {
-    muestras: [], cargadas: {}, sel: null, nombres: {}, error: null, ocupado: false, progreso: "", fallos: [], veredictos: VEREDICTOS,
+    muestras: [], cargadas: {}, sel: null, nombres: {}, error: null, ocupado: false, progreso: "", veredictos: VEREDICTOS,
     async init() {
       try {
         await api.iniciar();
         this.muestras = await api.muestras();
         this.nombres = Object.fromEntries((await (await fetch("reglas.registro.json")).json()).reglas.map((r) => [r.id, r.nombre]));
+        await this.recuperar();
       } catch (e) { this.error = e.message; }
     },
-    async cargar(m) {
-      if (this.cargadas[m.id]) return;
-      const decision = await api.cargarMuestra(m.id);
-      this.cargadas[m.id] = { decision, factura: (await api.detalle(decision.id)).factura };
+    // Lo cargado en otra pantalla se recupera de la sesion, no se vuelve a cargar.
+    async recuperar() {
+      const hechas = api.muestrasCargadas();
+      await Promise.all(this.muestras.filter((m) => hechas[m.id] && !this.cargadas[m.id]).map(async (m) => {
+        this.cargadas[m.id] = await api.detalle(hechas[m.id]);
+      }));
     },
     async abrir(m) {
       this.error = null; this.ocupado = true;
       try {
-        await this.cargar(m);
+        await api.cargarUna(m.id);
+        await this.recuperar();
         this.sel = m;
       } catch (e) { this.error = e.message; }
       this.ocupado = false;
     },
     async cargarSet() {
-      this.fallos = []; this.progreso = ""; this.ocupado = true;
-      for (const [i, m] of this.muestras.entries()) {
-        this.progreso = "Cargando " + (i + 1) + " de " + this.muestras.length + ": " + m.titulo;
-        try { await this.cargar(m); } catch (e) { this.fallos.push(m.titulo + ": " + e.message); }
-      }
-      this.progreso = "Set cargado: " + (this.muestras.length - this.fallos.length) + " de " + this.muestras.length + ".";
+      this.error = null; this.progreso = ""; this.ocupado = true;
+      try {
+        const r = await api.cargarSet((i, n, t) => { this.progreso = `Cargando ${i} de ${n}: ${t}`; });
+        await this.recuperar();
+        this.progreso = `Set cargado: ${r.total - r.fallos.length} de ${r.total}.`;
+        if (r.fallos.length) this.error = r.fallos.join(" | ");
+      } catch (e) { this.error = e.message; }
       this.ocupado = false;
     },
     get actual() { return this.sel && this.cargadas[this.sel.id]; },

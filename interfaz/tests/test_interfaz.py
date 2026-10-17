@@ -37,14 +37,14 @@ def test_decisiones_validan_contra_el_contrato():
 
 
 def test_recibo_validan_y_verifican():
-    rec = cliente.get("/api/recibos/dec_01").json()
+    rec = cliente.get("/api/recibos/rec_01").json()
     assert validar(rec, _esquema("recibo.schema.json")) == []
-    assert cliente.post("/api/recibos/dec_01/verificar").json()["valida"] is True
+    assert cliente.post("/api/recibos/rec_01/verificar").json()["valida"] is True
     assert cliente.get("/api/recibos/dec_02").status_code == 404
 
 
 def test_guardian_autoriza_el_original_y_rechaza_la_copia_alterada():
-    rec = cliente.get("/api/recibos/dec_01").json()
+    rec = cliente.get("/api/recibos/rec_01").json()
     orden = {"recibo_id": rec["id"], "beneficiario_id": rec["beneficiario_id"], "monto_menor": rec["monto_menor"], "moneda": rec["moneda"], "concepto": "x"}
     ok = cliente.post("/api/guardian/verificar", json={"orden": orden, "recibo": rec}).json()
     assert ok["autorizada"] and len(ok["verificaciones"]) == 6
@@ -150,4 +150,13 @@ def test_auditoria_paquete_y_pain001_simulada():
 
 def test_paginas_nuevas_enlazan_descargas_normales():
     html = cliente.get("/").text
-    assert 'href="/api/auditoria/paquete"' in html and "pain001" in html and 'data-testid="que-hacer"' in html
+    nav = (RAIZ / "dist" / "nav.js").read_text(encoding="utf-8")
+    assert 'href: "/api/auditoria/paquete"' in nav and "pain001" in html and 'data-testid="que-hacer"' in html
+
+
+def test_sesion_persistente_y_cabecera_limpia():
+    api = (RAIZ / "dist" / "api.js").read_text(encoding="utf-8")
+    assert 'memoria.leer("sesion")' in api and "sessionStorage" in api
+    html = cliente.get("/").text
+    assert "rol simulado" not in html and 'data-testid="cambiar-tema"' not in html
+    assert 'data-testid="cargar-set-ejemplo"' in html and "Pendientes de aprobación" in (RAIZ / "dist" / "app.js").read_text(encoding="utf-8")

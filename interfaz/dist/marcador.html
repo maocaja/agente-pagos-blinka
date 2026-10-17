@@ -12,8 +12,9 @@
 </head>
 <body x-data="marcador()" x-init="init()" class="min-h-screen pb-40">
   <header class="flex flex-wrap items-center gap-4 px-6 py-4">
-    <h1 class="text-xl font-semibold">Marcador</h1>
+    <h1 class="text-2xl font-semibold">Marcador</h1>
     <span class="etiqueta-simulada">resultados simulados</span>
+    <p class="basis-full max-w-3xl text-texto-2" data-testid="subtitulo">La cifra de pagos indebidos y lo que esa cifra no prueba. Importa porque una cifra sin su alcance no es una garantía.</p>
   </header>
   <p x-show="error" x-cloak class="mx-6 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="error" x-text="error"></p>
   <main class="grid gap-6 p-6" x-show="m" x-cloak>

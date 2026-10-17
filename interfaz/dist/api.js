@@ -10,6 +10,14 @@ const ESTADO_VERIF = {
   no_evaluada: { icono: "–", texto: "No evaluada", clase: "text-texto-3" },
 };
 
+// sessionStorage con respaldo en memoria si el navegador lo bloquea.
+const memoria = {
+  datos: {},
+  leer(k) { try { const v = sessionStorage.getItem(k); if (v) return JSON.parse(v); } catch { /* respaldo */ } return this.datos[k] ?? null; },
+  guardar(k, v) { this.datos[k] = v; try { sessionStorage.setItem(k, JSON.stringify(v)); } catch { /* respaldo */ } },
+  borrar(k) { delete this.datos[k]; try { sessionStorage.removeItem(k); } catch { /* respaldo */ } },
+};
+
 // Cliente unico de la API: sesion, rol e Idempotency-Key en cada POST.
 const api = {
   sesion: null,
@@ -26,11 +34,38 @@ const api = {
     return datos;
   },
   async iniciar() {
-    const s = await this.pedir("POST", "/api/sesion");
-    this.sesion = s.sesion_id;
+    let s = memoria.leer("sesion");
+    this.sesion = s ? s.sesion_id : null;
+    if (s) { try { await this.pedir("GET", "/api/mandato"); } catch { s = null; } }
+    if (!s) {
+      this.sesion = null;
+      s = await this.pedir("POST", "/api/sesion");
+      memoria.guardar("sesion", s);
+      memoria.borrar("muestras");
+      this.sesion = s.sesion_id;
+    }
     this.lectura = s.lectura;
     document.dispatchEvent(new CustomEvent("sesion-lista"));
     return s;
+  },
+  async reiniciar() {
+    await this.pedir("POST", "/api/sesion/reiniciar");
+    memoria.borrar("muestras");
+  },
+  muestrasCargadas: () => memoria.leer("muestras") || {},
+  // Una muestra se carga una sola vez por sesion: cargarla de nuevo se leeria como factura duplicada.
+  async cargarUna(id) {
+    const hechas = api.muestrasCargadas();
+    if (!hechas[id]) { hechas[id] = (await api.cargarMuestra(id)).id; memoria.guardar("muestras", hechas); }
+    return hechas[id];
+  },
+  async cargarSet(avance) {
+    const muestras = await api.muestras(), fallos = [];
+    for (const [i, m] of muestras.entries()) {
+      avance(i + 1, muestras.length, m.titulo);
+      try { await api.cargarUna(m.id); } catch (e) { fallos.push(m.titulo + ": " + e.message); }
+    }
+    return { total: muestras.length, fallos };
   },
   decisiones: () => api.pedir("GET", "/api/decisiones?estado=todas"),
   detalle: (id) => api.pedir("GET", `/api/decisiones/${encodeURIComponent(id)}`),

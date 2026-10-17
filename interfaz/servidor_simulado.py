@@ -64,7 +64,7 @@ def crear_app() -> FastAPI:
 
     @app.get("/api/recibos/{id}")
     def recibo(id: str):
-        if not (id in decisiones and decisiones[id]["recibo_id"]):
+        if not any(d["recibo_id"] == id for d in decisiones.values()):
             raise HTTPException(404, "Recibo no encontrado")
         return _ejemplo("recibo.pagar.json")
 

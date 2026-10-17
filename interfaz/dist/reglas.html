@@ -12,10 +12,11 @@
 </head>
 <body x-data="reglas()" x-init="init()" class="min-h-screen pb-40">
   <header class="flex flex-wrap items-center gap-4 px-6 py-4">
-    <h1 class="text-xl font-semibold">Reglas</h1>
+    <h1 class="text-2xl font-semibold">Reglas</h1>
     <span class="etiqueta-simulada">vista previa, sin guardar</span>
     <span class="text-texto-2 text-sm" x-show="mandato" x-cloak>Mandato <span data-testid="mandato-version" x-text="mandato && mandato.version"></span>
       (<span x-text="mandato && mandato.estado"></span>), firmado por <span x-text="mandato && mandato.firmas.map((f) => f.rol).join(' y ')"></span></span>
+    <p class="basis-full max-w-3xl text-texto-2" data-testid="subtitulo">Las reglas de pago de la empresa y sus límites. Importa porque aquí se ve qué cambiaría en las facturas si se modifica un umbral, antes de guardarlo.</p>
   </header>
   <p x-show="error" x-cloak class="mx-6 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="error" x-text="error"></p>
   <main class="grid gap-6 p-6 lg:grid-cols-2">
