@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from rutas_ola4 import registrar_ola4
@@ -49,8 +50,8 @@ def _historial(d: dict, resoluciones: dict) -> list[dict]:
     return base + resoluciones.get(d["id"], []) + ([{"hora": d["creada_en"], "evento": "Recibo emitido", "actor": "Sistema", "nota": ""}] if d.get("recibo_id") else [])
 
 
-def _estado_orden(d: dict):
-    return "orden_simulada_emitida" if d.get("recibo_id") else None
+def _estado_orden(d: dict, autorizadas: set):
+    return "autorizada" if d["id"] in autorizadas else None
 
 
 def _rutas_ciclo(app, decisiones, facturas, resoluciones):
@@ -70,6 +71,7 @@ def crear_app() -> FastAPI:
     decisiones = {d["id"]: d for d in _decisiones()}
     facturas = {}
     resoluciones = {}
+    autorizadas = set()
 
     @app.post("/api/sesion", status_code=201)
     def sesion():
@@ -84,7 +86,17 @@ def crear_app() -> FastAPI:
         if id not in decisiones:
             raise HTTPException(404, "Decision no encontrada")
         return {"decision": decisiones[id], "factura": facturas.get(id) or _ejemplo("factura-canonica.f11.json"),
-                "historial": _historial(decisiones[id], resoluciones), "estado_orden": _estado_orden(decisiones[id])}
+                "historial": _historial(decisiones[id], resoluciones), "estado_orden": _estado_orden(decisiones[id], autorizadas)}
+
+    @app.post("/api/decisiones/{id}/autorizar")
+    def autorizar(id: str):
+        d = decisiones.get(id)
+        if d is None:
+            raise HTTPException(404, "Decision no encontrada")
+        if not d.get("recibo_id"):
+            return JSONResponse({"codigo": "conflicto", "mensaje": "La decision no tiene recibo que autorizar.", "detalle": None}, status_code=409)
+        autorizadas.add(id)
+        return _guardian(_ejemplo("recibo.pagar.json"))
 
     @app.get("/api/recibos/{id}")
     def recibo(id: str):

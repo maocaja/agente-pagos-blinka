@@ -103,6 +103,7 @@ const api = {
   pentest: (mandato_base, semilla) => api.pedir("POST", "/api/pentest/ejecutar", { mandato_base, semilla }),
   arena: (semilla) => api.pedir("POST", "/api/arena/ejecutar", { semilla }),
   aprobar: (id, nota) => api.pedir("POST", `/api/decisiones/${encodeURIComponent(id)}/aprobar`, { nota }),
+  autorizar: (id) => api.pedir("POST", `/api/decisiones/${encodeURIComponent(id)}/autorizar`),
   rechazar: (id, nota) => api.pedir("POST", `/api/decisiones/${encodeURIComponent(id)}/rechazar`, { nota }),
   previaMandato: (parametros) => api.pedir("POST", "/api/mandato/previa", { parametros }),
   guardian: (orden, recibo) => api.pedir("POST", "/api/guardian/verificar", { orden, recibo, aprobacion: null }),
