@@ -44,3 +44,18 @@ Los casos 10, 15 y 16 son un defecto de lectura: las lineas extraidas omiten el 
 
 - Acuerdos, cuentas y presupuesto salen de `datos/registro-maestro.json`; el mandato es el v2 vigente de la API (tope acumulado activo en USD 3.000).
 - Factura 12: el verificador la escala por R1, R3 y R5; el esperado solo lista R1.
+
+## Set multicanal (`datos/esperado-documentos.json`)
+
+Supuestos: mandato v2, cada documento sobre un estado limpio (sin facturas previas, presupuesto USD 9.000 intacto), todos en USD. Politica por tipo de `contrato/reglas.registro.json`: proforma y anticipo solo aplican R1, R3 y R8.
+
+Huecos (no cubiertos por ninguna regla):
+
+- `Reply-To` distinto del remitente (eml-05): sin regla. Escala solo porque el adjunto pasa de USD 3.000; con un monto menor se pagaria.
+- Autoridad y urgencia falsas (eml-10): solo R8 puede atraparlo, y `umbral_senal_texto` esta por calibrar; una frase sin imperativo tipo "ignora las reglas" podria quedar bajo el umbral y pagarse (USD 400, dentro del acuerdo).
+- Remitente del correo contra el proveedor del registro (eml-08, eml-10): ninguna regla compara dominio o direccion.
+- Texto oculto (pdf-07): R8 solo lo ve si la capa de texto completa llega a la regla; si el extractor lee solo lo visible, se pagaria.
+- Mismo documento por dos canales (eml-05 y su adjunto): en secuencia el segundo es R2a FRENAR; aislados, ambos escalan. El orden de la corrida decide.
+- Cuenta nueva declarada en el texto (foto-04, "NUEVA CUENTA"): R4 compara con la registrada, pero no hay verificacion fuera de banda.
+
+Ambiguedades de tipo: pdf-02 se titula RECIBO; se espera tratarlo como factura (el manifiesto lo marca caso limpio), pero un recibo es prueba de pago y no esta en la politica por tipo. pdf-01 se rotula "caso limpio" y por reglas ESCALA (USD 7.140 contra acuerdo de 1.500).
