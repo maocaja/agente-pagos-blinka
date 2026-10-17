@@ -108,3 +108,14 @@ def test_cliente_real_sin_clave_timeout_y_4xx_sin_red(monkeypatch):
     with pytest.raises(FallaCliente) as e:
         ClienteAnthropic("https://x.invalid", 100, 1, 0, entorno={}).leer("m", "i", "t")
     assert e.value.motivo == "sin_clave"
+
+
+def test_seleccion_por_clave_sin_red_y_sin_imprimirla(monkeypatch, capsys):
+    from lectura.extractor import crear_cliente
+    monkeypatch.setattr("urllib.request.urlopen", lambda *a, **k: pytest.fail("red"))
+    for entorno in ({}, {"ANTHROPIC_API_KEY": "  "}):
+        cliente, modo = crear_cliente(entorno)
+        assert isinstance(cliente, ClienteCongelado) and modo == "guardada"
+    cliente, modo = crear_cliente({"ANTHROPIC_API_KEY": "sk-secreta"})
+    assert isinstance(cliente, ClienteAnthropic) and modo == "en_vivo"
+    assert "sk-secreta" not in repr(cliente) and "sk-secreta" not in "".join(capsys.readouterr())

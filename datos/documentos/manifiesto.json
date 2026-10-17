@@ -70,7 +70,7 @@
       "archivo": "pdf-02-cloud-recibo.pdf",
       "canal": "pdf",
       "formato": "pdf-texto",
-      "trampa": "ninguna (layout tipo recibo)",
+      "trampa": "ninguna (layout compacto tipo ticket)",
       "proveedor_id": "prov_cloud",
       "nota": ""
     },

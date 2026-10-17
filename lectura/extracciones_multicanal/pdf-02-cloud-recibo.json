@@ -3,7 +3,7 @@
   "ciclo_id": "2026-10",
   "documento": {
     "id": "d_pdf-02-cloud-recibo",
-    "hash": "a267a2054ca3eb42542190f8cb8bac9e3769f27f13e1da2a5040efe7b6e8d6be",
+    "hash": "a3053958e5ea9536ebdc211403d1ddc570d0eaa9d6220ddb752821dd9cdcb02e",
     "canal": "pdf",
     "formato": "pdf",
     "tipo_documento": "factura",
@@ -35,7 +35,7 @@
     "ultimos4": "6052"
   },
   "evidencia": {
-    "tipo_documento": "*** RECIBO ***",
+    "tipo_documento": "*** FACTURA ***",
     "numero_factura": "No. R-7781",
     "monto_total": "TOTAL USD 1.800,00",
     "moneda": "TOTAL USD",

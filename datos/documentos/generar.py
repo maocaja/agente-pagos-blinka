@@ -192,10 +192,10 @@ def generar():
     P = "pagos@empresa-demo.example"
 
     pdf_tabla("pdf-01-andino-tabla.pdf", "prov_andino", "INV-0501",
-              [("Identidad visual, entrega final", 420000), ("Manual de marca", 180000)], 19)
+              [("Identidad visual, entrega final", 70000), ("Manual de marca", 50000)], 19)
     registrar("pdf-01-andino-tabla.pdf", "pdf", "pdf-texto", "ninguna (caso limpio, tabla con IVA)", "prov_andino")
-    pdf_recibo("pdf-02-cloud-recibo.pdf", "prov_cloud", "R-7781", "Hosting y soporte, octubre", 180000)
-    registrar("pdf-02-cloud-recibo.pdf", "pdf", "pdf-texto", "ninguna (layout tipo recibo)", "prov_cloud")
+    pdf_recibo("pdf-02-cloud-recibo.pdf", "prov_cloud", "R-7781", "Hosting y soporte, octubre", 180000, titulo="FACTURA")
+    registrar("pdf-02-cloud-recibo.pdf", "pdf", "pdf-texto", "ninguna (layout compacto tipo ticket)", "prov_cloud")
 
     escaneado("pdf-03-pixel-escaneado.pdf",
               lineas_factura("prov_pixel", "PX-3310", [("Piezas graficas campana", 250000)], iva=0), rng)

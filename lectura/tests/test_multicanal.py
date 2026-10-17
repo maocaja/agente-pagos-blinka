@@ -49,7 +49,7 @@ def _lector(cliente, tope=10_000_000):
 
 def test_pdf_con_texto_entrega_la_canonica():
     r = _convertir("pdf-01-andino-tabla.pdf")
-    assert not r.escala and r.factura["montos"]["total_menor"] == "714000"
+    assert not r.escala and r.factura["montos"]["total_menor"] == "142800"
     assert r.factura["documento"]["formato"] == "pdf"
 
 

@@ -3,7 +3,7 @@
   "ciclo_id": "2026-10",
   "documento": {
     "id": "d_pdf-01-andino-tabla",
-    "hash": "18382b5f119fa0a887f77382d990c2d27d3d712ca34f3f70518e90cadc12c447",
+    "hash": "7c1acc656b26ad882ecd23004982ee17a6072bc6a0475f2c3cd1334167a0cf21",
     "canal": "pdf",
     "formato": "pdf",
     "tipo_documento": "factura",
@@ -26,20 +26,20 @@
   },
   "montos": {
     "moneda": "USD",
-    "total_menor": "714000",
-    "suma_lineas_menor": "714000",
+    "total_menor": "142800",
+    "suma_lineas_menor": "142800",
     "lineas": [
       {
         "descripcion": "Identidad visual, entrega final",
-        "total_menor": "420000"
+        "total_menor": "70000"
       },
       {
         "descripcion": "Manual de marca",
-        "total_menor": "180000"
+        "total_menor": "50000"
       },
       {
         "descripcion": "IVA 19%",
-        "total_menor": "114000"
+        "total_menor": "22800"
       }
     ]
   },
@@ -53,7 +53,7 @@
     "proveedor": "ESTUDIO ANDINO SAS",
     "moneda": "Valor USD",
     "cuenta": "Cuenta terminada en 4417, pais CO",
-    "monto_total": "TOTAL A PAGAR 7.140,00"
+    "monto_total": "TOTAL A PAGAR 1.428,00"
   },
   "confianza": {
     "tipo_documento": 0.95,
