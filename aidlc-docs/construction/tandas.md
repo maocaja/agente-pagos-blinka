@@ -50,3 +50,12 @@ Consumo medido: unos 450.000 tokens de subagentes en la ola; acumulado cerca de 
 Pendientes (Ola 6): pentest y arena, aprobar y proponer mandato en la interfaz, explicación y descarga de auditoría en la interfaz, selección automática de cliente por clave, corregir el generador, corrida del set multicanal contra los esperados, revisar contraste y foco.
 Presupuesto de pruebas: 162 de 200.
 Consumo medido: unos 390.000 tokens de subagentes; acumulado cerca de 2,0 M.
+
+## Ola 6 (2026-10-17)
+| Unidad | Tanda | Pruebas | Resultado | Hallazgos |
+|---|---|---|---|---|
+| U4 Evaluación | Pentest de 6 estrategias (13 ataques por mandato) y arena con semilla (11 mutaciones) | 60 (8 nuevas; tope de la etapa) | verde | v1 paga 1 ataque indebido (tercera factura partida; hueco de política); v2: 0. Arena nivel 2, semilla 7: 3.200 ataques, 0 pagados indebidamente, 2 desvíos conservadores (f_14 ilegible: motor FRENAR, verificador ESCALAR). No probado: lectura del modelo, documentos originales, aprobaciones ni modo sombra |
+| U2 Lectura | Selección de cliente por clave (`crear_cliente`), generador corregido (pdf-01 limpio, pdf-02 factura) | 40 (1 nueva) | verde | La señal `texto_dirigido_al_agente` la produce solo el modelo (prompt) o la lectura a mano: falta un detector determinista (Ola 7). Valores por defecto del cliente real en `TRANSPORTE`, no del mandato |
+| U3 Interfaz | Explicación y qué hacer, panel del aprobador (CFO), vista previa de reglas, descargas de auditoría y pain.001 | 15 (5 nuevas) | verde | Falta el modo de lectura en `/api/sesion` (contrato). Contraste y foco sin revisar |
+Pendientes (Ola 7): detector determinista de instrucciones en lectura, rutas de pentest y arena y modo de lectura en el núcleo, esperados de pdf-01, pdf-02 y eml-05, revisión de contraste y foco.
+Consumo medido: unos 510.000 tokens de subagentes; acumulado cerca de 2,5 M.

@@ -1,6 +1,6 @@
 # Estado de AI-DLC: Agente de Pagos con Garantía
 
-Versión reducida para hackathon. Entrega: domingo 2026-10-18, 12:00 (se congela a las 10:00). Actualizado: 2026-10-17, tras la Ola 5. Lo actualiza el orquestador al cerrar cada ola (`CLAUDE.md`, sección 4).
+Versión reducida para hackathon. Entrega: domingo 2026-10-18, 12:00 (se congela a las 10:00). Actualizado: 2026-10-17, tras la Ola 6. Lo actualiza el orquestador al cerrar cada ola (`CLAUDE.md`, sección 4).
 
 ## Etapas
 | Etapa | Estado |
@@ -20,7 +20,7 @@ Versión reducida para hackathon. Entrega: domingo 2026-10-18, 12:00 (se congela
 | U4 Evaluación | Esperados de las 18 facturas. 20 pruebas | Ola 3 hecha: verificador independiente y corrida (35 pruebas; motor y verificador coinciden en las 18). Esperados del set multicanal hechos (53 pruebas). Ola 6 hecha: pentest de 6 estrategias (v1 deja pasar las partidas, v2 las frena con R10) y arena (500 en verify, 3.200 por script; 60 pruebas). Pendiente: mutantes y ocultas |
 | Datos | Registro maestro corregido (Nuevo Logos fuera del registro) | Set multicanal simulado generado en `datos/documentos/` (18 archivos); esperados hechos; generador por corregir (pdf-01, pdf-02) |
 
-`verify.py` global: VERDE, 162 pruebas (máximo 200).
+`verify.py` global: VERDE (ver ultima corrida en tandas.md) (máximo 200).
 
 ## Decisiones recientes
 - 2026-10-17: Ola 5 incluye explicación en lenguaje claro, reglas editables con vista previa (sin lenguaje natural), paquete de auditoría verificable fuera de la app, orden de pago simulada (pain.001), y los canales XML fiscal y CSV de lote. Voz y lenguaje natural quedan como arquitectura objetivo.
