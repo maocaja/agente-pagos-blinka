@@ -1,0 +1,84 @@
+{
+  "id": "f_pdf-12-bloqueado",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_pdf-12-bloqueado",
+    "hash": "aa901c57827cd66bdb52e983693030d064e97c6ac1641fe4b7d67ef8775f5395",
+    "canal": "pdf",
+    "formato": "pdf",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-12T09:00:00Z"
+  },
+  "emisor": {
+    "nombre": "Proveedor Bloqueado SA",
+    "nombre_normalizado": "PROVEEDORBLOQUEADOSA",
+    "id_fiscal": "",
+    "pais": "CO"
+  },
+  "referencias": {
+    "numero": "PB-001",
+    "numero_normalizado": "PB001",
+    "acuerdo_ref": ""
+  },
+  "fechas": {
+    "emision": "2026-10-12",
+    "vencimiento": "2026-11-11"
+  },
+  "montos": {
+    "moneda": "USD",
+    "total_menor": "90000",
+    "suma_lineas_menor": "90000",
+    "lineas": [
+      {
+        "descripcion": "Servicios varios",
+        "total_menor": "90000"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "CO",
+    "ultimos4": "0000"
+  },
+  "evidencia": {
+    "tipo_documento": "FACTURA DE VENTA No. PB-001",
+    "numero_factura": "PB-001",
+    "proveedor": "PROVEEDOR BLOQUEADO SA",
+    "moneda": "Valor USD",
+    "cuenta": "Cuenta terminada en 0000, pais CO",
+    "monto_total": "TOTAL A PAGAR 900,00"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.95,
+    "monto_total": 0.95,
+    "moneda": 0.95,
+    "proveedor": 0.95,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "ok",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  },
+  "proveedor_asignado": {
+    "proveedor_id": "prov_bloqueado",
+    "metodo": "nombre",
+    "pista": null
+  }
+}

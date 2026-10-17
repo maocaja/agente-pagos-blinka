@@ -1,0 +1,84 @@
+{
+  "id": "f_pdf-03-pixel-escaneado",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_pdf-03-pixel-escaneado",
+    "hash": "47b08527323837adb1cd120523f6f9df10b9bc0ac14ef2ba5ad0e08e62bc7fcc",
+    "canal": "pdf",
+    "formato": "imagen",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-12T09:00:00Z"
+  },
+  "emisor": {
+    "nombre": "Pixel Studio Ltda",
+    "nombre_normalizado": "PIXELSTUDIOLTDA",
+    "id_fiscal": "00.000.000/0001-00",
+    "pais": "BR"
+  },
+  "referencias": {
+    "numero": "PX-3310",
+    "numero_normalizado": "PX3310",
+    "acuerdo_ref": ""
+  },
+  "fechas": {
+    "emision": "2026-10-12",
+    "vencimiento": null
+  },
+  "montos": {
+    "moneda": "USD",
+    "total_menor": "250000",
+    "suma_lineas_menor": "250000",
+    "lineas": [
+      {
+        "descripcion": "Piezas graficas campana",
+        "total_menor": "250000"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "BR",
+    "ultimos4": "8830"
+  },
+  "evidencia": {
+    "tipo_documento": "FACTURA No. PX-3310",
+    "numero_factura": "PX-3310",
+    "monto_total": "TOTAL A PAGAR (USD) 2.500,00",
+    "moneda": "Moneda de pago: USD",
+    "proveedor": "PIXEL STUDIO LTDA",
+    "cuenta": "Cuenta terminada en 8830"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.95,
+    "monto_total": 0.95,
+    "moneda": 0.95,
+    "proveedor": 0.95,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "ok",
+    "cita_evidencia": "no_verificable",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  },
+  "proveedor_asignado": {
+    "proveedor_id": "prov_pixel",
+    "metodo": "id_fiscal",
+    "pista": null
+  }
+}

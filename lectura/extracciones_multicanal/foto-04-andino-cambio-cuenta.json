@@ -1,0 +1,88 @@
+{
+  "id": "f_foto-04-andino-cambio-cuenta",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_foto-04-andino-cambio-cuenta",
+    "hash": "f8d83a485659af2347618530df121a6a8b99b7e021012c99646ed4f9c56007ac",
+    "canal": "imagen",
+    "formato": "imagen",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-12T09:00:00Z"
+  },
+  "emisor": {
+    "nombre": "Estudio Andino SAS",
+    "nombre_normalizado": "ESTUDIOANDINOSAS",
+    "id_fiscal": "900.000.111-0",
+    "pais": "CO"
+  },
+  "referencias": {
+    "numero": "INV-0502",
+    "numero_normalizado": "INV0502",
+    "acuerdo_ref": ""
+  },
+  "fechas": {
+    "emision": "2026-10-12",
+    "vencimiento": null
+  },
+  "montos": {
+    "moneda": "USD",
+    "total_menor": "357000",
+    "suma_lineas_menor": "357000",
+    "lineas": [
+      {
+        "descripcion": "Manual de marca, ajustes",
+        "total_menor": "300000"
+      },
+      {
+        "descripcion": "IVA 19%",
+        "total_menor": "57000"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "CO",
+    "ultimos4": "9021"
+  },
+  "evidencia": {
+    "tipo_documento": "FACTURA No. INV-0502",
+    "numero_factura": "INV-0502",
+    "monto_total": "TOTAL A PAGAR (USD) 3.570,00",
+    "moneda": "Moneda de pago: USD",
+    "proveedor": "ESTUDIO ANDINO SAS",
+    "cuenta": "Cuenta terminada en 9021"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.95,
+    "monto_total": 0.95,
+    "moneda": 0.95,
+    "proveedor": 0.95,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "ok",
+    "cita_evidencia": "no_verificable",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  },
+  "proveedor_asignado": {
+    "proveedor_id": "prov_andino",
+    "metodo": "id_fiscal",
+    "pista": null
+  }
+}

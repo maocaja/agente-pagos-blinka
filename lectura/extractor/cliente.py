@@ -1,3 +1,4 @@
+import base64
 import hashlib
 import json
 import os
@@ -45,13 +46,13 @@ class ClienteAnthropic:
         self._url, self._max_tokens = url, max_tokens
         self._timeout, self._max_retries, self._entorno = timeout_s, max_retries, entorno
 
-    def _peticion(self, modelo_id, instruccion, texto):
+    def _peticion(self, modelo_id, instruccion, contenido):
         clave = self._entorno.get("ANTHROPIC_API_KEY")
         if not clave:
             raise FallaCliente("sin_clave")
         cuerpo = {
             "model": modelo_id, "max_tokens": self._max_tokens, "system": instruccion,
-            "messages": [{"role": "user", "content": f"<documento>\n{texto}\n</documento>"}],
+            "messages": [{"role": "user", "content": contenido}],
             "output_config": {"format": {"type": "json_schema", "schema": esquema_de_salida()}},
         }
         cabeceras = {"content-type": "application/json", "x-api-key": clave, "anthropic-version": "2023-06-01"}
@@ -70,7 +71,16 @@ class ClienteAnthropic:
                     raise FallaCliente("timeout")
 
     def leer(self, modelo_id, instruccion, texto):
-        datos = self._enviar(self._peticion(modelo_id, instruccion, texto))
+        return self._pedir(modelo_id, instruccion, f"<documento>\n{texto}\n</documento>")
+
+    def leer_archivo(self, modelo_id, instruccion, contenido, tipo_media):
+        """Imagen o PDF escaneado como bloque de contenido; la respuesta se trata igual que la de texto."""
+        bloque = "document" if tipo_media == "application/pdf" else "image"
+        fuente = {"type": "base64", "media_type": tipo_media, "data": base64.b64encode(contenido).decode()}
+        return self._pedir(modelo_id, instruccion, [{"type": bloque, "source": fuente}])
+
+    def _pedir(self, modelo_id, instruccion, contenido):
+        datos = self._enviar(self._peticion(modelo_id, instruccion, contenido))
         uso = datos.get("usage", {})
         ti, to = int(uso.get("input_tokens", 0)), int(uso.get("output_tokens", 0))
         parada = datos.get("stop_reason")

@@ -42,10 +42,10 @@ Desbloquea a U1, U3 y U4.
 
 ### T4. Canales del set multicanal (sábado por la noche)
 Prioridad por el guion: la foto con cambio de cuenta, el `.eml` con adjunto y el chat.
-- [ ] 4.1 Adaptador PDF con texto (extracción local) y PDF cifrado o fuera de límites que escala sin llamar a la API.
-- [ ] 4.2 Adaptador de imagen y PDF escaneado: lectura con Claude como imagen y **doble lectura independiente** (Haiku y Sonnet); campos críticos deben coincidir; origen imagen marcado en la factura para que R1 no deje pasar a PAGAR.
-- [ ] 4.3 Adaptador de correo `.eml` con la biblioteca estándar: encabezados, `Reply-To`, cuerpo y adjunto PDF.
-- [ ] 4.4 Adaptador de chat (exportación estilo WhatsApp).
+- [x] 4.1 Adaptador PDF con texto (extracción local) y PDF cifrado o fuera de límites que escala sin llamar a la API.
+- [x] 4.2 Adaptador de imagen y PDF escaneado: lectura con Claude como imagen y **doble lectura independiente** (Haiku y Sonnet); campos críticos deben coincidir; origen imagen marcado en la factura para que R1 no deje pasar a PAGAR.
+- [x] 4.3 Adaptador de correo `.eml` con la biblioteca estándar: encabezados, `Reply-To`, cuerpo y adjunto PDF.
+- [x] 4.4 Adaptador de chat (exportación estilo WhatsApp).
 - [ ] 4.5 Adaptador XML (UBL) con parser sin modelo, **solo si sobra tiempo**.
 - Pruebas (≈ 6): imagen doble lectura 2; correo 2; chat 1; PDF cifrado 1.
 

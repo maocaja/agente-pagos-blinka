@@ -1,14 +1,19 @@
-import json
 from pathlib import Path
 
-from .base import Documento, Resultado, escalar
+from .base import Documento, Resultado
+from .congelada import canonica_congelada
 
 _EXTRACCIONES = Path(__file__).resolve().parents[1] / "extracciones"
+_FORMATO_POR_EXTENSION = {".pdf": "pdf", ".eml": "eml", ".jpg": "imagen", ".jpeg": "imagen", ".png": "imagen"}
 
 
 def documento_desde_archivo(ruta):
     ruta = Path(ruta)
-    return Documento(id=ruta.stem, contenido=ruta.read_bytes(), formato="texto", nombre=ruta.name)
+    datos = ruta.read_bytes()
+    formato = _FORMATO_POR_EXTENSION.get(ruta.suffix.lower(), "texto")
+    if formato == "texto" and datos.startswith(b"[WhatsApp"):
+        formato = "chat"
+    return Documento(id=ruta.stem, contenido=datos, formato=formato, nombre=ruta.name)
 
 
 class AdaptadorTexto:
@@ -23,8 +28,4 @@ class AdaptadorTexto:
         return documento.formato == "texto"
 
     def a_canonica(self, documento: Documento) -> Resultado:
-        for ruta in sorted(self._carpeta.glob("*.json")):
-            factura = json.loads(ruta.read_text(encoding="utf-8"))
-            if factura.get("documento", {}).get("hash") == documento.hash:
-                return Resultado(factura)
-        return escalar("sin_lectura_congelada", [documento.hash])
+        return canonica_congelada(documento, self._carpeta)
