@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import date
 from fractions import Fraction
 
-from .dinero import a_base_menor, base_de
+from .dinero import a_base_menor, base_de, importe
 
 REGLAS: dict = {}
 AL_FINAL = ("R9",)
@@ -120,7 +120,7 @@ def presupuesto(f, m, reg):
     base = base_de(f, m)
     quedan = int(m.p["presupuesto_periodo_menor"]) - reg.libro.acumulado(f["ciclo_id"])
     if base is not None and base > quedan:
-        return falla("ESCALAR", False, f"{base} unidades menores base superan lo que queda del periodo ({quedan}).", "montos.total_menor")
+        return falla("ESCALAR", False, f"{importe(base, m)} superan lo que queda del periodo ({importe(quedan, m)}).", "montos.total_menor")
     return cumple(f"Cabe en el presupuesto del periodo (quedan {quedan}).")
 
 
@@ -132,5 +132,5 @@ def tope_acumulado(f, m, reg):
         return cumple("Tope acumulado inactivo o sin proveedor que acumular.")
     total = reg.libro.acumulado(f["ciclo_id"], pid) + base
     if total > int(tope["monto_menor"]):
-        return falla("ESCALAR", True, f"Lo pagado y reservado al proveedor mas esta factura suma {total}, sobre el tope de {tope['monto_menor']}.", "montos.total_menor")
-    return cumple(f"El acumulado del proveedor, {total}, esta bajo el tope.")
+        return falla("ESCALAR", True, f"Lo pagado y reservado al proveedor mas esta factura suma {importe(total, m)}, sobre el tope de {importe(tope['monto_menor'], m)}.", "montos.total_menor")
+    return cumple(f"El acumulado del proveedor, {importe(total, m)}, esta bajo el tope.")

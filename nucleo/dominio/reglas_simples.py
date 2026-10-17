@@ -1,7 +1,7 @@
 """Reglas sin logica propia: una fila de datos y una medida; el evaluador es generico."""
 from fractions import Fraction
 
-from .dinero import a_base_menor, base_de, convertible
+from .dinero import a_base_menor, base_de, convertible, importe
 from .reglas import REGLAS, cumple, falla
 
 ESCALAR, FRENAR = "ESCALAR", "FRENAR"
@@ -40,7 +40,7 @@ def _acuerdo(f, m, reg):
         return "no_convertible", {}
     maximo = a_base_menor(a["monto_maximo_menor"], a["moneda"], m)
     pct = m.p["tolerancia_acuerdo_pct"]
-    return ("excede" if base * 100 > maximo * (100 + Fraction(str(pct))) else "dentro"), {"base": base, "maximo": maximo, "pct": pct}
+    return ("excede" if base * 100 > maximo * (100 + Fraction(str(pct))) else "dentro"), {"base": importe(base, m), "maximo": importe(maximo, m), "pct": pct}
 
 
 def _monto(f, m, reg):
@@ -49,7 +49,7 @@ def _monto(f, m, reg):
         return "no_convertible", {}
     tope, umbral = int(m.p["tope_pago_menor"]), int(m.p["umbral_aprobacion_menor"])
     estado = "sobre_tope" if base > tope else "sobre_umbral" if base > umbral else "dentro"
-    return estado, {"base": base, "tope": tope, "umbral": umbral}
+    return estado, {"base": importe(base, m), "tope": importe(tope, m), "umbral": importe(umbral, m)}
 
 
 def _moneda(f, m, reg):
@@ -69,14 +69,14 @@ FILAS = (
         "sin_proveedor": (None, True, "Sin proveedor registrado; lo decide R3."),
         "distinta": (ESCALAR, True, "La cuenta esta en {pais} terminada en {u4} y la registrada es de {rpais} terminada en {ru4}.")}},
     {"id": "R5", "campo": "montos.total_menor", "medida": _acuerdo, "estados": {
-        "dentro": (None, True, "{base} unidades menores base, dentro de lo acordado ({maximo} mas {pct}%)."),
-        "excede": (ESCALAR, True, "{base} unidades menores base superan lo acordado ({maximo} mas {pct}%)."),
+        "dentro": (None, True, "{base}, dentro de lo acordado ({maximo} mas {pct}%)."),
+        "excede": (ESCALAR, True, "{base} superan lo acordado ({maximo} mas {pct}%)."),
         "sin_acuerdo": (ESCALAR, True, "No hay acuerdo registrado para este proveedor."),
         "no_convertible": _NO_CONVERTIBLE}},
     {"id": "R6", "campo": "montos.total_menor", "medida": _monto, "estados": {
-        "dentro": (None, True, "{base} unidades menores base, bajo el umbral de {umbral}."),
-        "sobre_umbral": (ESCALAR, True, "{base} unidades menores base superan el umbral de aprobacion de {umbral}."),
-        "sobre_tope": (FRENAR, False, "{base} unidades menores base superan el tope por pago de {tope}."),
+        "dentro": (None, True, "{base}, bajo el umbral de {umbral}."),
+        "sobre_umbral": (ESCALAR, True, "{base} superan el umbral de aprobacion de {umbral}."),
+        "sobre_tope": (FRENAR, False, "{base} superan el tope por pago de {tope}."),
         "no_convertible": _NO_CONVERTIBLE}},
     {"id": "R7", "campo": "montos.moneda", "medida": _moneda, "estados": {
         "permitida": (None, True, "{moneda} es una moneda permitida con tasa."),

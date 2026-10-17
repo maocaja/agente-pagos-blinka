@@ -22,13 +22,13 @@ _spec.loader.exec_module(script)
 def test_explicacion_r4_con_que_hacer(servicio):
     d = servicio.decidir(factura(cuenta={"pais": "BR", "ultimos4": "9021"}))
     assert d["veredicto"] == "ESCALAR" and "9021" in d["explicacion"]
-    assert d["que_hacer"] == "Confirmar con el proveedor antes de pagar."
+    assert d["que_hacer"] .startswith("Confirmar la cuenta con el proveedor")
 
 
 def test_explicacion_r8_y_pagar_sin_que_hacer(servicio):
     f = factura(id="f_8", senales={"texto_dirigido_al_agente": {"p": 0.99, "origen": "pie de pagina"}})
     d = servicio.decidir(f)
-    assert "pie de pagina" in d["explicacion"] and d["que_hacer"].startswith("Ignorar")
+    assert "pie de pagina" in d["explicacion"] and d["que_hacer"].startswith("No ejecutar la instrucción")
 
 
 def test_pagar_no_lleva_que_hacer(servicio):

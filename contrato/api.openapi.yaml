@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Agente de Pagos con Garantia, API del nucleo
-  version: 1.1.0-rc3
+  version: 1.1.0-rc4
   description: |
     Contrato entre U1 (nucleo), U2 (lectura), U3 (interfaz) y U4 (evaluacion). Escrito primero; cambia solo de comun acuerdo.
     Cada peticion (menos POST /api/sesion) lleva el encabezado X-Sesion-Id. El rol es simulado y viaja en X-Rol.
@@ -293,6 +293,14 @@ paths:
         '201': {description: Decision tomada, content: {application/json: {schema: {$ref: '#/components/schemas/Decision'}}}}
         '404': {$ref: '#/components/responses/NoEncontrado'}
         '429': {$ref: '#/components/responses/Limite'}
+  /api/muestras/{id}/archivo:
+    get:
+      tags: [facturas]
+      summary: Archivo original de una muestra (imagen, PDF o texto) con su tipo de contenido
+      parameters: [{$ref: '#/components/parameters/IdDecision'}]
+      responses:
+        '200': {description: Archivo original, content: {'*/*': {schema: {type: string, format: binary}}}}
+        '404': {$ref: '#/components/responses/NoEncontrado'}
   /api/decisiones:
     get:
       tags: [decisiones]

@@ -1,8 +1,9 @@
 import json
+import mimetypes
 from pathlib import Path
 
 from fastapi import APIRouter, Depends
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 
 _RAIZ = Path(__file__).resolve().parents[2]
 _TEXTO = {".txt", ".eml"}
@@ -38,7 +39,8 @@ def _catalogo(raiz: Path) -> dict[str, dict]:
             if titulo is None:
                 titulo = clave.split("-", 2)[2].replace("-", " ") if clave and clave.count("-") >= 2 else ruta.stem
             lectura = json.loads(ruta.read_text(encoding="utf-8"))
-            muestras[ruta.stem] = {"lectura": lectura, "original": _original(por_sello.get(clave)), "titulo": titulo}
+            muestras[ruta.stem] = {"lectura": lectura, "original": _original(por_sello.get(clave)), "titulo": titulo,
+                                    "ruta": por_sello.get(clave)}
     return muestras
 
 
@@ -58,7 +60,20 @@ def rutas_muestras(dep, cargar_factura, raiz: Path = _RAIZ) -> APIRouter:
             return _no_encontrada()
         return cargar_factura(servicio, m["lectura"], None, None)
 
+    @r.get("/api/muestras/{id}/archivo")
+    def archivo(id: str):
+        ruta = (catalogo.get(id) or {}).get("ruta")
+        if ruta is None or not _dentro(ruta, raiz):
+            return _no_encontrada()
+        return FileResponse(ruta, media_type=mimetypes.guess_type(ruta.name)[0] or "application/octet-stream")
+
     return r
+
+
+def _dentro(ruta: Path, raiz: Path) -> bool:
+    """Solo se sirven archivos de datos/documentos y datos/facturas."""
+    real = ruta.resolve()
+    return any(real.is_relative_to((raiz / "datos" / c).resolve()) for c in ("documentos", "facturas"))
 
 
 def _no_encontrada():

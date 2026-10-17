@@ -1,9 +1,14 @@
 """Historial y actividad derivados de lo ya registrado en la sesion; no se inventan eventos."""
 
+from .dinero import base_de, importe
+from .errores import FallaCerrada
+from .explicacion import fallas_por_precedencia
+
 _ACCION = {"aprobar": "aprobada", "rechazar": "rechazada"}
-_TEXTO = {"decidida": "Decision {veredicto} para la factura {factura}",
-          "aprobada": "Aprobada por {actor}: factura {factura}",
-          "rechazada": "Rechazada por {actor}: factura {factura}"}
+_VEREDICTO = {"PAGAR": "Autorizada", "FRENAR": "Frenada", "ESCALAR": "Escalada", "REGISTRAR": "Registrada"}
+_TEXTO = {"decidida": "{veredicto}: {detalle}{regla}",
+          "aprobada": "Aprobada por {actor}: {detalle}",
+          "rechazada": "Rechazada por {actor}: {detalle}"}
 
 
 def _ev(hora, evento, actor, nota=None) -> dict:
@@ -35,11 +40,26 @@ def estado_orden(s, d):
     return "orden_simulada_emitida" if d["recibo_id"] in s.ordenes_emitidas else "autorizada"
 
 
+def _detalle(s, d) -> tuple:
+    """Proveedor e importe legibles (no el id de la factura) y la regla que decide, si falla alguna."""
+    f = s.facturas.get(d["factura_id"]) or {}
+    nombre = (f.get("emisor") or {}).get("nombre") or d["factura_id"]
+    try:
+        base = base_de(f, s.m)
+    except (KeyError, FallaCerrada):
+        base = None
+    detalle = nombre if base is None else f"{nombre}, {importe(base, s.m)}"
+    fallas = fallas_por_precedencia(d["reglas"])
+    return detalle, f" ({fallas[0]['id']})" if fallas else ""
+
+
 def actividad(s, limite: int = 5) -> list:
     todos = []
     for d in s.decisiones.values():
         for e in _propios(s, d):
             if e["evento"] in _TEXTO:
-                texto = _TEXTO[e["evento"]].format(veredicto=d["veredicto"], factura=d["factura_id"], actor=e["actor"])
+                detalle, regla = _detalle(s, d)
+                texto = _TEXTO[e["evento"]].format(veredicto=_VEREDICTO.get(d["veredicto"], d["veredicto"]), detalle=detalle,
+                                                   regla=regla, actor=e["actor"])
                 todos.append({"hora": e["hora"], "texto": texto})
     return sorted(todos, key=lambda x: x["hora"])[::-1][:limite]

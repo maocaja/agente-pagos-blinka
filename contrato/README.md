@@ -66,3 +66,6 @@ Hay valores que se calibran despues: `umbral_senal_texto`, `dias_proveedor_nuevo
 
 ## Cambios de 1.1.0-rc3 (aditivos, Ola 14)
 - `api.openapi.yaml`: `GET /api/ciclo` devuelve `ciclo_id`, `empresa`, `moneda`, importes `presupuesto_menor`, `reservado_menor` y `disponible_menor` (texto) y `actividad` (ultimos 5 eventos); `GET /api/decisiones/{id}` anade `historial` y `estado_orden`.
+
+## Cambios de 1.1.0-rc4 (aditivos, Ola 15)
+- `api.openapi.yaml`: ruta nueva `GET /api/muestras/{id}/archivo` (archivo original de la muestra; 404 si el id no existe).

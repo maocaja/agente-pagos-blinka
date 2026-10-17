@@ -32,3 +32,12 @@ def base_de(f: dict, m: Mandato):
     """Total de la factura en base; None si la moneda no es convertible (R7 la frena)."""
     mo = f["montos"]
     return a_base_menor(mo["total_menor"], mo["moneda"], m) if convertible(mo["moneda"], m) else None
+
+
+def importe(menor, m: Mandato) -> str:
+    """Importe en la moneda base legible: 'USD 3.570' o 'USD 12,50'."""
+    base = m.p["moneda_base"]
+    exp = exponentes_moneda()[base]
+    entero, frac = divmod(int(menor), 10 ** exp)
+    miles = f"{entero:,}".replace(",", ".")
+    return f"{base} {miles}" + (f",{frac:0{exp}d}" if frac else "")
