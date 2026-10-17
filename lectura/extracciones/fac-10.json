@@ -48,8 +48,8 @@
     "ultimos4": "4417"
   },
   "proveedor_asignado": {
-    "proveedor_id": null,
-    "metodo": "ninguno",
+    "proveedor_id": "prov_andino",
+    "metodo": "id_fiscal",
     "pista": null
   },
   "evidencia": {
