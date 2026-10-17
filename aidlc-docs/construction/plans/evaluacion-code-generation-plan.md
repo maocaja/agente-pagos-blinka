@@ -21,8 +21,8 @@ evaluacion/
 ## Tandas
 
 ### T1. Esperados (sábado temprano, antes del verificador)
-- [ ] 1.1 Reescribir `datos/esperado.json` de forma independiente desde el texto de las reglas: factura 07 escala, `tipo_documento`, factura 17 realista; **dos veredictos por factura** (de reglas y de extremo a extremo).
-- [ ] 1.2 Comprobar que el set cubre los casos trampa del reto: cobro duplicado, beneficiario nuevo, factura que no cuadra con lo acordado, monto sobre el límite y presupuesto insuficiente; si falta alguno, se pide una factura nueva a U2.
+- [x] 1.1 Reescribir `datos/esperado.json` de forma independiente desde el texto de las reglas: factura 07 escala, `tipo_documento`, factura 17 realista; **dos veredictos por factura** (de reglas y de extremo a extremo).
+- [x] 1.2 Comprobar que el set cubre los casos trampa del reto: cobro duplicado, beneficiario nuevo, factura que no cuadra con lo acordado, monto sobre el límite y presupuesto insuficiente; si falta alguno, se pide una factura nueva a U2.
 - [ ] 1.3 Sellar las 4 ocultas (hash) sin leerlas.
 - Pruebas (≈ 18): una prueba parametrizada sobre las 18 facturas.
 
