@@ -28,7 +28,7 @@ Objetivo: un endpoint que reciba una factura canónica y devuelva decisión y re
 - [ ] 1.4 Motor: registro de reglas (estrategia), evaluación de todas sin cortocircuito, agregación por precedencia FRENAR, ESCALAR, PAGAR (REGISTRAR para nota de crédito), falla cerrado.
 - [ ] 1.5 Reglas del primer hito: **R2a** duplicado exacto, **R3** beneficiario permitido, **R4** cuenta registrada (escena 1: "la cuenta no es la registrada"), **R6** monto. Explicación determinista por regla, con evidencia citando el campo.
 - [ ] 1.6 Recibo: estructura, hash del documento, nonce y vigencia de 24 h inyectados; firma Ed25519 con clave inyectada; versión de clave.
-- [ ] 1.7 Stub de API con los ejemplos del contrato (`POST /facturas`, `GET /decisiones`) para que U2, U3 y U4 avancen en paralelo.
+- [ ] 1.7 Stub de API con los ejemplos del contrato (`POST /api/facturas`, `GET /api/decisiones`, `GET /api/decisiones/{id}`) para que U2, U3 y U4 avancen en paralelo.
 - Pruebas (≈ 16): reglas R2a, R3, R4, R6 x3 casos (12); precedencia 2; recibo y firma 2.
 - Listo cuando: `python3 verify.py --etapa nucleo` en verde y una factura de prueba produce decisión con recibo que valida contra el esquema.
 
@@ -38,7 +38,7 @@ Es la escena 3 del video: se altera un byte y el guardián rechaza.
 - [ ] 2.2 Firmador como proceso aparte del servidor web (o, si el servicio gratuito no lo permite, módulo aislado con claves por sesión, declarado como SUPUESTO).
 - [ ] 2.3 Registro de solo adición (SQLite): decisiones, resultados por regla, recibos, eventos; sin UPDATE ni DELETE (prueba de que fallan).
 - [ ] 2.4 Reserva de presupuesto y consumo del nonce en una sola transacción; presupuesto derivado de las reservas; compensación al denegar o vencer.
-- [ ] 2.5 Endpoints `POST /guardian/verificar` y `POST /recibos/{id}/alterar-y-verificar` (solo para la demo, etiquetado) con la respuesta del ejemplo `guardian.rechazo.json`.
+- [ ] 2.5 `POST /api/guardian/verificar` (orden y recibo en el cuerpo) y `POST /api/recibos/{id}/verificar`, ambos ya en el contrato, con la respuesta del ejemplo `guardian.rechazo.json`. **No se añade ruta nueva:** la interfaz altera una copia del recibo y la envía al guardián.
 - Pruebas (≈ 14): las 6 verificaciones x1 más casos de motivo (8); reserva y concurrencia 3; registro de solo adición 2; contrato de la respuesta 1.
 - Listo cuando: un recibo alterado en un byte es rechazado con motivo, y dos pagos que juntos exceden el presupuesto no pasan ambos.
 

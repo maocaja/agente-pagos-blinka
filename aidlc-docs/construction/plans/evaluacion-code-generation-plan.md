@@ -34,7 +34,7 @@ evaluacion/
 
 ### T3. Pentest y arena nivel 1 (sábado por la tarde)
 Escena 4 del video.
-- [ ] 3.1 Seis estrategias: partir en facturas bajo el umbral, una factura justo bajo el umbral, texto dirigido al agente, cuenta cambiada, duplicado con número alterado, moneda no permitida.
+- [ ] 3.1 Las seis estrategias fijas del diseño (`evaluacion/functional-design/business-rules.md`), con su resultado esperado escrito antes de correrlas: partir en facturas bajo el umbral del mismo proveedor; una factura justo bajo el umbral; redondeo de moneda que cruza el umbral; número de factura reformateado (duplicado); proveedor nuevo con un pago pequeño y luego uno grande; cambio de cuenta después de una aprobación. La instrucción oculta se cubre con R8 y la arena, no con una estrategia aparte.
 - [ ] 3.2 Hallazgos con arreglo propuesto; el mandato v1 sin R10 debe dejar pasar el caso de facturas partidas y el v2 cerrarlo.
 - [ ] 3.3 **El hueco debe ser genuino:** se comprueba que el motor sin R10 lo deja pasar por diseño del mandato, no por un error sembrado; si no se puede sostener así, la escena se omite.
 - [ ] 3.4 Arena nivel 1: ≤ 500 variantes con semilla fija sobre el texto original de las facturas.
@@ -44,7 +44,7 @@ Escena 4 del video.
 - [ ] 4.1 Arena de la demo (3.200 variantes, fuera de `verify`), con semillas variables y el número final "X ataques, Y pagados indebidamente".
 - [ ] 4.2 Fallas del extractor (salida truncada, rechazada, cita ausente) deben terminar en ESCALAR.
 - [ ] 4.3 Carrera de presupuesto: dos pagos concurrentes no exceden el presupuesto.
-- Pruebas (≈ 8): fallas del extractor 6; carrera 2; invariante por tipo 1.
+- Pruebas (≈ 9): fallas del extractor 6; carrera 2; invariante por tipo 1.
 
 ### T5. Mutación y corrida final (domingo temprano)
 - [ ] 5.1 14 mutantes (uno por regla, orden de agregación, falla cerrado y registro de solo adición), corridos por un agente distinto al del verificador.

@@ -27,7 +27,7 @@ Primer hito: la factura con su decisión, el motivo escrito y el recibo.
 - Pruebas (≈ 3): escape de salida 3.
 
 ### T2. Escena 3 del video: recibo alterable y guardián (sábado)
-- [ ] 2.1 Campo del recibo editable con la etiqueta "alterar para la demo"; botón Verificar y Alterar y verificar.
+- [ ] 2.1 Campo del recibo editable con la etiqueta "alterar para la demo"; la interfaz altera una **copia** del recibo y la envía a `POST /api/guardian/verificar`; Verificar usa `POST /api/recibos/{id}/verificar` (sin rutas nuevas).
 - [ ] 2.2 Sello que se estampa o se parte según el resultado; lista de las 6 verificaciones con motivo y "no evaluada" en las posteriores.
 - [ ] 2.3 Verificación de la firma: en el navegador con la clave pública si el algoritmo es compatible; si no, con el endpoint del servidor (SUPUESTO sin verificar).
 - Pruebas (≈ 3): permisos por rol y capacidades 2; rechazo mostrado con motivo 1.
