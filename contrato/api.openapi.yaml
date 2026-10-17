@@ -271,7 +271,7 @@ paths:
                 items:
                   type: object
                   required: [id, titulo, tipo, lectura_guardada]
-                  properties: {id: {type: string}, titulo: {type: string}, tipo: {type: string}, lectura_guardada: {type: boolean}}
+                  properties: {id: {type: string}, titulo: {type: string}, tipo: {type: string}, lectura_guardada: {type: boolean}, original: {type: string, description: 'Texto del documento original para mostrarlo junto a lo leido (aditivo, opcional)'}}
   /api/muestras/{id}/cargar:
     post:
       tags: [facturas]

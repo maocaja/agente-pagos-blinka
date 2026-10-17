@@ -31,3 +31,12 @@ Consumo medido: unos 320.000 tokens de subagentes en la ola.
 | Datos | Set multicanal simulado en `datos/documentos/`: 18 archivos (PDF, escaneado, foto, `.eml`, chat), instrucción oculta en 3 formatos y autoridad falsa | n/a | generado | Regenerable con semilla; dependencias `pillow` y `fpdf2` en el venv. Sin esperados todavía |
 Pendientes: esperados del set multicanal (los fija evaluación), adaptadores PDF, `.eml`, foto y chat (lectura), pentest y arena, aprobar con reevaluación, marcador y pantallas restantes.
 Consumo medido: unos 310.000 tokens de subagentes en la ola; acumulado cerca de 1,17 M.
+
+## Ola 4 (2026-10-17)
+| Unidad | Tanda | Pruebas | Resultado | Hallazgos |
+|---|---|---|---|---|
+| U1 Núcleo | T4 parcial: aprobar y rechazar con reevaluación (solo CFO), marcador según contrato, servir `interfaz/dist` | 51 (8 nuevas) | verde | El agente había desviado el marcador del contrato; corregido. Rol del cargador "sistema" no bloquea. Pendiente de T4: mandato con dos firmas, escalar y corregir, vencimiento de 24 h |
+| U2 Lectura | T4 4.1 a 4.4: adaptadores PDF, `.eml`, chat, imagen con doble lectura; 16 lecturas congeladas del set | 31 (12 nuevas) | verde | El manifiesto tiene 16 documentos, no 18. El `Reply-To` falso quedó en `evidencia.reply_to` y ninguna regla lo leía: se añadió `senales.remitente_inconsistente` al contrato (aditivo) y R1 lo usará en la Ola 5. Sin extractor real en los adaptadores de texto |
+| U3 Interfaz | T3 (reglas solo lectura), T4 (marcador, ataque), T5 (bandeja simulada, botón Demo) | 10 (5 nuevas) | verde | Probada en Chrome sin errores de consola desde la carga en marcador y sin desborde a 375 px; contraste y foco por teclado sin revisar. Datos del simulador de pentest son inventados. `/api/muestras` ahora lleva `original` (contrato aditivo) |
+Pendientes: Ola 5 (explicación, vista previa, auditoría, pain.001, XML y CSV, esperados multicanal) y Ola 6 (pentest y arena, aprobar y proponer mandato en la interfaz).
+Consumo medido: unos 450.000 tokens de subagentes en la ola; acumulado cerca de 1,6 M.
