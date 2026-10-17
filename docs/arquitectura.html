@@ -206,6 +206,42 @@ a{color:var(--acento)}
   </table></div>
 </section>
 
+<section class="sec" aria-labelledby="conc">
+  <h2 id="conc">Concurrencia</h2>
+  <p>Cuatro invariantes que ninguna carrera puede romper: el presupuesto y el tope acumulado nunca se exceden, un recibo autoriza una sola vez, una aprobación aplica a la versión exacta que se evaluó y una orden no se duplica.</p>
+  <div class="tabla"><table>
+    <thead><tr><th>Tema</th><th>Objetivo en producción</th><th>Hoy</th></tr></thead>
+    <tbody>
+      <tr><td>Reserva y nonce</td><td>Una transacción serializable que comprueba y reserva a la vez</td><td>Una transacción SQLite con cerrojo de proceso; un solo proceso</td></tr>
+      <tr><td>Idempotencia</td><td>Tabla durable de claves con caducidad</td><td>En memoria: no sobrevive a un reinicio</td></tr>
+      <tr><td>Aprobar sobre un estado cambiado</td><td>Versión de la decisión; una versión vieja responde 409</td><td>Reevalúa y rechaza fallas nuevas; sin columna de versión</td></tr>
+      <tr><td>Eventos hacia afuera</td><td>Bandeja de salida transaccional, entrega al menos una vez</td><td>Notificaciones en segundo plano con registro propio</td></tr>
+      <tr><td>Registro</td><td>Solo adición con restricciones de base de datos</td><td>Triggers que impiden modificar o borrar</td></tr>
+    </tbody>
+  </table></div>
+  <p>No se probó una carrera de presupuesto con solicitudes simultáneas; el video lo dice entre lo que no probamos.</p>
+</section>
+
+<section class="sec" aria-labelledby="obs">
+  <h2 id="obs">Observabilidad</h2>
+  <div class="tabla"><table>
+    <thead><tr><th>Señal</th><th>Objetivo en producción</th><th>Hoy</th></tr></thead>
+    <tbody>
+      <tr><td>Auditoría</td><td>Libro de solo adición, historial y recibo firmado</td><td>Sí: es lo más sólido que existe</td></tr>
+      <tr><td>Registros de operación</td><td>JSON con identificadores de correlación y sin datos sensibles</td><td>No existían; se añaden con las notificaciones</td></tr>
+      <tr><td>Métricas</td><td>Decisiones por veredicto, escalada, denegaciones, latencia, costo del modelo, fallos de entrega</td><td>Cifras de negocio derivadas (marcador y ciclo)</td></tr>
+      <tr><td>Trazas</td><td>Un tramo por etapa: lectura, reglas, recibo, guardián, orden</td><td>No hay</td></tr>
+      <tr><td>Salud</td><td>Vivo y listo para decidir</td><td>Se añade <code>/api/salud</code></td></tr>
+      <tr><td>Alertas</td><td>Autorización sin recibo válido (debe ser imposible), pico de denegaciones, tope de gasto, pendientes viejos</td><td>Notificaciones por Telegram y correo para los eventos clave</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="sec" aria-labelledby="notif">
+  <h2 id="notif">Notificaciones: el sistema se ve vivo</h2>
+  <p>Telegram y correo avisan de lo importante: una escalada pendiente, una denegación del guardián, una factura frenada. Informan y no actúan: no llevan botones de aprobar, y un fallo de entrega nunca cambia ni bloquea una decisión. El texto sale de plantillas fijas, sin contenido libre del documento ni números de cuenta; los tokens viven solo en el entorno. Sin token, el canal queda simulado y así se rotula.</p>
+</section>
+
 <section class="sec" aria-labelledby="eval">
   <h2 id="eval">Cómo se evalúa</h2>
   <div class="cols">

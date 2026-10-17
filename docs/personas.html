@@ -1,0 +1,85 @@
+<meta charset="utf-8">
+<title>Personas y permisos</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{--lienzo:#F7F7F4;--panel:#FFFFFF;--elevado:#F0F2F4;--linea:#DEDFDC;--linea-fuerte:#7C879A;--texto:#1C253A;--texto-2:#555B6A;--acento:#2A4BD0;--si:#0B7A55;--no:#B8321E;--dis:#8F5700;--si-bg:#E3F4EC;--no-bg:#FBE6E3;--dis-bg:#FBF0D9;--font:"Inter",ui-sans-serif,system-ui,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--lienzo:#111720;--panel:#18202C;--elevado:#1F2A3A;--linea:#2A3547;--linea-fuerte:#6580A0;--texto:#E9EDF1;--texto-2:#B2BBC7;--acento:#B9C8FF;--si:#3DDBA8;--no:#FF7A6B;--dis:#FFB84D;--si-bg:#12332A;--no-bg:#3A1F1C;--dis-bg:#3A2D14;color-scheme:dark}}
+:root[data-theme="dark"]{--lienzo:#111720;--panel:#18202C;--elevado:#1F2A3A;--linea:#2A3547;--linea-fuerte:#6580A0;--texto:#E9EDF1;--texto-2:#B2BBC7;--acento:#B9C8FF;--si:#3DDBA8;--no:#FF7A6B;--dis:#FFB84D;--si-bg:#12332A;--no-bg:#3A1F1C;--dis-bg:#3A2D14;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--lienzo);color:var(--texto);font:15px/1.6 var(--font);padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:34px}
+h1{font-size:clamp(28px,5vw,40px);margin:0;letter-spacing:-.02em;line-height:1.1}h2{font-size:22px;margin:0}h3{font-size:17px;margin:0}
+p{margin:0;max-width:70ch;color:var(--texto-2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--linea);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card .q{color:var(--texto-2);font-size:14px}
+ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:14px}
+li{display:flex;gap:8px;align-items:flex-start}
+li b.t{flex:none;font-size:11.5px;font-weight:700;border-radius:99px;padding:1px 8px;border:1.5px solid;margin-top:2px;white-space:nowrap}
+.hoy{color:var(--si);background:var(--si-bg);border-color:var(--si)}.dis{color:var(--dis);background:var(--dis-bg);border-color:var(--dis)}.no{color:var(--no);background:var(--no-bg);border-color:var(--no)}
+.tabla{overflow-x:auto;border:1px solid var(--linea);border-radius:12px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}th,td{text-align:left;padding:9px 14px;border-bottom:1px solid var(--linea)}th{background:var(--elevado);font-size:13px}tr:last-child td{border-bottom:0}td:first-child{font-weight:500}
+.fig{background:var(--panel);border:1px solid var(--linea);border-radius:14px;padding:16px;overflow-x:auto}
+pre.mermaid{margin:0;background:transparent}
+.nota{font-size:13px;color:var(--texto-2)}
+</style>
+<main>
+<header><h1>Personas: qué hacen, qué pueden y qué no</h1><p>Personas inferidas del reto y de los roles del producto; no se validaron con entrevistas. En la aplicación hay dos roles simulados, Analista y CFO. El auditor y el jurado no son roles de la aplicación. "Hoy" es lo implementado y probado; "Diseño" es lo aprobado y aún sin construir.</p></header>
+<section><h2>Quién es quién</h2><div class="fig"><pre class="mermaid">flowchart LR
+  subgraph APP["Dentro de la aplicación (rol simulado)"]
+    A["Analista"]
+    C["CFO"]
+  end
+  subgraph FUERA["Fuera de la aplicación"]
+    U["Auditor"]
+    J["Jurado"]
+  end
+  A -->|"pide autorización"| G["Guardián"]
+  C -->|"aprueba o rechaza"| M["Motor de reglas"]
+  M --> G
+  G --> O["Orden de pago simulada"]
+  U -->|"verifica firmas"| P["Paquete y script"]
+  J -->|"mira"| V["Video"]</pre></div></section>
+<section><h2>Qué puede cada persona</h2><div class="grid"><div class="card"><h3>Analista de cuentas por pagar</h3><div class="q">Revisa y prepara. Teme frenar de más.</div><ul><li><b class="t hoy">Hoy</b><span>Ver decisiones, documentos, recibos e historial</span></li><li><b class="t hoy">Hoy</b><span>Abrir el original junto a lo leído y a las diferencias</span></li><li><b class="t hoy">Hoy</b><span>Pedir la autorización del guardián y descargar la orden simulada</span></li><li><b class="t dis">Diseño</b><span>Corregir un campo y reevaluar</span></li><li><b class="t dis">Diseño</b><span>Escalar al CFO y contrafirmar mandatos</span></li><li><b class="t dis">Diseño</b><span>Recibir avisos de frenadas y escaladas</span></li></ul><ul><li><b class="t no">No</b><span>Aprobar o rechazar una escalada</span></li><li><b class="t no">No</b><span>Proponer un mandato o promover un proveedor</span></li><li><b class="t no">No</b><span>Aprobar una factura frenada</span></li></ul></div><div class="card"><h3>Directora financiera (CFO)</h3><div class="q">Decide y firma. Teme un pago fuera de política.</div><ul><li><b class="t hoy">Hoy</b><span>Todo lo del analista</span></li><li><b class="t hoy">Hoy</b><span>Aprobar una escalada aprobable: el motor reevalúa antes</span></li><li><b class="t hoy">Hoy</b><span>Rechazar con una nota obligatoria</span></li><li><b class="t hoy">Hoy</b><span>Vista previa de qué cambia con un mandato nuevo</span></li><li><b class="t dis">Diseño</b><span>Proponer un mandato, promover un proveedor, cerrar el ciclo</span></li><li><b class="t dis">Diseño</b><span>Recibir avisos de escaladas y denegaciones del guardián</span></li></ul><ul><li><b class="t no">No</b><span>Aprobar una factura frenada</span></li><li><b class="t no">No</b><span>Aprobar una escalada por lectura dudosa (R1) o presupuesto (R9)</span></li><li><b class="t no">No</b><span>Cambiar reglas sin la contrafirma</span></li><li><b class="t no">No</b><span>Mover dinero</span></li></ul></div><div class="card"><h3>Auditor o riesgo</h3><div class="q">No es un rol de la app: usa lo que se exporta.</div><ul><li><b class="t hoy">Hoy</b><span>Descargar el paquete de auditoría</span></li><li><b class="t hoy">Hoy</b><span>Verificar las firmas fuera de la app con el script</span></li><li><b class="t hoy">Hoy</b><span>Leer el recibo, la versión del mandato y el historial</span></li><li><b class="t dis">Diseño</b><span>Un rol propio de solo lectura</span></li><li><b class="t dis">Diseño</b><span>Recibir un resumen periódico de denegaciones</span></li></ul><ul><li><b class="t no">No</b><span>Aprobar, rechazar o autorizar nada</span></li><li><b class="t no">No</b><span>Modificar el historial (es de solo adición)</span></li></ul></div><div class="card"><h3>Jurado</h3><div class="q">No usa la app: ve el pitch y el video de 3 minutos.</div><ul><li><b class="t hoy">Video</b><span>Ver la trampa, el recibo alterado, el ataque y la cifra con su alcance</span></li></ul><ul><li><b class="t no">No</b><span>Operar la aplicación</span></li></ul></div></div></section>
+<section><h2>Matriz de permisos</h2><div class="tabla"><table><thead><tr><th>Acción</th><th>Analista</th><th>CFO</th><th>Auditor</th><th>Estado</th></tr></thead><tbody><tr><td>Ver decisiones, documentos e historial</td><td>Sí</td><td>Sí</td><td>Sí (paquete)</td><td>Hoy</td></tr><tr><td>Pedir autorización al guardián</td><td>Sí</td><td>Sí</td><td>No</td><td>Hoy</td></tr><tr><td>Aprobar una escalada aprobable</td><td>No</td><td>Sí</td><td>No</td><td>Hoy</td></tr><tr><td>Rechazar con nota</td><td>No</td><td>Sí</td><td>No</td><td>Hoy</td></tr><tr><td>Proponer / contrafirmar un mandato</td><td>Contrafirma</td><td>Propone</td><td>No</td><td>Diseño</td></tr><tr><td>Corregir un campo y reevaluar</td><td>Sí</td><td>No</td><td>No</td><td>Diseño</td></tr><tr><td>Verificar firmas fuera de la app</td><td>No aplica</td><td>No aplica</td><td>Sí</td><td>Hoy</td></tr><tr><td>Aprobar una factura frenada</td><td>Nadie</td><td>Nadie</td><td>Nadie</td><td>Regla</td></tr><tr><td>Mover dinero real</td><td>Nadie</td><td>Nadie</td><td>Nadie</td><td>Fuera de alcance</td></tr></tbody></table></div><p class="nota">Una factura frenada no ofrece aprobación a nadie. Una escalada por lectura dudosa o presupuesto insuficiente solo ofrece rechazar o cambiar el mandato.</p></section>
+<section><h2>Ciclo de vida de una decisión</h2><div class="fig"><pre class="mermaid">stateDiagram-v2
+  [*] --> Recibida
+  Recibida --> Decidida: lectura y reglas
+  Decidida --> ConDecisionDePagar: PAGAR
+  Decidida --> Frenada: FRENAR
+  Decidida --> EsperaAprobacion: ESCALAR
+  EsperaAprobacion --> Rechazada: CFO rechaza con nota
+  EsperaAprobacion --> Reevaluada: CFO aprueba
+  Reevaluada --> ConDecisionDePagar: sin fallas nuevas
+  ConDecisionDePagar --> AutorizadaPorElGuardian: guardián verifica el recibo
+  ConDecisionDePagar --> Denegada: guardián lo rechaza
+  AutorizadaPorElGuardian --> OrdenSimulada: se descarga la orden
+  Frenada --> [*]
+  Rechazada --> [*]
+  Denegada --> [*]
+  OrdenSimulada --> [*]</pre></div></section>
+<section><h2>Recorrido 1: del documento a la resolución</h2><div class="fig"><pre class="mermaid">sequenceDiagram
+  participant Prov as Proveedor
+  participant Lec as Lectura
+  participant Mot as Motor
+  participant Ana as Analista
+  participant Cfo as CFO
+  participant Not as Notificador
+  Prov->>Lec: foto con cuenta distinta
+  Lec->>Mot: datos y evidencia
+  Mot-->>Ana: ESCALAR, cuenta distinta a la registrada
+  Mot->>Not: escalada pendiente
+  Not-->>Cfo: aviso por Telegram y correo
+  Ana->>Ana: contrasta original y registro
+  Cfo->>Mot: rechaza con nota
+  Mot-->>Cfo: historial actualizado, sin orden</pre></div></section>
+<section><h2>Recorrido 2: reconstruir y verificar (auditor)</h2><div class="fig"><pre class="mermaid">sequenceDiagram
+  participant Aud as Auditor
+  participant App as Aplicación
+  participant Scr as Script externo
+  Aud->>App: descarga el paquete de auditoría
+  App-->>Aud: recibos, clave pública y mandato citado
+  Aud->>Scr: verificar_paquete.py paquete.json
+  Scr-->>Aud: PAQUETE VALIDO o la firma que falla</pre></div></section>
+<p class="nota">Fuente: <code>aidlc-docs/inception/personas.md</code>. Brechas: no existe el rol de auditor de solo lectura; corregir, escalar, contrafirmar, promover y cerrar el ciclo están aprobados y sin construir.</p>
+</main>
