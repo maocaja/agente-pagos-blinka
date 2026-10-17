@@ -26,9 +26,9 @@ EXTRACCIONES = sorted((RAIZ / "lectura" / "extracciones").glob("fac-*.json"))
 
 # Discrepancias con datos/esperado.json (no se edita): f_09, prov_logos si esta en el registro; f_10 y f_13, R10 aplica
 # a todo proveedor; f_12, sin proveedor fallan R3 y R5; f_10, f_15 y f_16, R1 exige que las lineas sumen el total.
-VEREDICTO_DISTINTO = {"f_09": "PAGAR"}
+VEREDICTO_DISTINTO = {}
 REGLAS_DISTINTAS = {
-    "f_09": [], "f_10": ["R1", "R5", "R10"], "f_12": ["R1", "R3", "R5"], "f_13": ["R6", "R10"],
+    "f_10": ["R1", "R5", "R10"], "f_12": ["R1", "R3", "R5"], "f_13": ["R6", "R10"],
     "f_15": ["R1", "R4"], "f_16": ["R1"],
 }
 
