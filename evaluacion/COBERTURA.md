@@ -19,12 +19,28 @@ Esperados escritos solo desde el texto de las reglas y las facturas. El orden de
 
 ## Lo que falta
 
-- Monto entre el umbral (USD 3.000) y el tope (USD 10.000): ninguna factura prueba R6 ESCALAR; la 13 supera ambos. Pedir una factura nueva a U2.
-- Proveedor bloqueado (R3 FRENAR): ninguna factura.
-- Proforma, anticipo y tipo desconocido: ninguna factura.
+Sin factura en el set; el verificador los cubre con pruebas sinteticas (`evaluacion/tests/test_verificador.py`) y sus esperados se fijan cuando el otro agente genere los documentos:
 
-## Supuestos a confirmar (el registro maestro y los acuerdos no estan en las fuentes permitidas)
+- Monto entre el umbral (USD 3.000) y el tope (USD 10.000): R6 ESCALAR; la 13 supera ambos.
+- Proveedor bloqueado (R3 FRENAR).
+- Proforma, anticipo y tipo desconocido (ESCALAR).
 
-- Acuerdos por factura: Andino USD 1.500, Pixel BRL 7.500, Marta USD 1.200, Cloud USD 2.000; presupuesto USD 9.000 y mandato v2 (tope acumulado activo en USD 3.000), segun `datos/LEEME.md`.
-- Nuevo Logos esta fuera del registro; las demas cuentas coinciden con la registrada salvo la de DevNorte (15).
-- Factura 12: se escala por R1 en ambos veredictos porque el documento no fija una canonica correcta.
+## Revalidacion de `datos/esperado.json` (registro maestro y extracciones guardadas, mandato v2)
+
+Los 18 veredictos coinciden con el verificador. La lista de reglas difiere en 5 casos; el esperado debe revisarse a mano:
+
+| Caso | Esperado | Verificador | Causa |
+|---|---|---|---|
+| 09 | R3, R5 | R3, R5 | Nuevo Logos no esta en el registro: coincide |
+| 10 | R5 | R1, R5, R10 | La extraccion trae lineas sin IVA (suma != total); Andino ya acumula USD 1.500 y suma 1.800 sobre el tope de 3.000 |
+| 12 | R1 | R1, R3, R5 | Nombre ilegible: no resuelve a ningun proveedor, sin acuerdo |
+| 13 | R6 | R6, R10 | USD 14.000 tambien supera el tope acumulado del proveedor |
+| 15 | R4 | R1, R4 | Lineas sin IVA no cuadran con el total |
+| 16 | R9 | R1 | Lineas sin IVA no cuadran; R9 solo se evalua si nada mas falla, asi que no llega a evaluarse |
+
+Los casos 10, 15 y 16 son un defecto de lectura: las lineas extraidas omiten el IVA (subtotal) y la verificacion de suma queda en "falla". Si las lineas incluyeran el IVA, el 16 volveria a ser R9.
+
+## Supuestos
+
+- Acuerdos, cuentas y presupuesto salen de `datos/registro-maestro.json`; el mandato es el v2 vigente de la API (tope acumulado activo en USD 3.000).
+- Factura 12: el verificador la escala por R1, R3 y R5; el esperado solo lista R1.
