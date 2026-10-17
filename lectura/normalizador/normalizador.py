@@ -31,34 +31,45 @@ def _limpiar(texto):
     return tramos[0]
 
 
-def _a_decimal(t, formato):
-    if formato is not None:
-        miles, dec = _FORMATOS[formato]
-    else:
-        miles = dec = None
-    if miles is not None:
-        if dec in t and t.count(dec) > 1:
-            raise ValueError("mas de un separador decimal")
-        ent, _, frac = t.partition(dec)
-        if miles in frac:
-            raise ValueError("miles despues del decimal")
-        grupos = ent.split(miles)
-        if len(grupos) > 1 and (not 1 <= len(grupos[0]) <= 3 or any(len(g) != 3 for g in grupos[1:])):
-            raise ValueError("agrupacion de miles invalida")
-        return Decimal("".join(grupos) + ("." + frac if frac else ""))
-    # Sin formato declarado: se deduce solo si no hay ambiguedad.
+def _validar_miles(ent, miles):
+    grupos = ent.split(miles)
+    if len(grupos) > 1 and (not 1 <= len(grupos[0]) <= 3 or any(len(g) != 3 for g in grupos[1:])):
+        raise ValueError("agrupacion de miles invalida")
+    return grupos
+
+
+def _con_formato(t, formato):
+    miles, dec = _FORMATOS[formato]
+    if t.count(dec) > 1:
+        raise ValueError("mas de un separador decimal")
+    ent, _, frac = t.partition(dec)
+    if miles in frac:
+        raise ValueError("miles despues del decimal")
+    grupos = _validar_miles(ent, miles)
+    return Decimal("".join(grupos) + ("." + frac if frac else ""))
+
+
+def _formato_por_separador(t, sep):
+    # Un solo tipo de separador: repetido es de miles; unico con 3 digitos detras es ambiguo.
+    if t.count(sep) == 1 and len(t.split(sep)[1]) == 3:
+        raise NumeroAmbiguo(t)
+    repetido = t.count(sep) > 1
+    return "en" if (sep == ",") == repetido else "es"
+
+
+def _deducir_formato(t):
     p, c = t.rfind("."), t.rfind(",")
     if p >= 0 and c >= 0:
-        dec = "." if p > c else ","
-        return _a_decimal(t, "en" if dec == "." else "es")
-    sep = "." if p >= 0 else "," if c >= 0 else None
-    if sep is None:
-        return Decimal(t)
-    if t.count(sep) > 1:
-        return _a_decimal(t, "en" if sep == "," else "es")
-    if len(t.split(sep)[1]) == 3:
-        raise NumeroAmbiguo(t)
-    return _a_decimal(t, "en" if sep == "." else "es")
+        return "en" if p > c else "es"
+    if p < 0 and c < 0:
+        return None
+    return _formato_por_separador(t, "." if p >= 0 else ",")
+
+
+def _a_decimal(t, formato):
+    # Sin formato declarado se deduce solo si no hay ambiguedad.
+    formato = formato or _deducir_formato(t)
+    return Decimal(t) if formato is None else _con_formato(t, formato)
 
 
 def normalizar_monto(texto, moneda, formato=None):
