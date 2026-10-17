@@ -1,0 +1,88 @@
+{
+  "id": "f_17",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_17",
+    "hash": "00e480dc44b242064d88fbd35cc0d189eaab80553ca93c93d86a6e0bd9eb59b9",
+    "canal": "pdf",
+    "formato": "pdf",
+    "tipo_documento": "nota_de_credito",
+    "recibido_en": "2026-10-13T00:00:00Z"
+  },
+  "emisor": {
+    "nombre": "ESTUDIO ANDINO SAS",
+    "nombre_normalizado": "ESTUDIOANDINOSAS",
+    "id_fiscal": "900.000.111-0",
+    "pais": "CO"
+  },
+  "referencias": {
+    "numero": "NC-0007",
+    "numero_normalizado": "NC0007",
+    "acuerdo_ref": "AC-ANDINO-2026-01"
+  },
+  "fechas": {
+    "emision": "2026-10-13",
+    "vencimiento": null
+  },
+  "montos": {
+    "moneda": "COP",
+    "total_menor": "30000000",
+    "suma_lineas_menor": "30000000",
+    "lineas": [
+      {
+        "descripcion": "Descuento comercial (5% de INV-0412)",
+        "total_menor": "25210100"
+      },
+      {
+        "descripcion": "IVA 19% del descuento",
+        "total_menor": "4789900"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "CO",
+    "ultimos4": "4417"
+  },
+  "proveedor_asignado": {
+    "proveedor_id": null,
+    "metodo": "ninguno",
+    "pista": null
+  },
+  "evidencia": {
+    "tipo_documento": "NOTA CREDITO No. NC-0007",
+    "numero_factura": "NC-0007",
+    "monto_total": "TOTAL NOTA CREDITO                     -300.000 COP",
+    "moneda": "-300.000 COP",
+    "proveedor": "ESTUDIO ANDINO SAS",
+    "cuenta": "Cuenta terminada en 4417"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.97,
+    "monto_total": 0.97,
+    "moneda": 0.98,
+    "proveedor": 0.97,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "ok",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "id": "f_05",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_05",
+    "hash": "8db8d990fa05e315009b8d6b0b39037d74e93086db6cb631ce526bafb666c096",
+    "canal": "correo",
+    "formato": "texto",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-14T08:40:00Z"
+  },
+  "emisor": {
+    "nombre": "ESTUDIO ANDINO SAS",
+    "nombre_normalizado": "ESTUDIOANDINOSAS",
+    "id_fiscal": "900.000.111-0",
+    "pais": "CO"
+  },
+  "referencias": {
+    "numero": "INV-0412",
+    "numero_normalizado": "INV0412",
+    "acuerdo_ref": "AC-ANDINO-2026-01"
+  },
+  "fechas": {
+    "emision": "2026-10-05",
+    "vencimiento": "2026-11-04"
+  },
+  "montos": {
+    "moneda": "COP",
+    "total_menor": "600000000",
+    "suma_lineas_menor": "600000000",
+    "lineas": [
+      {
+        "descripcion": "Identidad visual, entrega final",
+        "total_menor": "420000000"
+      },
+      {
+        "descripcion": "Manual de marca",
+        "total_menor": "180000000"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "CO",
+    "ultimos4": "4417"
+  },
+  "proveedor_asignado": {
+    "proveedor_id": null,
+    "metodo": "ninguno",
+    "pista": null
+  },
+  "evidencia": {
+    "tipo_documento": "FACTURA DE VENTA No. INV-0412",
+    "numero_factura": "INV-0412",
+    "monto_total": "TOTAL A PAGAR                             6.000.000 COP",
+    "moneda": "6.000.000 COP",
+    "proveedor": "ESTUDIO ANDINO SAS",
+    "cuenta": "Cuenta de ahorros terminada en 4417"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.97,
+    "monto_total": 0.97,
+    "moneda": 0.98,
+    "proveedor": 0.97,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "ok",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  }
+}

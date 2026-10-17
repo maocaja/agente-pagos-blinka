@@ -1,0 +1,92 @@
+{
+  "id": "f_10",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_10",
+    "hash": "1b969dd93304ef5dcd2e205615ca1148d6b5ec6b65f05afc91dfc40a75775194",
+    "canal": "pdf",
+    "formato": "pdf",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-12T00:00:00Z"
+  },
+  "emisor": {
+    "nombre": "ESTUDIO ANDINO SAS",
+    "nombre_normalizado": "ESTUDIOANDINOSAS",
+    "id_fiscal": "900.000.111-0",
+    "pais": "CO"
+  },
+  "referencias": {
+    "numero": "INV-0431",
+    "numero_normalizado": "INV0431",
+    "acuerdo_ref": "AC-ANDINO-2026-01"
+  },
+  "fechas": {
+    "emision": "2026-10-12",
+    "vencimiento": "2026-11-11"
+  },
+  "montos": {
+    "moneda": "COP",
+    "total_menor": "720000000",
+    "suma_lineas_menor": "650000000",
+    "lineas": [
+      {
+        "descripcion": "Diseño de empaques, fase 1",
+        "total_menor": "400000000"
+      },
+      {
+        "descripcion": "Piezas para redes sociales",
+        "total_menor": "150000000"
+      },
+      {
+        "descripcion": "Ajustes adicionales solicitados",
+        "total_menor": "100000000"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "CO",
+    "ultimos4": "4417"
+  },
+  "proveedor_asignado": {
+    "proveedor_id": null,
+    "metodo": "ninguno",
+    "pista": null
+  },
+  "evidencia": {
+    "tipo_documento": "FACTURA DE VENTA No. INV-0431",
+    "numero_factura": "INV-0431",
+    "monto_total": "TOTAL A PAGAR                           7.200.000 COP",
+    "moneda": "7.200.000 COP",
+    "proveedor": "ESTUDIO ANDINO SAS",
+    "cuenta": "Cuenta de ahorros terminada en 4417"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.97,
+    "monto_total": 0.97,
+    "moneda": 0.98,
+    "proveedor": 0.97,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "falla",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  }
+}

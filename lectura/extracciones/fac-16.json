@@ -1,0 +1,88 @@
+{
+  "id": "f_16",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_16",
+    "hash": "4b91e063b9c242bcfd8fff2324180f828f34168b9aab1313b4343a337a87f2eb",
+    "canal": "pdf",
+    "formato": "pdf",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-14T00:00:00Z"
+  },
+  "emisor": {
+    "nombre": "CODIGO VERDE SAS",
+    "nombre_normalizado": "CODIGOVERDESAS",
+    "id_fiscal": "901.000.222-1",
+    "pais": "CO"
+  },
+  "referencias": {
+    "numero": "CV-12",
+    "numero_normalizado": "CV12",
+    "acuerdo_ref": "AC-CVERDE-2026-02"
+  },
+  "fechas": {
+    "emision": "2026-10-14",
+    "vencimiento": "2026-11-13"
+  },
+  "montos": {
+    "moneda": "USD",
+    "total_menor": "290000",
+    "suma_lineas_menor": "243697",
+    "lineas": [
+      {
+        "descripcion": "Plataforma de reportes ambientales, licencia",
+        "total_menor": "243697"
+      },
+      {
+        "descripcion": "Capacitacion al equipo (2 sesiones, incluida)",
+        "total_menor": "0"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "CO",
+    "ultimos4": "1096"
+  },
+  "proveedor_asignado": {
+    "proveedor_id": null,
+    "metodo": "ninguno",
+    "pista": null
+  },
+  "evidencia": {
+    "tipo_documento": "FACTURA DE VENTA No. CV-12",
+    "numero_factura": "CV-12",
+    "monto_total": "TOTAL                                          2.900,00 USD",
+    "moneda": "2.900,00 USD",
+    "proveedor": "CODIGO VERDE SAS",
+    "cuenta": "Cuenta corriente terminada en 1096"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.97,
+    "monto_total": 0.97,
+    "moneda": 0.98,
+    "proveedor": 0.97,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "falla",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  }
+}

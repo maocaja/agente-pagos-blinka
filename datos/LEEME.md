@@ -19,3 +19,7 @@ Los de `PARAMS_INICIALES` de `demo-front/motor.js` (tope 10.000, umbral 3.000, p
 - fac-07 (duplicado difuso): el motor paga; `veredicto_ideal` es ESCALAR segun el PRD.
 - fac-17 (nota de credito): el motor no tiene tipo de documento; se escala solo porque se modela con confianza baja.
 - fac-18 (estado de cuenta): se escala por suma de lineas distinta del saldo.
+
+## Registro maestro
+
+`registro-maestro.json` es la fuente unica de proveedores, cuentas registradas, acuerdos y presupuesto del periodo para nucleo, lectura y evaluacion. Se derivo de la maqueta y de las facturas, no de reglas; los montos son unidades menores en texto (USD). Incluye un proveedor bloqueado (`prov_bloqueado`) y uno de alta reciente (`prov_nuevo`) que ninguna factura usa. `reservas_previas` empieza vacio: el gasto lo acumulan las facturas en orden. Topes, umbral y beneficiarios permitidos viven en el mandato.

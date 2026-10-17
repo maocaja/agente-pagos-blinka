@@ -1,0 +1,88 @@
+{
+  "id": "f_13",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_13",
+    "hash": "5c177ed8cca8538b3d3da8f588b9ee417a95455ca1465f5e85ff69ca12e4b126",
+    "canal": "pdf",
+    "formato": "pdf",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-10T00:00:00Z"
+  },
+  "emisor": {
+    "nombre": "LOGISTICA SUR SpA",
+    "nombre_normalizado": "LOGISTICASURSPA",
+    "id_fiscal": "76.000.000-0",
+    "pais": "CL"
+  },
+  "referencias": {
+    "numero": "LS-90",
+    "numero_normalizado": "LS90",
+    "acuerdo_ref": "AC-LSUR-2026-05"
+  },
+  "fechas": {
+    "emision": "2026-10-10",
+    "vencimiento": "2026-11-09"
+  },
+  "montos": {
+    "moneda": "USD",
+    "total_menor": "1400000",
+    "suma_lineas_menor": "1400000",
+    "lineas": [
+      {
+        "descripcion": "Flete maritimo consolidado, contenedor 1",
+        "total_menor": "900000"
+      },
+      {
+        "descripcion": "Flete maritimo consolidado, contenedor 2",
+        "total_menor": "500000"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "CL",
+    "ultimos4": "7745"
+  },
+  "proveedor_asignado": {
+    "proveedor_id": null,
+    "metodo": "ninguno",
+    "pista": null
+  },
+  "evidencia": {
+    "tipo_documento": "FACTURA No. LS-90",
+    "numero_factura": "LS-90",
+    "monto_total": "TOTAL                                        14.000,00 USD",
+    "moneda": "14.000,00 USD",
+    "proveedor": "LOGISTICA SUR SpA",
+    "cuenta": "Cuenta corriente terminada en 7745"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.97,
+    "monto_total": 0.97,
+    "moneda": 0.98,
+    "proveedor": 0.97,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "ok",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  }
+}

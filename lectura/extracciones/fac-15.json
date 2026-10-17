@@ -1,0 +1,88 @@
+{
+  "id": "f_15",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_15",
+    "hash": "64359d61db5d4e20a77dfc86e75d17f783d3448f493e5dc9e9e590d6cd9f9695",
+    "canal": "xml",
+    "formato": "xml",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-13T00:00:00Z"
+  },
+  "emisor": {
+    "nombre": "DevNorte SA de CV",
+    "nombre_normalizado": "DEVNORTESADECV",
+    "id_fiscal": "",
+    "pais": "MX"
+  },
+  "referencias": {
+    "numero": "DN-93",
+    "numero_normalizado": "DN93",
+    "acuerdo_ref": "AC-DEVNORTE-2026-04"
+  },
+  "fechas": {
+    "emision": "2026-10-13",
+    "vencimiento": "2026-11-12"
+  },
+  "montos": {
+    "moneda": "MXN",
+    "total_menor": "3400000",
+    "suma_lineas_menor": "2931034",
+    "lineas": [
+      {
+        "descripcion": "Desarrollo frontend",
+        "total_menor": "2000000"
+      },
+      {
+        "descripcion": "Integracion de API",
+        "total_menor": "931034"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "US",
+    "ultimos4": "8821"
+  },
+  "proveedor_asignado": {
+    "proveedor_id": null,
+    "metodo": "ninguno",
+    "pista": null
+  },
+  "evidencia": {
+    "tipo_documento": "<cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>",
+    "numero_factura": "<cbc:ID>DN-93</cbc:ID>",
+    "monto_total": "<cbc:PayableAmount currencyID=\"MXN\">34000.00</cbc:PayableAmount>",
+    "moneda": "<cbc:DocumentCurrencyCode>MXN</cbc:DocumentCurrencyCode>",
+    "proveedor": "<cbc:Name>DevNorte SA de CV</cbc:Name>",
+    "cuenta": "<cbc:ID>********8821</cbc:ID>"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.99,
+    "monto_total": 0.99,
+    "moneda": 0.99,
+    "proveedor": 0.99,
+    "cuenta": 0.99
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "falla",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "parser",
+    "modelo": null,
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  }
+}

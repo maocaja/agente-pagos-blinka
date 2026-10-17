@@ -1,0 +1,85 @@
+{
+  "id": "f_12",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_12",
+    "hash": "6ddc1b8f67923206f2010a0c6dd0b30703d020994957ba39fe56d45de2031b26",
+    "canal": "imagen",
+    "formato": "imagen",
+    "tipo_documento": "cuenta_de_cobro",
+    "recibido_en": "2026-10-17T00:00:00Z"
+  },
+  "emisor": {
+    "nombre": "Marta R_iz",
+    "nombre_normalizado": "MARTARIZ",
+    "id_fiscal": "",
+    "pais": "CO"
+  },
+  "referencias": {
+    "numero": "",
+    "numero_normalizado": "",
+    "acuerdo_ref": ""
+  },
+  "fechas": {
+    "emision": null,
+    "vencimiento": null
+  },
+  "montos": {
+    "moneda": "USD",
+    "total_menor": "0",
+    "suma_lineas_menor": null,
+    "lineas": []
+  },
+  "cuenta": {
+    "pais": "CO",
+    "ultimos4": ""
+  },
+  "proveedor_asignado": {
+    "proveedor_id": null,
+    "metodo": "ninguno",
+    "pista": null
+  },
+  "evidencia": {
+    "tipo_documento": "CUENTA DE C0BRO  N0. CC-2?",
+    "numero_factura": "N0. CC-2? (el ultimo digito no se distingue: 2 o 7)",
+    "monto_total": "Valor: $ 9?0 USD  (podria ser 950 o 990)",
+    "moneda": "9?0 USD",
+    "proveedor": "Marta R_iz",
+    "cuenta": "Cuenta Bancolombia terminada en 2?91"
+  },
+  "confianza": {
+    "tipo_documento": 0.8,
+    "numero_factura": 0.3,
+    "monto_total": 0.3,
+    "moneda": 0.9,
+    "proveedor": 0.55,
+    "cuenta": 0.3
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "falla",
+    "suma_lineas": "no_aplica",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "sin_segunda_lectura",
+      "detalle": [
+        {
+          "campo": "monto_total",
+          "modelo": null,
+          "reglas": null
+        }
+      ]
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": "formato_numerico_ambiguo"
+  }
+}

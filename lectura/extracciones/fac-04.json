@@ -1,0 +1,88 @@
+{
+  "id": "f_04",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_04",
+    "hash": "2107e7585f2312111850680f0acc0333c7c700fb7a46714987f31e0cc9692efb",
+    "canal": "correo",
+    "formato": "texto",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-06T19:02:00Z"
+  },
+  "emisor": {
+    "nombre": "CLOUD ADVISORS LLC",
+    "nombre_normalizado": "CLOUDADVISORSLLC",
+    "id_fiscal": "00-0000000",
+    "pais": "US"
+  },
+  "referencias": {
+    "numero": "CA-401",
+    "numero_normalizado": "CA401",
+    "acuerdo_ref": "MSA-CLOUD-2026-07"
+  },
+  "fechas": {
+    "emision": "2026-10-06",
+    "vencimiento": "2026-11-05"
+  },
+  "montos": {
+    "moneda": "USD",
+    "total_menor": "200000",
+    "suma_lineas_menor": "200000",
+    "lineas": [
+      {
+        "descripcion": "Architecture review workshop",
+        "total_menor": "120000"
+      },
+      {
+        "descripcion": "Roadmap and vendor assessment",
+        "total_menor": "80000"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "US",
+    "ultimos4": "6052"
+  },
+  "proveedor_asignado": {
+    "proveedor_id": null,
+    "metodo": "ninguno",
+    "pista": null
+  },
+  "evidencia": {
+    "tipo_documento": "INVOICE No.: CA-401",
+    "numero_factura": "CA-401",
+    "monto_total": "TOTAL DUE                              USD 2,000.00",
+    "moneda": "USD 2,000.00",
+    "proveedor": "CLOUD ADVISORS LLC",
+    "cuenta": "Account ending 6052"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.97,
+    "monto_total": 0.97,
+    "moneda": 0.98,
+    "proveedor": 0.97,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "ok",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  }
+}
