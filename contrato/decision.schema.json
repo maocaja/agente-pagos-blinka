@@ -13,6 +13,8 @@
     "mandato_version": {"type": "string"},
     "veredicto": {"type": "string", "enum": ["PAGAR", "FRENAR", "ESCALAR", "REGISTRAR"], "description": "REGISTRAR solo para una nota de credito que pasa todas las reglas; nunca lleva orden de pago"},
     "motivo_corto": {"type": "string", "description": "Una frase para la bandeja"},
+    "explicacion": {"type": "string", "description": "Una a tres frases en espanol, deterministas, desde los resultados por regla"},
+    "que_hacer": {"type": ["string", "null"], "description": "Paso siguiente para una persona; null cuando el veredicto no es ESCALAR ni FRENAR"},
     "reglas": {
       "type": "array",
       "items": {

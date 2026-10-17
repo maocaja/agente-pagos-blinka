@@ -3,6 +3,7 @@ from functools import lru_cache
 
 from . import reglas_simples  # noqa: F401  registra R3 a R7
 from .errores import FallaCerrada
+from .explicacion import explicar
 from .mandato import RAIZ_CONTRATO
 from .reglas import AL_FINAL, REGLAS, Resultado
 
@@ -79,9 +80,10 @@ def _veredicto(f, m, reg, reglas, requeridas):
 
 def decidir(f, m, reg, ids, reloj, modo_autonomia, reglas=None, requeridas=None) -> dict:
     veredicto, motivo, res = _veredicto(f, m, reg, reglas, requeridas)
+    explicacion, que_hacer = explicar(veredicto, motivo, [{"id": i, "estado": r.estado, "accion_si_falla": r.accion, "evidencia": r.evidencia} for i, r in res])
     return {
         "id": ids("dec"), "factura_id": f["id"], "ciclo_id": f["ciclo_id"], "mandato_version": m.version,
-        "veredicto": veredicto, "motivo_corto": motivo,
+        "veredicto": veredicto, "motivo_corto": motivo, "explicacion": explicacion, "que_hacer": que_hacer,
         "reglas": [{"id": i, "estado": r.estado, "accion_si_falla": r.accion if r.estado == "falla" else None,
                     "aprobable": r.aprobable, "evidencia": r.evidencia, "campo_origen": r.campo} for i, r in res],
         "modo_autonomia": modo_autonomia, "estado": ESTADO_DE[veredicto],

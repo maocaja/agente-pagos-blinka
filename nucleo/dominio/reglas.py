@@ -53,9 +53,14 @@ def _causas_lectura(f, m):
     return causas
 
 
+def _causa_remitente(f):
+    s = f.get("senales", {}).get("remitente_inconsistente")
+    return [f"remitente inconsistente: {s['motivo']}"] if s else []
+
+
 @regla("R1")
 def lectura_confiable(f, m, reg):
-    causas = _causas_lectura(f, m)
+    causas = _causas_lectura(f, m) + _causa_remitente(f)
     if causas:
         return falla("ESCALAR", False, "Lectura no confiable: " + "; ".join(causas) + ".")
     return cumple("Lecturas coinciden y la confianza supera el minimo.")

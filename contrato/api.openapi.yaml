@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Agente de Pagos con Garantia, API del nucleo
-  version: 1.0.0-rc1
+  version: 1.1.0-rc1
   description: |
     Contrato entre U1 (nucleo), U2 (lectura), U3 (interfaz) y U4 (evaluacion). Escrito primero; cambia solo de comun acuerdo.
     Cada peticion (menos POST /api/sesion) lleva el encabezado X-Sesion-Id. El rol es simulado y viaja en X-Rol.
@@ -418,6 +418,56 @@ paths:
         '201': {description: Propuesto, content: {application/json: {schema: {$ref: '#/components/schemas/Mandato'}}}}
         '403': {$ref: '#/components/responses/RolNoPermitido'}
         '422': {$ref: '#/components/responses/Invalido'}
+  /api/mandato/previa:
+    post:
+      tags: [mandato]
+      summary: Que cambia si se adoptan estos parametros (no guarda nada)
+      description: Cambios aditivos de la version 1.1.0-rc1. Reevalua las facturas de la sesion con y sin los cambios.
+      requestBody: {required: true, content: {application/json: {schema: {type: object, required: [parametros], properties: {parametros: {type: object, description: Parametros del mandato que cambian}}}}}}
+      responses:
+        '200':
+          description: Facturas que cambian de veredicto
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [mandato_vigente, evaluadas, cambian, cambios]
+                properties:
+                  mandato_vigente: {type: string}
+                  evaluadas: {type: integer}
+                  cambian: {type: integer}
+                  cambios:
+                    type: array
+                    items: {type: object, properties: {factura_id: {type: string}, antes: {type: string}, despues: {type: string}, explicacion: {type: string}}}
+        '422': {$ref: '#/components/responses/Invalido'}
+  /api/auditoria/paquete:
+    get:
+      tags: [auditoria]
+      summary: Recibos de la sesion, clave publica y mandato citado, para verificar sin la app
+      responses:
+        '200':
+          description: Paquete de auditoria
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [formato, generado_en, clave_publica, clave_version, recibos, mandatos]
+                properties:
+                  formato: {type: string}
+                  generado_en: {type: string}
+                  clave_publica: {type: string}
+                  clave_version: {type: string}
+                  recibos: {type: array, items: {$ref: '#/components/schemas/Recibo'}}
+                  mandatos: {type: object, additionalProperties: {$ref: '#/components/schemas/Mandato'}}
+  /api/ordenes/{id}/pain001:
+    get:
+      tags: [auditoria]
+      summary: Orden autorizada como XML pain.001 minimo, SIMULADA (id es el del recibo)
+      parameters: [{$ref: '#/components/parameters/IdDecision'}]
+      responses:
+        '200': {description: XML pain.001 simulado, content: {application/xml: {schema: {type: string}}}}
+        '404': {$ref: '#/components/responses/NoEncontrado'}
+        '409': {$ref: '#/components/responses/Conflicto'}
   /api/mandato/contrafirma:
     post:
       tags: [mandato]
