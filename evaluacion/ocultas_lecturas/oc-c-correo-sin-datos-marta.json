@@ -1,0 +1,76 @@
+{
+  "id": "f_oc-c",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_oc-c",
+    "hash": "e6238d136d2f0ab1a1af1725977bd8a24e9694cf441d9184f382ba1be5be666b",
+    "canal": "correo",
+    "formato": "texto",
+    "tipo_documento": "cuenta_de_cobro",
+    "recibido_en": "2026-10-13T09:00:00Z"
+  },
+  "emisor": {
+    "nombre": "Marta",
+    "nombre_normalizado": "MARTA",
+    "id_fiscal": "",
+    "pais": "CO"
+  },
+  "referencias": {
+    "numero": "",
+    "numero_normalizado": "",
+    "acuerdo_ref": ""
+  },
+  "fechas": {
+    "emision": null,
+    "vencimiento": null
+  },
+  "montos": {
+    "moneda": "USD",
+    "total_menor": "70000",
+    "suma_lineas_menor": null,
+    "lineas": []
+  },
+  "cuenta": null,
+  "proveedor_asignado": {
+    "proveedor_id": null,
+    "metodo": "ninguno",
+    "pista": "prov_marta"
+  },
+  "evidencia": {
+    "tipo_documento": "mi cobro",
+    "numero_factura": "(sin numero de cuenta de cobro ni fecha; no adjunta documento)",
+    "monto_total": "son USD 700 mas o menos",
+    "moneda": "USD 700",
+    "proveedor": "Marta",
+    "cuenta": "cuenta de siempre"
+  },
+  "confianza": {
+    "tipo_documento": 0.5,
+    "numero_factura": 0.5,
+    "monto_total": 0.5,
+    "moneda": 0.9,
+    "proveedor": 0.7,
+    "cuenta": 0.5
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "no_aplica",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  }
+}

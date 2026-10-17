@@ -1,0 +1,164 @@
+{
+ "semilla": 7,
+ "mutantes": [
+  {
+   "id": "M01",
+   "archivo": "nucleo/dominio/motor.py",
+   "rompe": "precedencia invertida: ESCALAR gana a FRENAR",
+   "atrapado": true,
+   "pruebas": [
+    "nucleo/tests/test_ola2.py::test_18_facturas_contra_esperado[f_13]",
+    "nucleo/tests/test_ola2.py::test_18_facturas_contra_esperado[f_14]",
+    "nucleo/tests/test_t1.py::test_r3_registrado_no_registrado_y_bloqueado",
+    "nucleo/tests/test_t1.py::test_precedencia_frenar_sobre_escalar_y_decision_valida",
+    "nucleo/tests/test_t1.py::test_frenar_gana_a_escalar_aunque_falte_una_regla"
+   ]
+  },
+  {
+   "id": "M02",
+   "archivo": "nucleo/dominio/motor.py",
+   "rompe": "tipo desconocido da PAGAR",
+   "atrapado": true,
+   "pruebas": [
+    "nucleo/tests/test_ola2.py::test_tipo_desconocido_o_dato_roto_nunca_paga"
+   ]
+  },
+  {
+   "id": "M03",
+   "archivo": "nucleo/dominio/motor.py",
+   "rompe": "regla del registro sin implementar no escala",
+   "atrapado": true,
+   "pruebas": [
+    "nucleo/tests/test_t1.py::test_falla_cerrado_regla_del_registro_no_implementada"
+   ]
+  },
+  {
+   "id": "M04",
+   "archivo": "nucleo/dominio/motor.py",
+   "rompe": "error al evaluar una regla cuenta como cumple",
+   "atrapado": false,
+   "pruebas": []
+  },
+  {
+   "id": "M05",
+   "archivo": "nucleo/dominio/motor.py",
+   "rompe": "R9 (AL_FINAL) nunca se evalua",
+   "atrapado": true,
+   "pruebas": [
+    "nucleo/tests/test_ola2.py::test_18_facturas_contra_esperado[f_16]",
+    "nucleo/tests/test_ola4.py::test_r9_no_se_supera_aprobando"
+   ]
+  },
+  {
+   "id": "M06",
+   "archivo": "nucleo/dominio/reglas.py",
+   "rompe": "R10 limite desplazado (>=)",
+   "atrapado": true,
+   "pruebas": [
+    "nucleo/tests/test_ola2.py::test_18_facturas_contra_esperado[f_05]",
+    "nucleo/tests/test_ola2.py::test_18_facturas_contra_esperado[f_06]",
+    "nucleo/tests/test_ola2.py::test_guardian_hash_y_orden_distintos_al_recibo"
+   ]
+  },
+  {
+   "id": "M07",
+   "archivo": "nucleo/dominio/reglas.py",
+   "rompe": "R9 limite desplazado",
+   "atrapado": false,
+   "pruebas": []
+  },
+  {
+   "id": "M08",
+   "archivo": "nucleo/dominio/reglas.py",
+   "rompe": "R1 devuelve cumple sin evaluar",
+   "atrapado": true,
+   "pruebas": [
+    "nucleo/tests/test_ola2.py::test_18_facturas_contra_esperado[f_10]",
+    "nucleo/tests/test_ola2.py::test_18_facturas_contra_esperado[f_12]",
+    "nucleo/tests/test_ola2.py::test_18_facturas_contra_esperado[f_14]",
+    "nucleo/tests/test_ola5.py::test_r1_escala_por_remitente_inconsistente"
+   ]
+  },
+  {
+   "id": "M09",
+   "archivo": "nucleo/dominio/reglas.py",
+   "rompe": "R2a ignora el hash identico",
+   "atrapado": true,
+   "pruebas": [
+    "nucleo/tests/test_t1.py::test_r2a_cumple_y_falla_por_numero_y_por_hash"
+   ]
+  },
+  {
+   "id": "M10",
+   "archivo": "nucleo/dominio/reglas_simples.py",
+   "rompe": "R3 proveedor bloqueado escala en vez de frenar",
+   "atrapado": true,
+   "pruebas": [
+    "nucleo/tests/test_t1.py::test_r3_registrado_no_registrado_y_bloqueado",
+    "nucleo/tests/test_t1.py::test_frenar_gana_a_escalar_aunque_falte_una_regla"
+   ]
+  },
+  {
+   "id": "M11",
+   "archivo": "nucleo/dominio/reglas_simples.py",
+   "rompe": "R6 sobre el tope escala en vez de frenar",
+   "atrapado": true,
+   "pruebas": [
+    "nucleo/tests/test_ola2.py::test_18_facturas_contra_esperado[f_13]",
+    "nucleo/tests/test_t1.py::test_r6_bajo_umbral_sobre_umbral_y_sobre_tope",
+    "nucleo/tests/test_t1.py::test_precedencia_frenar_sobre_escalar_y_decision_valida"
+   ]
+  },
+  {
+   "id": "M12",
+   "archivo": "nucleo/dominio/reglas_simples.py",
+   "rompe": "R7 moneda no permitida escala en vez de frenar",
+   "atrapado": true,
+   "pruebas": [
+    "nucleo/tests/test_ola2.py::test_18_facturas_contra_esperado[f_14]",
+    "nucleo/tests/test_t1.py::test_falla_cerrado_moneda_sin_tasa_y_mandato_v1_sin_valores_quemados"
+   ]
+  },
+  {
+   "id": "M13",
+   "archivo": "nucleo/dominio/guardian.py",
+   "rompe": "el guardian no revisa el nonce usado",
+   "atrapado": true,
+   "pruebas": [
+    "nucleo/tests/test_ola2.py::test_guardian_autoriza_una_vez_y_el_nonce_reutilizado_se_rechaza"
+   ]
+  },
+  {
+   "id": "M14",
+   "archivo": "nucleo/dominio/guardian.py",
+   "rompe": "el guardian autoriza un recibo FRENAR",
+   "atrapado": false,
+   "pruebas": []
+  },
+  {
+   "id": "M15",
+   "archivo": "nucleo/dominio/guardian.py",
+   "rompe": "el guardian ignora el recibo vencido",
+   "atrapado": false,
+   "pruebas": []
+  },
+  {
+   "id": "M16",
+   "archivo": "nucleo/infra/libro.py",
+   "rompe": "el registro permite borrar movimientos",
+   "atrapado": true,
+   "pruebas": [
+    "nucleo/tests/test_ola2.py::test_registro_de_solo_adicion_no_admite_update_ni_delete"
+   ]
+  },
+  {
+   "id": "M17",
+   "archivo": "nucleo/infra/libro.py",
+   "rompe": "consumir_nonce ignora reserva liberada",
+   "atrapado": true,
+   "pruebas": [
+    "nucleo/tests/test_ola2.py::test_guardian_mandato_vencido_deniega_y_libera_la_reserva"
+   ]
+  }
+ ]
+}
