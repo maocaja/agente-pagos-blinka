@@ -122,7 +122,7 @@
             <h2 class="text-lg font-semibold">Historial</h2>
             <p class="text-sm text-texto-2" x-show="historial.length === 0">Sin eventos registrados.</p>
             <ol class="mt-1 grid gap-2 text-sm">
-              <template x-for="(h, i) in historial" :key="i"><li class="grid gap-x-3 sm:grid-cols-[11rem_minmax(0,1fr)]"><span class="cifra text-texto-2" x-text="hora(h.hora)"></span><span><span class="font-semibold" x-text="h.evento"></span> <span class="text-texto-2" x-text="'- ' + h.actor"></span><span class="block" x-show="h.nota" x-text="h.nota"></span></span></li></template>
+              <template x-for="(h, i) in historial" :key="i"><li class="grid gap-x-3 sm:grid-cols-[11rem_minmax(0,1fr)]"><span class="cifra text-texto-2" x-text="hora(h.hora)"></span><span><span class="font-semibold" x-text="evento(h)"></span><span class="block" x-show="h.nota" x-text="h.nota"></span></span></li></template>
             </ol>
           </div>
           <ul class="mt-4 grid gap-1 text-sm">
@@ -207,7 +207,9 @@
             </ol>
           </div>
           <div class="linea mt-4 flex flex-wrap items-center gap-3 border-t pt-4">
-            <a class="btn btn-recibo-sec max-w-full flex-wrap text-center" :href="'/api/ordenes/' + recibo.id + '/pain001'" download @click.prevent="descargar('/api/ordenes/' + recibo.id + '/pain001', 'orden-simulada-' + recibo.id + '.xml')" data-testid="descargar-pain001">Orden de pago <span class="etiqueta-simulada">SIMULADA</span> (pain.001)</a>
+            <button type="button" class="btn btn-recibo" x-show="!estadoOrden" data-testid="pedir-autorizacion" :disabled="ocupado" @click="pedirAutorizacion()">Pedir autorización al guardián</button>
+            <button type="button" class="btn btn-recibo-sec max-w-full flex-wrap text-center" :disabled="!puedeDescargarOrden" @click="descargarOrden()" data-testid="descargar-pain001">Descargar la orden de pago <span class="etiqueta-simulada">SIMULADA</span> (pain.001)</button>
+            <span class="apoyo text-sm" x-show="!estadoOrden" data-testid="orden-bloqueada">La orden se habilita cuando el guardián autoriza.</span>
           </div>
 
           <div x-show="resultado" x-cloak class="linea mt-4 border-t pt-4" data-testid="guardian">

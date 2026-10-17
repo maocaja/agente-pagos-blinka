@@ -180,7 +180,12 @@ def test_ciclo_y_historial_tras_rechazar():
     assert det["historial"][-1]["nota"] == "Cuenta no confirmada" and det["estado_orden"] is None
 
 
-def test_interfaz_nombra_autorizadas_y_no_pagadas():
-    html = (RAIZ / "dist" / "app.js").read_text(encoding="utf-8")
-    assert "Autorizadas para pago" in html and '"Pagados"' not in html
-
+def test_interfaz_nombra_con_decision_de_pagar_y_el_simulador_autoriza():
+    js = (RAIZ / "dist" / "app.js").read_text(encoding="utf-8")
+    assert "Con decisión de pagar" in js and "Autorizadas para pago" not in js and '"Pagados"' not in js
+    cliente = TestClient(crear_app())
+    assert cliente.get("/api/decisiones/dec_01").json()["estado_orden"] is None
+    res = cliente.post("/api/decisiones/dec_01/autorizar").json()
+    assert res["autorizada"] and len(res["verificaciones"]) == 6
+    assert cliente.get("/api/decisiones/dec_01").json()["estado_orden"] == "autorizada"
+    assert cliente.post("/api/decisiones/dec_02/autorizar").status_code == 409

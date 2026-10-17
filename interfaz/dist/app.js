@@ -63,7 +63,7 @@ function app() {
     },
     get resumen() {
       const v = this.vigentes, n = (f) => v.filter(f).length;
-      return [["documentos", "Documentos", v.length], ["autorizadas", "Autorizadas para pago", n((d) => d.veredicto === "PAGAR")],
+      return [["documentos", "Documentos", v.length], ["autorizadas", "Con decisión de pagar", n((d) => d.veredicto === "PAGAR")],
         ["frenados", "Frenados", n((d) => d.veredicto === "FRENAR")], ["escalados", "Escalados", n((d) => d.veredicto === "ESCALAR")],
         ["pendientes", "Pendientes de aprobación", n((d) => d.estado === "pendiente")]];
     },
@@ -111,6 +111,22 @@ function app() {
       return [["decision", "Decisión", this.sel ? this.veredictos[this.sel.veredicto].texto : "", true],
         ["autorizada", "Autorizada", o ? "Sí" : "No", !!o],
         ["orden", "Orden emitida (simulada)", o === "orden_simulada_emitida" ? "Sí" : "No", o === "orden_simulada_emitida"]];
+    },
+    // El servidor manda eventos en minuscula; se muestran con inicial mayuscula y el rol del CFO en siglas.
+    evento(h) { return h.evento.charAt(0).toUpperCase() + h.evento.slice(1) + " · " + (h.actor === "cfo" ? "CFO" : h.actor); },
+    get puedeDescargarOrden() { return !!this.estadoOrden; },
+    async pedirAutorizacion() {
+      this.error = null; this.ocupado = true;
+      try {
+        this.resultado = await api.autorizar(this.sel.id);
+        this.estadoOrden = (await api.detalle(this.sel.id)).estado_orden ?? null;
+        await this.cargarLista();
+      } catch (e) { this.error = e.message; }
+      this.ocupado = false;
+    },
+    async descargarOrden() {
+      await this.descargar("/api/ordenes/" + this.recibo.id + "/pain001", "orden-simulada-" + this.recibo.id + ".xml");
+      if (!this.error) this.estadoOrden = (await api.detalle(this.sel.id)).estado_orden ?? this.estadoOrden;
     },
     get puedeDecidir() { return this.rol === "cfo"; },
     get esperaAprobacion() { return this.sel && this.sel.veredicto === "ESCALAR" && this.sel.estado === "pendiente"; },
