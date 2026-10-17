@@ -1,0 +1,35 @@
+{
+  "semilla": 7,
+  "reloj_congelado": "2026-10-17T12:00:00Z",
+  "total_max": 200,
+  "arena_variantes_max": 500,
+  "segundos_max_total": 300,
+  "etapas": {
+    "contrato": {
+      "segundos": 30
+    },
+    "nucleo": {
+      "max": 80,
+      "objetivo": 67,
+      "segundos": 90
+    },
+    "lectura": {
+      "max": 40,
+      "objetivo": 30,
+      "segundos": 60
+    },
+    "interfaz": {
+      "max": 20,
+      "objetivo": 12,
+      "segundos": 60
+    },
+    "evaluacion": {
+      "max": 60,
+      "objetivo": 45,
+      "segundos": 120
+    },
+    "mutacion": {
+      "segundos": 300
+    }
+  }
+}

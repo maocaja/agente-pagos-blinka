@@ -96,7 +96,7 @@ Prioridades de `unit-of-work.md`. Horas SUPUESTO salvo el primer hito (sábado a
 | U2 listo | Sáb 23:00 (SUPUESTO) | Las 18 facturas con extracción guardada que valida contra el esquema; una falla simulada del extractor termina en ESCALAR |
 | U3 listo | Dom 07:00 (SUPUESTO) | Marcador, Bandeja, Reglas, Guardián y Pentest y arena funcionan contra la API real; ninguna salida sin escapar |
 | U4 listo | Dom 07:00 (SUPUESTO) | Set corrido con 0 pagos indebidos y 0 frenadas escalables según el verificador; diferencias contra los esperados anteriores revisadas una por una |
-| Puerta de calidad | **Dom antes de las 10:00** | Pasan invariante, guardián, carrera de presupuesto y fallas del extractor; set sin pagos indebidos ni frenadas escalables; mutación sin sobrevivientes sin explicar |
+| Puerta de calidad | **Dom antes de las 10:00** | `python3 verify.py --gate` en verde: invariante, guardián, carrera de presupuesto y fallas del extractor; set sin pagos indebidos ni frenadas escalables; mutación sin sobrevivientes sin explicar; dos corridas idénticas y dentro del presupuesto de pruebas |
 | Entrega | Dom 12:00 | URL pública viva en modo guardado, repositorio y video |
 
 ## 5. Dependencias críticas

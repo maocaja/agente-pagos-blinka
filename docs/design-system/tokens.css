@@ -1,0 +1,58 @@
+/* Sala de control: tokens de diseño. Tailwind v4 los convierte en clases (bg-lienzo, text-pagar, font-doc, rounded-panel).
+   Los contrastes de cada par están calculados y listados en la guía de estilo. */
+@theme {
+  /* superficies oscuras */
+  --color-lienzo: #0D1520;
+  --color-panel: #131F2E;
+  --color-elevado: #1A293B;
+  --color-linea: #2C3F55;          /* separadores decorativos */
+  --color-linea-fuerte: #5B7694;   /* bordes de controles y paneles, minimo 3:1 */
+
+  /* texto sobre superficies oscuras */
+  --color-texto: #EAF0F7;
+  --color-texto-2: #A9B8CC;
+  --color-texto-3: #8497B0;
+
+  /* los cuatro veredictos: cada uno lleva siempre texto e icono, nunca solo color */
+  --color-pagar: #3DDBA8;
+  --color-frenar: #FF7A6B;
+  --color-escalar: #FFB84D;
+  --color-registrar: #94AEFF;
+
+  /* el recibo es papel sobre la sala oscura */
+  --color-papel: #EEF2F5;
+  --color-papel-texto: #14202E;
+  --color-papel-2: #4A5A6C;
+  --color-papel-linea: #C6D0DA;
+  --color-sello: #7D5F18;          /* latón oscuro sobre papel, 5,3:1 */
+  --color-laton: #C9A24A;          /* latón claro, solo para el sello sobre fondo oscuro */
+
+  /* tipografía */
+  --font-ui: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-doc: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-tec: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  /* forma: tres radios con jerarquía */
+  --radius-control: 6px;
+  --radius-panel: 14px;
+  --radius-papel: 2px;
+
+  --animate-sellar: sellar 420ms cubic-bezier(.2, .9, .3, 1.2) both;
+  @keyframes sellar {
+    0% { opacity: 0; transform: scale(1.5) rotate(-14deg); }
+    100% { opacity: 1; transform: scale(1) rotate(-6deg); }
+  }
+}
+
+/* base 18 px: la interfaz se proyecta, el cuerpo parte de un tamaño grande */
+:root { color-scheme: dark; }
+html { font-size: 18px; }
+body { background: var(--color-lienzo); color: var(--color-texto); font-family: var(--font-ui); line-height: 1.5; }
+
+/* foco visible en todo elemento interactivo */
+:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 2px; }
+
+/* el movimiento solo responde a una acción; se respeta la preferencia del sistema */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+}

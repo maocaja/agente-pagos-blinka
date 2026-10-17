@@ -1,6 +1,6 @@
 # Componentes de la interfaz: U3
 
-HTML y JavaScript sin proceso de compilación, servido por el backend. Los endpoints son una propuesta que el contrato de U1 confirma o corrige.
+HTML con **Tailwind compilado** (un solo archivo CSS versionado, sin Vite) y **Alpine.js** (versión fijada y copiada al repositorio), servido por el backend. Los tokens, controles y componentes están definidos en `docs/design-system/` (ver `design-system.md`). Los endpoints son una propuesta que el contrato de U1 confirma o corrige.
 
 ## Jerarquía
 ```

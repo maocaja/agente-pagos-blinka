@@ -22,3 +22,6 @@ Versión reducida para hackathon. Entrega: domingo 2026-10-18, 12:00.
 | Planes de código por unidad (x4) | Siguiente |
 | NFR e infraestructura (nota fusionada) | Aprobada |
 | Generación de código, build y pruebas | Pendiente; no se empieza hasta cerrar el diseño |
+
+| Sistema de diseño de la interfaz | Definido: `docs/design-system/` y `interfaz/functional-design/design-system.md` (Tailwind compilado + Alpine) |
+| Estrategia de verificación | Definida y probada: `verify.py`, `verify.budget.json`, `conftest.py` |
