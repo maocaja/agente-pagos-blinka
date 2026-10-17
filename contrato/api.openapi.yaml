@@ -543,21 +543,12 @@ paths:
                 semilla: {type: integer}
       responses:
         '200':
-          description: Resultado por estrategia
+          description: Resultado con la forma de resultados.schema.json (recuentos y casos; el id de cada caso empieza por la estrategia, por ejemplo E1-v2-1)
           content:
             application/json:
               schema:
                 type: object
-                required: [semilla, mandato_base, estrategias]
-                properties:
-                  semilla: {type: integer}
-                  mandato_base: {type: string}
-                  estrategias:
-                    type: array
-                    items:
-                      type: object
-                      required: [nombre, esperado, resultado, hueco]
-                      properties: {nombre: {type: string}, esperado: {type: string}, resultado: {type: string}, hueco: {type: boolean}, pagado_menor: {type: string}}
+                required: [recuentos, casos]
         '429': {$ref: '#/components/responses/Limite'}
   /api/arena/ejecutar:
     post:
@@ -574,22 +565,12 @@ paths:
                 nivel: {type: integer, enum: [1, 2]}
       responses:
         '200':
-          description: Recuento
+          description: Resultado con la forma de resultados.schema.json (recuentos, casos y no_prueba)
           content:
             application/json:
               schema:
                 type: object
-                required: [semilla, nivel, lanzadas, verificadas, pagos_indebidos, frenadas_escalables, desvios_conservadores, ms, no_prueba]
-                properties:
-                  semilla: {type: integer}
-                  nivel: {type: integer}
-                  lanzadas: {type: integer}
-                  verificadas: {type: integer}
-                  pagos_indebidos: {type: integer}
-                  frenadas_escalables: {type: integer}
-                  desvios_conservadores: {type: integer}
-                  ms: {type: integer}
-                  no_prueba: {type: array, items: {type: string}}
+                required: [recuentos, casos]
         '429': {$ref: '#/components/responses/Limite'}
   /api/costo:
     get:
