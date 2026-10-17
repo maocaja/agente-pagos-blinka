@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bandeja</title>
+  <link rel="stylesheet" href="app.css">
+  <script src="api.js"></script>
+  <script src="paginas.js"></script>
+  <script src="nav.js"></script>
+  <script defer src="alpine.min.js"></script>
+</head>
+<body x-data="bandeja()" x-init="init()" class="min-h-screen pb-40">
+  <header class="flex flex-wrap items-center gap-4 px-6 py-4">
+    <h1 class="text-xl font-semibold">Bandeja</h1>
+    <span class="etiqueta-simulada" data-testid="etiqueta-simulada">simulada</span>
+    <button type="button" class="btn btn-sec ml-auto" data-testid="cargar-todas" :disabled="ocupado" @click="cargarTodas()">Cargar todas</button>
+  </header>
+  <p x-show="error" x-cloak class="mx-6 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="error" x-text="error"></p>
+  <main class="grid gap-6 p-6 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)]">
+    <section aria-label="Mensajes">
+      <ul class="grid gap-3" data-testid="lista-muestras">
+        <template x-for="m in muestras" :key="m.id">
+          <li><button type="button" class="panel w-full p-4 text-left hover:bg-elevado" :class="sel && sel.id === m.id ? 'panel-fuerte' : ''" :disabled="ocupado" @click="abrir(m)" :data-testid="'muestra-' + m.id">
+            <span class="apoyo text-sm uppercase" x-text="m.tipo"></span>
+            <span class="block" x-text="m.titulo"></span>
+            <template x-if="cargadas[m.id]"><span class="chip mt-2" :class="veredictos[cargadas[m.id].decision.veredicto].clase"><span aria-hidden="true" x-text="veredictos[cargadas[m.id].decision.veredicto].icono"></span><span x-text="veredictos[cargadas[m.id].decision.veredicto].texto"></span></span></template>
+          </button></li>
+        </template>
+      </ul>
+    </section>
+    <section class="grid content-start gap-4 xl:grid-cols-3" x-show="actual" x-cloak aria-label="Muestra abierta" data-testid="muestra-abierta">
+      <div class="panel p-4"><h2 class="font-semibold">Original</h2>
+        <pre class="font-tec mt-2 whitespace-pre-wrap text-sm" data-testid="original" x-text="sel && sel.original ? sel.original : 'Original no disponible.'"></pre></div>
+      <div class="panel p-4"><h2 class="font-semibold">Lo leido <span class="etiqueta-simulada">lectura guardada</span></h2>
+        <dl class="mt-2 grid grid-cols-[6rem_1fr] gap-y-1 text-sm" data-testid="leido" x-show="actual">
+          <dt class="apoyo">Proveedor</dt><dd x-text="actual && actual.factura.emisor.nombre"></dd>
+          <dt class="apoyo">Numero</dt><dd x-text="actual && actual.factura.referencias.numero"></dd>
+          <dt class="apoyo">Total</dt><dd class="cifra" x-text="actual && actual.factura.montos.moneda + ' ' + actual.factura.montos.total_menor + ' (menores)'"></dd>
+          <dt class="apoyo">Cuenta</dt><dd x-text="actual && actual.factura.cuenta.pais + ' ****' + actual.factura.cuenta.ultimos4"></dd>
+        </dl></div>
+      <div class="panel p-4" data-testid="decision"><h2 class="font-semibold">Decision</h2>
+        <template x-if="actual"><div>
+          <span class="chip mt-2" :class="veredictos[actual.decision.veredicto].clase"><span aria-hidden="true" x-text="veredictos[actual.decision.veredicto].icono"></span><span x-text="veredictos[actual.decision.veredicto].texto"></span></span>
+          <p class="mt-2" x-text="actual.decision.motivo_corto"></p>
+          <ul class="mt-2 grid gap-1 text-sm" data-testid="regla-detuvo">
+            <template x-for="r in detuvo" :key="r.id"><li class="text-frenar"><span class="font-semibold" x-text="r.id + ' ' + (nombres[r.id] || '')"></span>: <span x-text="r.evidencia"></span></li></template>
+          </ul>
+        </div></template></div>
+    </section>
+  </main>
+  <style>[x-cloak]{display:none !important}</style>
+</body>
+</html>

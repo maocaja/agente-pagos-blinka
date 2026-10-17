@@ -1,0 +1,27 @@
+{
+  "version": "1.0.0-rc1",
+  "descripcion": "Registro unico de identificadores de reglas. Es la fuente de verdad de la numeracion: el PRD usaba otra y queda reemplazado. Una regla nueva es una funcion registrada mas una entrada aqui.",
+  "reglas": [
+    {"id": "R1",  "nombre": "Lectura confiable", "acciones": ["ESCALAR"], "aprobable": "no para las fallas de lectura; se resuelve con Corregir", "parametros": ["conf_min_dinero", "conf_min_general", "tolerancia_lineas_menor"], "tipos": ["factura", "cuenta_de_cobro", "nota_de_credito", "proforma", "anticipo"]},
+    {"id": "R2a", "nombre": "Duplicado exacto", "acciones": ["FRENAR"], "aprobable": false, "parametros": [], "tipos": ["factura", "cuenta_de_cobro", "nota_de_credito"]},
+    {"id": "R2b", "nombre": "Duplicado difuso", "acciones": ["ESCALAR"], "aprobable": true, "parametros": ["dup_tolerancia_monto_pct", "dup_ventana_dias"], "tipos": ["factura", "cuenta_de_cobro"]},
+    {"id": "R3",  "nombre": "Beneficiario permitido", "acciones": ["ESCALAR", "FRENAR"], "aprobable": "ESCALAR si; FRENAR no", "parametros": [], "tipos": ["factura", "cuenta_de_cobro", "nota_de_credito", "proforma", "anticipo"]},
+    {"id": "R4",  "nombre": "Cuenta registrada", "acciones": ["ESCALAR"], "aprobable": true, "parametros": [], "tipos": ["factura", "cuenta_de_cobro"]},
+    {"id": "R5",  "nombre": "Coincide con lo acordado", "acciones": ["ESCALAR"], "aprobable": true, "parametros": ["tolerancia_acuerdo_pct"], "tipos": ["factura", "cuenta_de_cobro"]},
+    {"id": "R6",  "nombre": "Monto", "acciones": ["FRENAR", "ESCALAR"], "aprobable": "ESCALAR (umbral) si; FRENAR (tope) no", "parametros": ["tope_pago_menor", "umbral_aprobacion_menor", "tasas_cambio", "redondeo"], "tipos": ["factura", "cuenta_de_cobro"]},
+    {"id": "R7",  "nombre": "Moneda", "acciones": ["FRENAR"], "aprobable": false, "parametros": ["monedas_permitidas", "tasas_cambio"], "tipos": ["factura", "cuenta_de_cobro", "nota_de_credito"]},
+    {"id": "R8",  "nombre": "Texto dirigido al agente", "acciones": ["ESCALAR"], "aprobable": true, "parametros": ["umbral_senal_texto"], "tipos": ["factura", "cuenta_de_cobro", "nota_de_credito", "proforma", "anticipo"]},
+    {"id": "R9",  "nombre": "Presupuesto del periodo", "acciones": ["ESCALAR"], "aprobable": false, "parametros": ["presupuesto_periodo_menor", "periodo"], "tipos": ["factura", "cuenta_de_cobro"], "nota": "Se evalua al final y solo si ninguna otra regla fallo"},
+    {"id": "R10", "nombre": "Tope acumulado por proveedor", "acciones": ["ESCALAR"], "aprobable": true, "parametros": ["tope_acumulado_proveedor", "periodo"], "tipos": ["factura", "cuenta_de_cobro"]}
+  ],
+  "politica_por_tipo": {
+    "factura": "todas las reglas",
+    "cuenta_de_cobro": "todas las reglas",
+    "nota_de_credito": "se evaluan las reglas aplicables; si pasan todas, REGISTRAR (credito a favor, nunca lleva orden de pago)",
+    "estado_de_cuenta": "FRENAR: no es una factura; no se puede aprobar",
+    "proforma": "ESCALAR siempre; se evaluan las reglas solo para dar evidencia",
+    "anticipo": "ESCALAR siempre; se evaluan las reglas solo para dar evidencia",
+    "desconocido": "ESCALAR: tipo no soportado"
+  },
+  "precedencia": "FRENAR > ESCALAR > PAGAR o REGISTRAR"
+}

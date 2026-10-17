@@ -1,3 +1,15 @@
+const VEREDICTOS = {
+  PAGAR: { icono: "✓", clase: "chip-pagar", texto: "Pagar" },
+  FRENAR: { icono: "✕", clase: "chip-frenar", texto: "Frenar" },
+  ESCALAR: { icono: "▲", clase: "chip-escalar", texto: "Escalar" },
+  REGISTRAR: { icono: "●", clase: "chip-registrar", texto: "Registrar" },
+};
+const ESTADO_VERIF = {
+  ok: { icono: "✓", texto: "Cumple", clase: "text-pagar" },
+  falla: { icono: "✕", texto: "Falla", clase: "text-frenar" },
+  no_evaluada: { icono: "–", texto: "No evaluada", clase: "text-texto-3" },
+};
+
 // Cliente unico de la API: sesion, rol e Idempotency-Key en cada POST.
 const api = {
   sesion: null,
@@ -21,5 +33,23 @@ const api = {
   detalle: (id) => api.pedir("GET", `/api/decisiones/${encodeURIComponent(id)}`),
   recibo: (id) => api.pedir("GET", `/api/recibos/${encodeURIComponent(id)}`),
   verificarRecibo: (id) => api.pedir("POST", `/api/recibos/${encodeURIComponent(id)}/verificar`),
+  mandato: () => api.pedir("GET", "/api/mandato"),
+  proveedores: () => api.pedir("GET", "/api/proveedores"),
+  marcador: () => api.pedir("GET", "/api/marcador"),
+  muestras: () => api.pedir("GET", "/api/muestras"),
+  cargarMuestra: (id) => api.pedir("POST", `/api/muestras/${encodeURIComponent(id)}/cargar`),
+  pentest: (mandato_base, semilla) => api.pedir("POST", "/api/pentest/ejecutar", { mandato_base, semilla }),
+  arena: (semilla) => api.pedir("POST", "/api/arena/ejecutar", { semilla }),
   guardian: (orden, recibo) => api.pedir("POST", "/api/guardian/verificar", { orden, recibo, aprobacion: null }),
+};
+
+// Formato de dinero en unidades menores (texto entero); el exponente sale de monedas.json.
+const dinero = {
+  exponente: (monedas, moneda) => (monedas[moneda] || { exponente: 2 }).exponente,
+  entero(menor, exp) {
+    const s = String(menor).padStart(exp + 1, "0");
+    return s.slice(0, s.length - exp).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  },
+  centavos: (menor, exp) => (exp ? "," + String(menor).padStart(exp + 1, "0").slice(-exp) : ""),
+  texto: (menor, moneda, monedas) => { const e = dinero.exponente(monedas, moneda); return moneda + " " + dinero.entero(menor, e) + dinero.centavos(menor, e); },
 };
