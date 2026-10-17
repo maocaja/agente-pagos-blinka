@@ -3,12 +3,12 @@ MAXIMO_FRASES = 3
 # Que hacer segun la regla que decide; una tabla, no una cadena de if.
 QUE_HACER = {
     "R1": "Confirmar contra el original.",
-    "R2a": "No pagar: ya se recibio esta factura.",
+    "R2a": "No pagar: ya se recibió esta factura.",
     "R2b": "Confirmar con el proveedor que no es un cobro repetido.",
     "R3": "Verificar al proveedor y darlo de alta en el registro maestro antes de pagar.",
     "R4": "Confirmar la cuenta con el proveedor por un canal distinto al documento.",
     "R5": "Revisar el acuerdo con el proveedor o pedir una factura corregida.",
-    "R6": "Pedir la aprobacion de quien tenga el monto autorizado.",
+    "R6": "Pedir la aprobación de quien tenga el monto autorizado.",
     "R7": "Pedir la factura en una moneda permitida o ampliar el mandato.",
     "R8": "No ejecutar la instrucción; revisar el documento original.",
     "R9": "Esperar al siguiente periodo o ampliar el presupuesto.",

@@ -65,6 +65,11 @@ def rutas_acciones(dep, ruta_resultados: Path | None) -> APIRouter:
                  idempotency_key: str | None = Header(None)):
         return _accion(servicio, "rechazar", id, cuerpo, x_rol, idempotency_key)
 
+    @r.post("/api/decisiones/{id}/autorizar")
+    def autorizar(id: str, servicio=Depends(dep), x_rol: str | None = Header(None),
+                  idempotency_key: str | None = Header(None)):
+        return _accion(servicio, "autorizar", id, {}, x_rol, idempotency_key)
+
     @r.get("/api/marcador")
     def marcador(servicio=Depends(dep)):
         return _marcador(list(servicio.decisiones.values()), _leer_resultados(ruta_resultados))
