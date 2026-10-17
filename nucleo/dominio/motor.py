@@ -1,4 +1,7 @@
+import json
+
 from .errores import FallaCerrada
+from .mandato import RAIZ_CONTRATO
 from .reglas import REGLAS, TIPOS_EVALUABLES, Resultado
 
 PRECEDENCIA = ("FRENAR", "ESCALAR")
@@ -6,10 +9,22 @@ PRECEDENCIA = ("FRENAR", "ESCALAR")
 POLITICA_TIPO = {"estado_de_cuenta": ("FRENAR", "No es una factura.")}
 
 
-def evaluar_reglas(f, m, reg, reglas=None) -> list:
+def ids_del_registro() -> tuple:
+    datos = json.loads((RAIZ_CONTRATO / "reglas.registro.json").read_text(encoding="utf-8"))
+    return tuple(r["id"] for r in datos["reglas"])
+
+
+def fallas_por_regla_faltante(registradas, requeridas) -> list:
+    """Una regla del registro del contrato sin implementar nunca puede dejar pasar un PAGAR."""
+    return [(i, Resultado("falla", "ESCALAR", False, f"Regla {i} no implementada", None))
+            for i in requeridas if i not in registradas]
+
+
+def evaluar_reglas(f, m, reg, reglas=None, requeridas=None) -> list:
     """Corre todas las reglas sin cortocircuito; una excepcion es falla ESCALAR no aprobable."""
-    salida = []
-    for id_, fn in (reglas or REGLAS).items():
+    reglas = REGLAS if reglas is None else reglas
+    salida = fallas_por_regla_faltante(reglas, ids_del_registro() if requeridas is None else requeridas)
+    for id_, fn in reglas.items():
         try:
             r = fn(f, m, reg)
         except (FallaCerrada, KeyError, TypeError, ValueError) as e:
@@ -26,11 +41,11 @@ def agregar(resultados) -> str:
     return "PAGAR"
 
 
-def decidir(f, m, reg, ids, reloj, modo_autonomia, reglas=None) -> dict:
+def decidir(f, m, reg, ids, reloj, modo_autonomia, reglas=None, requeridas=None) -> dict:
     tipo = f.get("documento", {}).get("tipo_documento")
     fijo = POLITICA_TIPO.get(tipo)
     if tipo in TIPOS_EVALUABLES:
-        res = evaluar_reglas(f, m, reg, reglas)
+        res = evaluar_reglas(f, m, reg, reglas, requeridas)
         veredicto = agregar(res)
         fallas = [(i, r) for i, r in res if r.estado == "falla"]
         top = next((x for a in PRECEDENCIA for x in fallas if x[1].accion == a), None)

@@ -21,6 +21,9 @@ _v = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_v)
 
 
+REGLAS_T1 = ("R2a", "R3", "R4", "R6")
+
+
 def esquema(nombre):
     return json.loads((RAIZ_CONTRATO / nombre).read_text(encoding="utf-8"))
 
@@ -43,7 +46,7 @@ def servicio(ahora):
     return ServicioDecision(
         cargar_mandato(ruta_ejemplo("v2")), RegistroMaestro.desde_archivo(DATOS / "registro_maestro.json"),
         lambda p: f"{p}_{next(n):03d}", lambda: "n_fijo", lambda: ahora,
-        FirmadorEd25519(Ed25519PrivateKey.from_private_bytes(bytes(range(32))), "k1"))
+        FirmadorEd25519(Ed25519PrivateKey.from_private_bytes(bytes(range(32))), "k1"), REGLAS_T1)
 
 
 def regla(d, id_):
@@ -118,6 +121,31 @@ def test_recibo_alterado_un_byte_no_verifica(servicio):
     r = copy.deepcopy(servicio.recibos[d["recibo_id"]])
     r["monto_menor"] = "750001"
     assert not verificar_firma(r, servicio.firmador.clave_publica)
+
+
+def test_falla_cerrado_regla_del_registro_no_implementada(servicio):
+    servicio.requeridas = None
+    d = servicio.decidir(factura())
+    faltante = next(r for r in d["reglas"] if r["evidencia"] == "Regla R1 no implementada")
+    assert (d["veredicto"], d["recibo_id"], faltante["aprobable"]) == ("ESCALAR", None, False)
+    assert d["motivo_corto"] == "Regla R1 no implementada"
+
+
+def test_frenar_gana_a_escalar_aunque_falte_una_regla(servicio):
+    servicio.requeridas = None
+    d = servicio.decidir(factura(id="f_2", proveedor_asignado={"proveedor_id": "prov_bloqueado", "metodo": "id_fiscal", "pista": None}))
+    assert (d["veredicto"], d["estado"]) == ("FRENAR", "frenada")
+
+
+def test_escalar_no_emite_recibo(servicio):
+    d = servicio.decidir(factura(montos__moneda="EUR"))
+    assert d["veredicto"] == "ESCALAR" and d["recibo_id"] is None and not servicio.recibos
+
+
+def test_recibo_con_otra_clave_no_verifica(servicio):
+    r = servicio.recibos[servicio.decidir(factura())["recibo_id"]]
+    otra = FirmadorEd25519(Ed25519PrivateKey.from_private_bytes(bytes(range(1, 33))), "k2")
+    assert not verificar_firma(r, otra.clave_publica)
 
 
 def test_api_post_y_consulta_de_decision(servicio):

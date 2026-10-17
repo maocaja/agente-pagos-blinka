@@ -5,8 +5,9 @@ from .recibo import emitir_recibo
 class ServicioDecision:
     """Caso de uso de T1: decide una factura y, si es PAGAR, emite el recibo. Todo se inyecta."""
 
-    def __init__(self, mandato, registro, ids, nonce, reloj, firmador):
+    def __init__(self, mandato, registro, ids, nonce, reloj, firmador, requeridas=None):
         self.m, self.reg, self.ids, self.nonce, self.reloj, self.firmador = mandato, registro, ids, nonce, reloj, firmador
+        self.requeridas = requeridas
         self.decisiones: dict = {}
         self.facturas: dict = {}
         self.recibos: dict = {}
@@ -18,7 +19,7 @@ class ServicioDecision:
         return niv["conocido"] if dias is not None and dias >= self.m.p["dias_proveedor_nuevo"] else niv["nuevo"]
 
     def decidir(self, f) -> dict:
-        d = decidir(f, self.m, self.reg, self.ids, self.reloj, self.modo_autonomia(f))
+        d = decidir(f, self.m, self.reg, self.ids, self.reloj, self.modo_autonomia(f), requeridas=self.requeridas)
         if d["veredicto"] == "PAGAR":
             r = emitir_recibo(d, f, self.m, self.ids, self.nonce, self.reloj, self.firmador)
             self.recibos[r["id"]] = r
