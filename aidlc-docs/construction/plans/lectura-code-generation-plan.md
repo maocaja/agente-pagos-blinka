@@ -28,10 +28,10 @@ Desbloquea a U1, U3 y U4.
 - Pruebas (≈ 6): normalizador y formatos 3; adaptadores y tipo desconocido 3.
 
 ### T2. Extractor con Haiku (sábado 08:00 a 12:00; real cuando llegue la clave)
-- [ ] 2.1 Puerto del cliente de modelo con una implementación real y otra de lectura congelada; la clave se lee del entorno, nunca del repositorio.
-- [ ] 2.2 Extracción con esquema fijo, confianza por campo y cita de evidencia.
-- [ ] 2.3 Contador de tokens y tope duro por corrida (C3b); costo en `_microusd`.
-- [ ] 2.4 Verificaciones: cita encontrada en el texto, totales cuadran, moneda y formato.
+- [x] 2.1 Puerto del cliente de modelo con una implementación real y otra de lectura congelada; la clave se lee del entorno, nunca del repositorio.
+- [x] 2.2 Extracción con esquema fijo, confianza por campo y cita de evidencia.
+- [x] 2.3 Contador de tokens y tope duro por corrida (C3b); costo en `_microusd`.
+- [x] 2.4 Verificaciones: cita encontrada en el texto, totales cuadran, moneda y formato.
 - Pruebas (≈ 11): cascada 3; verificaciones 4; contador y tope 2; falla de API simulada (timeout, rechazo, salida truncada) 2 (la de extremo a extremo hasta ESCALAR la prueba U4).
 
 ### T3. Segunda lectura, cascada y caché (sábado de tarde)

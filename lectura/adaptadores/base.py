@@ -51,3 +51,9 @@ def escalar(motivo, detalle=()):
 def validar_canonica(factura):
     """Errores contra el esquema del contrato; lista vacia si valida."""
     return _validar.validar(factura, _ESQUEMA)
+
+
+def validar_contra(nombre_esquema, dato):
+    """Errores de `dato` contra otro esquema del contrato (por ejemplo extraccion.schema.json)."""
+    esquema = json.loads((_CONTRATO / nombre_esquema).read_text(encoding="utf-8"))
+    return _validar.validar(dato, esquema)
