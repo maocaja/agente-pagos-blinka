@@ -34,14 +34,14 @@ evaluacion/
 
 ### T3. Pentest y arena nivel 1 (sábado por la tarde)
 Escena 4 del video.
-- [ ] 3.1 Las seis estrategias fijas del diseño (`evaluacion/functional-design/business-rules.md`), con su resultado esperado escrito antes de correrlas: partir en facturas bajo el umbral del mismo proveedor; una factura justo bajo el umbral; redondeo de moneda que cruza el umbral; número de factura reformateado (duplicado); proveedor nuevo con un pago pequeño y luego uno grande; cambio de cuenta después de una aprobación. La instrucción oculta se cubre con R8 y la arena, no con una estrategia aparte.
-- [ ] 3.2 Hallazgos con arreglo propuesto; el mandato v1 sin R10 debe dejar pasar el caso de facturas partidas y el v2 cerrarlo.
-- [ ] 3.3 **Qué es el hueco, sin maquillar:** el mandato v1 no tiene tope acumulado, así que deja pasar facturas partidas por **diseño del mandato**, no por un error del motor. Es un hueco de política que el pentest detecta y el v2 cierra. El video lo cuenta así ("un mandato sin tope acumulado deja pasar facturas partidas") y no como hallazgo sorpresa. Se comprueba que el motor con v2 lo bloquea y que ninguna otra estrategia pasa.
-- [ ] 3.4 Arena nivel 1: ≤ 500 variantes con semilla fija sobre el texto original de las facturas.
+- [x] 3.1 Las seis estrategias fijas del diseño (`evaluacion/functional-design/business-rules.md`), con su resultado esperado escrito antes de correrlas: partir en facturas bajo el umbral del mismo proveedor; una factura justo bajo el umbral; redondeo de moneda que cruza el umbral; número de factura reformateado (duplicado); proveedor nuevo con un pago pequeño y luego uno grande; cambio de cuenta después de una aprobación. La instrucción oculta se cubre con R8 y la arena, no con una estrategia aparte.
+- [x] 3.2 Hallazgos con arreglo propuesto; el mandato v1 sin R10 debe dejar pasar el caso de facturas partidas y el v2 cerrarlo.
+- [x] 3.3 **Qué es el hueco, sin maquillar:** el mandato v1 no tiene tope acumulado, así que deja pasar facturas partidas por **diseño del mandato**, no por un error del motor. Es un hueco de política que el pentest detecta y el v2 cierra. El video lo cuenta así ("un mandato sin tope acumulado deja pasar facturas partidas") y no como hallazgo sorpresa. Se comprueba que el motor con v2 lo bloquea y que ninguna otra estrategia pasa.
+- [x] 3.4 Arena nivel 1: ≤ 500 variantes con semilla fija sobre el texto original de las facturas.
 - Pruebas (≈ 8): pentest 6; arena acotada 2.
 
 ### T4. Arena nivel 2, fallas del extractor y carrera (sábado por la noche)
-- [ ] 4.1 Arena de la demo (3.200 variantes, fuera de `verify`), con semillas variables y el número final "X ataques, Y pagados indebidamente".
+- [x] 4.1 Arena de la demo (3.200 variantes, fuera de `verify`), con semillas variables y el número final "X ataques, Y pagados indebidamente".
 - [ ] 4.2 Fallas del extractor (salida truncada, rechazada, cita ausente) deben terminar en ESCALAR.
 - [ ] 4.3 Carrera de presupuesto: dos pagos que juntos exceden el presupuesto; se simulan con una barrera o de forma secuencial, con reloj e identificadores inyectados, nunca con hilos reales.
 - Pruebas (≈ 9): fallas del extractor 6; carrera 2; invariante por tipo 1.
