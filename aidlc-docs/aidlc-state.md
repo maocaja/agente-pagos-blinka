@@ -25,6 +25,9 @@ Versión reducida para hackathon. Entrega: domingo 2026-10-18, 12:00 (se congela
 ## Integración y calidad
 La app real sirve `/api/muestras`, `/cargar` y la interfaz (`uvicorn nucleo.api.principal:app`). Set multicanal de extremo a extremo: 15 de 15 coinciden. Ocultas: 3 de 4 veredictos, 0 pagos indebidos (oc-a escala por una inconsistencia de datos). Mutación: 17 de 17. `verify.py --gate`: dos corridas idénticas. La interfaz sigue los recorridos de `construction/interfaz/functional-design/recorridos.md` (detalle en pestañas; estados: decisión, autorizada por el guardián, orden simulada; nunca "pagado"). Pruebas: 207 de 210. La interfaz abre con el set curado de 12 muestras (`interfaz/dist/demo-set.json`).
 
+## Decisión pendiente
+Dirección visual de la interfaz (`construction/interfaz/functional-design/direccion-visual.md`, prototipo `docs/propuesta-pantalla-principal.html`): esperando evaluación antes de lanzar los encargos E1 a E5.
+
 ## Decisiones recientes
 - 2026-10-17: Ola 5 incluye explicación en lenguaje claro, reglas editables con vista previa (sin lenguaje natural), paquete de auditoría verificable fuera de la app, orden de pago simulada (pain.001), y los canales XML fiscal y CSV de lote. Voz y lenguaje natural quedan como arquitectura objetivo.
 

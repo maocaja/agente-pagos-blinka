@@ -52,3 +52,6 @@ npx @tailwindcss/cli -i entrada.css -o guia.css --minify
 - **Fuentes:** vienen de Google Fonts, con una familia de reserva. Si la demo se hace sin red, se ven con la de reserva; habría que copiarlas al repositorio.
 - **Aviso de `npm audit`:** la CLI de Tailwind arrastra una vulnerabilidad de denegación de servicio en `braces`, solo al compilar con patrones de archivo maliciosos. Solo se compilan archivos propios y `node_modules` no se despliega.
 - **La guía es una definición de diseño, no código de U3.** U3 copia los tokens y los componentes cuando se apruebe su plan de código.
+
+## Componentes propuestos (2026-10-17, pendientes de aprobación)
+Ver `direccion-visual.md` y el prototipo `docs/propuesta-pantalla-principal.html`: lateral corto con una acción primaria, banda de tres zonas separadas por líneas punteadas, barra segmentada, tabla de atención de dos líneas, panel comparativo registrado frente a recibido y línea de estado de tres pasos. Sin colores nuevos: se usan los tokens de la guía; el rojo se reserva para la diferencia que importa. Inter debe cargarse (hoy cae a la fuente del sistema).
