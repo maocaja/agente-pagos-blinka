@@ -18,7 +18,7 @@ interfaz/
 
 ## Tandas
 
-### T1. Pantalla de Decisiones con el recibo (viernes noche a sábado temprano)
+### T1. Pantalla de Decisiones con el recibo (sábado temprano)
 Primer hito: la factura con su decisión, el motivo escrito y el recibo.
 - [ ] 1.1 Compilación de Tailwind con `tokens.css` y `componentes.css`; tema claro por defecto y oscuro; Alpine copiado a `dist/`.
 - [ ] 1.2 Cliente de la API (sesión, rol, `Idempotency-Key`) y store de sesión y rol; mapa de capacidades por rol.
@@ -33,7 +33,7 @@ Primer hito: la factura con su decisión, el motivo escrito y el recibo.
 - Pruebas (≈ 3): permisos por rol y capacidades 2; rechazo mostrado con motivo 1.
 
 ### T3. Pantalla de Reglas, la que pide el reto (sábado)
-- [ ] 3.1 La empresa define sus reglas: umbral de aprobación, límites por pago y por periodo, beneficiarios permitidos, monedas, tope acumulado por proveedor; edición como mandato nuevo con versión (CFO propone, analista contrafirma).
+- [ ] 3.1 La empresa define sus reglas: umbral de aprobación, límites por pago y por periodo, monedas y tope acumulado por proveedor (los beneficiarios permitidos no están en el mandato: salen del registro de proveedores y se ven en una lista de solo lectura desde `/api/proveedores`); edición como mandato nuevo con versión (CFO propone, analista contrafirma).
 - [ ] 3.2 Vista previa "qué cambia si se aprueba" y autonomía visible por proveedor.
 - [ ] 3.3 Bandeja del aprobador: razón en una frase, un botón por rol, aprobar siempre reevalúa.
 - Pruebas (≈ 4): aprobar con reevaluación 2; mandato con dos firmas 1; modo público de solo lectura 1.
@@ -50,6 +50,9 @@ Primer hito: la factura con su decisión, el motivo escrito y el recibo.
 - [ ] 5.3 Revisión con Chrome DevTools MCP: consola sin errores, contraste, foco por teclado, ancho de teléfono.
 - [ ] 5.4 Versión para la app pública: modo guardado, etiqueta "lectura guardada", sin llamadas a la API de Claude.
 - Pruebas (≈ 1): modo guiado reinicia.
+
+## Dependencias
+La pantalla de aprobar (T3) usa el stub hasta que U1 entregue aprobar y reevaluar (T4); la del ataque (T4) usa el servidor simulado hasta las rutas de pentest y arena (U1 5.6). Pruebas de la interfaz: solo Python, sobre el mapa de capacidades por rol servido como JSON y sobre la función de escape; no hay pruebas de navegador en `verify`.
 
 ## Total y control
 ≈ 12 pruebas (objetivo 12, máximo 20): cubren lógica y escape; el aspecto se revisa a mano y con Chrome DevTools MCP. Cierre de tanda según `CLAUDE.md` sección 4.

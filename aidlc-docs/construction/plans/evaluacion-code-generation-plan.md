@@ -20,7 +20,7 @@ evaluacion/
 
 ## Tandas
 
-### T1. Esperados (viernes noche, antes del verificador)
+### T1. Esperados (sábado temprano, antes del verificador)
 - [ ] 1.1 Reescribir `datos/esperado.json` de forma independiente desde el texto de las reglas: factura 07 escala, `tipo_documento`, factura 17 realista; **dos veredictos por factura** (de reglas y de extremo a extremo).
 - [ ] 1.2 Comprobar que el set cubre los casos trampa del reto: cobro duplicado, beneficiario nuevo, factura que no cuadra con lo acordado, monto sobre el límite y presupuesto insuficiente; si falta alguno, se pide una factura nueva a U2.
 - [ ] 1.3 Sellar las 4 ocultas (hash) sin leerlas.
@@ -36,14 +36,14 @@ evaluacion/
 Escena 4 del video.
 - [ ] 3.1 Las seis estrategias fijas del diseño (`evaluacion/functional-design/business-rules.md`), con su resultado esperado escrito antes de correrlas: partir en facturas bajo el umbral del mismo proveedor; una factura justo bajo el umbral; redondeo de moneda que cruza el umbral; número de factura reformateado (duplicado); proveedor nuevo con un pago pequeño y luego uno grande; cambio de cuenta después de una aprobación. La instrucción oculta se cubre con R8 y la arena, no con una estrategia aparte.
 - [ ] 3.2 Hallazgos con arreglo propuesto; el mandato v1 sin R10 debe dejar pasar el caso de facturas partidas y el v2 cerrarlo.
-- [ ] 3.3 **El hueco debe ser genuino:** se comprueba que el motor sin R10 lo deja pasar por diseño del mandato, no por un error sembrado; si no se puede sostener así, la escena se omite.
+- [ ] 3.3 **Qué es el hueco, sin maquillar:** el mandato v1 no tiene tope acumulado, así que deja pasar facturas partidas por **diseño del mandato**, no por un error del motor. Es un hueco de política que el pentest detecta y el v2 cierra. El video lo cuenta así ("un mandato sin tope acumulado deja pasar facturas partidas") y no como hallazgo sorpresa. Se comprueba que el motor con v2 lo bloquea y que ninguna otra estrategia pasa.
 - [ ] 3.4 Arena nivel 1: ≤ 500 variantes con semilla fija sobre el texto original de las facturas.
 - Pruebas (≈ 8): pentest 6; arena acotada 2.
 
 ### T4. Arena nivel 2, fallas del extractor y carrera (sábado por la noche)
 - [ ] 4.1 Arena de la demo (3.200 variantes, fuera de `verify`), con semillas variables y el número final "X ataques, Y pagados indebidamente".
 - [ ] 4.2 Fallas del extractor (salida truncada, rechazada, cita ausente) deben terminar en ESCALAR.
-- [ ] 4.3 Carrera de presupuesto: dos pagos concurrentes no exceden el presupuesto.
+- [ ] 4.3 Carrera de presupuesto: dos pagos que juntos exceden el presupuesto; se simulan con una barrera o de forma secuencial, con reloj e identificadores inyectados, nunca con hilos reales.
 - Pruebas (≈ 9): fallas del extractor 6; carrera 2; invariante por tipo 1.
 
 ### T5. Mutación y corrida final (domingo temprano)
@@ -51,6 +51,9 @@ Escena 4 del video.
 - [ ] 5.2 Corrida final con las 4 ocultas y `python3 verify.py --gate`.
 - [ ] 5.3 Registrar qué mutante no fue atrapado y qué se hizo.
 - Sin pruebas nuevas dentro de `verify`: la mutación solo corre en la puerta de calidad.
+
+## Qué corre dentro de `verify`
+Las corridas contra la API de U1 (2.2, 3.x) usan el servidor simulado dentro de `verify`; contra el núcleo real corren solo en la puerta de calidad. Las pruebas de fallas del extractor de U4 comprueban el extremo a extremo hasta ESCALAR; las de U2 comprueban cada falla del cliente por separado.
 
 ## Total y control
 ≈ 45 pruebas (objetivo 45, máximo 60). Cierre de tanda según `CLAUDE.md` sección 4.

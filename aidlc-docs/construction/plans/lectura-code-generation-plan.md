@@ -20,7 +20,7 @@ datos/documentos/   facturas simuladas (las genera el subagente)
 
 ## Tandas
 
-### T1. Extracciones a mano y adaptador de texto (viernes noche, sin clave de API)
+### T1. Extracciones a mano y adaptador de texto (sábado temprano, sin clave de API)
 Desbloquea a U1, U3 y U4.
 - [ ] 1.1 Extracciones escritas a mano de las 18 facturas del set, validadas contra el esquema; guardadas como lecturas congeladas.
 - [ ] 1.2 Normalizador (C4): unidades menores como texto, formatos numéricos, monedas, identificador fiscal o nombre normalizado.
@@ -32,7 +32,7 @@ Desbloquea a U1, U3 y U4.
 - [ ] 2.2 Extracción con esquema fijo, confianza por campo y cita de evidencia.
 - [ ] 2.3 Contador de tokens y tope duro por corrida (C3b); costo en `_microusd`.
 - [ ] 2.4 Verificaciones: cita encontrada en el texto, totales cuadran, moneda y formato.
-- Pruebas (≈ 11): cascada 3; verificaciones 4; contador y tope 2; falla de API simulada (timeout, rechazo, salida truncada) 2.
+- Pruebas (≈ 11): cascada 3; verificaciones 4; contador y tope 2; falla de API simulada (timeout, rechazo, salida truncada) 2 (la de extremo a extremo hasta ESCALAR la prueba U4).
 
 ### T3. Segunda lectura, cascada y caché (sábado de tarde)
 - [ ] 3.1 Segunda lectura por reglas (monto, moneda, número, totales; proveedor contra el registro maestro; español, inglés y portugués).
@@ -51,7 +51,7 @@ Prioridad por el guion: la foto con cambio de cuenta, el `.eml` con adjunto y el
 
 ### T5. Lecturas reales y muestras guardadas (domingo temprano)
 - [ ] 5.1 Corrida local con la API real sobre el set multicanal; la lectura se congela sin retoques y se registra el costo real por documento.
-- [ ] 5.2 Las cuatro muestras nuevas de la app pública (proforma, orden de compra enviada como factura, factura en portugués, cuenta de cobro por chat), con el veredicto esperado registrado **antes** de leer.
+- [ ] 5.2 Las cuatro muestras nuevas de la app pública (proforma, orden de compra enviada como factura, factura en portugués, cuenta de cobro por chat), con el veredicto esperado registrado **antes** de leer, **fijado por U4 desde el texto de las reglas** (U2 no decide sus propios esperados).
 - [ ] 5.3 Medir tokens reales de un PDF y de una imagen y comprobar que cabe en el tope de costo del mandato.
 - Sin pruebas nuevas: es una corrida y una medición (se anotan en `tandas.md`).
 
@@ -60,6 +60,9 @@ Documentos sin datos reales en `datos/documentos/`: PDFs con layouts distintos, 
 
 ## Total y control
 ≈ 32 pruebas (objetivo 30, máximo 40). Cierre de tanda según `CLAUDE.md` sección 4.
+
+## Calendario de Dev B
+Dev B hace U2 y U3 a la vez: orden propuesto U2 T1, U3 T1, U2 T2, U3 T2 y T3; **U2 se congela tras T2** (lectura guardada). T3 y T4 se hacen solo con lo que sobre; dentro de T4 la prioridad es la foto con cambio de cuenta y el `.eml`. Si hay que cortar, se corta primero el XML, luego el chat.
 
 ## Riesgos y supuestos
 - Sin clave de API el sábado a las 12:00, T2 y T4 avanzan con la lectura congelada y el video usa lecturas guardadas.
