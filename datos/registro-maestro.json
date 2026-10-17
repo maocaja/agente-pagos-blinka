@@ -1,0 +1,271 @@
+{
+  "version": "1",
+  "fuente": "Derivado de la maqueta demo-front/motor.js (PROVEEDORES, PARAMS_INICIALES) y de las 18 facturas de datos/facturas/, no de reglas. Sintetico, sin datos reales. Los umbrales y listas de beneficiarios viven en el mandato, no aqui.",
+  "unidad_monto": "unidades menores (centavos) como texto",
+  "proveedores": [
+    {
+      "id": "prov_andino",
+      "nombre": "Estudio Andino SAS",
+      "alias": [
+        "ESTUDIO ANDINO SAS"
+      ],
+      "id_fiscal": "NIT 900.000.111-0",
+      "estado": "activo",
+      "alta": "2026-01-15",
+      "nivel_autonomia": "media",
+      "cuenta": {
+        "pais": "CO",
+        "ultimos4": "4417",
+        "titular": "Estudio Andino SAS",
+        "moneda": "COP"
+      },
+      "acuerdo": {
+        "ref": "AC-ANDINO-2026-01",
+        "monto_maximo_menor": "150000",
+        "moneda": "USD",
+        "vigencia_desde": "2026-01-01",
+        "vigencia_hasta": "2026-12-31"
+      }
+    },
+    {
+      "id": "prov_pixel",
+      "nombre": "Pixel Studio Ltda",
+      "alias": [
+        "PIXEL STUDIO LTDA"
+      ],
+      "id_fiscal": "CNPJ 00.000.000/0001-00",
+      "estado": "activo",
+      "alta": "2026-02-01",
+      "nivel_autonomia": "media",
+      "cuenta": {
+        "pais": "BR",
+        "ultimos4": "8830",
+        "titular": "Pixel Studio Ltda",
+        "moneda": "BRL"
+      },
+      "acuerdo": {
+        "ref": "AC-PIXEL-2026-03",
+        "monto_maximo_menor": "150000",
+        "moneda": "USD",
+        "vigencia_desde": "2026-01-01",
+        "vigencia_hasta": "2026-12-31"
+      }
+    },
+    {
+      "id": "prov_devnorte",
+      "nombre": "DevNorte SA de CV",
+      "alias": [
+        "DEVNORTE SA DE CV"
+      ],
+      "id_fiscal": null,
+      "estado": "activo",
+      "alta": "2026-02-10",
+      "nivel_autonomia": "media",
+      "cuenta": {
+        "pais": "MX",
+        "ultimos4": "3306",
+        "titular": "DevNorte SA de CV",
+        "moneda": "MXN"
+      },
+      "acuerdo": {
+        "ref": "AC-DEVNORTE-2026-04",
+        "monto_maximo_menor": "200000",
+        "moneda": "USD",
+        "vigencia_desde": "2026-01-01",
+        "vigencia_hasta": "2026-12-31"
+      }
+    },
+    {
+      "id": "prov_marta",
+      "nombre": "Marta Ruiz",
+      "alias": [
+        "MARTA RUIZ"
+      ],
+      "id_fiscal": null,
+      "estado": "activo",
+      "alta": "2026-04-01",
+      "nivel_autonomia": "baja",
+      "cuenta": {
+        "pais": "CO",
+        "ultimos4": "2291",
+        "titular": "Marta Ruiz",
+        "moneda": "USD"
+      },
+      "acuerdo": {
+        "ref": "AC-RUIZ-2026-02",
+        "monto_maximo_menor": "120000",
+        "moneda": "USD",
+        "vigencia_desde": "2026-01-01",
+        "vigencia_hasta": "2026-12-31"
+      }
+    },
+    {
+      "id": "prov_cloud",
+      "nombre": "Cloud Advisors LLC",
+      "alias": [
+        "CLOUD ADVISORS LLC"
+      ],
+      "id_fiscal": "EIN 00-0000000",
+      "estado": "activo",
+      "alta": "2026-03-01",
+      "nivel_autonomia": "media",
+      "cuenta": {
+        "pais": "US",
+        "ultimos4": "6052",
+        "titular": "Cloud Advisors LLC",
+        "moneda": "USD"
+      },
+      "acuerdo": {
+        "ref": "MSA-CLOUD-2026-07",
+        "monto_maximo_menor": "450000",
+        "moneda": "USD",
+        "vigencia_desde": "2026-01-01",
+        "vigencia_hasta": "2026-12-31"
+      }
+    },
+    {
+      "id": "prov_logistica",
+      "nombre": "Logistica Sur SpA",
+      "alias": [
+        "LOGISTICA SUR SPA"
+      ],
+      "id_fiscal": "RUT 76.000.000-0",
+      "estado": "activo",
+      "alta": "2026-02-20",
+      "nivel_autonomia": "media",
+      "cuenta": {
+        "pais": "CL",
+        "ultimos4": "7745",
+        "titular": "Logistica Sur SpA",
+        "moneda": "USD"
+      },
+      "acuerdo": {
+        "ref": "AC-LSUR-2026-05",
+        "monto_maximo_menor": "1400000",
+        "moneda": "USD",
+        "vigencia_desde": "2026-01-01",
+        "vigencia_hasta": "2026-12-31"
+      }
+    },
+    {
+      "id": "prov_logos",
+      "nombre": "Nuevo Logos LLC",
+      "alias": [
+        "NUEVO LOGOS LLC"
+      ],
+      "id_fiscal": null,
+      "estado": "activo",
+      "alta": "2026-10-02",
+      "nivel_autonomia": "ninguna",
+      "cuenta": {
+        "pais": "US",
+        "ultimos4": "3318",
+        "titular": "Nuevo Logos LLC",
+        "moneda": "USD"
+      },
+      "acuerdo": {
+        "ref": "AC-NLOGOS-2026-01",
+        "monto_maximo_menor": "90000",
+        "moneda": "USD",
+        "vigencia_desde": "2026-01-01",
+        "vigencia_hasta": "2026-12-31"
+      }
+    },
+    {
+      "id": "prov_pampa",
+      "nombre": "Taller Pampa SRL",
+      "alias": [
+        "TALLER PAMPA SRL"
+      ],
+      "id_fiscal": null,
+      "estado": "activo",
+      "alta": "2026-05-12",
+      "nivel_autonomia": "baja",
+      "cuenta": {
+        "pais": "AR",
+        "ultimos4": "5509",
+        "titular": "Taller Pampa SRL",
+        "moneda": "ARS"
+      },
+      "acuerdo": {
+        "ref": "AC-PAMPA-2026-01",
+        "monto_maximo_menor": "50000",
+        "moneda": "USD",
+        "vigencia_desde": "2026-01-01",
+        "vigencia_hasta": "2026-12-31"
+      }
+    },
+    {
+      "id": "prov_cverde",
+      "nombre": "Codigo Verde SAS",
+      "alias": [
+        "CODIGO VERDE SAS"
+      ],
+      "id_fiscal": "NIT 901.000.222-1",
+      "estado": "activo",
+      "alta": "2026-03-15",
+      "nivel_autonomia": "media",
+      "cuenta": {
+        "pais": "CO",
+        "ultimos4": "1096",
+        "titular": "Codigo Verde SAS",
+        "moneda": "USD"
+      },
+      "acuerdo": {
+        "ref": "AC-CVERDE-2026-02",
+        "monto_maximo_menor": "290000",
+        "moneda": "USD",
+        "vigencia_desde": "2026-01-01",
+        "vigencia_hasta": "2026-12-31"
+      }
+    },
+    {
+      "id": "prov_bloqueado",
+      "nombre": "Proveedor Bloqueado SA",
+      "alias": [
+        "PROVEEDOR BLOQUEADO SA"
+      ],
+      "id_fiscal": null,
+      "estado": "bloqueado",
+      "alta": "2026-01-01",
+      "nivel_autonomia": "ninguna",
+      "cuenta": {
+        "pais": "CO",
+        "ultimos4": "0000",
+        "titular": "Proveedor Bloqueado SA",
+        "moneda": "USD"
+      },
+      "acuerdo": null
+    },
+    {
+      "id": "prov_nuevo",
+      "nombre": "Servicios Recientes SAS",
+      "alias": [
+        "SERVICIOS RECIENTES SAS"
+      ],
+      "id_fiscal": null,
+      "estado": "activo",
+      "alta": "2026-10-14",
+      "nivel_autonomia": "ninguna",
+      "cuenta": {
+        "pais": "CO",
+        "ultimos4": "7777",
+        "titular": "Servicios Recientes SAS",
+        "moneda": "USD"
+      },
+      "acuerdo": {
+        "ref": "AC-RECIENTE-2026-10",
+        "monto_maximo_menor": "50000",
+        "moneda": "USD",
+        "vigencia_desde": "2026-01-01",
+        "vigencia_hasta": "2026-12-31"
+      }
+    }
+  ],
+  "presupuesto": {
+    "periodo": "2026-10",
+    "moneda": "USD",
+    "total_menor": "900000",
+    "reservas_previas": []
+  }
+}
