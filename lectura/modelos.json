@@ -1,0 +1,7 @@
+{
+  "fuente": "https://platform.claude.com/docs/en/about-claude/models/overview y /pricing, leidas 2026-10-17; Haiku 5.5 con prompts de hasta 100000 tokens",
+  "modelos": {
+    "haiku": {"id": "claude-haiku-5-5", "entrada_microusd_mtok": 100000, "salida_microusd_mtok": 500000},
+    "sonnet": {"id": "claude-sonnet-5-5", "entrada_microusd_mtok": 2000000, "salida_microusd_mtok": 10000000}
+  }
+}

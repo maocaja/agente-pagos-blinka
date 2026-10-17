@@ -27,7 +27,7 @@
   "montos": {
     "moneda": "USD",
     "total_menor": "290000",
-    "suma_lineas_menor": "243697",
+    "suma_lineas_menor": "290000",
     "lineas": [
       {
         "descripcion": "Plataforma de reportes ambientales, licencia",
@@ -36,6 +36,10 @@
       {
         "descripcion": "Capacitacion al equipo (2 sesiones, incluida)",
         "total_menor": "0"
+      },
+      {
+        "descripcion": "IVA 19%",
+        "total_menor": "46303"
       }
     ]
   },
@@ -67,7 +71,7 @@
   "verificaciones": {
     "esquema": "ok",
     "dinero_presente": "ok",
-    "suma_lineas": "falla",
+    "suma_lineas": "ok",
     "cita_evidencia": "ok",
     "tipo": "ok",
     "segunda_lectura": {

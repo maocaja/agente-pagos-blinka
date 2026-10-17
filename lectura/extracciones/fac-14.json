@@ -27,11 +27,15 @@
   "montos": {
     "moneda": "ARS",
     "total_menor": "45000000",
-    "suma_lineas_menor": "33057900",
+    "suma_lineas_menor": "40000000",
     "lineas": [
       {
         "descripcion": "Mantenimiento preventivo, 3 equipos",
         "total_menor": "33057900"
+      },
+      {
+        "descripcion": "IVA 21%",
+        "total_menor": "6942100"
       }
     ]
   },

@@ -27,7 +27,7 @@
   "montos": {
     "moneda": "MXN",
     "total_menor": "3400000",
-    "suma_lineas_menor": "2931034",
+    "suma_lineas_menor": "3400000",
     "lineas": [
       {
         "descripcion": "Desarrollo frontend",
@@ -36,6 +36,10 @@
       {
         "descripcion": "Integracion de API",
         "total_menor": "931034"
+      },
+      {
+        "descripcion": "Impuestos",
+        "total_menor": "468966"
       }
     ]
   },
@@ -67,7 +71,7 @@
   "verificaciones": {
     "esquema": "ok",
     "dinero_presente": "ok",
-    "suma_lineas": "falla",
+    "suma_lineas": "ok",
     "cita_evidencia": "ok",
     "tipo": "ok",
     "segunda_lectura": {
