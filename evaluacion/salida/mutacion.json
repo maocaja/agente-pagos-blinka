@@ -36,8 +36,10 @@
    "id": "M04",
    "archivo": "nucleo/dominio/motor.py",
    "rompe": "error al evaluar una regla cuenta como cumple",
-   "atrapado": false,
-   "pruebas": []
+   "atrapado": true,
+   "pruebas": [
+    "nucleo/tests/test_ola11b.py::test_regla_que_lanza_excepcion_falla_cerrado_a_escalar"
+   ]
   },
   {
    "id": "M05",
@@ -45,6 +47,7 @@
    "rompe": "R9 (AL_FINAL) nunca se evalua",
    "atrapado": true,
    "pruebas": [
+    "nucleo/tests/test_ola11b.py::test_regla_que_lanza_excepcion_falla_cerrado_a_escalar",
     "nucleo/tests/test_ola2.py::test_18_facturas_contra_esperado[f_16]",
     "nucleo/tests/test_ola4.py::test_r9_no_se_supera_aprobando"
    ]
@@ -64,8 +67,10 @@
    "id": "M07",
    "archivo": "nucleo/dominio/reglas.py",
    "rompe": "R9 limite desplazado",
-   "atrapado": false,
-   "pruebas": []
+   "atrapado": true,
+   "pruebas": [
+    "nucleo/tests/test_ola11b.py::test_r9_limite_exacto_del_presupuesto"
+   ]
   },
   {
    "id": "M08",
@@ -132,15 +137,19 @@
    "id": "M14",
    "archivo": "nucleo/dominio/guardian.py",
    "rompe": "el guardian autoriza un recibo FRENAR",
-   "atrapado": false,
-   "pruebas": []
+   "atrapado": true,
+   "pruebas": [
+    "nucleo/tests/test_ola11b.py::test_guardian_deniega_frenar_aunque_traiga_aprobacion_valida"
+   ]
   },
   {
    "id": "M15",
    "archivo": "nucleo/dominio/guardian.py",
    "rompe": "el guardian ignora el recibo vencido",
-   "atrapado": false,
-   "pruebas": []
+   "atrapado": true,
+   "pruebas": [
+    "nucleo/tests/test_ola11b.py::test_guardian_deniega_recibo_vencido_con_el_reloj_inyectado"
+   ]
   },
   {
    "id": "M16",

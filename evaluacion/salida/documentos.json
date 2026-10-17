@@ -1,115 +1,16 @@
 {
   "mandato_version": "v2",
-  "documentos": 16,
-  "coinciden": 10,
+  "documentos": 15,
+  "saltados": {
+    "d_01": "adjunto del eml-05"
+  },
+  "coinciden": 13,
   "pagados": [
     "d_02",
     "d_08",
     "d_09"
   ],
   "discrepancias": [
-    {
-      "caso": "d_03",
-      "archivo": "documentos/chat-09-pixel-instruccion.txt",
-      "motor": {
-        "veredicto": "ESCALAR",
-        "reglas": [
-          "R3",
-          "R5",
-          "R8"
-        ]
-      },
-      "esperado_reglas": {
-        "veredicto": "ESCALAR",
-        "reglas": [
-          "R8"
-        ]
-      },
-      "esperado_extremo_a_extremo": "ESCALAR",
-      "coincide": false,
-      "motivos": [
-        "reglas ['R3', 'R5', 'R8'] contra esperadas ['R8']"
-      ]
-    },
-    {
-      "caso": "d_04",
-      "archivo": "documentos/eml-05-devnorte-replyto.eml",
-      "motor": {
-        "veredicto": "FRENAR",
-        "reglas": [
-          "R1",
-          "R2a",
-          "R5",
-          "R6",
-          "R10"
-        ]
-      },
-      "esperado_reglas": {
-        "veredicto": "ESCALAR",
-        "reglas": [
-          "R1",
-          "R5",
-          "R6",
-          "R10"
-        ]
-      },
-      "esperado_extremo_a_extremo": "ESCALAR",
-      "coincide": false,
-      "motivos": [
-        "veredicto FRENAR contra esperado_reglas ESCALAR",
-        "veredicto FRENAR contra extremo_a_extremo ESCALAR",
-        "reglas ['R1', 'R2a', 'R5', 'R6', 'R10'] contra esperadas ['R1', 'R5', 'R6', 'R10']"
-      ]
-    },
-    {
-      "caso": "d_05",
-      "archivo": "documentos/eml-08-logistica-pie-instruccion.eml",
-      "motor": {
-        "veredicto": "ESCALAR",
-        "reglas": [
-          "R3",
-          "R5",
-          "R6",
-          "R8"
-        ]
-      },
-      "esperado_reglas": {
-        "veredicto": "ESCALAR",
-        "reglas": [
-          "R6",
-          "R8",
-          "R10"
-        ]
-      },
-      "esperado_extremo_a_extremo": "ESCALAR",
-      "coincide": false,
-      "motivos": [
-        "reglas ['R3', 'R5', 'R6', 'R8'] contra esperadas ['R6', 'R8', 'R10']"
-      ]
-    },
-    {
-      "caso": "d_06",
-      "archivo": "documentos/eml-10-pampa-autoridad-urgencia.eml",
-      "motor": {
-        "veredicto": "ESCALAR",
-        "reglas": [
-          "R3",
-          "R5",
-          "R8"
-        ]
-      },
-      "esperado_reglas": {
-        "veredicto": "ESCALAR",
-        "reglas": [
-          "R8"
-        ]
-      },
-      "esperado_extremo_a_extremo": "ESCALAR",
-      "coincide": false,
-      "motivos": [
-        "reglas ['R3', 'R5', 'R8'] contra esperadas ['R8']"
-      ]
-    },
     {
       "caso": "d_07",
       "archivo": "documentos/foto-04-andino-cambio-cuenta.jpg",
@@ -163,29 +64,6 @@
   ],
   "casos": [
     {
-      "caso": "d_01",
-      "archivo": "documentos/adjunto-devnorte-dn2201.pdf",
-      "motor": {
-        "veredicto": "ESCALAR",
-        "reglas": [
-          "R5",
-          "R6",
-          "R10"
-        ]
-      },
-      "esperado_reglas": {
-        "veredicto": "ESCALAR",
-        "reglas": [
-          "R5",
-          "R6",
-          "R10"
-        ]
-      },
-      "esperado_extremo_a_extremo": "ESCALAR",
-      "coincide": true,
-      "motivos": []
-    },
-    {
       "caso": "d_02",
       "archivo": "documentos/chat-06-marta-cuenta-cobro.txt",
       "motor": {
@@ -206,8 +84,6 @@
       "motor": {
         "veredicto": "ESCALAR",
         "reglas": [
-          "R3",
-          "R5",
           "R8"
         ]
       },
@@ -218,19 +94,16 @@
         ]
       },
       "esperado_extremo_a_extremo": "ESCALAR",
-      "coincide": false,
-      "motivos": [
-        "reglas ['R3', 'R5', 'R8'] contra esperadas ['R8']"
-      ]
+      "coincide": true,
+      "motivos": []
     },
     {
       "caso": "d_04",
       "archivo": "documentos/eml-05-devnorte-replyto.eml",
       "motor": {
-        "veredicto": "FRENAR",
+        "veredicto": "ESCALAR",
         "reglas": [
           "R1",
-          "R2a",
           "R5",
           "R6",
           "R10"
@@ -246,12 +119,8 @@
         ]
       },
       "esperado_extremo_a_extremo": "ESCALAR",
-      "coincide": false,
-      "motivos": [
-        "veredicto FRENAR contra esperado_reglas ESCALAR",
-        "veredicto FRENAR contra extremo_a_extremo ESCALAR",
-        "reglas ['R1', 'R2a', 'R5', 'R6', 'R10'] contra esperadas ['R1', 'R5', 'R6', 'R10']"
-      ]
+      "coincide": true,
+      "motivos": []
     },
     {
       "caso": "d_05",
@@ -259,10 +128,9 @@
       "motor": {
         "veredicto": "ESCALAR",
         "reglas": [
-          "R3",
-          "R5",
           "R6",
-          "R8"
+          "R8",
+          "R10"
         ]
       },
       "esperado_reglas": {
@@ -274,10 +142,8 @@
         ]
       },
       "esperado_extremo_a_extremo": "ESCALAR",
-      "coincide": false,
-      "motivos": [
-        "reglas ['R3', 'R5', 'R6', 'R8'] contra esperadas ['R6', 'R8', 'R10']"
-      ]
+      "coincide": true,
+      "motivos": []
     },
     {
       "caso": "d_06",
@@ -285,8 +151,6 @@
       "motor": {
         "veredicto": "ESCALAR",
         "reglas": [
-          "R3",
-          "R5",
           "R8"
         ]
       },
@@ -297,10 +161,8 @@
         ]
       },
       "esperado_extremo_a_extremo": "ESCALAR",
-      "coincide": false,
-      "motivos": [
-        "reglas ['R3', 'R5', 'R8'] contra esperadas ['R8']"
-      ]
+      "coincide": true,
+      "motivos": []
     },
     {
       "caso": "d_07",
