@@ -210,9 +210,9 @@
     "semantic_hash": ""
   },
   "aidlc-docs/construction/interfaz/functional-design/business-rules.md": {
-    "mtime": 1792211872.3554242,
-    "seen": 1792213118.320272,
-    "ast_hash": "c459966bec60cd7048316411375009ee",
+    "mtime": 1792214531.6758816,
+    "seen": 1792214532.832236,
+    "ast_hash": "f0ee993bf0ff402501149e6e29bc2fe5",
     "semantic_hash": ""
   },
   "aidlc-docs/construction/interfaz/functional-design/frontend-components.md": {
@@ -222,15 +222,15 @@
     "semantic_hash": ""
   },
   "aidlc-docs/construction/lectura/functional-design/business-logic-model.md": {
-    "mtime": 1792210899.6200225,
-    "seen": 1792213118.3202739,
-    "ast_hash": "a863bfce763965dd04d72276198ff326",
+    "mtime": 1792217020.6485035,
+    "seen": 1792217027.076399,
+    "ast_hash": "156c381a79d434f282b7d0d4502d4c9a",
     "semantic_hash": ""
   },
   "aidlc-docs/construction/lectura/functional-design/business-rules.md": {
-    "mtime": 1792212068.4714603,
-    "seen": 1792213118.3202739,
-    "ast_hash": "67a9a7e2eac5681a25e42cefe740b032",
+    "mtime": 1792217020.6479514,
+    "seen": 1792217027.0764,
+    "ast_hash": "77ffa54c8f271cec32e8a66b390d3894",
     "semantic_hash": ""
   },
   "aidlc-docs/construction/lectura/functional-design/domain-entities.md": {
@@ -312,9 +312,9 @@
     "semantic_hash": ""
   },
   "aidlc-docs/inception/plans/execution-plan.md": {
-    "mtime": 1792213593.021569,
-    "seen": 1792214026.9954932,
-    "ast_hash": "4dab8ca1f6cf9dc39112d32a2243bbe2",
+    "mtime": 1792217026.064626,
+    "seen": 1792217027.0764108,
+    "ast_hash": "862f2afdfc9ad4b75dd5e13f9ca6463b",
     "semantic_hash": ""
   },
   "aidlc-docs/inception/plans/unit-of-work-plan.md": {
@@ -336,9 +336,9 @@
     "semantic_hash": ""
   },
   "aidlc-docs/inception/requirements/requirements.md": {
-    "mtime": 1792211872.3587162,
-    "seen": 1792213118.320287,
-    "ast_hash": "58e2c0f4bb171003d370293d0257a8ec",
+    "mtime": 1792217020.646491,
+    "seen": 1792217027.0764139,
+    "ast_hash": "2832e45c07998cbe4b22e2239c6cf2a5",
     "semantic_hash": ""
   },
   "contrato/README.md": {
@@ -504,9 +504,39 @@
     "semantic_hash": ""
   },
   "aidlc-docs/construction/interfaz/functional-design/design-system.md": {
-    "mtime": 1792214025.0983613,
-    "seen": 1792214026.995479,
-    "ast_hash": "005abcb45c377ec5b81f0b69f0c339b7",
+    "mtime": 1792214531.6851473,
+    "seen": 1792214532.832237,
+    "ast_hash": "56954f158286e9c34831c2a9b39cf0df",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/inception/demo-script.md": {
+    "mtime": 1792216932.8656554,
+    "seen": 1792216936.104204,
+    "ast_hash": "affb235a669a79c39208cc9512126e3a",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md": {
+    "mtime": 1792217162.2338464,
+    "seen": 1792217162.981127,
+    "ast_hash": "f9c70df95f342b9c348942937ba5007d",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/plans/interfaz-code-generation-plan.md": {
+    "mtime": 1792217162.2332647,
+    "seen": 1792217162.981129,
+    "ast_hash": "8da345f8646a1621998cadbd0210310d",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/plans/lectura-code-generation-plan.md": {
+    "mtime": 1792217113.0767574,
+    "seen": 1792217117.891447,
+    "ast_hash": "1e0f65dd0faa8828f31ee0b2f50bd585",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/plans/nucleo-code-generation-plan.md": {
+    "mtime": 1792217162.2328453,
+    "seen": 1792217162.981132,
+    "ast_hash": "2d8dc85559c4c1cacf3cb455f97ab6a7",
     "semantic_hash": ""
   }
 }

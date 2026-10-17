@@ -1060,81 +1060,103 @@
       "source_location": "L8"
     },
     {
-      "id": "contrato_extraccion_schema",
-      "label": "extraccion.schema.json",
+      "id": "contrato_extraccion_schema_cuenta_required",
+      "label": "required",
       "_origin": "ast",
       "community": 101,
-      "community_name": "extraccion.schema.json",
+      "community_name": "proveedor",
       "file_type": "code",
-      "norm_label": "extraccion.schema.json",
+      "norm_label": "required",
       "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L1"
+      "source_location": "L91"
     },
     {
-      "id": "contrato_extraccion_schema_additionalproperties",
+      "id": "contrato_extraccion_schema_properties_proveedor",
+      "label": "proveedor",
+      "_origin": "ast",
+      "community": 101,
+      "community_name": "proveedor",
+      "file_type": "code",
+      "norm_label": "proveedor",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L36"
+    },
+    {
+      "id": "contrato_extraccion_schema_proveedor_additionalproperties",
       "label": "additionalProperties",
       "_origin": "ast",
       "community": 101,
-      "community_name": "extraccion.schema.json",
+      "community_name": "proveedor",
       "file_type": "code",
       "norm_label": "additionalproperties",
       "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L7"
+      "source_location": "L38"
     },
     {
-      "id": "contrato_extraccion_schema_description",
-      "label": "description",
+      "id": "contrato_extraccion_schema_proveedor_required",
+      "label": "required",
       "_origin": "ast",
       "community": 101,
-      "community_name": "extraccion.schema.json",
+      "community_name": "proveedor",
       "file_type": "code",
-      "norm_label": "description",
+      "norm_label": "required",
       "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L5"
+      "source_location": "L39"
     },
     {
-      "id": "contrato_extraccion_schema_id",
-      "label": "$id",
-      "_origin": "ast",
-      "community": 101,
-      "community_name": "extraccion.schema.json",
-      "file_type": "code",
-      "norm_label": "$id",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L3"
-    },
-    {
-      "id": "contrato_extraccion_schema_schema",
-      "label": "$schema",
-      "_origin": "ast",
-      "community": 101,
-      "community_name": "extraccion.schema.json",
-      "file_type": "code",
-      "norm_label": "$schema",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L2"
-    },
-    {
-      "id": "contrato_extraccion_schema_title",
-      "label": "title",
-      "_origin": "ast",
-      "community": 101,
-      "community_name": "extraccion.schema.json",
-      "file_type": "code",
-      "norm_label": "title",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L4"
-    },
-    {
-      "id": "contrato_extraccion_schema_type",
+      "id": "contrato_extraccion_schema_proveedor_type",
       "label": "type",
       "_origin": "ast",
       "community": 101,
-      "community_name": "extraccion.schema.json",
+      "community_name": "proveedor",
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L6"
+      "source_location": "L37"
+    },
+    {
+      "id": "contrato_extraccion_schema_json_ref_id_fiscal",
+      "label": "id_fiscal",
+      "_origin": "ast",
+      "community": 101,
+      "community_name": "proveedor",
+      "file_type": "concept",
+      "norm_label": "id_fiscal",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L39"
+    },
+    {
+      "id": "contrato_extraccion_schema_json_ref_nombre",
+      "label": "nombre",
+      "_origin": "ast",
+      "community": 101,
+      "community_name": "proveedor",
+      "file_type": "concept",
+      "norm_label": "nombre",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L39"
+    },
+    {
+      "id": "contrato_extraccion_schema_json_ref_pais",
+      "label": "pais",
+      "_origin": "ast",
+      "community": 101,
+      "community_name": "proveedor",
+      "file_type": "concept",
+      "norm_label": "pais",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L39"
+    },
+    {
+      "id": "contrato_extraccion_schema_json_ref_ultimos4",
+      "label": "ultimos4",
+      "_origin": "ast",
+      "community": 101,
+      "community_name": "proveedor",
+      "file_type": "concept",
+      "norm_label": "ultimos4",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L91"
     },
     {
       "id": "contrato_factura_canonica_schema_fechas_additionalproperties",
@@ -3052,6 +3074,17 @@
       "source_location": "L311"
     },
     {
+      "id": "contrato_factura_canonica_schema_properties_verificaciones",
+      "label": "verificaciones",
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "verificaciones",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L269"
+    },
+    {
       "id": "contrato_factura_canonica_schema_segunda_lectura_additionalproperties",
       "label": "additionalProperties",
       "_origin": "ast",
@@ -3140,6 +3173,17 @@
       "source_location": "L312"
     },
     {
+      "id": "contrato_factura_canonica_schema_verificaciones_additionalproperties",
+      "label": "additionalProperties",
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "additionalproperties",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L271"
+    },
+    {
       "id": "contrato_factura_canonica_schema_verificaciones_properties",
       "label": "properties",
       "_origin": "ast",
@@ -3149,6 +3193,28 @@
       "norm_label": "properties",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L280"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_verificaciones_required",
+      "label": "required",
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "required",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L272"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_verificaciones_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L270"
     },
     {
       "id": "contrato_factura_canonica_schema_json_ref_estado",
@@ -3184,6 +3250,39 @@
       "source_location": "L328"
     },
     {
+      "id": "contrato_factura_canonica_schema_json_ref_suma_lineas",
+      "label": "suma_lineas",
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "properties",
+      "file_type": "concept",
+      "norm_label": "suma_lineas",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L272"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_json_ref_tipo",
+      "label": "tipo",
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "properties",
+      "file_type": "concept",
+      "norm_label": "tipo",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L272"
+    },
+    {
+      "id": "ref_cita_evidencia",
+      "label": "cita_evidencia",
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "properties",
+      "file_type": "concept",
+      "norm_label": "cita_evidencia",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L272"
+    },
+    {
       "id": "ref_coincide",
       "label": "coincide",
       "_origin": "ast",
@@ -3217,6 +3316,17 @@
       "source_location": "L328"
     },
     {
+      "id": "ref_dinero_presente",
+      "label": "dinero_presente",
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "properties",
+      "file_type": "concept",
+      "norm_label": "dinero_presente",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L272"
+    },
+    {
       "id": "ref_discrepancia",
       "label": "discrepancia",
       "_origin": "ast",
@@ -3226,6 +3336,17 @@
       "norm_label": "discrepancia",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L313"
+    },
+    {
+      "id": "ref_esquema",
+      "label": "esquema",
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "properties",
+      "file_type": "concept",
+      "norm_label": "esquema",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L272"
     },
     {
       "id": "ref_no_aplica",
@@ -3259,6 +3380,17 @@
       "norm_label": "ok",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L283"
+    },
+    {
+      "id": "ref_segunda_lectura",
+      "label": "segunda_lectura",
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "properties",
+      "file_type": "concept",
+      "norm_label": "segunda_lectura",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L272"
     },
     {
       "id": "aidlc_docs_aidlc_state",
@@ -3376,7 +3508,7 @@
       "node_kind": "heading",
       "norm_label": "como se compila",
       "source_file": "aidlc-docs/construction/interfaz/functional-design/design-system.md",
-      "source_location": "L41"
+      "source_location": "L43"
     },
     {
       "id": "aidlc_docs_construction_interfaz_functional_design_design_system_decisi\u00f3n_de_framework",
@@ -3412,7 +3544,7 @@
       "node_kind": "heading",
       "norm_label": "inventario",
       "source_file": "aidlc-docs/construction/interfaz/functional-design/design-system.md",
-      "source_location": "L28"
+      "source_location": "L30"
     },
     {
       "id": "aidlc_docs_construction_interfaz_functional_design_design_system_sistema_de_dise\u00f1o_de_la_interfaz_u3",
@@ -3436,17 +3568,17 @@
       "node_kind": "heading",
       "norm_label": "supuestos y avisos",
       "source_file": "aidlc-docs/construction/interfaz/functional-design/design-system.md",
-      "source_location": "L48"
+      "source_location": "L50"
     },
     {
-      "id": "aidlc_docs_construction_interfaz_functional_design_design_system_tokens_en_docs_design_system_tokens_css",
-      "label": "Tokens (en `docs/design-system/tokens.css`)",
+      "id": "aidlc_docs_construction_interfaz_functional_design_design_system_tokens_fuente_\u00fanica_docs_design_system_tokens_css_componentes_en_componentes_css",
+      "label": "Tokens (fuente \u00fanica: `docs/design-system/tokens.css`; componentes en `componentes.css`)",
       "_origin": "ast",
       "community": 134,
       "community_name": "Sistema de dise\u00f1o de la interfaz (U3)",
       "file_type": "document",
       "node_kind": "heading",
-      "norm_label": "tokens (en `docs/design-system/tokens.css`)",
+      "norm_label": "tokens (fuente unica: `docs/design-system/tokens.css`; componentes en `componentes.css`)",
       "source_file": "aidlc-docs/construction/interfaz/functional-design/design-system.md",
       "source_location": "L15"
     },
@@ -3563,37 +3695,103 @@
       "source_location": "L1"
     },
     {
-      "id": "contrato_recibo_schema_properties_vence_en",
-      "label": "vence_en",
+      "id": "contrato_factura_canonica_schema_emisor_required",
+      "label": "required",
       "_origin": "ast",
       "community": 139,
-      "community_name": "vence_en",
+      "community_name": "enum",
       "file_type": "code",
-      "norm_label": "vence_en",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L25"
+      "norm_label": "required",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L91"
     },
     {
-      "id": "contrato_recibo_schema_vence_en_format",
-      "label": "format",
+      "id": "contrato_factura_canonica_schema_metodo_enum",
+      "label": "enum",
       "_origin": "ast",
       "community": 139,
-      "community_name": "vence_en",
+      "community_name": "enum",
       "file_type": "code",
-      "norm_label": "format",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L25"
+      "norm_label": "enum",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L241"
     },
     {
-      "id": "contrato_recibo_schema_vence_en_type",
-      "label": "type",
+      "id": "contrato_factura_canonica_schema_json_ref_id_fiscal",
+      "label": "id_fiscal",
       "_origin": "ast",
       "community": 139,
-      "community_name": "vence_en",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L25"
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "id_fiscal",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L91"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_json_ref_nombre",
+      "label": "nombre",
+      "_origin": "ast",
+      "community": 139,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "nombre",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L91"
+    },
+    {
+      "id": "ref_conflicto",
+      "label": "conflicto",
+      "_origin": "ast",
+      "community": 139,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "conflicto",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L241"
+    },
+    {
+      "id": "ref_modelo",
+      "label": "modelo",
+      "_origin": "ast",
+      "community": 139,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "modelo",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L370"
+    },
+    {
+      "id": "ref_ninguno",
+      "label": "ninguno",
+      "_origin": "ast",
+      "community": 139,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "ninguno",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L241"
+    },
+    {
+      "id": "ref_nombre_normalizado",
+      "label": "nombre_normalizado",
+      "_origin": "ast",
+      "community": 139,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "nombre_normalizado",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L91"
+    },
+    {
+      "id": "ref_parser",
+      "label": "parser",
+      "_origin": "ast",
+      "community": 139,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "parser",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L383"
     },
     {
       "id": "contrato_factura_canonica_schema_canal_enum",
@@ -3992,70 +4190,569 @@
       "source_location": "L1"
     },
     {
-      "id": "contrato_recibo_schema_decision_id_type",
-      "label": "type",
+      "id": "aidlc_docs_construction_plans_nucleo_code_generation_plan",
+      "label": "nucleo-code-generation-plan.md",
       "_origin": "ast",
       "community": 141,
-      "community_name": "decision_id",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L11"
+      "community_name": "Plan de c\u00f3digo: U1 N\u00facleo (Dev A, rama `nucleo`)",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "nucleo-code-generation-plan.md",
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L1"
     },
     {
-      "id": "contrato_recibo_schema_properties_decision_id",
-      "label": "decision_id",
+      "id": "aidlc_docs_construction_plans_nucleo_code_generation_plan_alcance_y_l\u00edmites",
+      "label": "Alcance y l\u00edmites",
       "_origin": "ast",
       "community": 141,
-      "community_name": "decision_id",
-      "file_type": "code",
-      "norm_label": "decision_id",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L11"
+      "community_name": "Plan de c\u00f3digo: U1 N\u00facleo (Dev A, rama `nucleo`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "alcance y limites",
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L5"
     },
     {
-      "id": "contrato_factura_canonica_schema_properties_suma_lineas_menor",
-      "label": "suma_lineas_menor",
+      "id": "aidlc_docs_construction_plans_nucleo_code_generation_plan_estructura",
+      "label": "Estructura",
+      "_origin": "ast",
+      "community": 141,
+      "community_name": "Plan de c\u00f3digo: U1 N\u00facleo (Dev A, rama `nucleo`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "estructura",
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L12"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_nucleo_code_generation_plan_para_el_subagente_ejecutor_de_unidad",
+      "label": "Para el subagente `ejecutor-de-unidad`",
+      "_origin": "ast",
+      "community": 141,
+      "community_name": "Plan de c\u00f3digo: U1 N\u00facleo (Dev A, rama `nucleo`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "para el subagente `ejecutor-de-unidad`",
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L78"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_nucleo_code_generation_plan_plan_de_c\u00f3digo_u1_n\u00facleo_dev_a_rama_nucleo",
+      "label": "Plan de c\u00f3digo: U1 N\u00facleo (Dev A, rama `nucleo`)",
+      "_origin": "ast",
+      "community": 141,
+      "community_name": "Plan de c\u00f3digo: U1 N\u00facleo (Dev A, rama `nucleo`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "plan de codigo: u1 nucleo (dev a, rama `nucleo`)",
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_nucleo_code_generation_plan_riesgos_y_supuestos",
+      "label": "Riesgos y supuestos",
+      "_origin": "ast",
+      "community": 141,
+      "community_name": "Plan de c\u00f3digo: U1 N\u00facleo (Dev A, rama `nucleo`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "riesgos y supuestos",
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L72"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_nucleo_code_generation_plan_t1_primer_hito_decisi\u00f3n_con_recibo_s\u00e1bado_antes_de_las_18_00",
+      "label": "T1. Primer hito: decisi\u00f3n con recibo (s\u00e1bado antes de las 18:00)",
+      "_origin": "ast",
+      "community": 141,
+      "community_name": "Plan de c\u00f3digo: U1 N\u00facleo (Dev A, rama `nucleo`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t1. primer hito: decision con recibo (sabado antes de las 18:00)",
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L23"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_nucleo_code_generation_plan_t2_guardi\u00e1n_y_registro_s\u00e1bado_por_la_tarde",
+      "label": "T2. Guardi\u00e1n y registro (s\u00e1bado por la tarde)",
+      "_origin": "ast",
+      "community": 141,
+      "community_name": "Plan de c\u00f3digo: U1 N\u00facleo (Dev A, rama `nucleo`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t2. guardian y registro (sabado por la tarde)",
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L35"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_nucleo_code_generation_plan_t3_resto_de_reglas_y_tipos_s\u00e1bado_por_la_noche",
+      "label": "T3. Resto de reglas y tipos (s\u00e1bado por la noche)",
+      "_origin": "ast",
+      "community": 141,
+      "community_name": "Plan de c\u00f3digo: U1 N\u00facleo (Dev A, rama `nucleo`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t3. resto de reglas y tipos (sabado por la noche)",
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L45"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_nucleo_code_generation_plan_t4_aprobaciones_roles_y_ciclo_s\u00e1bado_de_madrugada",
+      "label": "T4. Aprobaciones, roles y ciclo (s\u00e1bado de madrugada)",
+      "_origin": "ast",
+      "community": 141,
+      "community_name": "Plan de c\u00f3digo: U1 N\u00facleo (Dev A, rama `nucleo`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t4. aprobaciones, roles y ciclo (sabado de madrugada)",
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L53"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_nucleo_code_generation_plan_t5_api_completa_sesi\u00f3n_y_despliegue_s\u00e1bado_23_00_a_domingo",
+      "label": "T5. API completa, sesi\u00f3n y despliegue (s\u00e1bado 23:00 a domingo)",
+      "_origin": "ast",
+      "community": 141,
+      "community_name": "Plan de c\u00f3digo: U1 N\u00facleo (Dev A, rama `nucleo`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t5. api completa, sesion y despliegue (sabado 23:00 a domingo)",
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L61"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_nucleo_code_generation_plan_tandas",
+      "label": "Tandas",
+      "_origin": "ast",
+      "community": 141,
+      "community_name": "Plan de c\u00f3digo: U1 N\u00facleo (Dev A, rama `nucleo`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "tandas",
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L21"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_nucleo_code_generation_plan_total_y_control",
+      "label": "Total y control",
+      "_origin": "ast",
+      "community": 141,
+      "community_name": "Plan de c\u00f3digo: U1 N\u00facleo (Dev A, rama `nucleo`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "total y control",
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L69"
+    },
+    {
+      "id": "contrato_recibo_schema",
+      "label": "recibo.schema.json",
       "_origin": "ast",
       "community": 142,
-      "community_name": "suma_lineas_menor",
+      "community_name": "recibo.schema.json",
       "file_type": "code",
-      "norm_label": "suma_lineas_menor",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L174"
+      "norm_label": "recibo.schema.json",
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L1"
     },
     {
-      "id": "contrato_factura_canonica_schema_suma_lineas_menor_description",
+      "id": "contrato_recibo_schema_additionalproperties",
+      "label": "additionalProperties",
+      "_origin": "ast",
+      "community": 142,
+      "community_name": "recibo.schema.json",
+      "file_type": "code",
+      "norm_label": "additionalproperties",
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L7"
+    },
+    {
+      "id": "contrato_recibo_schema_description",
       "label": "description",
       "_origin": "ast",
       "community": 142,
-      "community_name": "suma_lineas_menor",
+      "community_name": "recibo.schema.json",
       "file_type": "code",
       "norm_label": "description",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L180"
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L5"
     },
     {
-      "id": "contrato_factura_canonica_schema_suma_lineas_menor_pattern",
-      "label": "pattern",
+      "id": "contrato_recibo_schema_id",
+      "label": "$id",
       "_origin": "ast",
       "community": 142,
-      "community_name": "suma_lineas_menor",
+      "community_name": "recibo.schema.json",
       "file_type": "code",
-      "norm_label": "pattern",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L179"
+      "norm_label": "$id",
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L3"
     },
     {
-      "id": "contrato_factura_canonica_schema_suma_lineas_menor_type",
+      "id": "contrato_recibo_schema_schema",
+      "label": "$schema",
+      "_origin": "ast",
+      "community": 142,
+      "community_name": "recibo.schema.json",
+      "file_type": "code",
+      "norm_label": "$schema",
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "contrato_recibo_schema_title",
+      "label": "title",
+      "_origin": "ast",
+      "community": 142,
+      "community_name": "recibo.schema.json",
+      "file_type": "code",
+      "norm_label": "title",
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "contrato_recibo_schema_type",
       "label": "type",
       "_origin": "ast",
       "community": 142,
-      "community_name": "suma_lineas_menor",
+      "community_name": "recibo.schema.json",
       "file_type": "code",
       "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L175"
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L6"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_evaluacion_code_generation_plan",
+      "label": "evaluacion-code-generation-plan.md",
+      "_origin": "ast",
+      "community": 143,
+      "community_name": "Plan de c\u00f3digo: U4 Evaluaci\u00f3n (subagente, con revisi\u00f3n de una persona desarrolladora; rama `evaluacion`)",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "evaluacion-code-generation-plan.md",
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_alcance_y_l\u00edmites",
+      "label": "Alcance y l\u00edmites",
+      "_origin": "ast",
+      "community": 143,
+      "community_name": "Plan de c\u00f3digo: U4 Evaluaci\u00f3n (subagente, con revisi\u00f3n de una persona desarrolladora; rama `evaluacion`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "alcance y limites",
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L5"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_estructura",
+      "label": "Estructura",
+      "_origin": "ast",
+      "community": 143,
+      "community_name": "Plan de c\u00f3digo: U4 Evaluaci\u00f3n (subagente, con revisi\u00f3n de una persona desarrolladora; rama `evaluacion`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "estructura",
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L10"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_plan_de_c\u00f3digo_u4_evaluaci\u00f3n_subagente_con_revisi\u00f3n_de_una_persona_desarrolladora_rama_evaluacion",
+      "label": "Plan de c\u00f3digo: U4 Evaluaci\u00f3n (subagente, con revisi\u00f3n de una persona desarrolladora; rama `evaluacion`)",
+      "_origin": "ast",
+      "community": 143,
+      "community_name": "Plan de c\u00f3digo: U4 Evaluaci\u00f3n (subagente, con revisi\u00f3n de una persona desarrolladora; rama `evaluacion`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "plan de codigo: u4 evaluacion (subagente, con revision de una persona desarrolladora; rama `evaluacion`)",
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_riesgos_y_supuestos",
+      "label": "Riesgos y supuestos",
+      "_origin": "ast",
+      "community": 143,
+      "community_name": "Plan de c\u00f3digo: U4 Evaluaci\u00f3n (subagente, con revisi\u00f3n de una persona desarrolladora; rama `evaluacion`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "riesgos y supuestos",
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L58"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_t1_esperados_viernes_noche_antes_del_verificador",
+      "label": "T1. Esperados (viernes noche, antes del verificador)",
+      "_origin": "ast",
+      "community": 143,
+      "community_name": "Plan de c\u00f3digo: U4 Evaluaci\u00f3n (subagente, con revisi\u00f3n de una persona desarrolladora; rama `evaluacion`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t1. esperados (viernes noche, antes del verificador)",
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L23"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_t2_verificador_independiente_s\u00e1bado_08_00_a_12_00",
+      "label": "T2. Verificador independiente (s\u00e1bado 08:00 a 12:00)",
+      "_origin": "ast",
+      "community": 143,
+      "community_name": "Plan de c\u00f3digo: U4 Evaluaci\u00f3n (subagente, con revisi\u00f3n de una persona desarrolladora; rama `evaluacion`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t2. verificador independiente (sabado 08:00 a 12:00)",
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L29"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_t3_pentest_y_arena_nivel_1_s\u00e1bado_por_la_tarde",
+      "label": "T3. Pentest y arena nivel 1 (s\u00e1bado por la tarde)",
+      "_origin": "ast",
+      "community": 143,
+      "community_name": "Plan de c\u00f3digo: U4 Evaluaci\u00f3n (subagente, con revisi\u00f3n de una persona desarrolladora; rama `evaluacion`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t3. pentest y arena nivel 1 (sabado por la tarde)",
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L35"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_t4_arena_nivel_2_fallas_del_extractor_y_carrera_s\u00e1bado_por_la_noche",
+      "label": "T4. Arena nivel 2, fallas del extractor y carrera (s\u00e1bado por la noche)",
+      "_origin": "ast",
+      "community": 143,
+      "community_name": "Plan de c\u00f3digo: U4 Evaluaci\u00f3n (subagente, con revisi\u00f3n de una persona desarrolladora; rama `evaluacion`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t4. arena nivel 2, fallas del extractor y carrera (sabado por la noche)",
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L43"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_t5_mutaci\u00f3n_y_corrida_final_domingo_temprano",
+      "label": "T5. Mutaci\u00f3n y corrida final (domingo temprano)",
+      "_origin": "ast",
+      "community": 143,
+      "community_name": "Plan de c\u00f3digo: U4 Evaluaci\u00f3n (subagente, con revisi\u00f3n de una persona desarrolladora; rama `evaluacion`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t5. mutacion y corrida final (domingo temprano)",
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L49"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_tandas",
+      "label": "Tandas",
+      "_origin": "ast",
+      "community": 143,
+      "community_name": "Plan de c\u00f3digo: U4 Evaluaci\u00f3n (subagente, con revisi\u00f3n de una persona desarrolladora; rama `evaluacion`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "tandas",
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L21"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_total_y_control",
+      "label": "Total y control",
+      "_origin": "ast",
+      "community": 143,
+      "community_name": "Plan de c\u00f3digo: U4 Evaluaci\u00f3n (subagente, con revisi\u00f3n de una persona desarrolladora; rama `evaluacion`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "total y control",
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L55"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_interfaz_code_generation_plan",
+      "label": "interfaz-code-generation-plan.md",
+      "_origin": "ast",
+      "community": 144,
+      "community_name": "Plan de c\u00f3digo: U3 Interfaz (Dev B, rama `interfaz`)",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "interfaz-code-generation-plan.md",
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_interfaz_code_generation_plan_alcance_y_l\u00edmites",
+      "label": "Alcance y l\u00edmites",
+      "_origin": "ast",
+      "community": 144,
+      "community_name": "Plan de c\u00f3digo: U3 Interfaz (Dev B, rama `interfaz`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "alcance y limites",
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L5"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_interfaz_code_generation_plan_estructura",
+      "label": "Estructura",
+      "_origin": "ast",
+      "community": 144,
+      "community_name": "Plan de c\u00f3digo: U3 Interfaz (Dev B, rama `interfaz`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "estructura",
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L11"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_interfaz_code_generation_plan_plan_de_c\u00f3digo_u3_interfaz_dev_b_rama_interfaz",
+      "label": "Plan de c\u00f3digo: U3 Interfaz (Dev B, rama `interfaz`)",
+      "_origin": "ast",
+      "community": 144,
+      "community_name": "Plan de c\u00f3digo: U3 Interfaz (Dev B, rama `interfaz`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "plan de codigo: u3 interfaz (dev b, rama `interfaz`)",
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_interfaz_code_generation_plan_riesgos_y_supuestos",
+      "label": "Riesgos y supuestos",
+      "_origin": "ast",
+      "community": 144,
+      "community_name": "Plan de c\u00f3digo: U3 Interfaz (Dev B, rama `interfaz`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "riesgos y supuestos",
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L57"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_interfaz_code_generation_plan_t1_pantalla_de_decisiones_con_el_recibo_viernes_noche_a_s\u00e1bado_temprano",
+      "label": "T1. Pantalla de Decisiones con el recibo (viernes noche a s\u00e1bado temprano)",
+      "_origin": "ast",
+      "community": 144,
+      "community_name": "Plan de c\u00f3digo: U3 Interfaz (Dev B, rama `interfaz`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t1. pantalla de decisiones con el recibo (viernes noche a sabado temprano)",
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L21"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_interfaz_code_generation_plan_t2_escena_3_del_video_recibo_alterable_y_guardi\u00e1n_s\u00e1bado",
+      "label": "T2. Escena 3 del video: recibo alterable y guardi\u00e1n (s\u00e1bado)",
+      "_origin": "ast",
+      "community": 144,
+      "community_name": "Plan de c\u00f3digo: U3 Interfaz (Dev B, rama `interfaz`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t2. escena 3 del video: recibo alterable y guardian (sabado)",
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L29"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_interfaz_code_generation_plan_t3_pantalla_de_reglas_la_que_pide_el_reto_s\u00e1bado",
+      "label": "T3. Pantalla de Reglas, la que pide el reto (s\u00e1bado)",
+      "_origin": "ast",
+      "community": 144,
+      "community_name": "Plan de c\u00f3digo: U3 Interfaz (Dev B, rama `interfaz`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t3. pantalla de reglas, la que pide el reto (sabado)",
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L35"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_interfaz_code_generation_plan_t4_marcador_y_escena_del_ataque_s\u00e1bado_por_la_noche",
+      "label": "T4. Marcador y escena del ataque (s\u00e1bado por la noche)",
+      "_origin": "ast",
+      "community": 144,
+      "community_name": "Plan de c\u00f3digo: U3 Interfaz (Dev B, rama `interfaz`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t4. marcador y escena del ataque (sabado por la noche)",
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L41"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_interfaz_code_generation_plan_t5_bandeja_simulada_guion_y_pulido_s\u00e1bado_de_madrugada_a_domingo",
+      "label": "T5. Bandeja simulada, guion y pulido (s\u00e1bado de madrugada a domingo)",
+      "_origin": "ast",
+      "community": 144,
+      "community_name": "Plan de c\u00f3digo: U3 Interfaz (Dev B, rama `interfaz`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t5. bandeja simulada, guion y pulido (sabado de madrugada a domingo)",
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L47"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_interfaz_code_generation_plan_tandas",
+      "label": "Tandas",
+      "_origin": "ast",
+      "community": 144,
+      "community_name": "Plan de c\u00f3digo: U3 Interfaz (Dev B, rama `interfaz`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "tandas",
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L19"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_interfaz_code_generation_plan_total_y_control",
+      "label": "Total y control",
+      "_origin": "ast",
+      "community": 144,
+      "community_name": "Plan de c\u00f3digo: U3 Interfaz (Dev B, rama `interfaz`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "total y control",
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L54"
+    },
+    {
+      "id": "contrato_extraccion_schema_evidencia_additionalproperties",
+      "label": "additionalProperties",
+      "_origin": "ast",
+      "community": 145,
+      "community_name": "evidencia",
+      "file_type": "code",
+      "norm_label": "additionalproperties",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L129"
+    },
+    {
+      "id": "contrato_extraccion_schema_evidencia_description",
+      "label": "description",
+      "_origin": "ast",
+      "community": 145,
+      "community_name": "evidencia",
+      "file_type": "code",
+      "norm_label": "description",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L130"
+    },
+    {
+      "id": "contrato_extraccion_schema_evidencia_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 145,
+      "community_name": "evidencia",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L128"
+    },
+    {
+      "id": "contrato_extraccion_schema_properties_evidencia",
+      "label": "evidencia",
+      "_origin": "ast",
+      "community": 145,
+      "community_name": "evidencia",
+      "file_type": "code",
+      "norm_label": "evidencia",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L127"
     },
     {
       "id": "contrato_resultados_schema_desvios_conservadores_type",
@@ -5046,6 +5743,17 @@
       "norm_label": "type",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L447"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_properties_con",
+      "label": "con",
+      "_origin": "ast",
+      "community": 19,
+      "community_name": "duplicado_probable",
+      "file_type": "code",
+      "norm_label": "con",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L465"
     },
     {
       "id": "contrato_factura_canonica_schema_properties_duplicado_probable",
@@ -6093,6 +6801,17 @@
       "source_location": "L26"
     },
     {
+      "id": "contrato_recibo_schema_decision_id_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 25,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L11"
+    },
+    {
       "id": "contrato_recibo_schema_emitido_en_format",
       "label": "format",
       "_origin": "ast",
@@ -6203,6 +6922,17 @@
       "source_location": "L26"
     },
     {
+      "id": "contrato_recibo_schema_properties_decision_id",
+      "label": "decision_id",
+      "_origin": "ast",
+      "community": 25,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "decision_id",
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L11"
+    },
+    {
       "id": "contrato_recibo_schema_properties_emitido_en",
       "label": "emitido_en",
       "_origin": "ast",
@@ -6267,6 +6997,39 @@
       "norm_label": "moneda",
       "source_file": "contrato/recibo.schema.json",
       "source_location": "L16"
+    },
+    {
+      "id": "contrato_recibo_schema_properties_vence_en",
+      "label": "vence_en",
+      "_origin": "ast",
+      "community": 25,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "vence_en",
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L25"
+    },
+    {
+      "id": "contrato_recibo_schema_vence_en_format",
+      "label": "format",
+      "_origin": "ast",
+      "community": 25,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "format",
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L25"
+    },
+    {
+      "id": "contrato_recibo_schema_vence_en_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 25,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L25"
     },
     {
       "id": "contrato_aprobacion_schema_required",
@@ -6588,17 +7351,6 @@
       "source_location": "L57"
     },
     {
-      "id": "contrato_extraccion_schema_properties",
-      "label": "properties",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "properties",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L23"
-    },
-    {
       "id": "contrato_extraccion_schema_properties_moneda",
       "label": "moneda",
       "_origin": "ast",
@@ -6632,28 +7384,6 @@
       "source_location": "L56"
     },
     {
-      "id": "contrato_extraccion_schema_properties_proveedor",
-      "label": "proveedor",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "proveedor",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L36"
-    },
-    {
-      "id": "contrato_extraccion_schema_properties_referencia_acuerdo",
-      "label": "referencia_acuerdo",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "referencia_acuerdo",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L124"
-    },
-    {
       "id": "contrato_extraccion_schema_properties_tipo_documento",
       "label": "tipo_documento",
       "_origin": "ast",
@@ -6663,39 +7393,6 @@
       "norm_label": "tipo_documento",
       "source_file": "contrato/extraccion.schema.json",
       "source_location": "L24"
-    },
-    {
-      "id": "contrato_extraccion_schema_proveedor_additionalproperties",
-      "label": "additionalProperties",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "additionalproperties",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L38"
-    },
-    {
-      "id": "contrato_extraccion_schema_proveedor_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L37"
-    },
-    {
-      "id": "contrato_extraccion_schema_referencia_acuerdo_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 28,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L125"
     },
     {
       "id": "contrato_extraccion_schema_tipo_documento_type",
@@ -6962,50 +7659,6 @@
       "source_location": "L15"
     },
     {
-      "id": "contrato_recibo_schema",
-      "label": "recibo.schema.json",
-      "_origin": "ast",
-      "community": 30,
-      "community_name": "required",
-      "file_type": "code",
-      "norm_label": "recibo.schema.json",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L1"
-    },
-    {
-      "id": "contrato_recibo_schema_additionalproperties",
-      "label": "additionalProperties",
-      "_origin": "ast",
-      "community": 30,
-      "community_name": "required",
-      "file_type": "code",
-      "norm_label": "additionalproperties",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L7"
-    },
-    {
-      "id": "contrato_recibo_schema_description",
-      "label": "description",
-      "_origin": "ast",
-      "community": 30,
-      "community_name": "required",
-      "file_type": "code",
-      "norm_label": "description",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L5"
-    },
-    {
-      "id": "contrato_recibo_schema_id",
-      "label": "$id",
-      "_origin": "ast",
-      "community": 30,
-      "community_name": "required",
-      "file_type": "code",
-      "norm_label": "$id",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L3"
-    },
-    {
       "id": "contrato_recibo_schema_required",
       "label": "required",
       "_origin": "ast",
@@ -7015,39 +7668,6 @@
       "norm_label": "required",
       "source_file": "contrato/recibo.schema.json",
       "source_location": "L8"
-    },
-    {
-      "id": "contrato_recibo_schema_schema",
-      "label": "$schema",
-      "_origin": "ast",
-      "community": 30,
-      "community_name": "required",
-      "file_type": "code",
-      "norm_label": "$schema",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L2"
-    },
-    {
-      "id": "contrato_recibo_schema_title",
-      "label": "title",
-      "_origin": "ast",
-      "community": 30,
-      "community_name": "required",
-      "file_type": "code",
-      "norm_label": "title",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L4"
-    },
-    {
-      "id": "contrato_recibo_schema_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 30,
-      "community_name": "required",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L6"
     },
     {
       "id": "contrato_recibo_schema_json_ref_decision_id",
@@ -7677,17 +8297,6 @@
       "source_location": "L95"
     },
     {
-      "id": "contrato_extraccion_schema_cuenta_required",
-      "label": "required",
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "cuenta",
-      "file_type": "code",
-      "norm_label": "required",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L91"
-    },
-    {
       "id": "contrato_extraccion_schema_cuenta_type",
       "label": "type",
       "_origin": "ast",
@@ -7721,17 +8330,6 @@
       "source_location": "L99"
     },
     {
-      "id": "contrato_extraccion_schema_proveedor_required",
-      "label": "required",
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "cuenta",
-      "file_type": "code",
-      "norm_label": "required",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L39"
-    },
-    {
       "id": "contrato_extraccion_schema_ultimos4_type",
       "label": "type",
       "_origin": "ast",
@@ -7741,50 +8339,6 @@
       "norm_label": "type",
       "source_file": "contrato/extraccion.schema.json",
       "source_location": "L100"
-    },
-    {
-      "id": "contrato_extraccion_schema_json_ref_id_fiscal",
-      "label": "id_fiscal",
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "cuenta",
-      "file_type": "concept",
-      "norm_label": "id_fiscal",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L39"
-    },
-    {
-      "id": "contrato_extraccion_schema_json_ref_nombre",
-      "label": "nombre",
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "cuenta",
-      "file_type": "concept",
-      "norm_label": "nombre",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L39"
-    },
-    {
-      "id": "contrato_extraccion_schema_json_ref_pais",
-      "label": "pais",
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "cuenta",
-      "file_type": "concept",
-      "norm_label": "pais",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L39"
-    },
-    {
-      "id": "contrato_extraccion_schema_json_ref_ultimos4",
-      "label": "ultimos4",
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "cuenta",
-      "file_type": "concept",
-      "norm_label": "ultimos4",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L91"
     },
     {
       "id": "contrato_extraccion_schema_id_fiscal_type",
@@ -7952,6 +8506,28 @@
       "source_location": "L77"
     },
     {
+      "id": "contrato_extraccion_schema",
+      "label": "extraccion.schema.json",
+      "_origin": "ast",
+      "community": 36,
+      "community_name": "required",
+      "file_type": "code",
+      "norm_label": "extraccion.schema.json",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "contrato_extraccion_schema_additionalproperties",
+      "label": "additionalProperties",
+      "_origin": "ast",
+      "community": 36,
+      "community_name": "required",
+      "file_type": "code",
+      "norm_label": "additionalproperties",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L7"
+    },
+    {
       "id": "contrato_extraccion_schema_confianza_required",
       "label": "required",
       "_origin": "ast",
@@ -7961,6 +8537,17 @@
       "norm_label": "required",
       "source_file": "contrato/extraccion.schema.json",
       "source_location": "L164"
+    },
+    {
+      "id": "contrato_extraccion_schema_description",
+      "label": "description",
+      "_origin": "ast",
+      "community": 36,
+      "community_name": "required",
+      "file_type": "code",
+      "norm_label": "description",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L5"
     },
     {
       "id": "contrato_extraccion_schema_evidencia_required",
@@ -7974,6 +8561,17 @@
       "source_location": "L131"
     },
     {
+      "id": "contrato_extraccion_schema_id",
+      "label": "$id",
+      "_origin": "ast",
+      "community": 36,
+      "community_name": "required",
+      "file_type": "code",
+      "norm_label": "$id",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L3"
+    },
+    {
       "id": "contrato_extraccion_schema_required",
       "label": "required",
       "_origin": "ast",
@@ -7983,6 +8581,39 @@
       "norm_label": "required",
       "source_file": "contrato/extraccion.schema.json",
       "source_location": "L8"
+    },
+    {
+      "id": "contrato_extraccion_schema_schema",
+      "label": "$schema",
+      "_origin": "ast",
+      "community": 36,
+      "community_name": "required",
+      "file_type": "code",
+      "norm_label": "$schema",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "contrato_extraccion_schema_title",
+      "label": "title",
+      "_origin": "ast",
+      "community": 36,
+      "community_name": "required",
+      "file_type": "code",
+      "norm_label": "title",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "contrato_extraccion_schema_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 36,
+      "community_name": "required",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L6"
     },
     {
       "id": "contrato_extraccion_schema_json_ref_confianza",
@@ -8469,66 +9100,99 @@
       "source_location": "L103"
     },
     {
-      "id": "contrato_extraccion_schema_evidencia_additionalproperties",
+      "id": "contrato_extraccion_schema_confianza_additionalproperties",
       "label": "additionalProperties",
       "_origin": "ast",
       "community": 39,
-      "community_name": "evidencia",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "additionalproperties",
       "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L129"
+      "source_location": "L162"
     },
     {
-      "id": "contrato_extraccion_schema_evidencia_description",
+      "id": "contrato_extraccion_schema_confianza_description",
       "label": "description",
       "_origin": "ast",
       "community": 39,
-      "community_name": "evidencia",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "description",
       "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L130"
+      "source_location": "L163"
     },
     {
-      "id": "contrato_extraccion_schema_evidencia_type",
+      "id": "contrato_extraccion_schema_confianza_type",
       "label": "type",
       "_origin": "ast",
       "community": 39,
-      "community_name": "evidencia",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L128"
+      "source_location": "L161"
     },
     {
-      "id": "contrato_extraccion_schema_properties_evidencia",
-      "label": "evidencia",
+      "id": "contrato_extraccion_schema_properties",
+      "label": "properties",
       "_origin": "ast",
       "community": 39,
-      "community_name": "evidencia",
+      "community_name": "properties",
       "file_type": "code",
-      "norm_label": "evidencia",
+      "norm_label": "properties",
       "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L127"
+      "source_location": "L23"
+    },
+    {
+      "id": "contrato_extraccion_schema_properties_confianza",
+      "label": "confianza",
+      "_origin": "ast",
+      "community": 39,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "confianza",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L160"
+    },
+    {
+      "id": "contrato_extraccion_schema_properties_referencia_acuerdo",
+      "label": "referencia_acuerdo",
+      "_origin": "ast",
+      "community": 39,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "referencia_acuerdo",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L124"
     },
     {
       "id": "contrato_extraccion_schema_properties_suma_lineas",
       "label": "suma_lineas",
       "_origin": "ast",
       "community": 39,
-      "community_name": "evidencia",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "suma_lineas",
       "source_file": "contrato/extraccion.schema.json",
       "source_location": "L213"
     },
     {
+      "id": "contrato_extraccion_schema_referencia_acuerdo_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 39,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L125"
+    },
+    {
       "id": "contrato_extraccion_schema_suma_lineas_description",
       "label": "description",
       "_origin": "ast",
       "community": 39,
-      "community_name": "evidencia",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "description",
       "source_file": "contrato/extraccion.schema.json",
@@ -8539,7 +9203,7 @@
       "label": "type",
       "_origin": "ast",
       "community": 39,
-      "community_name": "evidencia",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/extraccion.schema.json",
@@ -8568,6 +9232,17 @@
       "source_location": "L205"
     },
     {
+      "id": "contrato_factura_canonica_schema_modelo_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "null",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L390"
+    },
+    {
       "id": "contrato_factura_canonica_schema_motivo_falla_type",
       "label": "type",
       "_origin": "ast",
@@ -8579,37 +9254,15 @@
       "source_location": "L408"
     },
     {
-      "id": "contrato_factura_canonica_schema_pista_description",
-      "label": "description",
+      "id": "contrato_factura_canonica_schema_properties_modelo",
+      "label": "modelo",
       "_origin": "ast",
       "community": 4,
       "community_name": "null",
       "file_type": "code",
-      "norm_label": "description",
+      "norm_label": "modelo",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L253"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_pista_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "null",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L249"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_properties_con",
-      "label": "con",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "null",
-      "file_type": "code",
-      "norm_label": "con",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L465"
+      "source_location": "L389"
     },
     {
       "id": "contrato_factura_canonica_schema_properties_motivo_falla",
@@ -8623,40 +9276,40 @@
       "source_location": "L407"
     },
     {
-      "id": "contrato_factura_canonica_schema_properties_pista",
-      "label": "pista",
+      "id": "contrato_factura_canonica_schema_properties_suma_lineas_menor",
+      "label": "suma_lineas_menor",
       "_origin": "ast",
       "community": 4,
       "community_name": "null",
       "file_type": "code",
-      "norm_label": "pista",
+      "norm_label": "suma_lineas_menor",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L248"
+      "source_location": "L174"
     },
     {
-      "id": "contrato_factura_canonica_schema_properties_proveedor_id",
-      "label": "proveedor_id",
+      "id": "contrato_factura_canonica_schema_suma_lineas_menor_description",
+      "label": "description",
       "_origin": "ast",
       "community": 4,
       "community_name": "null",
       "file_type": "code",
-      "norm_label": "proveedor_id",
+      "norm_label": "description",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L233"
+      "source_location": "L180"
     },
     {
-      "id": "contrato_factura_canonica_schema_proveedor_asignado_properties",
-      "label": "properties",
+      "id": "contrato_factura_canonica_schema_suma_lineas_menor_pattern",
+      "label": "pattern",
       "_origin": "ast",
       "community": 4,
       "community_name": "null",
       "file_type": "code",
-      "norm_label": "properties",
+      "norm_label": "pattern",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L232"
+      "source_location": "L179"
     },
     {
-      "id": "contrato_factura_canonica_schema_proveedor_id_type",
+      "id": "contrato_factura_canonica_schema_suma_lineas_menor_type",
       "label": "type",
       "_origin": "ast",
       "community": 4,
@@ -8664,7 +9317,7 @@
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L234"
+      "source_location": "L175"
     },
     {
       "id": "contrato_factura_canonica_schema_json_ref_null",
@@ -8997,48 +9650,160 @@
       "source_location": "L20"
     },
     {
-      "id": "contrato_extraccion_schema_confianza_additionalproperties",
-      "label": "additionalProperties",
+      "id": "aidlc_docs_construction_plans_lectura_code_generation_plan",
+      "label": "lectura-code-generation-plan.md",
       "_origin": "ast",
       "community": 44,
-      "community_name": "confianza",
-      "file_type": "code",
-      "norm_label": "additionalproperties",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L162"
+      "community_name": "Plan de c\u00f3digo: U2 Lectura (Dev B, rama `lectura`)",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "lectura-code-generation-plan.md",
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L1"
     },
     {
-      "id": "contrato_extraccion_schema_confianza_description",
-      "label": "description",
+      "id": "aidlc_docs_construction_plans_lectura_code_generation_plan_alcance_y_l\u00edmites",
+      "label": "Alcance y l\u00edmites",
       "_origin": "ast",
       "community": 44,
-      "community_name": "confianza",
-      "file_type": "code",
-      "norm_label": "description",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L163"
+      "community_name": "Plan de c\u00f3digo: U2 Lectura (Dev B, rama `lectura`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "alcance y limites",
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L5"
     },
     {
-      "id": "contrato_extraccion_schema_confianza_type",
-      "label": "type",
+      "id": "aidlc_docs_construction_plans_lectura_code_generation_plan_estructura",
+      "label": "Estructura",
       "_origin": "ast",
       "community": 44,
-      "community_name": "confianza",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L161"
+      "community_name": "Plan de c\u00f3digo: U2 Lectura (Dev B, rama `lectura`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "estructura",
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L11"
     },
     {
-      "id": "contrato_extraccion_schema_properties_confianza",
-      "label": "confianza",
+      "id": "aidlc_docs_construction_plans_lectura_code_generation_plan_generaci\u00f3n_del_set_simulado_subagente_sonnet_mandato_aparte",
+      "label": "Generaci\u00f3n del set simulado (subagente Sonnet, mandato aparte)",
       "_origin": "ast",
       "community": 44,
-      "community_name": "confianza",
-      "file_type": "code",
-      "norm_label": "confianza",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L160"
+      "community_name": "Plan de c\u00f3digo: U2 Lectura (Dev B, rama `lectura`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "generacion del set simulado (subagente sonnet, mandato aparte)",
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L58"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_lectura_code_generation_plan_plan_de_c\u00f3digo_u2_lectura_dev_b_rama_lectura",
+      "label": "Plan de c\u00f3digo: U2 Lectura (Dev B, rama `lectura`)",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "Plan de c\u00f3digo: U2 Lectura (Dev B, rama `lectura`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "plan de codigo: u2 lectura (dev b, rama `lectura`)",
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_lectura_code_generation_plan_riesgos_y_supuestos",
+      "label": "Riesgos y supuestos",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "Plan de c\u00f3digo: U2 Lectura (Dev B, rama `lectura`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "riesgos y supuestos",
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L64"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_lectura_code_generation_plan_t1_extracciones_a_mano_y_adaptador_de_texto_viernes_noche_sin_clave_de_api",
+      "label": "T1. Extracciones a mano y adaptador de texto (viernes noche, sin clave de API)",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "Plan de c\u00f3digo: U2 Lectura (Dev B, rama `lectura`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t1. extracciones a mano y adaptador de texto (viernes noche, sin clave de api)",
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L23"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_lectura_code_generation_plan_t2_extractor_con_haiku_s\u00e1bado_08_00_a_12_00_real_cuando_llegue_la_clave",
+      "label": "T2. Extractor con Haiku (s\u00e1bado 08:00 a 12:00; real cuando llegue la clave)",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "Plan de c\u00f3digo: U2 Lectura (Dev B, rama `lectura`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t2. extractor con haiku (sabado 08:00 a 12:00; real cuando llegue la clave)",
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L30"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_lectura_code_generation_plan_t3_segunda_lectura_cascada_y_cach\u00e9_s\u00e1bado_de_tarde",
+      "label": "T3. Segunda lectura, cascada y cach\u00e9 (s\u00e1bado de tarde)",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "Plan de c\u00f3digo: U2 Lectura (Dev B, rama `lectura`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t3. segunda lectura, cascada y cache (sabado de tarde)",
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L37"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_lectura_code_generation_plan_t4_canales_del_set_multicanal_s\u00e1bado_por_la_noche",
+      "label": "T4. Canales del set multicanal (s\u00e1bado por la noche)",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "Plan de c\u00f3digo: U2 Lectura (Dev B, rama `lectura`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t4. canales del set multicanal (sabado por la noche)",
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L43"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_lectura_code_generation_plan_t5_lecturas_reales_y_muestras_guardadas_domingo_temprano",
+      "label": "T5. Lecturas reales y muestras guardadas (domingo temprano)",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "Plan de c\u00f3digo: U2 Lectura (Dev B, rama `lectura`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "t5. lecturas reales y muestras guardadas (domingo temprano)",
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L52"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_lectura_code_generation_plan_tandas",
+      "label": "Tandas",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "Plan de c\u00f3digo: U2 Lectura (Dev B, rama `lectura`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "tandas",
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L21"
+    },
+    {
+      "id": "aidlc_docs_construction_plans_lectura_code_generation_plan_total_y_control",
+      "label": "Total y control",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "Plan de c\u00f3digo: U2 Lectura (Dev B, rama `lectura`)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "total y control",
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L61"
     },
     {
       "id": "aidlc_docs_construction_lectura_functional_design_business_rules",
@@ -9099,6 +9864,18 @@
       "norm_label": "cache y umbral",
       "source_file": "aidlc-docs/construction/lectura/functional-design/business-rules.md",
       "source_location": "L82"
+    },
+    {
+      "id": "aidlc_docs_construction_lectura_functional_design_business_rules_canales_simulados_decisi\u00f3n_del_2026_10_17",
+      "label": "Canales simulados (decisi\u00f3n del 2026-10-17)",
+      "_origin": "ast",
+      "community": 45,
+      "community_name": "Reglas de negocio: U2 Lectura",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "canales simulados (decision del 2026-10-17)",
+      "source_file": "aidlc-docs/construction/lectura/functional-design/business-rules.md",
+      "source_location": "L100"
     },
     {
       "id": "aidlc_docs_construction_lectura_functional_design_business_rules_cascada_de_modelos",
@@ -12804,17 +13581,6 @@
       "source_location": "L380"
     },
     {
-      "id": "contrato_factura_canonica_schema_modelo_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 77,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L390"
-    },
-    {
       "id": "contrato_factura_canonica_schema_properties_desde_cache",
       "label": "desde_cache",
       "_origin": "ast",
@@ -12824,17 +13590,6 @@
       "norm_label": "desde_cache",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L404"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_properties_modelo",
-      "label": "modelo",
-      "_origin": "ast",
-      "community": 77,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "modelo",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L389"
     },
     {
       "id": "contrato_factura_canonica_schema_properties_reintentos",
@@ -12903,125 +13658,92 @@
       "source_location": "L402"
     },
     {
-      "id": "contrato_factura_canonica_schema_emisor_required",
-      "label": "required",
-      "_origin": "ast",
-      "community": 78,
-      "community_name": "enum",
-      "file_type": "code",
-      "norm_label": "required",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L91"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_metodo_enum",
-      "label": "enum",
-      "_origin": "ast",
-      "community": 78,
-      "community_name": "enum",
-      "file_type": "code",
-      "norm_label": "enum",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L241"
-    },
-    {
       "id": "contrato_factura_canonica_schema_metodo_type",
       "label": "type",
       "_origin": "ast",
       "community": 78,
-      "community_name": "enum",
+      "community_name": "metodo",
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L240"
     },
     {
+      "id": "contrato_factura_canonica_schema_pista_description",
+      "label": "description",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "metodo",
+      "file_type": "code",
+      "norm_label": "description",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L253"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_pista_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "metodo",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L249"
+    },
+    {
       "id": "contrato_factura_canonica_schema_properties_metodo",
       "label": "metodo",
       "_origin": "ast",
       "community": 78,
-      "community_name": "enum",
+      "community_name": "metodo",
       "file_type": "code",
       "norm_label": "metodo",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L239"
     },
     {
-      "id": "contrato_factura_canonica_schema_json_ref_id_fiscal",
-      "label": "id_fiscal",
+      "id": "contrato_factura_canonica_schema_properties_pista",
+      "label": "pista",
       "_origin": "ast",
       "community": 78,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "id_fiscal",
+      "community_name": "metodo",
+      "file_type": "code",
+      "norm_label": "pista",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L91"
+      "source_location": "L248"
     },
     {
-      "id": "contrato_factura_canonica_schema_json_ref_nombre",
-      "label": "nombre",
+      "id": "contrato_factura_canonica_schema_properties_proveedor_id",
+      "label": "proveedor_id",
       "_origin": "ast",
       "community": 78,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "nombre",
+      "community_name": "metodo",
+      "file_type": "code",
+      "norm_label": "proveedor_id",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L91"
+      "source_location": "L233"
     },
     {
-      "id": "ref_conflicto",
-      "label": "conflicto",
+      "id": "contrato_factura_canonica_schema_proveedor_asignado_properties",
+      "label": "properties",
       "_origin": "ast",
       "community": 78,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "conflicto",
+      "community_name": "metodo",
+      "file_type": "code",
+      "norm_label": "properties",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L241"
+      "source_location": "L232"
     },
     {
-      "id": "ref_modelo",
-      "label": "modelo",
+      "id": "contrato_factura_canonica_schema_proveedor_id_type",
+      "label": "type",
       "_origin": "ast",
       "community": 78,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "modelo",
+      "community_name": "metodo",
+      "file_type": "code",
+      "norm_label": "type",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L370"
-    },
-    {
-      "id": "ref_ninguno",
-      "label": "ninguno",
-      "_origin": "ast",
-      "community": 78,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "ninguno",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L241"
-    },
-    {
-      "id": "ref_nombre_normalizado",
-      "label": "nombre_normalizado",
-      "_origin": "ast",
-      "community": 78,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "nombre_normalizado",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L91"
-    },
-    {
-      "id": "ref_parser",
-      "label": "parser",
-      "_origin": "ast",
-      "community": 78,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "parser",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L383"
+      "source_location": "L234"
     },
     {
       "id": "contrato_mandato_schema_creado_en_format",
@@ -13920,114 +14642,136 @@
       "source_location": "L78"
     },
     {
-      "id": "contrato_factura_canonica_schema_properties_verificaciones",
-      "label": "verificaciones",
+      "id": "aidlc_docs_inception_demo_script",
+      "label": "demo-script.md",
       "_origin": "ast",
       "community": 85,
-      "community_name": "required",
-      "file_type": "code",
-      "norm_label": "verificaciones",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L269"
+      "community_name": "Guion del video (criterio de \"listo\")",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "demo-script.md",
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L1"
     },
     {
-      "id": "contrato_factura_canonica_schema_verificaciones_additionalproperties",
-      "label": "additionalProperties",
+      "id": "aidlc_docs_inception_demo_script_encuadre_con_el_reto_no_desenfocar",
+      "label": "Encuadre con el reto (no desenfocar)",
       "_origin": "ast",
       "community": 85,
-      "community_name": "required",
-      "file_type": "code",
-      "norm_label": "additionalproperties",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L271"
+      "community_name": "Guion del video (criterio de \"listo\")",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "encuadre con el reto (no desenfocar)",
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L10"
     },
     {
-      "id": "contrato_factura_canonica_schema_verificaciones_required",
-      "label": "required",
+      "id": "aidlc_docs_inception_demo_script_escenas_3_00",
+      "label": "Escenas (3:00)",
       "_origin": "ast",
       "community": 85,
-      "community_name": "required",
-      "file_type": "code",
-      "norm_label": "required",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L272"
+      "community_name": "Guion del video (criterio de \"listo\")",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "escenas (3:00)",
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L21"
     },
     {
-      "id": "contrato_factura_canonica_schema_verificaciones_type",
-      "label": "type",
+      "id": "aidlc_docs_inception_demo_script_fuentes_de_las_revisiones_consultadas_2026_10_17_secundarias_no_abiertas_en_su_totalidad",
+      "label": "Fuentes de las revisiones (consultadas 2026-10-17; secundarias, no abiertas en su totalidad)",
       "_origin": "ast",
       "community": 85,
-      "community_name": "required",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L270"
+      "community_name": "Guion del video (criterio de \"listo\")",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "fuentes de las revisiones (consultadas 2026-10-17; secundarias, no abiertas en su totalidad)",
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L56"
     },
     {
-      "id": "contrato_factura_canonica_schema_json_ref_suma_lineas",
-      "label": "suma_lineas",
+      "id": "aidlc_docs_inception_demo_script_guion_del_video_criterio_de_listo",
+      "label": "Guion del video (criterio de \"listo\")",
       "_origin": "ast",
       "community": 85,
-      "community_name": "required",
-      "file_type": "concept",
-      "norm_label": "suma_lineas",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L272"
+      "community_name": "Guion del video (criterio de \"listo\")",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "guion del video (criterio de \"listo\")",
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L1"
     },
     {
-      "id": "contrato_factura_canonica_schema_json_ref_tipo",
-      "label": "tipo",
+      "id": "aidlc_docs_inception_demo_script_l\u00ednea_de_corte",
+      "label": "L\u00ednea de corte",
       "_origin": "ast",
       "community": 85,
-      "community_name": "required",
-      "file_type": "concept",
-      "norm_label": "tipo",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L272"
+      "community_name": "Guion del video (criterio de \"listo\")",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "linea de corte",
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L53"
     },
     {
-      "id": "ref_cita_evidencia",
-      "label": "cita_evidencia",
+      "id": "aidlc_docs_inception_demo_script_mensaje",
+      "label": "Mensaje",
       "_origin": "ast",
       "community": 85,
-      "community_name": "required",
-      "file_type": "concept",
-      "norm_label": "cita_evidencia",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L272"
+      "community_name": "Guion del video (criterio de \"listo\")",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "mensaje",
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L5"
     },
     {
-      "id": "ref_dinero_presente",
-      "label": "dinero_presente",
+      "id": "aidlc_docs_inception_demo_script_orden_de_construcci\u00f3n_derivado",
+      "label": "Orden de construcci\u00f3n derivado",
       "_origin": "ast",
       "community": 85,
-      "community_name": "required",
-      "file_type": "concept",
-      "norm_label": "dinero_presente",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L272"
+      "community_name": "Guion del video (criterio de \"listo\")",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "orden de construccion derivado",
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L46"
     },
     {
-      "id": "ref_esquema",
-      "label": "esquema",
+      "id": "aidlc_docs_inception_demo_script_personas_a_las_que_se_le_habla_inferidas_no_verificado_con_entrevistas",
+      "label": "Personas a las que se le habla (inferidas, NO VERIFICADO con entrevistas)",
       "_origin": "ast",
       "community": 85,
-      "community_name": "required",
-      "file_type": "concept",
-      "norm_label": "esquema",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L272"
+      "community_name": "Guion del video (criterio de \"listo\")",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "personas a las que se le habla (inferidas, no verificado con entrevistas)",
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L16"
     },
     {
-      "id": "ref_segunda_lectura",
-      "label": "segunda_lectura",
+      "id": "aidlc_docs_inception_demo_script_qu\u00e9_debe_existir_unidad",
+      "label": "Qu\u00e9 debe existir (unidad)",
       "_origin": "ast",
       "community": 85,
-      "community_name": "required",
-      "file_type": "concept",
-      "norm_label": "segunda_lectura",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L272"
+      "community_name": "Guion del video (criterio de \"listo\")",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "que debe existir (unidad)",
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L32"
+    },
+    {
+      "id": "aidlc_docs_inception_demo_script_reglas_de_producci\u00f3n",
+      "label": "Reglas de producci\u00f3n",
+      "_origin": "ast",
+      "community": 85,
+      "community_name": "Guion del video (criterio de \"listo\")",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "reglas de produccion",
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L39"
     },
     {
       "id": "contrato_readme",
@@ -15040,7 +15784,7 @@
       "node_kind": "heading",
       "norm_label": "fallas de la api en cualquier punto",
       "source_file": "aidlc-docs/construction/lectura/functional-design/business-logic-model.md",
-      "source_location": "L30"
+      "source_location": "L31"
     },
     {
       "id": "aidlc_docs_construction_lectura_functional_design_business_logic_model_flujo_de_lectura_de_un_documento",
@@ -15076,7 +15820,7 @@
       "node_kind": "heading",
       "norm_label": "que entrega u2 al nucleo",
       "source_file": "aidlc-docs/construction/lectura/functional-design/business-logic-model.md",
-      "source_location": "L33"
+      "source_location": "L34"
     },
     {
       "id": "aidlc_docs_construction_lectura_functional_design_business_logic_model_qu\u00e9_nunca_ocurre",
@@ -15088,7 +15832,7 @@
       "node_kind": "heading",
       "norm_label": "que nunca ocurre",
       "source_file": "aidlc-docs/construction/lectura/functional-design/business-logic-model.md",
-      "source_location": "L36"
+      "source_location": "L37"
     },
     {
       "id": "contrato_aprobacion_schema",
@@ -20971,7 +21715,7 @@
     },
     {
       "source": "aidlc_docs_construction_interfaz_functional_design_design_system_sistema_de_dise\u00f1o_de_la_interfaz_u3",
-      "target": "aidlc_docs_construction_interfaz_functional_design_design_system_tokens_en_docs_design_system_tokens_css",
+      "target": "aidlc_docs_construction_interfaz_functional_design_design_system_tokens_fuente_\u00fanica_docs_design_system_tokens_css_componentes_en_componentes_css",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -20988,7 +21732,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "aidlc-docs/construction/interfaz/functional-design/design-system.md",
-      "source_location": "L28",
+      "source_location": "L30",
       "weight": 1.0
     },
     {
@@ -20999,18 +21743,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "aidlc-docs/construction/interfaz/functional-design/design-system.md",
-      "source_location": "L41",
-      "weight": 1.0
-    },
-    {
-      "source": "aidlc_docs_construction_interfaz_functional_design_design_system_sistema_de_dise\u00f1o_de_la_interfaz_u3",
-      "target": "aidlc_docs_construction_interfaz_functional_design_design_system_supuestos_y_avisos",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "aidlc-docs/construction/interfaz/functional-design/design-system.md",
-      "source_location": "L48",
+      "source_location": "L43",
       "weight": 1.0
     },
     {
@@ -21022,6 +21755,17 @@
       "confidence_score": 1.0,
       "source_file": "aidlc-docs/construction/interfaz/functional-design/design-system.md",
       "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_interfaz_functional_design_design_system_sistema_de_dise\u00f1o_de_la_interfaz_u3",
+      "target": "aidlc_docs_construction_interfaz_functional_design_design_system_supuestos_y_avisos",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/interfaz/functional-design/design-system.md",
+      "source_location": "L50",
       "weight": 1.0
     },
     {
@@ -21109,7 +21853,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "aidlc-docs/construction/lectura/functional-design/business-logic-model.md",
-      "source_location": "L30",
+      "source_location": "L31",
       "weight": 1.0
     },
     {
@@ -21120,7 +21864,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "aidlc-docs/construction/lectura/functional-design/business-logic-model.md",
-      "source_location": "L33",
+      "source_location": "L34",
       "weight": 1.0
     },
     {
@@ -21131,7 +21875,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "aidlc-docs/construction/lectura/functional-design/business-logic-model.md",
-      "source_location": "L36",
+      "source_location": "L37",
       "weight": 1.0
     },
     {
@@ -21143,6 +21887,17 @@
       "confidence_score": 1.0,
       "source_file": "aidlc-docs/construction/lectura/functional-design/business-rules.md",
       "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_lectura_functional_design_business_rules_reglas_de_negocio_u2_lectura",
+      "target": "aidlc_docs_construction_lectura_functional_design_business_rules_canales_simulados_decisi\u00f3n_del_2026_10_17",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/lectura/functional-design/business-rules.md",
+      "source_location": "L100",
       "weight": 1.0
     },
     {
@@ -21674,6 +22429,127 @@
       "weight": 1.0
     },
     {
+      "source": "aidlc_docs_construction_plans_evaluacion_code_generation_plan",
+      "target": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_plan_de_c\u00f3digo_u4_evaluaci\u00f3n_subagente_con_revisi\u00f3n_de_una_persona_desarrolladora_rama_evaluacion",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_plan_de_c\u00f3digo_u4_evaluaci\u00f3n_subagente_con_revisi\u00f3n_de_una_persona_desarrolladora_rama_evaluacion",
+      "target": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_estructura",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_plan_de_c\u00f3digo_u4_evaluaci\u00f3n_subagente_con_revisi\u00f3n_de_una_persona_desarrolladora_rama_evaluacion",
+      "target": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_tandas",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_plan_de_c\u00f3digo_u4_evaluaci\u00f3n_subagente_con_revisi\u00f3n_de_una_persona_desarrolladora_rama_evaluacion",
+      "target": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_alcance_y_l\u00edmites",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_plan_de_c\u00f3digo_u4_evaluaci\u00f3n_subagente_con_revisi\u00f3n_de_una_persona_desarrolladora_rama_evaluacion",
+      "target": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_total_y_control",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_plan_de_c\u00f3digo_u4_evaluaci\u00f3n_subagente_con_revisi\u00f3n_de_una_persona_desarrolladora_rama_evaluacion",
+      "target": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_riesgos_y_supuestos",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_t1_esperados_viernes_noche_antes_del_verificador",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_t2_verificador_independiente_s\u00e1bado_08_00_a_12_00",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_t3_pentest_y_arena_nivel_1_s\u00e1bado_por_la_tarde",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_t4_arena_nivel_2_fallas_del_extractor_y_carrera_s\u00e1bado_por_la_noche",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_evaluacion_code_generation_plan_t5_mutaci\u00f3n_y_corrida_final_domingo_temprano",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
       "source": "aidlc_docs_construction_plans_evaluacion_functional_design_plan",
       "target": "aidlc_docs_construction_plans_evaluacion_functional_design_plan_plan_de_dise\u00f1o_funcional_u4_evaluaci\u00f3n",
       "relation": "contains",
@@ -21704,6 +22580,127 @@
       "confidence_score": 1.0,
       "source_file": "aidlc-docs/construction/plans/evaluacion-functional-design-plan.md",
       "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_interfaz_code_generation_plan",
+      "target": "aidlc_docs_construction_plans_interfaz_code_generation_plan_plan_de_c\u00f3digo_u3_interfaz_dev_b_rama_interfaz",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_interfaz_code_generation_plan_plan_de_c\u00f3digo_u3_interfaz_dev_b_rama_interfaz",
+      "target": "aidlc_docs_construction_plans_interfaz_code_generation_plan_estructura",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_interfaz_code_generation_plan_plan_de_c\u00f3digo_u3_interfaz_dev_b_rama_interfaz",
+      "target": "aidlc_docs_construction_plans_interfaz_code_generation_plan_tandas",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_interfaz_code_generation_plan_plan_de_c\u00f3digo_u3_interfaz_dev_b_rama_interfaz",
+      "target": "aidlc_docs_construction_plans_interfaz_code_generation_plan_alcance_y_l\u00edmites",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_interfaz_code_generation_plan_plan_de_c\u00f3digo_u3_interfaz_dev_b_rama_interfaz",
+      "target": "aidlc_docs_construction_plans_interfaz_code_generation_plan_total_y_control",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_interfaz_code_generation_plan_plan_de_c\u00f3digo_u3_interfaz_dev_b_rama_interfaz",
+      "target": "aidlc_docs_construction_plans_interfaz_code_generation_plan_riesgos_y_supuestos",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_interfaz_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_interfaz_code_generation_plan_t1_pantalla_de_decisiones_con_el_recibo_viernes_noche_a_s\u00e1bado_temprano",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_interfaz_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_interfaz_code_generation_plan_t2_escena_3_del_video_recibo_alterable_y_guardi\u00e1n_s\u00e1bado",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_interfaz_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_interfaz_code_generation_plan_t3_pantalla_de_reglas_la_que_pide_el_reto_s\u00e1bado",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_interfaz_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_interfaz_code_generation_plan_t4_marcador_y_escena_del_ataque_s\u00e1bado_por_la_noche",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_interfaz_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_interfaz_code_generation_plan_t5_bandeja_simulada_guion_y_pulido_s\u00e1bado_de_madrugada_a_domingo",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/interfaz-code-generation-plan.md",
+      "source_location": "L47",
       "weight": 1.0
     },
     {
@@ -21751,6 +22748,138 @@
       "weight": 1.0
     },
     {
+      "source": "aidlc_docs_construction_plans_lectura_code_generation_plan",
+      "target": "aidlc_docs_construction_plans_lectura_code_generation_plan_plan_de_c\u00f3digo_u2_lectura_dev_b_rama_lectura",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_lectura_code_generation_plan_plan_de_c\u00f3digo_u2_lectura_dev_b_rama_lectura",
+      "target": "aidlc_docs_construction_plans_lectura_code_generation_plan_estructura",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_lectura_code_generation_plan_plan_de_c\u00f3digo_u2_lectura_dev_b_rama_lectura",
+      "target": "aidlc_docs_construction_plans_lectura_code_generation_plan_tandas",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_lectura_code_generation_plan_plan_de_c\u00f3digo_u2_lectura_dev_b_rama_lectura",
+      "target": "aidlc_docs_construction_plans_lectura_code_generation_plan_alcance_y_l\u00edmites",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_lectura_code_generation_plan_plan_de_c\u00f3digo_u2_lectura_dev_b_rama_lectura",
+      "target": "aidlc_docs_construction_plans_lectura_code_generation_plan_generaci\u00f3n_del_set_simulado_subagente_sonnet_mandato_aparte",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_lectura_code_generation_plan_plan_de_c\u00f3digo_u2_lectura_dev_b_rama_lectura",
+      "target": "aidlc_docs_construction_plans_lectura_code_generation_plan_total_y_control",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_lectura_code_generation_plan_plan_de_c\u00f3digo_u2_lectura_dev_b_rama_lectura",
+      "target": "aidlc_docs_construction_plans_lectura_code_generation_plan_riesgos_y_supuestos",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_lectura_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_lectura_code_generation_plan_t1_extracciones_a_mano_y_adaptador_de_texto_viernes_noche_sin_clave_de_api",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_lectura_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_lectura_code_generation_plan_t2_extractor_con_haiku_s\u00e1bado_08_00_a_12_00_real_cuando_llegue_la_clave",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_lectura_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_lectura_code_generation_plan_t3_segunda_lectura_cascada_y_cach\u00e9_s\u00e1bado_de_tarde",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_lectura_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_lectura_code_generation_plan_t4_canales_del_set_multicanal_s\u00e1bado_por_la_noche",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_lectura_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_lectura_code_generation_plan_t5_lecturas_reales_y_muestras_guardadas_domingo_temprano",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/lectura-code-generation-plan.md",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
       "source": "aidlc_docs_construction_plans_lectura_functional_design_plan",
       "target": "aidlc_docs_construction_plans_lectura_functional_design_plan_plan_de_dise\u00f1o_funcional_u2_lectura",
       "relation": "contains",
@@ -21781,6 +22910,138 @@
       "confidence_score": 1.0,
       "source_file": "aidlc-docs/construction/plans/lectura-functional-design-plan.md",
       "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_nucleo_code_generation_plan",
+      "target": "aidlc_docs_construction_plans_nucleo_code_generation_plan_plan_de_c\u00f3digo_u1_n\u00facleo_dev_a_rama_nucleo",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_nucleo_code_generation_plan_plan_de_c\u00f3digo_u1_n\u00facleo_dev_a_rama_nucleo",
+      "target": "aidlc_docs_construction_plans_nucleo_code_generation_plan_estructura",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_nucleo_code_generation_plan_plan_de_c\u00f3digo_u1_n\u00facleo_dev_a_rama_nucleo",
+      "target": "aidlc_docs_construction_plans_nucleo_code_generation_plan_tandas",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_nucleo_code_generation_plan_plan_de_c\u00f3digo_u1_n\u00facleo_dev_a_rama_nucleo",
+      "target": "aidlc_docs_construction_plans_nucleo_code_generation_plan_alcance_y_l\u00edmites",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_nucleo_code_generation_plan_plan_de_c\u00f3digo_u1_n\u00facleo_dev_a_rama_nucleo",
+      "target": "aidlc_docs_construction_plans_nucleo_code_generation_plan_total_y_control",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L69",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_nucleo_code_generation_plan_plan_de_c\u00f3digo_u1_n\u00facleo_dev_a_rama_nucleo",
+      "target": "aidlc_docs_construction_plans_nucleo_code_generation_plan_riesgos_y_supuestos",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_nucleo_code_generation_plan_plan_de_c\u00f3digo_u1_n\u00facleo_dev_a_rama_nucleo",
+      "target": "aidlc_docs_construction_plans_nucleo_code_generation_plan_para_el_subagente_ejecutor_de_unidad",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_nucleo_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_nucleo_code_generation_plan_t1_primer_hito_decisi\u00f3n_con_recibo_s\u00e1bado_antes_de_las_18_00",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_nucleo_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_nucleo_code_generation_plan_t2_guardi\u00e1n_y_registro_s\u00e1bado_por_la_tarde",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_nucleo_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_nucleo_code_generation_plan_t3_resto_de_reglas_y_tipos_s\u00e1bado_por_la_noche",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_nucleo_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_nucleo_code_generation_plan_t4_aprobaciones_roles_y_ciclo_s\u00e1bado_de_madrugada",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_construction_plans_nucleo_code_generation_plan_tandas",
+      "target": "aidlc_docs_construction_plans_nucleo_code_generation_plan_t5_api_completa_sesi\u00f3n_y_despliegue_s\u00e1bado_23_00_a_domingo",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/construction/plans/nucleo-code-generation-plan.md",
+      "source_location": "L61",
       "weight": 1.0
     },
     {
@@ -21978,6 +23239,116 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "aidlc-docs/inception/application-design/unit-of-work.md",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_inception_demo_script",
+      "target": "aidlc_docs_inception_demo_script_guion_del_video_criterio_de_listo",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_inception_demo_script_guion_del_video_criterio_de_listo",
+      "target": "aidlc_docs_inception_demo_script_encuadre_con_el_reto_no_desenfocar",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_inception_demo_script_guion_del_video_criterio_de_listo",
+      "target": "aidlc_docs_inception_demo_script_personas_a_las_que_se_le_habla_inferidas_no_verificado_con_entrevistas",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_inception_demo_script_guion_del_video_criterio_de_listo",
+      "target": "aidlc_docs_inception_demo_script_escenas_3_00",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_inception_demo_script_guion_del_video_criterio_de_listo",
+      "target": "aidlc_docs_inception_demo_script_qu\u00e9_debe_existir_unidad",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_inception_demo_script_guion_del_video_criterio_de_listo",
+      "target": "aidlc_docs_inception_demo_script_reglas_de_producci\u00f3n",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_inception_demo_script_guion_del_video_criterio_de_listo",
+      "target": "aidlc_docs_inception_demo_script_orden_de_construcci\u00f3n_derivado",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_inception_demo_script_guion_del_video_criterio_de_listo",
+      "target": "aidlc_docs_inception_demo_script_mensaje",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_inception_demo_script_guion_del_video_criterio_de_listo",
+      "target": "aidlc_docs_inception_demo_script_l\u00ednea_de_corte",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/inception/demo-script.md",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "aidlc_docs_inception_demo_script_guion_del_video_criterio_de_listo",
+      "target": "aidlc_docs_inception_demo_script_fuentes_de_las_revisiones_consultadas_2026_10_17_secundarias_no_abiertas_en_su_totalidad",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "aidlc-docs/inception/demo-script.md",
       "source_location": "L56",
       "weight": 1.0
     },
@@ -31367,5 +32738,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "01bae18cb450e11f8cc8c0a0316f521ca86ff362"
+  "built_at_commit": "4444f9bedea4db0f1f689fd2fc95c032f8af707b"
 }
