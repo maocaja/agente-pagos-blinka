@@ -7,6 +7,12 @@ Fecha: 2026-10-17. Versión 3, aprobada por el responsable tras dos revisiones e
 
 Evitar "no puede pagar mal": sobreafirma. Decir "lo que probamos" y "lo que no probamos".
 
+## Encuadre con el reto (no desenfocar)
+- El reto mide tres cosas: **autonomía** (decide bien sin persona), **seguridad** (cero pagos fuera de reglas; uno solo descalifica) y **explicabilidad** (entender cada decisión leyendo el registro, sin abrir el código). Cada escena debe servir a una de las tres.
+- "Decisiones de cumplimiento o fraude" **no entra** en el reto. La escena 1 no vende detección de fraude: la regla dice "la cuenta no es la registrada, escala", y una persona decide. Decir "regla de cuenta registrada", no "detectamos fraude".
+- La pantalla del entregable es simple: la empresa define sus reglas y ve qué se pagó, qué se frenó y qué quedó pendiente, con el porqué. El pentest, la arena y la bandeja simulada refuerzan eso; no lo reemplazan.
+- Entradas que el reto menciona: PDF, imagen, correo o chat. Sin datos reales.
+
 ## Personas a las que se le habla (inferidas, NO VERIFICADO con entrevistas)
 - **CFO o tesorero (compra):** teme ser el titular de un fraude. Quiere perdida evitada y menos revision manual.
 - **Analista de cuentas por pagar (usa):** quiere que ESCALAR traiga el motivo escrito y listo; si frena de más, lo desactiva.
