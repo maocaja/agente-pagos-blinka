@@ -4,7 +4,8 @@ function app() {
   return {
     rol: "analista", sesion: null, monedas: {}, marcador: null,
     decisiones: [], facturas: {}, filtro: "TODAS", error: null, cargando: true,
-    sel: null, factura: null, recibo: null, tecnica: false,
+    sel: null, factura: null, recibo: null, tecnica: false, pestana: "resumen",
+    pestanas: [["resumen", "Resumen"], ["documento", "Documento"], ["recibo", "Recibo"], ["historial", "Historial"]],
     ciclo: null, muestras: [], historial: [], estadoOrden: null, nota: "", ocupado: false, progreso: "", copia: "", copiaError: null, resultado: null, verifRecibo: null, imagenFalla: false,
     veredictos: VEREDICTOS, estados: ESTADOS, estadoVerif: ESTADO_VERIF,
     filtros: [["TODAS", "Todas"], ["PAGAR", "Pagar"], ["FRENAR", "Frenar"], ["ESCALAR", "Escalar"], ["PENDIENTES", "Pendientes de aprobación"]],
@@ -39,7 +40,7 @@ function app() {
       const q = new URLSearchParams(location.search);
       const id = q.get("decision") || api.muestrasCargadas()[q.get("muestra")];
       const d = this.decisiones.find((x) => x.id === id);
-      if (d) { await this.abrir(d); this.tecnica = q.get("tecnica") === "1"; }
+      if (d) { await this.abrir(d, q.get("pestana")); this.tecnica = q.get("tecnica") === "1"; }
     },
     async cargarSet() {
       this.error = null; this.ocupado = true;
@@ -77,7 +78,8 @@ function app() {
     canal(d) { return this.f(d)?.documento?.canal || ""; },
     aprobo(d) { return d.reevaluacion_de ? "CFO" : ""; },
     cambiarRol(r) { this.rol = r; api.rol = r; },
-    async abrir(d) {
+    async abrir(d, pestana) {
+      this.pestana = this.pestanas.some((p) => p[0] === pestana) ? pestana : "resumen";
       this.sel = d; this.historial = []; this.estadoOrden = null; this.recibo = null; this.resultado = null; this.verifRecibo = null; this.tecnica = false; this.error = null; this.imagenFalla = false;
       try {
         const r = await api.detalle(d.id);
@@ -85,6 +87,11 @@ function app() {
         if (d.recibo_id) { this.recibo = await api.recibo(d.recibo_id); this.copia = JSON.stringify(this.recibo, null, 2); }
       } catch (e) { this.error = e.message; }
       if (matchMedia("(max-width: 1023px)").matches) this.$nextTick(() => this.$refs.detalle?.scrollIntoView({ block: "start" }));
+    },
+    moverPestana(paso) {
+      const ids = this.pestanas.map((p) => p[0]);
+      this.pestana = ids[(ids.indexOf(this.pestana) + paso + ids.length) % ids.length];
+      this.$nextTick(() => document.getElementById("tab-" + this.pestana)?.focus());
     },
     // El documento original solo existe para las muestras cargadas; la reevaluacion hereda el de su decision de origen.
     get muestraId() {
