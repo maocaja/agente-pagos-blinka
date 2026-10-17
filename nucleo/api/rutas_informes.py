@@ -34,6 +34,10 @@ def rutas_informes(dep, clave_publica) -> APIRouter:
         except ErrorAccion as e:
             return _error(e)
 
+    @r.get("/api/ciclo")
+    def ciclo(servicio=Depends(dep)):
+        return servicio.ciclo()
+
     @r.get("/api/auditoria/paquete")
     def paquete(servicio=Depends(dep)):
         return armar_paquete(servicio, clave_publica(servicio), servicio.reloj().strftime(_FMT))
@@ -45,6 +49,7 @@ def rutas_informes(dep, clave_publica) -> APIRouter:
         except ErrorAccion as e:
             return _error(e)
         prov = servicio.reg.proveedor(rec["beneficiario_id"])
+        servicio.ordenes_emitidas.add(id)
         xml = orden_a_pain001(orden_desde_recibo(rec), prov["nombre"] if prov else rec["beneficiario_id"],
                               servicio.reloj().strftime(_FMT))
         return Response(xml, media_type="application/xml")

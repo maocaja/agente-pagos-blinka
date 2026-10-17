@@ -1,6 +1,6 @@
 # Contrato compartido
 
-Version `1.1.0-rc2`. Es la ruta critica de las cuatro unidades. Se escribio antes que el codigo, a partir de los diseños funcionales aprobados en `aidlc-docs/construction/`.
+Version `1.1.0-rc3`. Es la ruta critica de las cuatro unidades. Se escribio antes que el codigo, a partir de los diseños funcionales aprobados en `aidlc-docs/construction/`.
 
 ## Archivos
 | Archivo | Que define | Quien lo produce | Quien lo consume |
@@ -63,3 +63,6 @@ Hay valores que se calibran despues: `umbral_senal_texto`, `dias_proveedor_nuevo
 - `api.openapi.yaml`: campo opcional `lectura` (`en_vivo` o `guardada`) en la respuesta de `POST /api/sesion`.
 - `factura-canonica.schema.json`: `senales.remitente_inconsistente` (remitente distinto del origen declarado, por ejemplo `Reply-To`; R1 escala). Añadido en la Ola 4.
 - `api.openapi.yaml`: `GET /api/muestras` lleva el campo opcional `original`; `POST /api/pentest/ejecutar` y `POST /api/arena/ejecutar` devuelven la forma de `resultados.schema.json` (`recuentos`, `casos`, `no_prueba`), no la descrita antes (nunca implementada).
+
+## Cambios de 1.1.0-rc3 (aditivos, Ola 14)
+- `api.openapi.yaml`: `GET /api/ciclo` devuelve `ciclo_id`, `empresa`, `moneda`, importes `presupuesto_menor`, `reservado_menor` y `disponible_menor` (texto) y `actividad` (ultimos 5 eventos); `GET /api/decisiones/{id}` anade `historial` y `estado_orden`.

@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Agente de Pagos con Garantia, API del nucleo
-  version: 1.1.0-rc2
+  version: 1.1.0-rc3
   description: |
     Contrato entre U1 (nucleo), U2 (lectura), U3 (interfaz) y U4 (evaluacion). Escrito primero; cambia solo de comun acuerdo.
     Cada peticion (menos POST /api/sesion) lleva el encabezado X-Sesion-Id. El rol es simulado y viaja en X-Rol.
@@ -204,12 +204,23 @@ paths:
             application/json:
               schema:
                 type: object
-                required: [id, estado, mandato_version, pendientes]
+                required: [ciclo_id, empresa, moneda, presupuesto_menor, reservado_menor, disponible_menor, actividad]
                 properties:
-                  id: {type: string}
-                  estado: {type: string, enum: [abierto, en_proceso, en_revision, aprobado, cerrado]}
-                  mandato_version: {type: string}
-                  pendientes: {type: integer}
+                  ciclo_id: {type: string}
+                  empresa: {type: string}
+                  moneda: {type: string}
+                  presupuesto_menor: {type: string}
+                  reservado_menor: {type: string}
+                  disponible_menor: {type: string}
+                  actividad:
+                    type: array
+                    description: Ultimos 5 eventos de la sesion, el mas reciente primero.
+                    items:
+                      type: object
+                      required: [hora, texto]
+                      properties:
+                        hora: {type: string}
+                        texto: {type: string}
   /api/ciclo/cerrar:
     post:
       tags: [ciclo]
@@ -310,6 +321,21 @@ paths:
                 properties:
                   decision: {$ref: '#/components/schemas/Decision'}
                   factura: {$ref: '#/components/schemas/FacturaCanonica'}
+                  historial:
+                    type: array
+                    description: Eventos en orden cronologico, derivados de lo registrado.
+                    items:
+                      type: object
+                      required: [hora, evento, actor, nota]
+                      properties:
+                        hora: {type: string}
+                        evento: {type: string, enum: [recibida, decidida, aprobada, rechazada, reevaluada]}
+                        actor: {type: string, description: motor o el rol}
+                        nota: {type: [string, 'null']}
+                  estado_orden:
+                    type: [string, 'null']
+                    enum: [autorizada, orden_simulada_emitida, null]
+                    description: Solo si el guardian autorizo; nunca un pago confirmado.
         '404': {$ref: '#/components/responses/NoEncontrado'}
   /api/decisiones/{id}/previa:
     get:

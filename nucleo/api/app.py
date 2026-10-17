@@ -9,6 +9,7 @@ from fastapi import APIRouter, Depends, FastAPI, Header, Request
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
+from ..dominio.historial import estado_orden, historial_de
 from ..dominio.mandato import RAIZ_CONTRATO
 from .rutas_acciones import rutas_acciones
 from .rutas_evaluacion import rutas_evaluacion
@@ -91,7 +92,8 @@ def _rutas_facturas(procesar, dep) -> APIRouter:
         d = servicio.decisiones.get(id)
         if d is None:
             return _error(404, "no_encontrado", "La decision no existe.")
-        return {"decision": d, "factura": servicio.facturas[d["factura_id"]]}
+        return {"decision": d, "factura": servicio.facturas[d["factura_id"]],
+                "historial": historial_de(servicio, d), "estado_orden": estado_orden(servicio, d)}
 
     return r
 

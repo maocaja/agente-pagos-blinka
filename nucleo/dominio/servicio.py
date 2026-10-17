@@ -1,5 +1,6 @@
 from .errores import FallaCerrada
 from .guardian import ContextoGuardian, verificar
+from .historial import actividad
 from .motor import decidir
 from .recibo import emitir_recibo
 
@@ -17,11 +18,20 @@ class ServicioDecision:
         self.respuestas: dict = {}
         self.aprobaciones: dict = {}
         self.cargadores: dict = {}
+        self.ordenes_emitidas: set = set()
 
     def modo_de(self, pid) -> str:
         dias = self.reg.dias_de_alta(pid, self.reloj().date()) if pid else None
         niv = self.m.p["nivel_autonomia_defecto"]
         return niv["conocido"] if dias is not None and dias >= self.m.p["dias_proveedor_nuevo"] else niv["nuevo"]
+
+    def ciclo(self) -> dict:
+        ciclo_id, presupuesto = self.reg.ciclo_id, int(self.m.p["presupuesto_periodo_menor"])
+        reservado = self.libro.acumulado(ciclo_id)
+        return {"ciclo_id": ciclo_id, "empresa": self.reg.empresa or self.m.doc["empresa_id"],
+                "moneda": self.m.p["moneda_base"], "presupuesto_menor": str(presupuesto),
+                "reservado_menor": str(reservado), "disponible_menor": str(presupuesto - reservado),
+                "actividad": actividad(self)}
 
     def idempotente(self, ambito, clave, producir):
         """Misma clave, misma respuesta: un reintento no duplica recibo ni reserva."""
