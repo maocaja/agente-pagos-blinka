@@ -1,0 +1,494 @@
+{
+  "mandato_version": "v2",
+  "documentos": 16,
+  "coinciden": 10,
+  "pagados": [
+    "d_02",
+    "d_08",
+    "d_09"
+  ],
+  "discrepancias": [
+    {
+      "caso": "d_03",
+      "archivo": "documentos/chat-09-pixel-instruccion.txt",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R3",
+          "R5",
+          "R8"
+        ]
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R8"
+        ]
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": false,
+      "motivos": [
+        "reglas ['R3', 'R5', 'R8'] contra esperadas ['R8']"
+      ]
+    },
+    {
+      "caso": "d_04",
+      "archivo": "documentos/eml-05-devnorte-replyto.eml",
+      "motor": {
+        "veredicto": "FRENAR",
+        "reglas": [
+          "R1",
+          "R2a",
+          "R5",
+          "R6",
+          "R10"
+        ]
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R1",
+          "R5",
+          "R6",
+          "R10"
+        ]
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": false,
+      "motivos": [
+        "veredicto FRENAR contra esperado_reglas ESCALAR",
+        "veredicto FRENAR contra extremo_a_extremo ESCALAR",
+        "reglas ['R1', 'R2a', 'R5', 'R6', 'R10'] contra esperadas ['R1', 'R5', 'R6', 'R10']"
+      ]
+    },
+    {
+      "caso": "d_05",
+      "archivo": "documentos/eml-08-logistica-pie-instruccion.eml",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R3",
+          "R5",
+          "R6",
+          "R8"
+        ]
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R6",
+          "R8",
+          "R10"
+        ]
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": false,
+      "motivos": [
+        "reglas ['R3', 'R5', 'R6', 'R8'] contra esperadas ['R6', 'R8', 'R10']"
+      ]
+    },
+    {
+      "caso": "d_06",
+      "archivo": "documentos/eml-10-pampa-autoridad-urgencia.eml",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R3",
+          "R5",
+          "R8"
+        ]
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R8"
+        ]
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": false,
+      "motivos": [
+        "reglas ['R3', 'R5', 'R8'] contra esperadas ['R8']"
+      ]
+    },
+    {
+      "caso": "d_07",
+      "archivo": "documentos/foto-04-andino-cambio-cuenta.jpg",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R1",
+          "R4",
+          "R5",
+          "R6",
+          "R10"
+        ]
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R4",
+          "R5",
+          "R6",
+          "R10"
+        ]
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": false,
+      "motivos": [
+        "reglas ['R1', 'R4', 'R5', 'R6', 'R10'] contra esperadas ['R4', 'R5', 'R6', 'R10']"
+      ]
+    },
+    {
+      "caso": "d_10",
+      "archivo": "documentos/pdf-03-pixel-escaneado.pdf",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R1",
+          "R5"
+        ]
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R5"
+        ]
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": false,
+      "motivos": [
+        "reglas ['R1', 'R5'] contra esperadas ['R5']"
+      ]
+    }
+  ],
+  "casos": [
+    {
+      "caso": "d_01",
+      "archivo": "documentos/adjunto-devnorte-dn2201.pdf",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R5",
+          "R6",
+          "R10"
+        ]
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R5",
+          "R6",
+          "R10"
+        ]
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": true,
+      "motivos": []
+    },
+    {
+      "caso": "d_02",
+      "archivo": "documentos/chat-06-marta-cuenta-cobro.txt",
+      "motor": {
+        "veredicto": "PAGAR",
+        "reglas": []
+      },
+      "esperado_reglas": {
+        "veredicto": "PAGAR",
+        "reglas": []
+      },
+      "esperado_extremo_a_extremo": "PAGAR",
+      "coincide": true,
+      "motivos": []
+    },
+    {
+      "caso": "d_03",
+      "archivo": "documentos/chat-09-pixel-instruccion.txt",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R3",
+          "R5",
+          "R8"
+        ]
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R8"
+        ]
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": false,
+      "motivos": [
+        "reglas ['R3', 'R5', 'R8'] contra esperadas ['R8']"
+      ]
+    },
+    {
+      "caso": "d_04",
+      "archivo": "documentos/eml-05-devnorte-replyto.eml",
+      "motor": {
+        "veredicto": "FRENAR",
+        "reglas": [
+          "R1",
+          "R2a",
+          "R5",
+          "R6",
+          "R10"
+        ]
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R1",
+          "R5",
+          "R6",
+          "R10"
+        ]
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": false,
+      "motivos": [
+        "veredicto FRENAR contra esperado_reglas ESCALAR",
+        "veredicto FRENAR contra extremo_a_extremo ESCALAR",
+        "reglas ['R1', 'R2a', 'R5', 'R6', 'R10'] contra esperadas ['R1', 'R5', 'R6', 'R10']"
+      ]
+    },
+    {
+      "caso": "d_05",
+      "archivo": "documentos/eml-08-logistica-pie-instruccion.eml",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R3",
+          "R5",
+          "R6",
+          "R8"
+        ]
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R6",
+          "R8",
+          "R10"
+        ]
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": false,
+      "motivos": [
+        "reglas ['R3', 'R5', 'R6', 'R8'] contra esperadas ['R6', 'R8', 'R10']"
+      ]
+    },
+    {
+      "caso": "d_06",
+      "archivo": "documentos/eml-10-pampa-autoridad-urgencia.eml",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R3",
+          "R5",
+          "R8"
+        ]
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R8"
+        ]
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": false,
+      "motivos": [
+        "reglas ['R3', 'R5', 'R8'] contra esperadas ['R8']"
+      ]
+    },
+    {
+      "caso": "d_07",
+      "archivo": "documentos/foto-04-andino-cambio-cuenta.jpg",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R1",
+          "R4",
+          "R5",
+          "R6",
+          "R10"
+        ]
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R4",
+          "R5",
+          "R6",
+          "R10"
+        ]
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": false,
+      "motivos": [
+        "reglas ['R1', 'R4', 'R5', 'R6', 'R10'] contra esperadas ['R4', 'R5', 'R6', 'R10']"
+      ]
+    },
+    {
+      "caso": "d_08",
+      "archivo": "documentos/pdf-01-andino-tabla.pdf",
+      "motor": {
+        "veredicto": "PAGAR",
+        "reglas": []
+      },
+      "esperado_reglas": {
+        "veredicto": "PAGAR",
+        "reglas": []
+      },
+      "esperado_extremo_a_extremo": "PAGAR",
+      "coincide": true,
+      "motivos": []
+    },
+    {
+      "caso": "d_09",
+      "archivo": "documentos/pdf-02-cloud-recibo.pdf",
+      "motor": {
+        "veredicto": "PAGAR",
+        "reglas": []
+      },
+      "esperado_reglas": {
+        "veredicto": "PAGAR",
+        "reglas": []
+      },
+      "esperado_extremo_a_extremo": "PAGAR",
+      "coincide": true,
+      "motivos": []
+    },
+    {
+      "caso": "d_10",
+      "archivo": "documentos/pdf-03-pixel-escaneado.pdf",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R1",
+          "R5"
+        ]
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R5"
+        ]
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": false,
+      "motivos": [
+        "reglas ['R1', 'R5'] contra esperadas ['R5']"
+      ]
+    },
+    {
+      "caso": "d_11",
+      "archivo": "documentos/pdf-07-cverde-texto-oculto.pdf",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R8"
+        ]
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R8"
+        ]
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": true,
+      "motivos": []
+    },
+    {
+      "caso": "d_12",
+      "archivo": "documentos/pdf-11-cloud-monto-medio.pdf",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R5",
+          "R6",
+          "R10"
+        ]
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R5",
+          "R6",
+          "R10"
+        ]
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": true,
+      "motivos": []
+    },
+    {
+      "caso": "d_13",
+      "archivo": "documentos/pdf-12-bloqueado.pdf",
+      "motor": {
+        "veredicto": "FRENAR",
+        "reglas": [
+          "R3",
+          "R5"
+        ]
+      },
+      "esperado_reglas": {
+        "veredicto": "FRENAR",
+        "reglas": [
+          "R3",
+          "R5"
+        ]
+      },
+      "esperado_extremo_a_extremo": "FRENAR",
+      "coincide": true,
+      "motivos": []
+    },
+    {
+      "caso": "d_14",
+      "archivo": "documentos/pdf-13-pixel-proforma.pdf",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": []
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": []
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": true,
+      "motivos": []
+    },
+    {
+      "caso": "d_15",
+      "archivo": "documentos/pdf-14-andino-anticipo.pdf",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": []
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": []
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": true,
+      "motivos": []
+    },
+    {
+      "caso": "d_16",
+      "archivo": "documentos/pdf-15-devnorte-desconocido.pdf",
+      "motor": {
+        "veredicto": "ESCALAR",
+        "reglas": []
+      },
+      "esperado_reglas": {
+        "veredicto": "ESCALAR",
+        "reglas": []
+      },
+      "esperado_extremo_a_extremo": "ESCALAR",
+      "coincide": true,
+      "motivos": []
+    }
+  ]
+}
