@@ -5,6 +5,8 @@ import sys
 
 CODIGO = ["nucleo", "lectura", "interfaz", "evaluacion", "contrato", "datos"]
 CONTROL = ["aidlc-docs/aidlc-state.md", "aidlc-docs/construction/tandas.md"]
+CONTRATO = ["contrato/api.openapi.yaml", "contrato/factura-canonica.schema.json", "contrato/decision.schema.json",
+            "contrato/recibo.schema.json", "contrato/mandato.schema.json", "contrato/resultados.schema.json"]
 
 
 def ultimo_cambio(rutas):
@@ -15,8 +17,11 @@ def ultimo_cambio(rutas):
 
 def revisar():
     codigo = ultimo_cambio(CODIGO)
-    return [f"{c} esta detras del ultimo cambio de codigo; actualizar antes de cerrar la tanda"
-            for c in CONTROL if ultimo_cambio([c]) < codigo]
+    h = [f"{c} esta detras del ultimo cambio de codigo; actualizar antes de cerrar la tanda"
+         for c in CONTROL if ultimo_cambio([c]) < codigo]
+    if ultimo_cambio(["contrato/README.md"]) < ultimo_cambio(CONTRATO):
+        h.append("contrato/README.md esta detras de un cambio del contrato; anotar version y cambios")
+    return h
 
 
 if __name__ == "__main__":

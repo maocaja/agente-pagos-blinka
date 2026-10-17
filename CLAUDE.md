@@ -37,6 +37,15 @@ Para no perdernos, ninguna tanda ni ola se da por cerrada sin esto. No es opcion
 - **Quien orquesta o integra:** anota la fila en `aidlc-docs/construction/tandas.md`, actualiza `aidlc-docs/aidlc-state.md` (hecho y pendiente por unidad, y la fecha), y recien entonces hace commit y merge. Una ola termina con estado al dia, no con el codigo.
 - **Comprobacion mecanica:** `python3 verify.py --gate` (y `python3 control.py`) falla si `aidlc-state.md` o `tandas.md` tienen un commit mas viejo que el ultimo cambio en `nucleo/`, `lectura/`, `interfaz/`, `evaluacion/`, `contrato/` o `datos/`.
 - Todo recorte frente al diseno se anota en `inception/architecture-target-vs-mvp.md`; todo cambio del contrato, con el acuerdo de las dos personas desarrolladoras.
+- **La documentacion se actualiza siempre, en la misma tanda que el cambio (obligatorio).** Al cerrar cada tanda u ola, quien orquesta recorre esta lista y corrige lo que el cambio dejo atrasado:
+  1. `README.md` (que hace, carpetas, como ejecutar, alcance).
+  2. `aidlc-docs/inception/architecture-target-vs-mvp.md` y `docs/arquitectura.html` (arquitectura, versionamiento, seguridad, recortes).
+  3. `aidlc-docs/inception/requirements/requirements.md` (seccion de cambios posteriores) y `execution-plan.md` si cambia el alcance o el calendario.
+  4. `aidlc-docs/inception/demo-script.md` (capacidades, cifras y su alcance).
+  5. `contrato/README.md` (version y cambios) cuando se toque `contrato/`.
+  6. Casillas de los planes de codigo, `tandas.md` y `aidlc-state.md`.
+  7. Paginas de `docs/` (`propuesta.html`, `modelo-canonico.html`): se actualizan o llevan una nota "historico, ver arquitectura.html".
+  Una cifra o afirmacion en un documento se cambia en todos los que la repiten. `control.py` comprueba el estado, las tandas y el README del contrato; el resto lo revisa el `revisor` en cada ola.
 
 ## 5. Reglas de codigo
 - **Nada quemado:** todo valor de negocio vive en el mandato. **Falla cerrado:** error, duda o tipo desconocido producen ESCALAR (o FRENAR si la regla lo dice), nunca PAGAR.

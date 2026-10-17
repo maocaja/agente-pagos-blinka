@@ -61,3 +61,5 @@ Hay valores que se calibran despues: `umbral_senal_texto`, `dias_proveedor_nuevo
 
 ## Cambios de 1.1.0-rc2 (aditivos, Ola 7)
 - `api.openapi.yaml`: campo opcional `lectura` (`en_vivo` o `guardada`) en la respuesta de `POST /api/sesion`.
+- `factura-canonica.schema.json`: `senales.remitente_inconsistente` (remitente distinto del origen declarado, por ejemplo `Reply-To`; R1 escala). Añadido en la Ola 4.
+- `api.openapi.yaml`: `GET /api/muestras` lleva el campo opcional `original`; `POST /api/pentest/ejecutar` y `POST /api/arena/ejecutar` devuelven la forma de `resultados.schema.json` (`recuentos`, `casos`, `no_prueba`), no la descrita antes (nunca implementada).
