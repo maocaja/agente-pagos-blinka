@@ -292,6 +292,90 @@
       "source_location": "L18"
     },
     {
+      "id": "calidad_archivos",
+      "label": "archivos()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 56,
+      "community_name": "verify.py",
+      "file_type": "code",
+      "norm_label": "archivos()",
+      "source_file": "calidad.py",
+      "source_location": "L26"
+    },
+    {
+      "id": "calidad_complejidad",
+      "label": "complejidad()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 56,
+      "community_name": "verify.py",
+      "file_type": "code",
+      "norm_label": "complejidad()",
+      "source_file": "calidad.py",
+      "source_location": "L32"
+    },
+    {
+      "id": "calidad_duplicados",
+      "label": "duplicados()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 56,
+      "community_name": "verify.py",
+      "file_type": "code",
+      "norm_label": "duplicados()",
+      "source_file": "calidad.py",
+      "source_location": "L88"
+    },
+    {
+      "id": "calidad_exento",
+      "label": "exento()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 56,
+      "community_name": "verify.py",
+      "file_type": "code",
+      "norm_label": "exento()",
+      "source_file": "calidad.py",
+      "source_location": "L42"
+    },
+    {
+      "id": "calidad_lineas_utiles",
+      "label": "lineas_utiles()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 56,
+      "community_name": "verify.py",
+      "file_type": "code",
+      "norm_label": "lineas_utiles()",
+      "source_file": "calidad.py",
+      "source_location": "L78"
+    },
+    {
+      "id": "calidad_revisar",
+      "label": "revisar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 56,
+      "community_name": "verify.py",
+      "file_type": "code",
+      "norm_label": "revisar()",
+      "source_file": "calidad.py",
+      "source_location": "L108"
+    },
+    {
+      "id": "calidad_revisar_archivo",
+      "label": "revisar_archivo()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 56,
+      "community_name": "verify.py",
+      "file_type": "code",
+      "norm_label": "revisar_archivo()",
+      "source_file": "calidad.py",
+      "source_location": "L46"
+    },
+    {
       "id": "verify_commit",
       "label": "commit()",
       "_callable": true,
@@ -301,7 +385,7 @@
       "file_type": "code",
       "norm_label": "commit()",
       "source_file": "verify.py",
-      "source_location": "L109"
+      "source_location": "L114"
     },
     {
       "id": "verify_correr",
@@ -313,7 +397,7 @@
       "file_type": "code",
       "norm_label": "correr()",
       "source_file": "verify.py",
-      "source_location": "L52"
+      "source_location": "L53"
     },
     {
       "id": "verify_entorno",
@@ -325,7 +409,7 @@
       "file_type": "code",
       "norm_label": "entorno()",
       "source_file": "verify.py",
-      "source_location": "L26"
+      "source_location": "L27"
     },
     {
       "id": "verify_etapa_contrato",
@@ -337,7 +421,7 @@
       "file_type": "code",
       "norm_label": "etapa_contrato()",
       "source_file": "verify.py",
-      "source_location": "L61"
+      "source_location": "L62"
     },
     {
       "id": "verify_etapa_mutacion",
@@ -349,7 +433,7 @@
       "file_type": "code",
       "norm_label": "etapa_mutacion()",
       "source_file": "verify.py",
-      "source_location": "L89"
+      "source_location": "L94"
     },
     {
       "id": "verify_etapa_unidad",
@@ -361,7 +445,7 @@
       "file_type": "code",
       "norm_label": "etapa_unidad()",
       "source_file": "verify.py",
-      "source_location": "L66"
+      "source_location": "L67"
     },
     {
       "id": "verify_leer_junit",
@@ -373,7 +457,7 @@
       "file_type": "code",
       "norm_label": "leer_junit()",
       "source_file": "verify.py",
-      "source_location": "L36"
+      "source_location": "L37"
     },
     {
       "id": "verify_main",
@@ -385,7 +469,7 @@
       "file_type": "code",
       "norm_label": "main()",
       "source_file": "verify.py",
-      "source_location": "L116"
+      "source_location": "L121"
     },
     {
       "id": "verify_una_corrida",
@@ -397,7 +481,7 @@
       "file_type": "code",
       "norm_label": "una_corrida()",
       "source_file": "verify.py",
-      "source_location": "L97"
+      "source_location": "L102"
     },
     {
       "id": "contrato_esperado_schema_fecha_format",
@@ -1124,6 +1208,83 @@
       "norm_label": "ultimos4",
       "source_file": "contrato/extraccion.schema.json",
       "source_location": "L91"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_emision_format",
+      "label": "format",
+      "_origin": "ast",
+      "community": 102,
+      "community_name": "type",
+      "file_type": "code",
+      "norm_label": "format",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L146"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_emision_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 102,
+      "community_name": "type",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L142"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_fechas_properties",
+      "label": "properties",
+      "_origin": "ast",
+      "community": 102,
+      "community_name": "type",
+      "file_type": "code",
+      "norm_label": "properties",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L140"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_properties_emision",
+      "label": "emision",
+      "_origin": "ast",
+      "community": 102,
+      "community_name": "type",
+      "file_type": "code",
+      "norm_label": "emision",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L141"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_properties_vencimiento",
+      "label": "vencimiento",
+      "_origin": "ast",
+      "community": 102,
+      "community_name": "type",
+      "file_type": "code",
+      "norm_label": "vencimiento",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L148"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_vencimiento_format",
+      "label": "format",
+      "_origin": "ast",
+      "community": 102,
+      "community_name": "type",
+      "file_type": "code",
+      "norm_label": "format",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L153"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_vencimiento_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 102,
+      "community_name": "type",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L149"
     },
     {
       "id": "contrato_mandato_schema_estado_enum",
@@ -2009,6 +2170,18 @@
       "source_location": "L8"
     },
     {
+      "id": "datos_leeme_registro_maestro",
+      "label": "Registro maestro",
+      "_origin": "ast",
+      "community": 113,
+      "community_name": "Set de datos sintetico",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "registro maestro",
+      "source_file": "datos/LEEME.md",
+      "source_location": "L23"
+    },
+    {
       "id": "datos_leeme_set_de_datos_sintetico",
       "label": "Set de datos sintetico",
       "_origin": "ast",
@@ -2317,114 +2490,180 @@
       "source_location": "L11"
     },
     {
-      "id": "contrato_resultados_schema_properties_veredicto_motor",
-      "label": "veredicto_motor",
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "enum",
-      "file_type": "code",
-      "norm_label": "veredicto_motor",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L96"
-    },
-    {
-      "id": "contrato_resultados_schema_properties_veredicto_verificador",
-      "label": "veredicto_verificador",
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "enum",
-      "file_type": "code",
-      "norm_label": "veredicto_verificador",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L105"
-    },
-    {
-      "id": "contrato_resultados_schema_veredicto_motor_enum",
+      "id": "contrato_factura_canonica_schema_canal_enum",
       "label": "enum",
       "_origin": "ast",
       "community": 12,
       "community_name": "enum",
       "file_type": "code",
       "norm_label": "enum",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L98"
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L51"
     },
     {
-      "id": "contrato_resultados_schema_veredicto_motor_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "enum",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L97"
-    },
-    {
-      "id": "contrato_resultados_schema_veredicto_verificador_enum",
+      "id": "contrato_factura_canonica_schema_formato_enum",
       "label": "enum",
       "_origin": "ast",
       "community": 12,
       "community_name": "enum",
       "file_type": "code",
       "norm_label": "enum",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L107"
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L62"
     },
     {
-      "id": "contrato_resultados_schema_veredicto_verificador_type",
+      "id": "ref_chat",
+      "label": "chat",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "chat",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L51"
+    },
+    {
+      "id": "ref_correo",
+      "label": "correo",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "correo",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L51"
+    },
+    {
+      "id": "ref_csv",
+      "label": "csv",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "csv",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L62"
+    },
+    {
+      "id": "ref_hoja",
+      "label": "hoja",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "hoja",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L51"
+    },
+    {
+      "id": "ref_imagen",
+      "label": "imagen",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "imagen",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L51"
+    },
+    {
+      "id": "ref_pdf",
+      "label": "pdf",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "pdf",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L51"
+    },
+    {
+      "id": "ref_texto",
+      "label": "texto",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "texto",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L62"
+    },
+    {
+      "id": "ref_xml",
+      "label": "xml",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "xml",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L51"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_fechas_additionalproperties",
+      "label": "additionalProperties",
+      "_origin": "ast",
+      "community": 120,
+      "community_name": "fechas",
+      "file_type": "code",
+      "norm_label": "additionalproperties",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L135"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_fechas_required",
+      "label": "required",
+      "_origin": "ast",
+      "community": 120,
+      "community_name": "fechas",
+      "file_type": "code",
+      "norm_label": "required",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L136"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_fechas_type",
       "label": "type",
       "_origin": "ast",
-      "community": 12,
-      "community_name": "enum",
+      "community": 120,
+      "community_name": "fechas",
       "file_type": "code",
       "norm_label": "type",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L106"
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L134"
     },
     {
-      "id": "contrato_resultados_schema_json_ref_escalar",
-      "label": "ESCALAR",
+      "id": "contrato_factura_canonica_schema_properties_fechas",
+      "label": "fechas",
       "_origin": "ast",
-      "community": 12,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "escalar",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L98"
+      "community": 120,
+      "community_name": "fechas",
+      "file_type": "code",
+      "norm_label": "fechas",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L133"
     },
     {
-      "id": "contrato_resultados_schema_json_ref_frenar",
-      "label": "FRENAR",
+      "id": "contrato_factura_canonica_schema_json_ref_emision",
+      "label": "emision",
       "_origin": "ast",
-      "community": 12,
-      "community_name": "enum",
+      "community": 120,
+      "community_name": "fechas",
       "file_type": "concept",
-      "norm_label": "frenar",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L98"
+      "norm_label": "emision",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L136"
     },
     {
-      "id": "contrato_resultados_schema_json_ref_pagar",
-      "label": "PAGAR",
+      "id": "contrato_factura_canonica_schema_json_ref_vencimiento",
+      "label": "vencimiento",
       "_origin": "ast",
-      "community": 12,
-      "community_name": "enum",
+      "community": 120,
+      "community_name": "fechas",
       "file_type": "concept",
-      "norm_label": "pagar",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L98"
-    },
-    {
-      "id": "contrato_resultados_schema_json_ref_registrar",
-      "label": "REGISTRAR",
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "registrar",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L98"
+      "norm_label": "vencimiento",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L136"
     },
     {
       "id": "aidlc_docs_construction_evaluacion_functional_design_domain_entities",
@@ -3552,121 +3791,121 @@
       "source_location": "L1"
     },
     {
-      "id": "contrato_factura_canonica_schema_emisor_required",
-      "label": "required",
+      "id": "contrato_factura_canonica_schema_emisor_additionalproperties",
+      "label": "additionalProperties",
       "_origin": "ast",
       "community": 139,
-      "community_name": "enum",
+      "community_name": "properties",
       "file_type": "code",
-      "norm_label": "required",
+      "norm_label": "additionalproperties",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L91"
+      "source_location": "L90"
     },
     {
-      "id": "contrato_factura_canonica_schema_metodo_enum",
-      "label": "enum",
+      "id": "contrato_factura_canonica_schema_emisor_properties",
+      "label": "properties",
       "_origin": "ast",
       "community": 139,
-      "community_name": "enum",
+      "community_name": "properties",
       "file_type": "code",
-      "norm_label": "enum",
+      "norm_label": "properties",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L241"
+      "source_location": "L97"
     },
     {
-      "id": "contrato_factura_canonica_schema_json_ref_id_fiscal",
+      "id": "contrato_factura_canonica_schema_emisor_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 139,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L89"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_id_fiscal_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 139,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L105"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_nombre_normalizado_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 139,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L102"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_nombre_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 139,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L99"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_properties_emisor",
+      "label": "emisor",
+      "_origin": "ast",
+      "community": 139,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "emisor",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L88"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_properties_id_fiscal",
       "label": "id_fiscal",
       "_origin": "ast",
       "community": 139,
-      "community_name": "enum",
-      "file_type": "concept",
+      "community_name": "properties",
+      "file_type": "code",
       "norm_label": "id_fiscal",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L91"
+      "source_location": "L104"
     },
     {
-      "id": "contrato_factura_canonica_schema_json_ref_nombre",
+      "id": "contrato_factura_canonica_schema_properties_nombre",
       "label": "nombre",
       "_origin": "ast",
       "community": 139,
-      "community_name": "enum",
-      "file_type": "concept",
+      "community_name": "properties",
+      "file_type": "code",
       "norm_label": "nombre",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L91"
+      "source_location": "L98"
     },
     {
-      "id": "ref_conflicto",
-      "label": "conflicto",
-      "_origin": "ast",
-      "community": 139,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "conflicto",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L241"
-    },
-    {
-      "id": "ref_modelo",
-      "label": "modelo",
-      "_origin": "ast",
-      "community": 139,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "modelo",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L370"
-    },
-    {
-      "id": "ref_ninguno",
-      "label": "ninguno",
-      "_origin": "ast",
-      "community": 139,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "ninguno",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L241"
-    },
-    {
-      "id": "ref_nombre_normalizado",
+      "id": "contrato_factura_canonica_schema_properties_nombre_normalizado",
       "label": "nombre_normalizado",
       "_origin": "ast",
       "community": 139,
-      "community_name": "enum",
-      "file_type": "concept",
+      "community_name": "properties",
+      "file_type": "code",
       "norm_label": "nombre_normalizado",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L91"
-    },
-    {
-      "id": "ref_parser",
-      "label": "parser",
-      "_origin": "ast",
-      "community": 139,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "parser",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L383"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_canal_enum",
-      "label": "enum",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "code",
-      "norm_label": "enum",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L51"
+      "source_location": "L101"
     },
     {
       "id": "contrato_factura_canonica_schema_canal_type",
       "label": "type",
       "_origin": "ast",
       "community": 14,
-      "community_name": "enum",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -3677,29 +3916,18 @@
       "label": "properties",
       "_origin": "ast",
       "community": 14,
-      "community_name": "enum",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "properties",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L41"
     },
     {
-      "id": "contrato_factura_canonica_schema_formato_enum",
-      "label": "enum",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "code",
-      "norm_label": "enum",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L62"
-    },
-    {
       "id": "contrato_factura_canonica_schema_formato_type",
       "label": "type",
       "_origin": "ast",
       "community": 14,
-      "community_name": "enum",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -3710,7 +3938,7 @@
       "label": "description",
       "_origin": "ast",
       "community": 14,
-      "community_name": "enum",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "description",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -3721,7 +3949,7 @@
       "label": "type",
       "_origin": "ast",
       "community": 14,
-      "community_name": "enum",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -3732,7 +3960,7 @@
       "label": "type",
       "_origin": "ast",
       "community": 14,
-      "community_name": "enum",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -3743,7 +3971,7 @@
       "label": "canal",
       "_origin": "ast",
       "community": 14,
-      "community_name": "enum",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "canal",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -3754,7 +3982,7 @@
       "label": "formato",
       "_origin": "ast",
       "community": 14,
-      "community_name": "enum",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "formato",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -3765,7 +3993,7 @@
       "label": "hash",
       "_origin": "ast",
       "community": 14,
-      "community_name": "enum",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "hash",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -3776,7 +4004,7 @@
       "label": "id",
       "_origin": "ast",
       "community": 14,
-      "community_name": "enum",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "id",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -3787,29 +4015,18 @@
       "label": "recibido_en",
       "_origin": "ast",
       "community": 14,
-      "community_name": "enum",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "recibido_en",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L82"
     },
     {
-      "id": "contrato_factura_canonica_schema_properties_tipo_documento",
-      "label": "tipo_documento",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "code",
-      "norm_label": "tipo_documento",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L70"
-    },
-    {
       "id": "contrato_factura_canonica_schema_recibido_en_format",
       "label": "format",
       "_origin": "ast",
       "community": 14,
-      "community_name": "enum",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "format",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -3820,198 +4037,11 @@
       "label": "type",
       "_origin": "ast",
       "community": 14,
-      "community_name": "enum",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L83"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_tipo_documento_enum",
-      "label": "enum",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "code",
-      "norm_label": "enum",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L72"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_tipo_documento_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L71"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_json_ref_anticipo",
-      "label": "anticipo",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "anticipo",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L72"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_json_ref_cuenta_de_cobro",
-      "label": "cuenta_de_cobro",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "cuenta_de_cobro",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L72"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_json_ref_desconocido",
-      "label": "desconocido",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "desconocido",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L72"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_json_ref_estado_de_cuenta",
-      "label": "estado_de_cuenta",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "estado_de_cuenta",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L72"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_json_ref_factura",
-      "label": "factura",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "factura",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L72"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_json_ref_nota_de_credito",
-      "label": "nota_de_credito",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "nota_de_credito",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L72"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_json_ref_proforma",
-      "label": "proforma",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "proforma",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L72"
-    },
-    {
-      "id": "ref_chat",
-      "label": "chat",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "chat",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L51"
-    },
-    {
-      "id": "ref_correo",
-      "label": "correo",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "correo",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L51"
-    },
-    {
-      "id": "ref_csv",
-      "label": "csv",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "csv",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L62"
-    },
-    {
-      "id": "ref_hoja",
-      "label": "hoja",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "hoja",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L51"
-    },
-    {
-      "id": "ref_imagen",
-      "label": "imagen",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "imagen",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L51"
-    },
-    {
-      "id": "ref_pdf",
-      "label": "pdf",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "pdf",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L51"
-    },
-    {
-      "id": "ref_texto",
-      "label": "texto",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "texto",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L62"
-    },
-    {
-      "id": "ref_xml",
-      "label": "xml",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "enum",
-      "file_type": "concept",
-      "norm_label": "xml",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L51"
     },
     {
       "id": "conftest",
@@ -4215,81 +4245,48 @@
       "source_location": "L73"
     },
     {
-      "id": "contrato_recibo_schema",
-      "label": "recibo.schema.json",
-      "_origin": "ast",
-      "community": 142,
-      "community_name": "recibo.schema.json",
-      "file_type": "code",
-      "norm_label": "recibo.schema.json",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L1"
-    },
-    {
-      "id": "contrato_recibo_schema_additionalproperties",
-      "label": "additionalProperties",
-      "_origin": "ast",
-      "community": 142,
-      "community_name": "recibo.schema.json",
-      "file_type": "code",
-      "norm_label": "additionalproperties",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L7"
-    },
-    {
-      "id": "contrato_recibo_schema_description",
+      "id": "contrato_factura_canonica_schema_costo_microusd_description",
       "label": "description",
       "_origin": "ast",
       "community": 142,
-      "community_name": "recibo.schema.json",
+      "community_name": "costo_microusd",
       "file_type": "code",
       "norm_label": "description",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L5"
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L430"
     },
     {
-      "id": "contrato_recibo_schema_id",
-      "label": "$id",
+      "id": "contrato_factura_canonica_schema_costo_microusd_pattern",
+      "label": "pattern",
       "_origin": "ast",
       "community": 142,
-      "community_name": "recibo.schema.json",
+      "community_name": "costo_microusd",
       "file_type": "code",
-      "norm_label": "$id",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L3"
+      "norm_label": "pattern",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L429"
     },
     {
-      "id": "contrato_recibo_schema_schema",
-      "label": "$schema",
-      "_origin": "ast",
-      "community": 142,
-      "community_name": "recibo.schema.json",
-      "file_type": "code",
-      "norm_label": "$schema",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L2"
-    },
-    {
-      "id": "contrato_recibo_schema_title",
-      "label": "title",
-      "_origin": "ast",
-      "community": 142,
-      "community_name": "recibo.schema.json",
-      "file_type": "code",
-      "norm_label": "title",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L4"
-    },
-    {
-      "id": "contrato_recibo_schema_type",
+      "id": "contrato_factura_canonica_schema_costo_microusd_type",
       "label": "type",
       "_origin": "ast",
       "community": 142,
-      "community_name": "recibo.schema.json",
+      "community_name": "costo_microusd",
       "file_type": "code",
       "norm_label": "type",
-      "source_file": "contrato/recibo.schema.json",
-      "source_location": "L6"
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L428"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_properties_costo_microusd",
+      "label": "costo_microusd",
+      "_origin": "ast",
+      "community": 142,
+      "community_name": "costo_microusd",
+      "file_type": "code",
+      "norm_label": "costo_microusd",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L427"
     },
     {
       "id": "aidlc_docs_construction_plans_evaluacion_code_generation_plan",
@@ -4604,6 +4601,446 @@
       "source_location": "L57"
     },
     {
+      "id": "contrato_factura_canonica_schema_properties_tipo_documento",
+      "label": "tipo_documento",
+      "_origin": "ast",
+      "community": 145,
+      "community_name": "enum",
+      "file_type": "code",
+      "norm_label": "tipo_documento",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L70"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_tipo_documento_enum",
+      "label": "enum",
+      "_origin": "ast",
+      "community": 145,
+      "community_name": "enum",
+      "file_type": "code",
+      "norm_label": "enum",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L72"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_tipo_documento_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 145,
+      "community_name": "enum",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L71"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_json_ref_anticipo",
+      "label": "anticipo",
+      "_origin": "ast",
+      "community": 145,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "anticipo",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L72"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_json_ref_cuenta_de_cobro",
+      "label": "cuenta_de_cobro",
+      "_origin": "ast",
+      "community": 145,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "cuenta_de_cobro",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L72"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_json_ref_desconocido",
+      "label": "desconocido",
+      "_origin": "ast",
+      "community": 145,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "desconocido",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L72"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_json_ref_estado_de_cuenta",
+      "label": "estado_de_cuenta",
+      "_origin": "ast",
+      "community": 145,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "estado_de_cuenta",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L72"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_json_ref_factura",
+      "label": "factura",
+      "_origin": "ast",
+      "community": 145,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "factura",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L72"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_json_ref_nota_de_credito",
+      "label": "nota_de_credito",
+      "_origin": "ast",
+      "community": 145,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "nota_de_credito",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L72"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_json_ref_proforma",
+      "label": "proforma",
+      "_origin": "ast",
+      "community": 145,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "proforma",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L72"
+    },
+    {
+      "id": "contrato_resultados_schema_properties_recuentos",
+      "label": "recuentos",
+      "_origin": "ast",
+      "community": 146,
+      "community_name": "required",
+      "file_type": "code",
+      "norm_label": "recuentos",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L49"
+    },
+    {
+      "id": "contrato_resultados_schema_recuentos_additionalproperties",
+      "label": "additionalProperties",
+      "_origin": "ast",
+      "community": 146,
+      "community_name": "required",
+      "file_type": "code",
+      "norm_label": "additionalproperties",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L51"
+    },
+    {
+      "id": "contrato_resultados_schema_recuentos_required",
+      "label": "required",
+      "_origin": "ast",
+      "community": 146,
+      "community_name": "required",
+      "file_type": "code",
+      "norm_label": "required",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L52"
+    },
+    {
+      "id": "contrato_resultados_schema_recuentos_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 146,
+      "community_name": "required",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L50"
+    },
+    {
+      "id": "ref_desvios_conservadores",
+      "label": "desvios_conservadores",
+      "_origin": "ast",
+      "community": 146,
+      "community_name": "required",
+      "file_type": "concept",
+      "norm_label": "desvios_conservadores",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L52"
+    },
+    {
+      "id": "ref_frenadas_escalables",
+      "label": "frenadas_escalables",
+      "_origin": "ast",
+      "community": 146,
+      "community_name": "required",
+      "file_type": "concept",
+      "norm_label": "frenadas_escalables",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L52"
+    },
+    {
+      "id": "ref_lanzadas",
+      "label": "lanzadas",
+      "_origin": "ast",
+      "community": 146,
+      "community_name": "required",
+      "file_type": "concept",
+      "norm_label": "lanzadas",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L52"
+    },
+    {
+      "id": "ref_otras_diferencias",
+      "label": "otras_diferencias",
+      "_origin": "ast",
+      "community": 146,
+      "community_name": "required",
+      "file_type": "concept",
+      "norm_label": "otras_diferencias",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L52"
+    },
+    {
+      "id": "ref_pagos_indebidos",
+      "label": "pagos_indebidos",
+      "_origin": "ast",
+      "community": 146,
+      "community_name": "required",
+      "file_type": "concept",
+      "norm_label": "pagos_indebidos",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L52"
+    },
+    {
+      "id": "ref_verificadas",
+      "label": "verificadas",
+      "_origin": "ast",
+      "community": 146,
+      "community_name": "required",
+      "file_type": "concept",
+      "norm_label": "verificadas",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L52"
+    },
+    {
+      "id": "contrato_resultados_schema_casos_items",
+      "label": "items",
+      "_origin": "ast",
+      "community": 147,
+      "community_name": "items",
+      "file_type": "code",
+      "norm_label": "items",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L83"
+    },
+    {
+      "id": "contrato_resultados_schema_casos_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 147,
+      "community_name": "items",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L82"
+    },
+    {
+      "id": "contrato_resultados_schema_items_additionalproperties",
+      "label": "additionalProperties",
+      "_origin": "ast",
+      "community": 147,
+      "community_name": "items",
+      "file_type": "code",
+      "norm_label": "additionalproperties",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L85"
+    },
+    {
+      "id": "contrato_resultados_schema_items_required",
+      "label": "required",
+      "_origin": "ast",
+      "community": 147,
+      "community_name": "items",
+      "file_type": "code",
+      "norm_label": "required",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L86"
+    },
+    {
+      "id": "contrato_resultados_schema_properties_casos",
+      "label": "casos",
+      "_origin": "ast",
+      "community": 147,
+      "community_name": "items",
+      "file_type": "code",
+      "norm_label": "casos",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L81"
+    },
+    {
+      "id": "contrato_resultados_schema_json_ref_id",
+      "label": "id",
+      "_origin": "ast",
+      "community": 147,
+      "community_name": "items",
+      "file_type": "concept",
+      "norm_label": "id",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L8"
+    },
+    {
+      "id": "ref_clase",
+      "label": "clase",
+      "_origin": "ast",
+      "community": 147,
+      "community_name": "items",
+      "file_type": "concept",
+      "norm_label": "clase",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L86"
+    },
+    {
+      "id": "ref_veredicto_motor",
+      "label": "veredicto_motor",
+      "_origin": "ast",
+      "community": 147,
+      "community_name": "items",
+      "file_type": "concept",
+      "norm_label": "veredicto_motor",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L86"
+    },
+    {
+      "id": "ref_veredicto_verificador",
+      "label": "veredicto_verificador",
+      "_origin": "ast",
+      "community": 147,
+      "community_name": "items",
+      "file_type": "concept",
+      "norm_label": "veredicto_verificador",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L86"
+    },
+    {
+      "id": "contrato_recibo_schema",
+      "label": "recibo.schema.json",
+      "_origin": "ast",
+      "community": 148,
+      "community_name": "recibo.schema.json",
+      "file_type": "code",
+      "norm_label": "recibo.schema.json",
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "contrato_recibo_schema_additionalproperties",
+      "label": "additionalProperties",
+      "_origin": "ast",
+      "community": 148,
+      "community_name": "recibo.schema.json",
+      "file_type": "code",
+      "norm_label": "additionalproperties",
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L7"
+    },
+    {
+      "id": "contrato_recibo_schema_description",
+      "label": "description",
+      "_origin": "ast",
+      "community": 148,
+      "community_name": "recibo.schema.json",
+      "file_type": "code",
+      "norm_label": "description",
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L5"
+    },
+    {
+      "id": "contrato_recibo_schema_id",
+      "label": "$id",
+      "_origin": "ast",
+      "community": 148,
+      "community_name": "recibo.schema.json",
+      "file_type": "code",
+      "norm_label": "$id",
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "contrato_recibo_schema_schema",
+      "label": "$schema",
+      "_origin": "ast",
+      "community": 148,
+      "community_name": "recibo.schema.json",
+      "file_type": "code",
+      "norm_label": "$schema",
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "contrato_recibo_schema_title",
+      "label": "title",
+      "_origin": "ast",
+      "community": 148,
+      "community_name": "recibo.schema.json",
+      "file_type": "code",
+      "norm_label": "title",
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "contrato_recibo_schema_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 148,
+      "community_name": "recibo.schema.json",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/recibo.schema.json",
+      "source_location": "L6"
+    },
+    {
+      "id": "contrato_extraccion_schema_confianza_additionalproperties",
+      "label": "additionalProperties",
+      "_origin": "ast",
+      "community": 149,
+      "community_name": "confianza",
+      "file_type": "code",
+      "norm_label": "additionalproperties",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L162"
+    },
+    {
+      "id": "contrato_extraccion_schema_confianza_description",
+      "label": "description",
+      "_origin": "ast",
+      "community": 149,
+      "community_name": "confianza",
+      "file_type": "code",
+      "norm_label": "description",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L163"
+    },
+    {
+      "id": "contrato_extraccion_schema_confianza_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 149,
+      "community_name": "confianza",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L161"
+    },
+    {
+      "id": "contrato_extraccion_schema_properties_confianza",
+      "label": "confianza",
+      "_origin": "ast",
+      "community": 149,
+      "community_name": "confianza",
+      "file_type": "code",
+      "norm_label": "confianza",
+      "source_file": "contrato/extraccion.schema.json",
+      "source_location": "L160"
+    },
+    {
       "id": "contrato_resultados_schema_desvios_conservadores_type",
       "label": "type",
       "_origin": "ast",
@@ -4714,17 +5151,6 @@
       "source_location": "L67"
     },
     {
-      "id": "contrato_resultados_schema_properties_recuentos",
-      "label": "recuentos",
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "recuentos",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L49"
-    },
-    {
       "id": "contrato_resultados_schema_properties_verificadas",
       "label": "verificadas",
       "_origin": "ast",
@@ -4734,17 +5160,6 @@
       "norm_label": "verificadas",
       "source_file": "contrato/resultados.schema.json",
       "source_location": "L64"
-    },
-    {
-      "id": "contrato_resultados_schema_recuentos_additionalproperties",
-      "label": "additionalProperties",
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "additionalproperties",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L51"
     },
     {
       "id": "contrato_resultados_schema_recuentos_properties",
@@ -4758,28 +5173,6 @@
       "source_location": "L60"
     },
     {
-      "id": "contrato_resultados_schema_recuentos_required",
-      "label": "required",
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "required",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L52"
-    },
-    {
-      "id": "contrato_resultados_schema_recuentos_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L50"
-    },
-    {
       "id": "contrato_resultados_schema_verificadas_type",
       "label": "type",
       "_origin": "ast",
@@ -4791,70 +5184,48 @@
       "source_location": "L65"
     },
     {
-      "id": "ref_desvios_conservadores",
-      "label": "desvios_conservadores",
+      "id": "contrato_factura_canonica_schema_properties_suma_lineas_menor",
+      "label": "suma_lineas_menor",
       "_origin": "ast",
-      "community": 15,
-      "community_name": "properties",
-      "file_type": "concept",
-      "norm_label": "desvios_conservadores",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L52"
+      "community": 150,
+      "community_name": "suma_lineas_menor",
+      "file_type": "code",
+      "norm_label": "suma_lineas_menor",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L174"
     },
     {
-      "id": "ref_frenadas_escalables",
-      "label": "frenadas_escalables",
+      "id": "contrato_factura_canonica_schema_suma_lineas_menor_description",
+      "label": "description",
       "_origin": "ast",
-      "community": 15,
-      "community_name": "properties",
-      "file_type": "concept",
-      "norm_label": "frenadas_escalables",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L52"
+      "community": 150,
+      "community_name": "suma_lineas_menor",
+      "file_type": "code",
+      "norm_label": "description",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L180"
     },
     {
-      "id": "ref_lanzadas",
-      "label": "lanzadas",
+      "id": "contrato_factura_canonica_schema_suma_lineas_menor_pattern",
+      "label": "pattern",
       "_origin": "ast",
-      "community": 15,
-      "community_name": "properties",
-      "file_type": "concept",
-      "norm_label": "lanzadas",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L52"
+      "community": 150,
+      "community_name": "suma_lineas_menor",
+      "file_type": "code",
+      "norm_label": "pattern",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L179"
     },
     {
-      "id": "ref_otras_diferencias",
-      "label": "otras_diferencias",
+      "id": "contrato_factura_canonica_schema_suma_lineas_menor_type",
+      "label": "type",
       "_origin": "ast",
-      "community": 15,
-      "community_name": "properties",
-      "file_type": "concept",
-      "norm_label": "otras_diferencias",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L52"
-    },
-    {
-      "id": "ref_pagos_indebidos",
-      "label": "pagos_indebidos",
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "properties",
-      "file_type": "concept",
-      "norm_label": "pagos_indebidos",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L52"
-    },
-    {
-      "id": "ref_verificadas",
-      "label": "verificadas",
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "properties",
-      "file_type": "concept",
-      "norm_label": "verificadas",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L52"
+      "community": 150,
+      "community_name": "suma_lineas_menor",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L175"
     },
     {
       "id": "contrato_registro_schema",
@@ -7695,17 +8066,6 @@
       "source_location": "L8"
     },
     {
-      "id": "contrato_resultados_schema_items_required",
-      "label": "required",
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "required",
-      "file_type": "code",
-      "norm_label": "required",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L86"
-    },
-    {
       "id": "contrato_resultados_schema_required",
       "label": "required",
       "_origin": "ast",
@@ -7724,17 +8084,6 @@
       "community_name": "required",
       "file_type": "concept",
       "norm_label": "fecha",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L8"
-    },
-    {
-      "id": "contrato_resultados_schema_json_ref_id",
-      "label": "id",
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "required",
-      "file_type": "concept",
-      "norm_label": "id",
       "source_file": "contrato/resultados.schema.json",
       "source_location": "L8"
     },
@@ -7770,17 +8119,6 @@
       "norm_label": "casos",
       "source_file": "contrato/resultados.schema.json",
       "source_location": "L8"
-    },
-    {
-      "id": "ref_clase",
-      "label": "clase",
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "required",
-      "file_type": "concept",
-      "norm_label": "clase",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L86"
     },
     {
       "id": "ref_huella_codigo",
@@ -7825,28 +8163,6 @@
       "norm_label": "semilla",
       "source_file": "contrato/resultados.schema.json",
       "source_location": "L8"
-    },
-    {
-      "id": "ref_veredicto_motor",
-      "label": "veredicto_motor",
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "required",
-      "file_type": "concept",
-      "norm_label": "veredicto_motor",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L86"
-    },
-    {
-      "id": "ref_veredicto_verificador",
-      "label": "veredicto_verificador",
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "required",
-      "file_type": "concept",
-      "norm_label": "veredicto_verificador",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L86"
     },
     {
       "id": "contrato_decision_schema",
@@ -9092,18 +9408,7 @@
       "source_location": "L466"
     },
     {
-      "id": "contrato_factura_canonica_schema_emision_format",
-      "label": "format",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "null",
-      "file_type": "code",
-      "norm_label": "format",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L146"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_emision_type",
+      "id": "contrato_factura_canonica_schema_cuenta_type",
       "label": "type",
       "_origin": "ast",
       "community": 4,
@@ -9111,29 +9416,7 @@
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L142"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_fechas_properties",
-      "label": "properties",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "null",
-      "file_type": "code",
-      "norm_label": "properties",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L140"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_modelo_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "null",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L390"
+      "source_location": "L205"
     },
     {
       "id": "contrato_factura_canonica_schema_motivo_falla_type",
@@ -9147,6 +9430,28 @@
       "source_location": "L408"
     },
     {
+      "id": "contrato_factura_canonica_schema_pista_description",
+      "label": "description",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "null",
+      "file_type": "code",
+      "norm_label": "description",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L253"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_pista_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "null",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L249"
+    },
+    {
       "id": "contrato_factura_canonica_schema_properties_con",
       "label": "con",
       "_origin": "ast",
@@ -9156,28 +9461,6 @@
       "norm_label": "con",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L465"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_properties_emision",
-      "label": "emision",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "null",
-      "file_type": "code",
-      "norm_label": "emision",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L141"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_properties_modelo",
-      "label": "modelo",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "null",
-      "file_type": "code",
-      "norm_label": "modelo",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L389"
     },
     {
       "id": "contrato_factura_canonica_schema_properties_motivo_falla",
@@ -9191,6 +9474,17 @@
       "source_location": "L407"
     },
     {
+      "id": "contrato_factura_canonica_schema_properties_pista",
+      "label": "pista",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "null",
+      "file_type": "code",
+      "norm_label": "pista",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L248"
+    },
+    {
       "id": "contrato_factura_canonica_schema_properties_proveedor_id",
       "label": "proveedor_id",
       "_origin": "ast",
@@ -9202,26 +9496,15 @@
       "source_location": "L233"
     },
     {
-      "id": "contrato_factura_canonica_schema_properties_suma_lineas_menor",
-      "label": "suma_lineas_menor",
+      "id": "contrato_factura_canonica_schema_proveedor_asignado_properties",
+      "label": "properties",
       "_origin": "ast",
       "community": 4,
       "community_name": "null",
       "file_type": "code",
-      "norm_label": "suma_lineas_menor",
+      "norm_label": "properties",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L174"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_properties_vencimiento",
-      "label": "vencimiento",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "null",
-      "file_type": "code",
-      "norm_label": "vencimiento",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L148"
+      "source_location": "L232"
     },
     {
       "id": "contrato_factura_canonica_schema_proveedor_id_type",
@@ -9235,61 +9518,6 @@
       "source_location": "L234"
     },
     {
-      "id": "contrato_factura_canonica_schema_suma_lineas_menor_description",
-      "label": "description",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "null",
-      "file_type": "code",
-      "norm_label": "description",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L180"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_suma_lineas_menor_pattern",
-      "label": "pattern",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "null",
-      "file_type": "code",
-      "norm_label": "pattern",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L179"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_suma_lineas_menor_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "null",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L175"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_vencimiento_format",
-      "label": "format",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "null",
-      "file_type": "code",
-      "norm_label": "format",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L153"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_vencimiento_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "null",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L149"
-    },
-    {
       "id": "contrato_factura_canonica_schema_json_ref_null",
       "label": "null",
       "_origin": "ast",
@@ -9299,6 +9527,17 @@
       "norm_label": "null",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L142"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_json_ref_object",
+      "label": "object",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "null",
+      "file_type": "concept",
+      "norm_label": "object",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L205"
     },
     {
       "id": "contrato_factura_canonica_schema_json_ref_string",
@@ -10844,6 +11083,17 @@
       "source_location": "L23"
     },
     {
+      "id": "calidad",
+      "label": "calidad.py",
+      "_origin": "ast",
+      "community": 56,
+      "community_name": "verify.py",
+      "file_type": "code",
+      "norm_label": "calidad.py",
+      "source_file": "calidad.py",
+      "source_location": "L1"
+    },
+    {
       "id": "verify",
       "label": "verify.py",
       "_origin": "ast",
@@ -11560,92 +11810,114 @@
       "source_location": "L10"
     },
     {
-      "id": "contrato_factura_canonica_schema_cuenta_additionalproperties",
+      "id": "contrato_factura_canonica_schema_documento_additionalproperties",
       "label": "additionalProperties",
       "_origin": "ast",
       "community": 61,
-      "community_name": "cuenta",
+      "community_name": "required",
       "file_type": "code",
       "norm_label": "additionalproperties",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L209"
+      "source_location": "L32"
     },
     {
-      "id": "contrato_factura_canonica_schema_cuenta_description",
-      "label": "description",
-      "_origin": "ast",
-      "community": 61,
-      "community_name": "cuenta",
-      "file_type": "code",
-      "norm_label": "description",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L210"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_cuenta_required",
+      "id": "contrato_factura_canonica_schema_documento_required",
       "label": "required",
       "_origin": "ast",
       "community": 61,
-      "community_name": "cuenta",
+      "community_name": "required",
       "file_type": "code",
       "norm_label": "required",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L211"
+      "source_location": "L33"
     },
     {
-      "id": "contrato_factura_canonica_schema_cuenta_type",
+      "id": "contrato_factura_canonica_schema_documento_type",
       "label": "type",
       "_origin": "ast",
       "community": 61,
-      "community_name": "cuenta",
+      "community_name": "required",
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L205"
+      "source_location": "L31"
     },
     {
-      "id": "contrato_factura_canonica_schema_properties_cuenta",
-      "label": "cuenta",
+      "id": "contrato_factura_canonica_schema_properties_documento",
+      "label": "documento",
       "_origin": "ast",
       "community": 61,
-      "community_name": "cuenta",
+      "community_name": "required",
       "file_type": "code",
-      "norm_label": "cuenta",
+      "norm_label": "documento",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L204"
+      "source_location": "L30"
     },
     {
-      "id": "contrato_factura_canonica_schema_json_ref_object",
-      "label": "object",
+      "id": "contrato_factura_canonica_schema_json_ref_id",
+      "label": "id",
       "_origin": "ast",
       "community": 61,
-      "community_name": "cuenta",
+      "community_name": "required",
       "file_type": "concept",
-      "norm_label": "object",
+      "norm_label": "id",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L205"
+      "source_location": "L8"
     },
     {
-      "id": "contrato_factura_canonica_schema_json_ref_pais",
-      "label": "pais",
+      "id": "contrato_factura_canonica_schema_json_ref_tipo_documento",
+      "label": "tipo_documento",
       "_origin": "ast",
       "community": 61,
-      "community_name": "cuenta",
+      "community_name": "required",
       "file_type": "concept",
-      "norm_label": "pais",
+      "norm_label": "tipo_documento",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L91"
+      "source_location": "L33"
     },
     {
-      "id": "contrato_factura_canonica_schema_json_ref_ultimos4",
-      "label": "ultimos4",
+      "id": "ref_canal",
+      "label": "canal",
       "_origin": "ast",
       "community": 61,
-      "community_name": "cuenta",
+      "community_name": "required",
       "file_type": "concept",
-      "norm_label": "ultimos4",
+      "norm_label": "canal",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L211"
+      "source_location": "L33"
+    },
+    {
+      "id": "ref_formato",
+      "label": "formato",
+      "_origin": "ast",
+      "community": 61,
+      "community_name": "required",
+      "file_type": "concept",
+      "norm_label": "formato",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L33"
+    },
+    {
+      "id": "ref_hash",
+      "label": "hash",
+      "_origin": "ast",
+      "community": 61,
+      "community_name": "required",
+      "file_type": "concept",
+      "norm_label": "hash",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L33"
+    },
+    {
+      "id": "ref_recibido_en",
+      "label": "recibido_en",
+      "_origin": "ast",
+      "community": 61,
+      "community_name": "required",
+      "file_type": "concept",
+      "norm_label": "recibido_en",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L33"
     },
     {
       "id": "contrato_resultados_schema_clase_enum",
@@ -11714,6 +11986,94 @@
       "source_location": "L20"
     },
     {
+      "id": "contrato_resultados_schema_properties_veredicto_motor",
+      "label": "veredicto_motor",
+      "_origin": "ast",
+      "community": 62,
+      "community_name": "enum",
+      "file_type": "code",
+      "norm_label": "veredicto_motor",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L96"
+    },
+    {
+      "id": "contrato_resultados_schema_properties_veredicto_verificador",
+      "label": "veredicto_verificador",
+      "_origin": "ast",
+      "community": 62,
+      "community_name": "enum",
+      "file_type": "code",
+      "norm_label": "veredicto_verificador",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L105"
+    },
+    {
+      "id": "contrato_resultados_schema_veredicto_motor_enum",
+      "label": "enum",
+      "_origin": "ast",
+      "community": 62,
+      "community_name": "enum",
+      "file_type": "code",
+      "norm_label": "enum",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L98"
+    },
+    {
+      "id": "contrato_resultados_schema_veredicto_motor_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 62,
+      "community_name": "enum",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L97"
+    },
+    {
+      "id": "contrato_resultados_schema_veredicto_verificador_enum",
+      "label": "enum",
+      "_origin": "ast",
+      "community": 62,
+      "community_name": "enum",
+      "file_type": "code",
+      "norm_label": "enum",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L107"
+    },
+    {
+      "id": "contrato_resultados_schema_veredicto_verificador_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 62,
+      "community_name": "enum",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L106"
+    },
+    {
+      "id": "contrato_resultados_schema_json_ref_escalar",
+      "label": "ESCALAR",
+      "_origin": "ast",
+      "community": 62,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "escalar",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L98"
+    },
+    {
+      "id": "contrato_resultados_schema_json_ref_frenar",
+      "label": "FRENAR",
+      "_origin": "ast",
+      "community": 62,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "frenar",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L98"
+    },
+    {
       "id": "contrato_resultados_schema_json_ref_otra",
       "label": "otra",
       "_origin": "ast",
@@ -11723,6 +12083,28 @@
       "norm_label": "otra",
       "source_file": "contrato/resultados.schema.json",
       "source_location": "L116"
+    },
+    {
+      "id": "contrato_resultados_schema_json_ref_pagar",
+      "label": "PAGAR",
+      "_origin": "ast",
+      "community": 62,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "pagar",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L98"
+    },
+    {
+      "id": "contrato_resultados_schema_json_ref_registrar",
+      "label": "REGISTRAR",
+      "_origin": "ast",
+      "community": 62,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "registrar",
+      "source_file": "contrato/resultados.schema.json",
+      "source_location": "L98"
     },
     {
       "id": "ref_desvio_conservador",
@@ -12465,6 +12847,18 @@
       "source_location": "L41"
     },
     {
+      "id": "claude_5c_calidad_del_codigo_solid_y_sin_duplicacion_obligatorio",
+      "label": "5c. Calidad del codigo: SOLID y sin duplicacion (obligatorio)",
+      "_origin": "ast",
+      "community": 68,
+      "community_name": "Agente de pagos con garantia: reglas del proyecto",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "5c. calidad del codigo: solid y sin duplicacion (obligatorio)",
+      "source_file": "CLAUDE.md",
+      "source_location": "L47"
+    },
+    {
       "id": "claude_6_fuentes_actualizadas",
       "label": "6. Fuentes actualizadas",
       "_origin": "ast",
@@ -12474,7 +12868,7 @@
       "node_kind": "heading",
       "norm_label": "6. fuentes actualizadas",
       "source_file": "CLAUDE.md",
-      "source_location": "L47"
+      "source_location": "L56"
     },
     {
       "id": "claude_7_mcp_y_herramientas_aprobadas",
@@ -12486,7 +12880,7 @@
       "node_kind": "heading",
       "norm_label": "7. mcp y herramientas aprobadas",
       "source_file": "CLAUDE.md",
-      "source_location": "L50"
+      "source_location": "L59"
     },
     {
       "id": "claude_agente_de_pagos_con_garantia_reglas_del_proyecto",
@@ -12510,7 +12904,7 @@
       "node_kind": "heading",
       "norm_label": "graphify",
       "source_file": "CLAUDE.md",
-      "source_location": "L55"
+      "source_location": "L64"
     },
     {
       "id": "contrato_esperado_schema_esperado_extremo_a_extremo_properties",
@@ -12755,143 +13149,77 @@
       "source_location": "L34"
     },
     {
+      "id": "contrato_factura_canonica_schema_cuenta_additionalproperties",
+      "label": "additionalProperties",
+      "_origin": "ast",
+      "community": 70,
+      "community_name": "cuenta",
+      "file_type": "code",
+      "norm_label": "additionalproperties",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L209"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_cuenta_description",
+      "label": "description",
+      "_origin": "ast",
+      "community": 70,
+      "community_name": "cuenta",
+      "file_type": "code",
+      "norm_label": "description",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L210"
+    },
+    {
       "id": "contrato_factura_canonica_schema_cuenta_properties",
       "label": "properties",
       "_origin": "ast",
       "community": 70,
-      "community_name": "properties",
+      "community_name": "cuenta",
       "file_type": "code",
       "norm_label": "properties",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L215"
     },
     {
-      "id": "contrato_factura_canonica_schema_emisor_additionalproperties",
-      "label": "additionalProperties",
+      "id": "contrato_factura_canonica_schema_cuenta_required",
+      "label": "required",
       "_origin": "ast",
       "community": 70,
-      "community_name": "properties",
+      "community_name": "cuenta",
       "file_type": "code",
-      "norm_label": "additionalproperties",
+      "norm_label": "required",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L90"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_emisor_properties",
-      "label": "properties",
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "properties",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L97"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_emisor_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L89"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_id_fiscal_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L105"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_nombre_normalizado_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L102"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_nombre_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L99"
+      "source_location": "L211"
     },
     {
       "id": "contrato_factura_canonica_schema_pais_type",
       "label": "type",
       "_origin": "ast",
       "community": 70,
-      "community_name": "properties",
+      "community_name": "cuenta",
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L108"
     },
     {
-      "id": "contrato_factura_canonica_schema_properties_emisor",
-      "label": "emisor",
+      "id": "contrato_factura_canonica_schema_properties_cuenta",
+      "label": "cuenta",
       "_origin": "ast",
       "community": 70,
-      "community_name": "properties",
+      "community_name": "cuenta",
       "file_type": "code",
-      "norm_label": "emisor",
+      "norm_label": "cuenta",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L88"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_properties_id_fiscal",
-      "label": "id_fiscal",
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "id_fiscal",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L104"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_properties_nombre",
-      "label": "nombre",
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "nombre",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L98"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_properties_nombre_normalizado",
-      "label": "nombre_normalizado",
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "nombre_normalizado",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L101"
+      "source_location": "L204"
     },
     {
       "id": "contrato_factura_canonica_schema_properties_pais",
       "label": "pais",
       "_origin": "ast",
       "community": 70,
-      "community_name": "properties",
+      "community_name": "cuenta",
       "file_type": "code",
       "norm_label": "pais",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -12902,7 +13230,7 @@
       "label": "ultimos4",
       "_origin": "ast",
       "community": 70,
-      "community_name": "properties",
+      "community_name": "cuenta",
       "file_type": "code",
       "norm_label": "ultimos4",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -12913,11 +13241,33 @@
       "label": "type",
       "_origin": "ast",
       "community": 70,
-      "community_name": "properties",
+      "community_name": "cuenta",
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L220"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_json_ref_pais",
+      "label": "pais",
+      "_origin": "ast",
+      "community": 70,
+      "community_name": "cuenta",
+      "file_type": "concept",
+      "norm_label": "pais",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L91"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_json_ref_ultimos4",
+      "label": "ultimos4",
+      "_origin": "ast",
+      "community": 70,
+      "community_name": "cuenta",
+      "file_type": "concept",
+      "norm_label": "ultimos4",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L211"
     },
     {
       "id": "aidlc_docs_construction_estrategia_de_verificacion",
@@ -13552,39 +13902,6 @@
       "source_location": "L24"
     },
     {
-      "id": "contrato_factura_canonica_schema_costo_microusd_description",
-      "label": "description",
-      "_origin": "ast",
-      "community": 77,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "description",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L430"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_costo_microusd_pattern",
-      "label": "pattern",
-      "_origin": "ast",
-      "community": 77,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "pattern",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L429"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_costo_microusd_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 77,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L428"
-    },
-    {
       "id": "contrato_factura_canonica_schema_desde_cache_type",
       "label": "type",
       "_origin": "ast",
@@ -13607,15 +13924,15 @@
       "source_location": "L380"
     },
     {
-      "id": "contrato_factura_canonica_schema_properties_costo_microusd",
-      "label": "costo_microusd",
+      "id": "contrato_factura_canonica_schema_modelo_type",
+      "label": "type",
       "_origin": "ast",
       "community": 77,
       "community_name": "properties",
       "file_type": "code",
-      "norm_label": "costo_microusd",
+      "norm_label": "type",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L427"
+      "source_location": "L390"
     },
     {
       "id": "contrato_factura_canonica_schema_properties_desde_cache",
@@ -13627,6 +13944,17 @@
       "norm_label": "desde_cache",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L404"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_properties_modelo",
+      "label": "modelo",
+      "_origin": "ast",
+      "community": 77,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "modelo",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L389"
     },
     {
       "id": "contrato_factura_canonica_schema_properties_reintentos",
@@ -13695,70 +14023,125 @@
       "source_location": "L402"
     },
     {
+      "id": "contrato_factura_canonica_schema_emisor_required",
+      "label": "required",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "enum",
+      "file_type": "code",
+      "norm_label": "required",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L91"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_metodo_enum",
+      "label": "enum",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "enum",
+      "file_type": "code",
+      "norm_label": "enum",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L241"
+    },
+    {
       "id": "contrato_factura_canonica_schema_metodo_type",
       "label": "type",
       "_origin": "ast",
       "community": 78,
-      "community_name": "metodo",
+      "community_name": "enum",
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L240"
     },
     {
-      "id": "contrato_factura_canonica_schema_pista_description",
-      "label": "description",
-      "_origin": "ast",
-      "community": 78,
-      "community_name": "metodo",
-      "file_type": "code",
-      "norm_label": "description",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L253"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_pista_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 78,
-      "community_name": "metodo",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L249"
-    },
-    {
       "id": "contrato_factura_canonica_schema_properties_metodo",
       "label": "metodo",
       "_origin": "ast",
       "community": 78,
-      "community_name": "metodo",
+      "community_name": "enum",
       "file_type": "code",
       "norm_label": "metodo",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L239"
     },
     {
-      "id": "contrato_factura_canonica_schema_properties_pista",
-      "label": "pista",
+      "id": "contrato_factura_canonica_schema_json_ref_id_fiscal",
+      "label": "id_fiscal",
       "_origin": "ast",
       "community": 78,
-      "community_name": "metodo",
-      "file_type": "code",
-      "norm_label": "pista",
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "id_fiscal",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L248"
+      "source_location": "L91"
     },
     {
-      "id": "contrato_factura_canonica_schema_proveedor_asignado_properties",
-      "label": "properties",
+      "id": "contrato_factura_canonica_schema_json_ref_nombre",
+      "label": "nombre",
       "_origin": "ast",
       "community": 78,
-      "community_name": "metodo",
-      "file_type": "code",
-      "norm_label": "properties",
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "nombre",
       "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L232"
+      "source_location": "L91"
+    },
+    {
+      "id": "ref_conflicto",
+      "label": "conflicto",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "conflicto",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L241"
+    },
+    {
+      "id": "ref_modelo",
+      "label": "modelo",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "modelo",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L370"
+    },
+    {
+      "id": "ref_ninguno",
+      "label": "ninguno",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "ninguno",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L241"
+    },
+    {
+      "id": "ref_nombre_normalizado",
+      "label": "nombre_normalizado",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "nombre_normalizado",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L91"
+    },
+    {
+      "id": "ref_parser",
+      "label": "parser",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "enum",
+      "file_type": "concept",
+      "norm_label": "parser",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L383"
     },
     {
       "id": "contrato_mandato_schema_creado_en_format",
@@ -13860,297 +14243,22 @@
       "source_location": "L18"
     },
     {
-      "id": "contrato_factura_canonica_schema",
-      "label": "factura-canonica.schema.json",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "factura-canonica.schema.json",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L1"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_additionalproperties",
-      "label": "additionalProperties",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "additionalproperties",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L7"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_additionalproperties_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L260"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_ciclo_id_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L28"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_confianza_additionalproperties",
-      "label": "additionalProperties",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "additionalproperties",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L265"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_confianza_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L264"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_description",
-      "label": "description",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "description",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L5"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_documento_additionalproperties",
-      "label": "additionalProperties",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "additionalproperties",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L32"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_documento_required",
-      "label": "required",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "required",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L33"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_documento_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L31"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_evidencia_additionalproperties",
-      "label": "additionalProperties",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "additionalproperties",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L259"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_evidencia_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L258"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_fechas_additionalproperties",
-      "label": "additionalProperties",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "additionalproperties",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L135"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_fechas_required",
-      "label": "required",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "required",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L136"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_fechas_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L134"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_id",
-      "label": "$id",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "$id",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L3"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_properties",
-      "label": "properties",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "properties",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L23"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_properties_ciclo_id",
-      "label": "ciclo_id",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "ciclo_id",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L27"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_properties_confianza",
-      "label": "confianza",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "confianza",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L263"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_properties_documento",
-      "label": "documento",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "documento",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L30"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_properties_evidencia",
-      "label": "evidencia",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "evidencia",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L257"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_properties_fechas",
-      "label": "fechas",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "fechas",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L133"
-    },
-    {
       "id": "contrato_factura_canonica_schema_required",
       "label": "required",
       "_origin": "ast",
       "community": 8,
-      "community_name": "properties",
+      "community_name": "required",
       "file_type": "code",
       "norm_label": "required",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L8"
     },
     {
-      "id": "contrato_factura_canonica_schema_schema",
-      "label": "$schema",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "$schema",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L2"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_title",
-      "label": "title",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "title",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L4"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L6"
-    },
-    {
       "id": "contrato_factura_canonica_schema_json_ref_ciclo_id",
       "label": "ciclo_id",
       "_origin": "ast",
       "community": 8,
-      "community_name": "properties",
+      "community_name": "required",
       "file_type": "concept",
       "norm_label": "ciclo_id",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -14161,7 +14269,7 @@
       "label": "confianza",
       "_origin": "ast",
       "community": 8,
-      "community_name": "properties",
+      "community_name": "required",
       "file_type": "concept",
       "norm_label": "confianza",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -14172,29 +14280,18 @@
       "label": "cuenta",
       "_origin": "ast",
       "community": 8,
-      "community_name": "properties",
+      "community_name": "required",
       "file_type": "concept",
       "norm_label": "cuenta",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L8"
     },
     {
-      "id": "contrato_factura_canonica_schema_json_ref_emision",
-      "label": "emision",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "concept",
-      "norm_label": "emision",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L136"
-    },
-    {
       "id": "contrato_factura_canonica_schema_json_ref_evidencia",
       "label": "evidencia",
       "_origin": "ast",
       "community": 8,
-      "community_name": "properties",
+      "community_name": "required",
       "file_type": "concept",
       "norm_label": "evidencia",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -14205,62 +14302,18 @@
       "label": "fechas",
       "_origin": "ast",
       "community": 8,
-      "community_name": "properties",
+      "community_name": "required",
       "file_type": "concept",
       "norm_label": "fechas",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L8"
     },
     {
-      "id": "contrato_factura_canonica_schema_json_ref_id",
-      "label": "id",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "concept",
-      "norm_label": "id",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L8"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_json_ref_tipo_documento",
-      "label": "tipo_documento",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "concept",
-      "norm_label": "tipo_documento",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L33"
-    },
-    {
-      "id": "contrato_factura_canonica_schema_json_ref_vencimiento",
-      "label": "vencimiento",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "concept",
-      "norm_label": "vencimiento",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L136"
-    },
-    {
-      "id": "ref_canal",
-      "label": "canal",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "concept",
-      "norm_label": "canal",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L33"
-    },
-    {
       "id": "ref_documento",
       "label": "documento",
       "_origin": "ast",
       "community": 8,
-      "community_name": "properties",
+      "community_name": "required",
       "file_type": "concept",
       "norm_label": "documento",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -14271,40 +14324,18 @@
       "label": "emisor",
       "_origin": "ast",
       "community": 8,
-      "community_name": "properties",
+      "community_name": "required",
       "file_type": "concept",
       "norm_label": "emisor",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L8"
     },
     {
-      "id": "ref_formato",
-      "label": "formato",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "concept",
-      "norm_label": "formato",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L33"
-    },
-    {
-      "id": "ref_hash",
-      "label": "hash",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "concept",
-      "norm_label": "hash",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L33"
-    },
-    {
       "id": "ref_lectura",
       "label": "lectura",
       "_origin": "ast",
       "community": 8,
-      "community_name": "properties",
+      "community_name": "required",
       "file_type": "concept",
       "norm_label": "lectura",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -14315,7 +14346,7 @@
       "label": "montos",
       "_origin": "ast",
       "community": 8,
-      "community_name": "properties",
+      "community_name": "required",
       "file_type": "concept",
       "norm_label": "montos",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -14326,29 +14357,18 @@
       "label": "proveedor_asignado",
       "_origin": "ast",
       "community": 8,
-      "community_name": "properties",
+      "community_name": "required",
       "file_type": "concept",
       "norm_label": "proveedor_asignado",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L8"
     },
     {
-      "id": "ref_recibido_en",
-      "label": "recibido_en",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "properties",
-      "file_type": "concept",
-      "norm_label": "recibido_en",
-      "source_file": "contrato/factura-canonica.schema.json",
-      "source_location": "L33"
-    },
-    {
       "id": "ref_referencias",
       "label": "referencias",
       "_origin": "ast",
       "community": 8,
-      "community_name": "properties",
+      "community_name": "required",
       "file_type": "concept",
       "norm_label": "referencias",
       "source_file": "contrato/factura-canonica.schema.json",
@@ -14359,51 +14379,18 @@
       "label": "verificaciones",
       "_origin": "ast",
       "community": 8,
-      "community_name": "properties",
+      "community_name": "required",
       "file_type": "concept",
       "norm_label": "verificaciones",
       "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L8"
     },
     {
-      "id": "contrato_resultados_schema_casos_items",
-      "label": "items",
-      "_origin": "ast",
-      "community": 80,
-      "community_name": "items",
-      "file_type": "code",
-      "norm_label": "items",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L83"
-    },
-    {
-      "id": "contrato_resultados_schema_casos_type",
-      "label": "type",
-      "_origin": "ast",
-      "community": 80,
-      "community_name": "items",
-      "file_type": "code",
-      "norm_label": "type",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L82"
-    },
-    {
-      "id": "contrato_resultados_schema_items_additionalproperties",
-      "label": "additionalProperties",
-      "_origin": "ast",
-      "community": 80,
-      "community_name": "items",
-      "file_type": "code",
-      "norm_label": "additionalproperties",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L85"
-    },
-    {
       "id": "contrato_resultados_schema_items_type",
       "label": "type",
       "_origin": "ast",
       "community": 80,
-      "community_name": "items",
+      "community_name": "no_prueba",
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/resultados.schema.json",
@@ -14414,7 +14401,7 @@
       "label": "description",
       "_origin": "ast",
       "community": 80,
-      "community_name": "items",
+      "community_name": "no_prueba",
       "file_type": "code",
       "norm_label": "description",
       "source_file": "contrato/resultados.schema.json",
@@ -14425,7 +14412,7 @@
       "label": "items",
       "_origin": "ast",
       "community": 80,
-      "community_name": "items",
+      "community_name": "no_prueba",
       "file_type": "code",
       "norm_label": "items",
       "source_file": "contrato/resultados.schema.json",
@@ -14436,29 +14423,18 @@
       "label": "type",
       "_origin": "ast",
       "community": 80,
-      "community_name": "items",
+      "community_name": "no_prueba",
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/resultados.schema.json",
       "source_location": "L128"
     },
     {
-      "id": "contrato_resultados_schema_properties_casos",
-      "label": "casos",
-      "_origin": "ast",
-      "community": 80,
-      "community_name": "items",
-      "file_type": "code",
-      "norm_label": "casos",
-      "source_file": "contrato/resultados.schema.json",
-      "source_location": "L81"
-    },
-    {
       "id": "contrato_resultados_schema_properties_no_prueba",
       "label": "no_prueba",
       "_origin": "ast",
       "community": 80,
-      "community_name": "items",
+      "community_name": "no_prueba",
       "file_type": "code",
       "norm_label": "no_prueba",
       "source_file": "contrato/resultados.schema.json",
@@ -15310,48 +15286,114 @@
       "source_location": "L12"
     },
     {
-      "id": "contrato_extraccion_schema_confianza_additionalproperties",
-      "label": "additionalProperties",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "confianza",
-      "file_type": "code",
-      "norm_label": "additionalproperties",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L162"
-    },
-    {
-      "id": "contrato_extraccion_schema_confianza_description",
-      "label": "description",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "confianza",
-      "file_type": "code",
-      "norm_label": "description",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L163"
-    },
-    {
-      "id": "contrato_extraccion_schema_confianza_type",
+      "id": "contrato_factura_canonica_schema_additionalproperties_type",
       "label": "type",
       "_origin": "ast",
       "community": 9,
-      "community_name": "confianza",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "type",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L161"
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L260"
     },
     {
-      "id": "contrato_extraccion_schema_properties_confianza",
+      "id": "contrato_factura_canonica_schema_ciclo_id_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L28"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_confianza_additionalproperties",
+      "label": "additionalProperties",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "additionalproperties",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L265"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_confianza_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L264"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_evidencia_additionalproperties",
+      "label": "additionalProperties",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "additionalproperties",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L259"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_evidencia_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L258"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_properties",
+      "label": "properties",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "properties",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L23"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_properties_ciclo_id",
+      "label": "ciclo_id",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "ciclo_id",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L27"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_properties_confianza",
       "label": "confianza",
       "_origin": "ast",
       "community": 9,
-      "community_name": "confianza",
+      "community_name": "properties",
       "file_type": "code",
       "norm_label": "confianza",
-      "source_file": "contrato/extraccion.schema.json",
-      "source_location": "L160"
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L263"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_properties_evidencia",
+      "label": "evidencia",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "properties",
+      "file_type": "code",
+      "norm_label": "evidencia",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L257"
     },
     {
       "id": "contrato_esperado_schema",
@@ -15428,6 +15470,83 @@
       "file_type": "code",
       "norm_label": "type",
       "source_file": "contrato/esperado.schema.json",
+      "source_location": "L6"
+    },
+    {
+      "id": "contrato_factura_canonica_schema",
+      "label": "factura-canonica.schema.json",
+      "_origin": "ast",
+      "community": 91,
+      "community_name": "factura-canonica.schema.json",
+      "file_type": "code",
+      "norm_label": "factura-canonica.schema.json",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_additionalproperties",
+      "label": "additionalProperties",
+      "_origin": "ast",
+      "community": 91,
+      "community_name": "factura-canonica.schema.json",
+      "file_type": "code",
+      "norm_label": "additionalproperties",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L7"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_description",
+      "label": "description",
+      "_origin": "ast",
+      "community": 91,
+      "community_name": "factura-canonica.schema.json",
+      "file_type": "code",
+      "norm_label": "description",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L5"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_id",
+      "label": "$id",
+      "_origin": "ast",
+      "community": 91,
+      "community_name": "factura-canonica.schema.json",
+      "file_type": "code",
+      "norm_label": "$id",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_schema",
+      "label": "$schema",
+      "_origin": "ast",
+      "community": 91,
+      "community_name": "factura-canonica.schema.json",
+      "file_type": "code",
+      "norm_label": "$schema",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_title",
+      "label": "title",
+      "_origin": "ast",
+      "community": 91,
+      "community_name": "factura-canonica.schema.json",
+      "file_type": "code",
+      "norm_label": "title",
+      "source_file": "contrato/factura-canonica.schema.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "contrato_factura_canonica_schema_type",
+      "label": "type",
+      "_origin": "ast",
+      "community": 91,
+      "community_name": "factura-canonica.schema.json",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "contrato/factura-canonica.schema.json",
       "source_location": "L6"
     },
     {
@@ -16017,6 +16136,78 @@
   ],
   "links": [
     {
+      "source": "calidad_duplicados",
+      "target": "calidad_lineas_utiles",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "calidad.py",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "calidad_revisar",
+      "target": "calidad_archivos",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "calidad.py",
+      "source_location": "L109",
+      "weight": 1.0
+    },
+    {
+      "source": "calidad_revisar",
+      "target": "calidad_revisar_archivo",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "calidad.py",
+      "source_location": "L112",
+      "weight": 1.0
+    },
+    {
+      "source": "calidad_revisar",
+      "target": "calidad_duplicados",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "calidad.py",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "calidad_revisar_archivo",
+      "target": "calidad_exento",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "calidad.py",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "calidad_revisar_archivo",
+      "target": "calidad_complejidad",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "calidad.py",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
       "source": "contrato_validar_validar",
       "target": "contrato_validar_tipo_ok",
       "relation": "calls",
@@ -16265,7 +16456,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "verify.py",
-      "source_location": "L55",
+      "source_location": "L56",
       "weight": 1.0
     },
     {
@@ -16277,7 +16468,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "verify.py",
-      "source_location": "L62",
+      "source_location": "L63",
       "weight": 1.0
     },
     {
@@ -16289,7 +16480,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "verify.py",
-      "source_location": "L93",
+      "source_location": "L98",
       "weight": 1.0
     },
     {
@@ -16301,7 +16492,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "verify.py",
-      "source_location": "L77",
+      "source_location": "L78",
       "weight": 1.0
     },
     {
@@ -16313,7 +16504,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "verify.py",
-      "source_location": "L80",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "verify_etapa_unidad",
+      "target": "calidad_revisar",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "verify.py",
+      "source_location": "L88",
       "weight": 1.0
     },
     {
@@ -16325,7 +16528,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "verify.py",
-      "source_location": "L125",
+      "source_location": "L130",
       "weight": 1.0
     },
     {
@@ -16337,7 +16540,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "verify.py",
-      "source_location": "L156",
+      "source_location": "L161",
       "weight": 1.0
     },
     {
@@ -16349,7 +16552,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "verify.py",
-      "source_location": "L101",
+      "source_location": "L106",
       "weight": 1.0
     },
     {
@@ -16361,7 +16564,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "verify.py",
-      "source_location": "L103",
+      "source_location": "L108",
       "weight": 1.0
     },
     {
@@ -16373,7 +16576,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "verify.py",
-      "source_location": "L105",
+      "source_location": "L110",
       "weight": 1.0
     },
     {
@@ -21201,6 +21404,18 @@
       "weight": 1.0
     },
     {
+      "source": "verify",
+      "target": "calidad",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "verify.py",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
       "source": "aidlc_docs_aidlc_state",
       "target": "aidlc_docs_aidlc_state_estado_de_ai_dlc_agente_de_pagos_con_garant\u00eda",
       "relation": "contains",
@@ -23973,6 +24188,83 @@
       "weight": 1.0
     },
     {
+      "source": "calidad",
+      "target": "calidad_revisar",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "calidad.py",
+      "source_location": "L108",
+      "weight": 1.0
+    },
+    {
+      "source": "calidad",
+      "target": "calidad_archivos",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "calidad.py",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "calidad",
+      "target": "calidad_complejidad",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "calidad.py",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "calidad",
+      "target": "calidad_exento",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "calidad.py",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "calidad",
+      "target": "calidad_revisar_archivo",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "calidad.py",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "calidad",
+      "target": "calidad_lineas_utiles",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "calidad.py",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "calidad",
+      "target": "calidad_duplicados",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "calidad.py",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
       "source": "claude",
       "target": "claude_agente_de_pagos_con_garantia_reglas_del_proyecto",
       "relation": "contains",
@@ -24040,7 +24332,7 @@
     },
     {
       "source": "claude_agente_de_pagos_con_garantia_reglas_del_proyecto",
-      "target": "claude_6_fuentes_actualizadas",
+      "target": "claude_5c_calidad_del_codigo_solid_y_sin_duplicacion_obligatorio",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -24062,13 +24354,24 @@
     },
     {
       "source": "claude_agente_de_pagos_con_garantia_reglas_del_proyecto",
+      "target": "claude_6_fuentes_actualizadas",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "claude_agente_de_pagos_con_garantia_reglas_del_proyecto",
       "target": "claude_7_mcp_y_herramientas_aprobadas",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "CLAUDE.md",
-      "source_location": "L50",
+      "source_location": "L59",
       "weight": 1.0
     },
     {
@@ -24079,7 +24382,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "CLAUDE.md",
-      "source_location": "L55",
+      "source_location": "L64",
       "weight": 1.0
     },
     {
@@ -32026,6 +32329,17 @@
     },
     {
       "source": "datos_leeme_set_de_datos_sintetico",
+      "target": "datos_leeme_registro_maestro",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "datos/LEEME.md",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "datos_leeme_set_de_datos_sintetico",
       "target": "datos_leeme_parametros_del_esperado",
       "relation": "contains",
       "_origin": "ast",
@@ -32565,13 +32879,24 @@
     },
     {
       "source": "verify",
+      "target": "verify_una_corrida",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "verify.py",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "verify",
       "target": "verify_commit",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "verify.py",
-      "source_location": "L109",
+      "source_location": "L114",
       "weight": 1.0
     },
     {
@@ -32582,7 +32907,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "verify.py",
-      "source_location": "L116",
+      "source_location": "L121",
       "weight": 1.0
     },
     {
@@ -32593,7 +32918,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "verify.py",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -32604,7 +32929,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "verify.py",
-      "source_location": "L36",
+      "source_location": "L37",
       "weight": 1.0
     },
     {
@@ -32615,7 +32940,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "verify.py",
-      "source_location": "L52",
+      "source_location": "L53",
       "weight": 1.0
     },
     {
@@ -32626,7 +32951,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "verify.py",
-      "source_location": "L61",
+      "source_location": "L62",
       "weight": 1.0
     },
     {
@@ -32637,7 +32962,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "verify.py",
-      "source_location": "L66",
+      "source_location": "L67",
       "weight": 1.0
     },
     {
@@ -32648,18 +32973,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "verify.py",
-      "source_location": "L89",
-      "weight": 1.0
-    },
-    {
-      "source": "verify",
-      "target": "verify_una_corrida",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "verify.py",
-      "source_location": "L97",
+      "source_location": "L94",
       "weight": 1.0
     },
     {
@@ -32830,5 +33144,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "55c0662ffd35c3ebef49055e37eea7cf731c6c68"
+  "built_at_commit": "980fb01f3ea7a11b830e00911edf9d03b96d74d5"
 }

@@ -144,9 +144,9 @@
     "semantic_hash": "d0dae8f6d2188df32ad363be332f20cd"
   },
   ".claude/agents/ejecutor-de-unidad.md": {
-    "mtime": 1792213090.769044,
-    "seen": 1792213118.320265,
-    "ast_hash": "82d7269dcfcc7f8c532bdeb8cc155688",
+    "mtime": 1792217562.111239,
+    "seen": 1792217563.191521,
+    "ast_hash": "b59353daac26b67ddf5194b2ed191354",
     "semantic_hash": ""
   },
   ".claude/agents/explorador.md": {
@@ -156,15 +156,15 @@
     "semantic_hash": ""
   },
   ".claude/agents/revisor.md": {
-    "mtime": 1792213090.7714307,
-    "seen": 1792213118.320267,
-    "ast_hash": "1f5983573962ae29281eba9f090d61c8",
+    "mtime": 1792217562.1113875,
+    "seen": 1792217563.1915221,
+    "ast_hash": "42645c92352a34a0be0f8d06e2d0237a",
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1792214025.09142,
-    "seen": 1792214026.99547,
-    "ast_hash": "6880392fa8918e984e93b8f6d88e2976",
+    "mtime": 1792217562.1109052,
+    "seen": 1792217563.191523,
+    "ast_hash": "89b188107eb0c4c8f992d78debd25d45",
     "semantic_hash": ""
   },
   "PRD.md": {
@@ -492,9 +492,9 @@
     "semantic_hash": ""
   },
   "verify.py": {
-    "mtime": 1792213516.5284877,
-    "seen": 1792214026.995466,
-    "ast_hash": "2cdee2e3c1f9becc5eada847569e0547",
+    "mtime": 1792217562.1103265,
+    "seen": 1792217563.19152,
+    "ast_hash": "778e8accd6634287b6633ae57fcaa579",
     "semantic_hash": ""
   },
   "aidlc-docs/construction/estrategia-de-verificacion.md": {
@@ -510,33 +510,39 @@
     "semantic_hash": ""
   },
   "aidlc-docs/inception/demo-script.md": {
-    "mtime": 1792216932.8656554,
-    "seen": 1792216936.104204,
-    "ast_hash": "affb235a669a79c39208cc9512126e3a",
+    "mtime": 1792217327.5748,
+    "seen": 1792217328.5759292,
+    "ast_hash": "2ecffe93887bd55a4dd44bdb0be47f90",
     "semantic_hash": ""
   },
   "aidlc-docs/construction/plans/evaluacion-code-generation-plan.md": {
-    "mtime": 1792217162.2338464,
-    "seen": 1792217162.981127,
-    "ast_hash": "f9c70df95f342b9c348942937ba5007d",
+    "mtime": 1792217327.5744362,
+    "seen": 1792217328.57592,
+    "ast_hash": "9a6bf64974e290e85758cd59593f74ef",
     "semantic_hash": ""
   },
   "aidlc-docs/construction/plans/interfaz-code-generation-plan.md": {
-    "mtime": 1792217162.2332647,
-    "seen": 1792217162.981129,
-    "ast_hash": "8da345f8646a1621998cadbd0210310d",
+    "mtime": 1792217327.57323,
+    "seen": 1792217328.575922,
+    "ast_hash": "db30aa63c3f3e063e68d43c3af99272a",
     "semantic_hash": ""
   },
   "aidlc-docs/construction/plans/lectura-code-generation-plan.md": {
-    "mtime": 1792217113.0767574,
-    "seen": 1792217117.891447,
-    "ast_hash": "1e0f65dd0faa8828f31ee0b2f50bd585",
+    "mtime": 1792217327.5736246,
+    "seen": 1792217328.575924,
+    "ast_hash": "a1ab8bdd052385367c6cc74ff2eef933",
     "semantic_hash": ""
   },
   "aidlc-docs/construction/plans/nucleo-code-generation-plan.md": {
-    "mtime": 1792217162.2328453,
-    "seen": 1792217162.981132,
-    "ast_hash": "2d8dc85559c4c1cacf3cb455f97ab6a7",
+    "mtime": 1792217327.5722241,
+    "seen": 1792217328.5759249,
+    "ast_hash": "d2934422e628c1952326b3730e963544",
+    "semantic_hash": ""
+  },
+  "calidad.py": {
+    "mtime": 1792217543.816607,
+    "seen": 1792217563.191499,
+    "ast_hash": "0f3493304244cb05a2d4f382be1632fd",
     "semantic_hash": ""
   }
 }

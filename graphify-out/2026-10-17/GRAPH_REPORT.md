@@ -1,16 +1,16 @@
 # Graph Report - blinka  (2026-10-17)
 
 ## Corpus Check
-- 71 files · ~46,238 words
+- 72 files · ~47,865 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1414 nodes · 1484 edges · 146 communities (135 shown, 8 thin omitted)
+- 1427 nodes · 1504 edges · 147 communities (135 shown, 9 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 12 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `4444f9be`
+- Built from commit: `71e4883d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -76,7 +76,7 @@
 - Reglas de negocio: U4 Evaluación
 - moneda_base
 - properties
-- cuenta
+- required
 - enum
 - Estado del arte: agente de IA para revisar facturas de proveedores (pagar, frenar, escalar)
 - Requisitos no funcionales e infraestructura (nota fusionada)
@@ -85,7 +85,7 @@
 - Requisitos: Agente de Pagos con Garantía (Reto Blinka)
 - Agente de pagos con garantia: reglas del proyecto
 - enum
-- properties
+- enum
 - Estrategia de verificación
 - required
 - Modelo de lógica de negocio: U1 Núcleo
@@ -106,7 +106,7 @@
 - Modelo de lógica de la evaluación: U4
 - enum
 - esperado.schema.json
-- type
+- factura-canonica.schema.json
 - proveedor_asignado
 - mandato.schema.json
 - required
@@ -117,7 +117,7 @@
 - required
 - required
 - proveedor
-- fechas
+- type
 - enum
 - veredicto
 - Plan de diseño funcional: U3 Interfaz
@@ -135,7 +135,7 @@
 - Dependencias entre unidades
 - Plan de unidades de trabajo
 - type
-- costo_microusd
+- fechas
 - Entidades del dominio: U4 Evaluación
 - Entidades del dominio: U2 Lectura
 - Entidades del dominio: U1 Núcleo
@@ -151,13 +151,14 @@
 - dup_tolerancia_monto_pct
 - Sistema de diseño de la interfaz (U3)
 - .mcp.json
-- enum
+- evidencia
 - conftest.py
 - Plan de código: U1 Núcleo (Dev A, rama `nucleo`)
-- recibo.schema.json
+- costo_microusd
 - Plan de código: U4 Evaluación (subagente, con revisión de una persona desarrolladora; rama `evaluacion`)
 - Plan de código: U3 Interfaz (Dev B, rama `interfaz`)
-- evidencia
+- vence_en
+- decision_id
 
 ## God Nodes (most connected - your core abstractions)
 1. `required` - 23 edges
@@ -172,21 +173,13 @@
 10. `required` - 13 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `required` --extends--> `pais`  [EXTRACTED]
-  contrato/factura-canonica.schema.json → contrato/factura-canonica.schema.json  _Bridges community 139 → community 61_
-- `required` --extends--> `modelo`  [EXTRACTED]
-  contrato/factura-canonica.schema.json → contrato/factura-canonica.schema.json  _Bridges community 139 → community 72_
-- `required` --extends--> `id`  [EXTRACTED]
-  contrato/recibo.schema.json → contrato/recibo.schema.json  _Bridges community 29 → community 30_
-- `type` --extends--> `null`  [EXTRACTED]
-  contrato/factura-canonica.schema.json → contrato/factura-canonica.schema.json  _Bridges community 78 → community 4_
-- `type` --extends--> `null`  [EXTRACTED]
-  contrato/factura-canonica.schema.json → contrato/factura-canonica.schema.json  _Bridges community 4 → community 91_
+- `etapa_unidad()` --calls--> `revisar()`  [EXTRACTED]
+  verify.py → calidad.py
 
 ## Import Cycles
 - None detected.
 
-## Communities (146 total, 8 thin omitted)
+## Communities (147 total, 9 thin omitted)
 
 ### Community 0 - "sello"
 Cohesion: 0.15
@@ -221,8 +214,8 @@ Cohesion: 0.17
 Nodes (12): format, type, type, null, type, properties, fecha, huella_codigo (+4 more)
 
 ### Community 8 - "required"
-Cohesion: 0.07
-Nodes (29): additionalProperties, description, additionalProperties, required, type, $id, ciclo_id, confianza (+21 more)
+Cohesion: 0.15
+Nodes (13): ciclo_id, confianza, cuenta, evidencia, fechas, required, documento, emisor (+5 more)
 
 ### Community 9 - "properties"
 Cohesion: 0.22
@@ -289,8 +282,8 @@ Cohesion: 0.11
 Nodes (18): type, type, type, type, properties, conf_min_dinero, conf_min_general, dup_ventana_dias (+10 more)
 
 ### Community 25 - "properties"
-Cohesion: 0.09
-Nodes (23): type, type, type, format, type, type, type, type (+15 more)
+Cohesion: 0.11
+Nodes (18): type, type, format, type, type, type, type, type (+10 more)
 
 ### Community 26 - "required"
 Cohesion: 0.17
@@ -309,8 +302,8 @@ Cohesion: 0.18
 Nodes (11): items, type, additionalProperties, required, type, estado, id, fallas_aprobadas (+3 more)
 
 ### Community 30 - "required"
-Cohesion: 0.11
-Nodes (18): decision_id, factura_id, firma, mandato_version, modo_autonomia, moneda, monto_menor, reglas (+10 more)
+Cohesion: 0.08
+Nodes (24): additionalProperties, description, $id, decision_id, factura_id, firma, mandato_version, modo_autonomia (+16 more)
 
 ### Community 31 - "required"
 Cohesion: 0.14
@@ -365,8 +358,8 @@ Cohesion: 0.22
 Nodes (9): enum, type, type, properties, cumple, falla, omitida, estado (+1 more)
 
 ### Community 44 - "Plan de código: U2 Lectura (Dev B, rama `lectura`)"
-Cohesion: 0.15
-Nodes (12): Alcance y límites, Estructura, Generación del set simulado (subagente Sonnet, mandato aparte), Plan de código: U2 Lectura (Dev B, rama `lectura`), Riesgos y supuestos, T1. Extracciones a mano y adaptador de texto (viernes noche, sin clave de API), T2. Extractor con Haiku (sábado 08:00 a 12:00; real cuando llegue la clave), T3. Segunda lectura, cascada y caché (sábado de tarde) (+4 more)
+Cohesion: 0.14
+Nodes (13): Alcance y límites, Calendario de Dev B, Estructura, Generación del set simulado (subagente Sonnet, mandato aparte), Plan de código: U2 Lectura (Dev B, rama `lectura`), Riesgos y supuestos, T1. Extracciones a mano y adaptador de texto (sábado temprano, sin clave de API), T2. Extractor con Haiku (sábado 08:00 a 12:00; real cuando llegue la clave) (+5 more)
 
 ### Community 45 - "Reglas de negocio: U2 Lectura"
 Cohesion: 0.10
@@ -413,8 +406,8 @@ Cohesion: 0.67
 Nodes (3): description, type, nonce
 
 ### Community 56 - "verify.py"
-Cohesion: 0.42
-Nodes (9): commit(), correr(), entorno(), etapa_contrato(), etapa_mutacion(), etapa_unidad(), leer_junit(), main() (+1 more)
+Cohesion: 0.22
+Nodes (16): archivos(), complejidad(), duplicados(), exento(), lineas_utiles(), revisar(), revisar_archivo(), commit() (+8 more)
 
 ### Community 57 - "items"
 Cohesion: 0.14
@@ -428,9 +421,9 @@ Nodes (11): Arena de ataques (dos niveles, sin llamar al modelo), Facturas ocult
 Cohesion: 0.17
 Nodes (12): description, type, type, type, pattern, type, properties, aprobable (+4 more)
 
-### Community 61 - "cuenta"
-Cohesion: 0.18
-Nodes (11): additionalProperties, description, properties, required, pais, ultimos4, type, cuenta (+3 more)
+### Community 61 - "required"
+Cohesion: 0.20
+Nodes (10): additionalProperties, required, type, id, tipo_documento, documento, canal, formato (+2 more)
 
 ### Community 62 - "enum"
 Cohesion: 0.18
@@ -457,16 +450,16 @@ Cohesion: 0.20
 Nodes (9): 1. Análisis de la solicitud, 2. Decisiones tomadas, 3. Requisitos funcionales, 4. Requisitos no funcionales, 5. Riesgos y pendientes, 6. Ajustes por el diagnóstico de tres expertos (2026-10-16), Cómo se habla del proyecto, Recorte, en orden de lo primero que se corta (+1 more)
 
 ### Community 68 - "Agente de pagos con garantia: reglas del proyecto"
-Cohesion: 0.18
-Nodes (10): 1. Fuentes de verdad, 2. Orquestador y subagentes, 3. Economia de tokens, 4. Tanda de trabajo, 5. Reglas de codigo, 5b. Patrones de diseño, 6. Fuentes actualizadas, 7. MCP y herramientas aprobadas (+2 more)
+Cohesion: 0.17
+Nodes (11): 1. Fuentes de verdad, 2. Orquestador y subagentes, 3. Economia de tokens, 4. Tanda de trabajo, 5. Reglas de codigo, 5b. Patrones de diseño, 5c. Calidad del codigo: SOLID y sin duplicacion (obligatorio), 6. Fuentes actualizadas (+3 more)
 
 ### Community 69 - "enum"
 Cohesion: 0.20
 Nodes (10): properties, type, ESCALAR, FRENAR, PAGAR, REGISTRAR, explicacion, veredicto (+2 more)
 
-### Community 70 - "properties"
-Cohesion: 0.20
-Nodes (10): additionalProperties, properties, type, type, type, type, emisor, id_fiscal (+2 more)
+### Community 70 - "enum"
+Cohesion: 0.07
+Nodes (30): additionalProperties, description, properties, required, additionalProperties, properties, required, type (+22 more)
 
 ### Community 71 - "Estrategia de verificación"
 Cohesion: 0.22
@@ -548,9 +541,9 @@ Nodes (7): enum, type, escalar, accion, aprobar, corregir, rechazar
 Cohesion: 0.29
 Nodes (6): additionalProperties, description, $id, $schema, title, type
 
-### Community 91 - "type"
+### Community 91 - "factura-canonica.schema.json"
 Cohesion: 0.29
-Nodes (7): format, type, properties, emision, vencimiento, format, type
+Nodes (6): additionalProperties, description, $id, $schema, title, type
 
 ### Community 92 - "proveedor_asignado"
 Cohesion: 0.29
@@ -592,9 +585,9 @@ Nodes (6): required, archivo, caso, esperado_extremo_a_extremo, esperado_reglas,
 Cohesion: 0.22
 Nodes (9): required, id_fiscal, nombre, pais, ultimos4, proveedor, additionalProperties, required (+1 more)
 
-### Community 102 - "fechas"
-Cohesion: 0.33
-Nodes (6): additionalProperties, required, type, emision, vencimiento, fechas
+### Community 102 - "type"
+Cohesion: 0.29
+Nodes (7): format, type, properties, emision, vencimiento, format, type
 
 ### Community 103 - "enum"
 Cohesion: 0.33
@@ -664,9 +657,9 @@ Nodes (3): Pasos, Plan de unidades de trabajo, Preguntas y respuestas
 Cohesion: 0.50
 Nodes (4): null, string, recibo_id, type
 
-### Community 120 - "costo_microusd"
-Cohesion: 0.50
-Nodes (4): description, pattern, type, costo_microusd
+### Community 120 - "fechas"
+Cohesion: 0.33
+Nodes (6): additionalProperties, required, type, emision, vencimiento, fechas
 
 ### Community 124 - "usuario_simulado"
 Cohesion: 0.67
@@ -700,52 +693,52 @@ Nodes (7): Cómo se compila, Decisión de framework, Dirección visual, Inventar
 Cohesion: 0.50
 Nodes (3): npx, chrome-devtools, context7
 
-### Community 139 - "enum"
-Cohesion: 0.25
-Nodes (9): required, id_fiscal, nombre, enum, conflicto, modelo, ninguno, nombre_normalizado (+1 more)
+### Community 139 - "evidencia"
+Cohesion: 0.50
+Nodes (4): additionalProperties, description, type, evidencia
 
 ### Community 140 - "conftest.py"
 Cohesion: 0.50
 Nodes (4): ahora(), _determinismo(), Infraestructura comun de pruebas deterministas: sin red, reloj y semilla fijos., fixture
 
 ### Community 141 - "Plan de código: U1 Núcleo (Dev A, rama `nucleo`)"
-Cohesion: 0.15
-Nodes (12): Alcance y límites, Estructura, Para el subagente `ejecutor-de-unidad`, Plan de código: U1 Núcleo (Dev A, rama `nucleo`), Riesgos y supuestos, T1. Primer hito: decisión con recibo (sábado antes de las 18:00), T2. Guardián y registro (sábado por la tarde), T3. Resto de reglas y tipos (sábado por la noche) (+4 more)
+Cohesion: 0.14
+Nodes (13): Alcance y límites, Entrega a las otras unidades, Estructura, Para el subagente `ejecutor-de-unidad`, Plan de código: U1 Núcleo (Dev A, rama `nucleo`), Riesgos y supuestos, T1. Primer hito: decisión con recibo (sábado antes de las 18:00), T2. Guardián y registro (sábado por la tarde) (+5 more)
 
-### Community 142 - "recibo.schema.json"
-Cohesion: 0.29
-Nodes (6): additionalProperties, description, $id, $schema, title, type
+### Community 142 - "costo_microusd"
+Cohesion: 0.50
+Nodes (4): description, pattern, type, costo_microusd
 
 ### Community 143 - "Plan de código: U4 Evaluación (subagente, con revisión de una persona desarrolladora; rama `evaluacion`)"
-Cohesion: 0.17
-Nodes (11): Alcance y límites, Estructura, Plan de código: U4 Evaluación (subagente, con revisión de una persona desarrolladora; rama `evaluacion`), Riesgos y supuestos, T1. Esperados (viernes noche, antes del verificador), T2. Verificador independiente (sábado 08:00 a 12:00), T3. Pentest y arena nivel 1 (sábado por la tarde), T4. Arena nivel 2, fallas del extractor y carrera (sábado por la noche) (+3 more)
+Cohesion: 0.15
+Nodes (12): Alcance y límites, Estructura, Plan de código: U4 Evaluación (subagente, con revisión de una persona desarrolladora; rama `evaluacion`), Qué corre dentro de `verify`, Riesgos y supuestos, T1. Esperados (sábado temprano, antes del verificador), T2. Verificador independiente (sábado 08:00 a 12:00), T3. Pentest y arena nivel 1 (sábado por la tarde) (+4 more)
 
 ### Community 144 - "Plan de código: U3 Interfaz (Dev B, rama `interfaz`)"
-Cohesion: 0.17
-Nodes (11): Alcance y límites, Estructura, Plan de código: U3 Interfaz (Dev B, rama `interfaz`), Riesgos y supuestos, T1. Pantalla de Decisiones con el recibo (viernes noche a sábado temprano), T2. Escena 3 del video: recibo alterable y guardián (sábado), T3. Pantalla de Reglas, la que pide el reto (sábado), T4. Marcador y escena del ataque (sábado por la noche) (+3 more)
+Cohesion: 0.15
+Nodes (12): Alcance y límites, Dependencias, Estructura, Plan de código: U3 Interfaz (Dev B, rama `interfaz`), Riesgos y supuestos, T1. Pantalla de Decisiones con el recibo (sábado temprano), T2. Escena 3 del video: recibo alterable y guardián (sábado), T3. Pantalla de Reglas, la que pide el reto (sábado) (+4 more)
 
-### Community 145 - "evidencia"
-Cohesion: 0.50
-Nodes (4): additionalProperties, description, type, evidencia
+### Community 145 - "vence_en"
+Cohesion: 0.67
+Nodes (3): vence_en, format, type
 
 ## Knowledge Gaps
-- **886 isolated node(s):** `Alcance y límites`, `Estructura`, `T1. Esperados (viernes noche, antes del verificador)`, `T2. Verificador independiente (sábado 08:00 a 12:00)`, `T3. Pentest y arena nivel 1 (sábado por la tarde)` (+881 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 934 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **891 isolated node(s):** `1. Fuentes de verdad`, `2. Orquestador y subagentes`, `3. Economia de tokens`, `4. Tanda de trabajo`, `5. Reglas de codigo` (+886 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 939 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `properties` connect `properties` to `fechas`, `properties`, `required`, `required`, `items`, `properties`, `enum`, `duplicado_probable`, `referencias`, `proveedor_asignado`, `cuenta`?**
-  _High betweenness centrality (0.032) - this node is a cross-community bridge._
-- **Why does `verificaciones` connect `properties` to `properties`?**
-  _High betweenness centrality (0.012) - this node is a cross-community bridge._
-- **What connects `Alcance y límites`, `Estructura`, `T1. Esperados (viernes noche, antes del verificador)` to the rest of the system?**
-  _886 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `properties` connect `properties` to `enum`, `required`, `items`, `properties`, `enum`, `duplicado_probable`, `referencias`, `fechas`, `factura-canonica.schema.json`, `proveedor_asignado`, `required`?**
+  _High betweenness centrality (0.022) - this node is a cross-community bridge._
+- **Why does `properties` connect `properties` to `umbral_senal_texto`, `dup_tolerancia_monto_pct`, `redondeo`, `enum`, `items`, `tope_acumulado_proveedor`, `tope_gasto_corrida_microusd`, `dias_proveedor_nuevo`, `presupuesto_periodo_menor`, `nivel_autonomia_defecto`, `tolerancia_lineas_menor`, `tope_pago_menor`, `moneda_base`, `parametros`?**
+  _High betweenness centrality (0.014) - this node is a cross-community bridge._
+- **Why does `properties` connect `properties` to `cuenta`, `required`, `proveedor`, `evidencia`, `fechas`, `items`, `texto_dirigido_al_agente`, `properties`?**
+  _High betweenness centrality (0.008) - this node is a cross-community bridge._
+- **What connects `1. Fuentes de verdad`, `2. Orquestador y subagentes`, `3. Economia de tokens` to the rest of the system?**
+  _891 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `required` be split into smaller, more focused modules?**
   _Cohesion score 0.08695652173913043 - nodes in this community are weakly interconnected._
-- **Should `required` be split into smaller, more focused modules?**
-  _Cohesion score 0.06666666666666667 - nodes in this community are weakly interconnected._
 - **Should `items` be split into smaller, more focused modules?**
   _Cohesion score 0.0625 - nodes in this community are weakly interconnected._
 - **Should `items` be split into smaller, more focused modules?**
