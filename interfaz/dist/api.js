@@ -14,6 +14,7 @@ const ESTADO_VERIF = {
 const api = {
   sesion: null,
   rol: "analista",
+  lectura: null,
   async pedir(metodo, ruta, cuerpo) {
     const cabeceras = { "X-Rol": this.rol };
     if (this.sesion) cabeceras["X-Sesion-Id"] = this.sesion;
@@ -27,6 +28,8 @@ const api = {
   async iniciar() {
     const s = await this.pedir("POST", "/api/sesion");
     this.sesion = s.sesion_id;
+    this.lectura = s.lectura;
+    document.dispatchEvent(new CustomEvent("sesion-lista"));
     return s;
   },
   decisiones: () => api.pedir("GET", "/api/decisiones?estado=todas"),

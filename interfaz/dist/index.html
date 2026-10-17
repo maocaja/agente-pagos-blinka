@@ -38,7 +38,7 @@
       <ul class="grid gap-3" data-testid="lista-decisiones">
         <template x-for="d in visibles" :key="d.id">
           <li>
-            <button type="button" class="panel w-full p-4 text-left hover:bg-elevado" :class="sel && sel.id === d.id ? 'panel-fuerte' : ''" :aria-current="sel && sel.id === d.id" @click="abrir(d)" :data-testid="'decision-' + d.id">
+            <button type="button" class="panel panel-fuerte w-full p-4 text-left hover:bg-elevado" :class="sel && sel.id === d.id ? 'bg-elevado' : ''" :aria-current="sel && sel.id === d.id" @click="abrir(d)" :data-testid="'decision-' + d.id">
               <span class="chip" :class="veredictos[d.veredicto].clase"><span aria-hidden="true" x-text="veredictos[d.veredicto].icono"></span><span x-text="veredictos[d.veredicto].texto"></span></span>
               <span class="mt-2 block text-sm text-texto-2" x-text="d.factura_id"></span>
               <span class="block" x-text="d.motivo_corto"></span>

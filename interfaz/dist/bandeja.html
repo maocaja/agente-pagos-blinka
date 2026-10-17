@@ -14,14 +14,16 @@
   <header class="flex flex-wrap items-center gap-4 px-6 py-4">
     <h1 class="text-xl font-semibold">Bandeja</h1>
     <span class="etiqueta-simulada" data-testid="etiqueta-simulada">simulada</span>
-    <button type="button" class="btn btn-sec ml-auto" data-testid="cargar-todas" :disabled="ocupado" @click="cargarTodas()">Cargar todas</button>
+    <button type="button" class="btn btn-sec ml-auto" data-testid="cargar-set" :disabled="ocupado" @click="cargarSet()">Cargar el set</button>
   </header>
   <p x-show="error" x-cloak class="mx-6 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="error" x-text="error"></p>
+  <p x-show="progreso" x-cloak class="mx-6 text-texto-2" role="status" data-testid="progreso" x-text="progreso"></p>
+  <ul x-show="fallos.length" x-cloak class="mx-6 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="fallos-carga"><template x-for="f in fallos" :key="f"><li x-text="f"></li></template></ul>
   <main class="grid gap-6 p-6 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)]">
     <section aria-label="Mensajes">
       <ul class="grid gap-3" data-testid="lista-muestras">
         <template x-for="m in muestras" :key="m.id">
-          <li><button type="button" class="panel w-full p-4 text-left hover:bg-elevado" :class="sel && sel.id === m.id ? 'panel-fuerte' : ''" :disabled="ocupado" @click="abrir(m)" :data-testid="'muestra-' + m.id">
+          <li><button type="button" class="panel panel-fuerte w-full p-4 text-left hover:bg-elevado" :class="sel && sel.id === m.id ? 'bg-elevado' : ''" :disabled="ocupado" @click="abrir(m)" :data-testid="'muestra-' + m.id">
             <span class="apoyo text-sm uppercase" x-text="m.tipo"></span>
             <span class="block" x-text="m.titulo"></span>
             <template x-if="cargadas[m.id]"><span class="chip mt-2" :class="veredictos[cargadas[m.id].decision.veredicto].clase"><span aria-hidden="true" x-text="veredictos[cargadas[m.id].decision.veredicto].icono"></span><span x-text="veredictos[cargadas[m.id].decision.veredicto].texto"></span></span></template>

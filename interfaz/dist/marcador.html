@@ -26,7 +26,7 @@
       <template x-for="t in tarjetas" :key="t.id">
         <div class="panel p-4"><p class="apoyo text-sm" x-text="t.texto"></p><p class="cifra text-3xl" :data-testid="'metrica-' + t.id" x-text="t.valor"></p></div>
       </template>
-      <a href="index.html" class="panel p-4 hover:bg-elevado" data-testid="pendientes"><span class="apoyo block text-sm">Pendientes de una persona</span><span class="cifra text-3xl" x-text="m && m.pendientes"></span></a>
+      <a href="index.html" class="panel panel-fuerte p-4 hover:bg-elevado" data-testid="pendientes"><span class="apoyo block text-sm">Pendientes de una persona</span><span class="cifra text-3xl" x-text="m && m.pendientes"></span></a>
     </section>
     <section class="panel p-5" aria-label="Lo que no prueba" data-testid="no-prueba">
       <h2 class="text-lg font-semibold">Lo que esta cifra no prueba</h2>
