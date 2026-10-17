@@ -9,7 +9,7 @@ Versión reducida para hackathon. Entrega: domingo 2026-10-18, 12:00 (se congela
 | Reglas del proyecto, subagentes, graphify, sistema de diseño, estrategia de verificación | Instalados |
 | Planes de código por unidad (x4) | Aprobados; ejecución con código ligero (`CLAUDE.md` 5c) |
 | Arquitectura objetivo frente a MVP | `inception/architecture-target-vs-mvp.md` y `docs/arquitectura.html` |
-| Guion del video | v3; escena 2 ampliada a tres trampas seguidas |
+| Guion del video | v3 (`demo-script.md`) y guion operativo paso a paso (`demo-operativo.md`) |
 
 ## Construcción por unidad (registro detallado en `construction/tandas.md`)
 | Unidad | Hecho | Pendiente |

@@ -6,7 +6,7 @@ Entrega: domingo 2026-10-18, 12:00 (se congela a las 10:00).
 
 ## Dónde mirar
 - Arquitectura y alcance: `docs/arquitectura.html` y `aidlc-docs/inception/architecture-target-vs-mvp.md`.
-- Guion del video: `aidlc-docs/inception/demo-script.md`.
+- Guion del video: `aidlc-docs/inception/demo-script.md` y paso a paso en `aidlc-docs/inception/demo-operativo.md`.
 - Estado del desarrollo: `aidlc-docs/aidlc-state.md` y `aidlc-docs/construction/tandas.md`.
 - Reglas del proyecto: `CLAUDE.md`. Contrato de la API: `contrato/` (versión 1.1.0-rc2).
 
