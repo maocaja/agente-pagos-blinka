@@ -3,7 +3,7 @@ const PAGINAS = [
   { href: "index.html", texto: "Decisiones" },
   { href: "reglas.html", texto: "Reglas" },
   { href: "marcador.html", texto: "Marcador" },
-  { href: "bandeja.html", texto: "Bandeja" },
+  { href: "bandeja.html", texto: "Bandeja simulada" },
   { href: "ataque.html", texto: "Ataque" },
 ];
 const ESCENAS = [
@@ -30,39 +30,36 @@ function irA(n) {
 
 function aplicarTema(t) { document.documentElement.dataset.tema = t === "oscuro" ? "oscuro" : ""; }
 
-function montarOpciones() {
-  const tema = el("button", { type: "button", class: "btn btn-sec w-full", "data-testid": "cambiar-tema" });
+const ROLES = [["analista", "Analista"], ["cfo", "CFO"]];
+
+function montarTema() {
+  const tema = el("button", { type: "button", class: "btn btn-sec px-4! py-1.5!", "data-testid": "cambiar-tema" });
   const rotular = () => { tema.textContent = memoria.leer("tema") === "oscuro" ? "Tema claro" : "Tema oscuro"; };
   tema.onclick = () => { memoria.guardar("tema", memoria.leer("tema") === "oscuro" ? "claro" : "oscuro"); aplicarTema(memoria.leer("tema")); rotular(); };
   rotular();
-  const paquete = el("a", { class: "btn btn-sec w-full", href: "/api/auditoria/paquete", download: "", "data-testid": "descargar-paquete" }, "Paquete de auditoría");
-  const falla = el("p", { class: "text-sm text-frenar", role: "alert", "data-testid": "error-descarga" });
-  paquete.onclick = async (ev) => {
-    ev.preventDefault();
-    falla.textContent = "";
-    try { await api.descargar("/api/auditoria/paquete", "paquete-auditoria.json"); } catch (e) { falla.textContent = e.message; }
-  };
-  const menu = el("div", { class: "panel panel-fuerte absolute right-0 z-20 mt-2 grid w-56 gap-2 p-3" }, "", [tema, paquete, falla]);
-  return el("details", { class: "relative", "data-testid": "opciones" }, "", [el("summary", { class: "btn btn-sec cursor-pointer list-none" }, "Opciones"), menu]);
+  return tema;
 }
 
-function montarNav() {
-  aplicarTema(memoria.leer("tema"));
-  const actual = location.pathname.split("/").pop() || "index.html";
-  const paso = Number(new URLSearchParams(location.search).get("demo")) || 0;
-  const barra = el("nav", { class: "flex flex-wrap items-center gap-2 border-b border-linea px-4 py-2 sm:px-6", "aria-label": "Paginas", "data-testid": "nav" });
-  PAGINAS.forEach((p) => {
-    const a = el("a", { href: p.href, class: "btn btn-fantasma", "data-testid": "nav-" + p.href.replace(".html", "") }, p.texto);
-    if (p.href === actual) a.setAttribute("aria-current", "page");
-    barra.append(a);
+function montarRol() {
+  const botones = ROLES.map(([r, texto]) => el("button", { type: "button", role: "radio", "data-testid": "rol-" + r }, texto));
+  const marcar = () => botones.forEach((b, i) => b.setAttribute("aria-checked", String(ROLES[i][0] === api.rol)));
+  botones.forEach((b, i) => {
+    b.onclick = () => {
+      api.rol = ROLES[i][0];
+      memoria.guardar("rol", api.rol);
+      marcar();
+      document.dispatchEvent(new CustomEvent("rol-cambiado", { detail: api.rol }));
+    };
   });
-  const lectura = el("span", { class: "etiqueta-simulada ml-auto", "data-testid": "lectura" });
-  const rotular = () => { lectura.textContent = api.lectura === "en_vivo" ? "Lectura en vivo" : api.lectura === "guardada" ? "Lectura guardada" : ""; };
-  document.addEventListener("sesion-lista", rotular);
-  rotular();
+  marcar();
+  const grupo = el("div", { class: "segmento", role: "radiogroup", "aria-label": "Rol simulado" }, "", botones);
+  return el("div", { class: "flex items-center gap-2", "data-testid": "selector-rol" }, "", [el("span", { class: "etiqueta-simulada" }, "rol simulado"), grupo]);
+}
+
+function montarDemo() {
   const confirmar = el("span", { class: "hidden flex-wrap items-center gap-2", "data-testid": "demo-confirmacion", role: "alertdialog" });
   const aviso = el("span", { role: "status" }, "¿Reiniciar la sesión y empezar el guion?");
-  const demo = el("button", { type: "button", class: "btn btn-primario", "data-testid": "demo" }, "Demo");
+  const demo = el("button", { type: "button", class: "btn btn-primario px-4! py-1.5!", "data-testid": "demo" }, "Demo");
   const si = el("button", { type: "button", class: "btn btn-peligro", "data-testid": "demo-confirmar" }, "Reiniciar");
   const no = el("button", { type: "button", class: "btn btn-sec", "data-testid": "demo-cancelar" }, "Cancelar");
   confirmar.append(aviso, si, no);
@@ -78,10 +75,78 @@ function montarNav() {
       irA(1);
     } catch (e) { aviso.textContent = e.message; si.disabled = no.disabled = false; }
   };
-  barra.append(lectura, confirmar, demo, montarOpciones());
-  document.body.prepend(barra);
-  if (paso >= 1 && paso <= ESCENAS.length) montarGuia(paso);
   document.addEventListener("keydown", (ev) => { if (ev.key === "Escape") cerrar(); });
+  return [confirmar, demo];
+}
+
+function montarEncabezado(actual) {
+  const empresa = el("span", { class: "font-semibold", "data-testid": "miga-empresa" }, "Mesa de pagos");
+  const seccion = PAGINAS.find((p) => p.href === actual) || PAGINAS[0];
+  const migas = el("nav", { "aria-label": "Ubicación", class: "flex items-center gap-2", "data-testid": "migas" }, "", [empresa, el("span", { "aria-hidden": "true", class: "text-texto-3" }, "›"), el("span", {}, seccion.texto)]);
+  const mandato = el("span", { class: "text-texto-2", "data-testid": "encabezado-mandato" });
+  const ciclo = el("span", { class: "text-texto-2", "data-testid": "encabezado-ciclo" });
+  document.addEventListener("sesion-lista", () => { mandato.textContent = "Mandato " + api.mandato_version; });
+  document.addEventListener("ciclo-listo", (ev) => { empresa.textContent = ev.detail.empresa; ciclo.textContent = "Ciclo " + ev.detail.ciclo_id; });
+  return el("header", { class: "sticky top-0 z-10 flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-linea bg-lienzo px-4 py-3 sm:px-6", "data-testid": "encabezado" }, "", [migas, mandato, ciclo, el("span", { class: "ml-auto" }), montarRol(), ...montarDemo(), montarTema()]);
+}
+
+function montarPaquete() {
+  const enlace = el("a", { class: "btn btn-fantasma", href: "/api/auditoria/paquete", download: "", "data-testid": "descargar-paquete" }, "Paquete de auditoría");
+  const falla = el("p", { class: "text-sm text-frenar", role: "alert", "data-testid": "error-descarga" });
+  enlace.onclick = async (ev) => {
+    ev.preventDefault();
+    falla.textContent = "";
+    try { await api.descargar("/api/auditoria/paquete", "paquete-auditoria.json"); } catch (e) { falla.textContent = e.message; }
+  };
+  return [enlace, falla];
+}
+
+function montarTarjetaEmpresa() {
+  const nombre = el("p", { class: "font-semibold", "data-testid": "ciclo-empresa" }, "Mesa de pagos");
+  const periodo = el("p", { class: "text-sm text-texto-2" });
+  const disponible = el("p", { class: "text-sm text-texto-2" });
+  const tarjeta = el("div", { class: "panel p-3", "data-testid": "tarjeta-empresa" }, "", [nombre, periodo, disponible]);
+  const pintar = (c, monedas) => {
+    nombre.textContent = c.empresa;
+    periodo.textContent = "Ciclo abierto " + c.ciclo_id;
+    disponible.textContent = "Disponible " + dinero.texto(c.disponible_menor, c.moneda, monedas);
+    document.dispatchEvent(new CustomEvent("ciclo-listo", { detail: c }));
+  };
+  const cargar = async () => {
+    try { pintar(await api.ciclo(), (await (await fetch("monedas.json")).json()).monedas); } catch { /* la tarjeta queda con el nombre del producto */ }
+  };
+  return [tarjeta, cargar];
+}
+
+function montarLateral(actual) {
+  const pendientes = el("span", { class: "chip chip-escalar", "data-testid": "nav-pendientes" });
+  const items = PAGINAS.map((p) => {
+    const a = el("a", { href: p.href, class: "flex items-center justify-between gap-2 rounded-[10px] px-3 py-2 text-texto-2 hover:bg-elevado aria-[current=page]:bg-elevado aria-[current=page]:font-semibold aria-[current=page]:text-texto", "data-testid": "nav-" + p.href.replace(".html", "") }, p.texto);
+    if (p.href === actual) a.setAttribute("aria-current", "page");
+    if (p.href === "index.html") a.append(pendientes);
+    return a;
+  });
+  const [tarjeta, cargarCiclo] = montarTarjetaEmpresa();
+  const lectura = el("p", { class: "etiqueta-simulada rounded-[10px]! px-3! py-1.5 text-sm", "data-testid": "lectura" });
+  const rotular = () => { lectura.textContent = `Datos de demostración, lectura ${api.lectura === "en_vivo" ? "en vivo" : "guardada"}, no se mueve dinero`; };
+  const mostrar = (n) => { pendientes.textContent = n; pendientes.style.display = n === 0 ? "none" : ""; };
+  const contar = async () => { try { mostrar((await api.decisiones()).filter((d) => d.estado === "pendiente").length); } catch { /* sin contador */ } };
+  document.addEventListener("sesion-lista", () => { rotular(); cargarCiclo(); contar(); });
+  document.addEventListener("decisiones-cambiaron", (ev) => { cargarCiclo(); mostrar(ev.detail); });
+  rotular();
+  const lista = el("div", { class: "grid gap-1", role: "list" }, "", items);
+  const marca = el("p", { class: "px-1 text-xl font-semibold" }, "Mesa de pagos");
+  const cuerpo = el("nav", { class: "grid gap-4", "aria-label": "Secciones", "data-testid": "nav" }, "", [lista]);
+  return el("aside", { class: "flex flex-col gap-4 border-b border-linea bg-panel p-4 lg:fixed lg:inset-y-0 lg:left-0 lg:z-20 lg:w-64 lg:border-b-0 lg:border-r lg:overflow-y-auto", "data-testid": "lateral" }, "", [marca, tarjeta, cuerpo, el("div", { class: "grid gap-2 lg:mt-auto" }, "", [...montarPaquete(), lectura])]);
+}
+
+function montarNav() {
+  aplicarTema(memoria.leer("tema"));
+  const actual = location.pathname.split("/").pop() || "index.html";
+  const paso = Number(new URLSearchParams(location.search).get("demo")) || 0;
+  document.body.classList.add("lg:pl-64");
+  document.body.prepend(montarLateral(actual), montarEncabezado(actual));
+  if (paso >= 1 && paso <= ESCENAS.length) montarGuia(paso);
 }
 
 function montarGuia(paso) {

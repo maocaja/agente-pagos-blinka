@@ -27,7 +27,8 @@ const memoria = {
 // Cliente unico de la API: sesion, rol e Idempotency-Key en cada POST.
 const api = {
   sesion: null,
-  rol: "analista",
+  rol: memoria.leer("rol") || "analista",
+  mandato_version: "",
   lectura: null,
   cabeceras() {
     const c = { "X-Rol": this.rol };
@@ -65,6 +66,7 @@ const api = {
       this.sesion = s.sesion_id;
     }
     this.lectura = s.lectura;
+    this.mandato_version = s.mandato_version;
     document.dispatchEvent(new CustomEvent("sesion-lista"));
     return s;
   },

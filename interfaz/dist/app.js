@@ -1,40 +1,68 @@
 const ESTADOS = { pendiente: "Espera aprobación", rechazada: "Rechazada por el CFO", reevaluada: "Aprobada y reevaluada", denegada: "Denegada por el guardián", vencida: "Vencida" };
 
+const ROTULO = { PAGAR: "Decisión de pagar", FRENAR: "Frenada", ESCALAR: "Escalada", REGISTRAR: "Registrada" };
+// Primero lo que mas conviene mirar; lo no listado va despues de R9.
+const RIESGO = { R4: 0, R8: 0, R2b: 0, R6: 1, R10: 1, R5: 2, R1: 3, R9: 4 };
+const FORMATOS = { texto: "TXT", pdf: "PDF", imagen: "IMG", xml: "XML", csv: "CSV" };
+const CANALES = { correo: "Correo", chat: "Chat", pdf: "PDF", imagen: "Foto", xml: "XML", hoja: "Hoja" };
+const TIPOS = { factura: "Factura", cuenta_de_cobro: "Cuenta de cobro", nota_de_credito: "Nota de crédito", estado_de_cuenta: "Estado de cuenta", proforma: "Proforma", anticipo: "Anticipo", desconocido: "Desconocido" };
+const CAMPO_ORIGEN = { cuenta: "cuenta", "montos.total_menor": "monto_total", "montos.moneda": "moneda", "referencias.numero": "numero_factura", "proveedor_asignado.proveedor_id": "proveedor" };
+const FILTROS_ESTADO = [["TODAS", "Todos"], ["PENDIENTES", "Pendientes de aprobación"], ["PAGAR", "Con decisión de pagar"], ["FRENAR", "Frenadas"], ["ESCALAR", "Escaladas"], ["REGISTRAR", "Registradas"]];
+
+const sinTildes = (t) => String(t).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+function fechaCorta(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
+  return m ? new Date(+m[1], +m[2] - 1, +m[3]).toLocaleDateString("es", { day: "numeric", month: "short", year: "numeric" }) : "";
+}
+function riesgo(d) {
+  const fallas = d.reglas.filter((r) => r.estado === "falla").map((r) => RIESGO[r.id] ?? 5);
+  return (d.estado === "pendiente" ? 0 : 10) + (fallas.length ? Math.min(...fallas) : 6);
+}
+
+// Una frase por paso, con lo que dice la factura canonica y la decision.
+function pasosProceso(f, d, nombres) {
+  const l = f.lectura, v = f.verificaciones, fallan = d.reglas.filter((r) => r.estado === "falla");
+  const malas = [["esquema", "esquema"], ["dinero_presente", "importes"], ["suma_lineas", "suma de líneas"]].filter(([k]) => v[k] === "falla").map(([, t]) => t);
+  if (v.cita_evidencia === "falla") malas.push("cita en el documento");
+  if (v.tipo === "discrepancia") malas.push("tipo de documento");
+  if (v.segunda_lectura.estado === "difiere") malas.push("segunda lectura");
+  const conf = Math.round(Math.min(...Object.values(f.confianza), 1) * 100);
+  return [
+    { id: "lectura", titulo: "Lectura", ok: !l.motivo_falla, texto: l.motivo_falla ? "No se pudo leer: " + l.motivo_falla.replaceAll("_", " ") + "." : `Leída ${l.metodo === "modelo" ? "con modelo" : "con lector estructurado"}${l.desde_cache ? " (lectura guardada)" : ""}; confianza mínima ${conf} %.` },
+    { id: "validacion", titulo: "Validación", ok: !malas.length, texto: malas.length ? "No coincide: " + malas.join(", ") + "." : "Esquema, importes y suma de líneas coinciden." + (v.cita_evidencia === "no_verificable" ? " La cita no se pudo comprobar en el original." : "") },
+    { id: "reglas", titulo: "Reglas", ok: !fallan.length, texto: fallan.length ? `${fallan.length} de ${d.reglas.length} no cumplen: ${fallan.map((r) => nombres[r.id] || r.id).join(", ")}.` : `Las ${d.reglas.length} reglas cumplen.` },
+    { id: "decision", titulo: "Decisión", ok: d.veredicto === "PAGAR", texto: ROTULO[d.veredicto] + (d.modo_autonomia === "autonomo" ? "" : " (modo sombra)") + "." },
+  ];
+}
+
 function app() {
   return {
-    rol: "analista", sesion: null, monedas: {}, marcador: null,
-    decisiones: [], facturas: {}, filtro: "TODAS", error: null, cargando: true,
+    rol: api.rol, sesion: null, monedas: {}, nombresRegla: {},
+    decisiones: [], facturas: {}, filtro: "TODAS", busqueda: "", formato: "", canalFiltro: "", masFiltros: false, campo: "", error: null, cargando: true,
     sel: null, factura: null, recibo: null, tecnica: false, pestana: "resumen",
     pestanas: [["resumen", "Resumen"], ["documento", "Documento"], ["recibo", "Recibo"], ["historial", "Historial"]],
-    ciclo: null, muestras: [], historial: [], estadoOrden: null, nota: "", ocupado: false, progreso: "", copia: "", copiaError: null, resultado: null, verifRecibo: null, imagenFalla: false,
-    veredictos: VEREDICTOS, estados: ESTADOS, estadoVerif: ESTADO_VERIF,
-    filtros: [["TODAS", "Todas"], ["PAGAR", "Pagar"], ["FRENAR", "Frenar"], ["ESCALAR", "Escalar"], ["PENDIENTES", "Pendientes de aprobación"]],
+    muestras: [], historial: [], estadoOrden: null, nota: "", ocupado: false, progreso: "", copia: "", copiaError: null, resultado: null, verifRecibo: null, imagenFalla: false,
+    veredictos: VEREDICTOS, estados: ESTADOS, estadoVerif: ESTADO_VERIF, filtros: FILTROS_ESTADO, formatos: FORMATOS, canales: CANALES,
 
     async init() {
       try {
         this.monedas = (await (await fetch("monedas.json")).json()).monedas;
+        this.nombresRegla = Object.fromEntries((await (await fetch("reglas.registro.json")).json()).reglas.map((r) => [r.id, r.nombre]));
+        document.addEventListener("rol-cambiado", (ev) => { this.rol = ev.detail; });
         this.sesion = await api.iniciar();
-        api.marcador().then((m) => { this.marcador = m; }, () => {});
         api.muestras().then((m) => { this.muestras = m; }, () => {});
-        await this.cargarCiclo();
         await this.cargarLista();
         await this.abrirDesdeUrl();
       } catch (e) { this.error = e.message; }
       this.cargando = false;
     },
-    // Si el servidor aun no sirve el ciclo, la pantalla sigue sin ese bloque.
-    async cargarCiclo() { try { this.ciclo = await api.ciclo(); } catch { this.ciclo = null; } },
-    get porcentajeReservado() {
-      const c = this.ciclo;
-      return c && Number(c.presupuesto_menor) > 0 ? Math.min(100, Math.round(Number(c.reservado_menor) * 100 / Number(c.presupuesto_menor))) : 0;
-    },
-    dineroCiclo(menor) { return dinero.texto(menor, this.ciclo.moneda, this.monedas); },
     // Una fila por documento: la decision reevaluada tras aprobar queda reemplazada por la nueva.
     async cargarLista() {
       this.decisiones = await api.decisiones();
       await Promise.all(this.vigentes.filter((d) => !this.facturas[d.id]).map(async (d) => {
         this.facturas[d.id] = (await api.detalle(d.id)).factura;
       }));
+      document.dispatchEvent(new CustomEvent("decisiones-cambiaron", { detail: this.vigentes.filter((d) => d.estado === "pendiente").length }));
     },
     async abrirDesdeUrl() {
       const q = new URLSearchParams(location.search);
@@ -48,7 +76,6 @@ function app() {
         const r = await api.cargarSet((i, n, t) => { this.progreso = `Cargando ${i} de ${n}: ${t}`; });
         this.progreso = r.fallos.length ? `Se cargaron ${r.total - r.fallos.length} de ${r.total}. ${r.fallos[0]}` : "";
         await this.cargarLista();
-        await this.cargarCiclo();
       } catch (e) { this.error = e.message; }
       this.ocupado = false;
     },
@@ -58,35 +85,42 @@ function app() {
     },
     hora: horaCorta,
     get vigentes() { return this.decisiones.filter((d) => d.estado !== "reevaluada"); },
-    get visibles() {
-      const f = this.filtro;
-      return this.vigentes.filter((d) => f === "TODAS" || (f === "PENDIENTES" ? d.estado === "pendiente" : d.veredicto === f));
+    pasaFiltros(d) {
+      const f = this.f(d), e = this.filtro, q = sinTildes(this.busqueda.trim());
+      const estado = e === "TODAS" || (e === "PENDIENTES" ? d.estado === "pendiente" : d.veredicto === e);
+      const texto = !q || sinTildes(this.proveedor(d) + " " + (f?.referencias?.numero || "")).includes(q);
+      return estado && texto && (!this.formato || f?.documento.formato === this.formato) && (!this.canalFiltro || f?.documento.canal === this.canalFiltro);
     },
+    get visibles() { return this.vigentes.filter((d) => this.pasaFiltros(d)).sort((a, b) => riesgo(a) - riesgo(b)); },
+    valoresReales(clave) { return [...new Set(this.vigentes.map((d) => this.f(d)?.documento[clave]).filter(Boolean))].sort(); },
     get resumen() {
       const v = this.vigentes, n = (f) => v.filter(f).length;
-      return [["documentos", "Documentos", v.length], ["autorizadas", "Con decisión de pagar", n((d) => d.veredicto === "PAGAR")],
-        ["frenados", "Frenados", n((d) => d.veredicto === "FRENAR")], ["escalados", "Escalados", n((d) => d.veredicto === "ESCALAR")],
-        ["pendientes", "Pendientes de aprobación", n((d) => d.estado === "pendiente")]];
+      return [["documentos", "documentos", v.length], ["pendientes", "esperan a una persona", n((d) => d.estado === "pendiente")],
+        ["frenados", "frenados", n((d) => d.veredicto === "FRENAR")], ["autorizadas", "con decisión de pagar", n((d) => d.veredicto === "PAGAR")]];
     },
-    // La frase solo se muestra si el marcador real la respalda.
-    get garantia() {
-      const m = this.marcador;
-      return m && m.pagos_indebidos === 0 && m.verificados > 0 ? `Verificación independiente de las ${m.verificados} facturas del set: 0 pagos indebidos.` : "";
+    estadoDe(d) {
+      const e = ESTADOS[d.estado];
+      if (d.estado === "pendiente") return { ...VEREDICTOS.ESCALAR, texto: e };
+      if (e && d.estado !== "reevaluada") return { ...VEREDICTOS.FRENAR, texto: e };
+      return { ...VEREDICTOS[d.veredicto], texto: ROTULO[d.veredicto] };
     },
+    fecha(d) { return fechaCorta(this.f(d)?.fechas.emision); },
+    importe(d) { const m = this.f(d)?.montos; return m ? m.moneda + " " + this.entero(m.total_menor, m.moneda) : ""; },
+    centimos(d) { const m = this.f(d)?.montos; return m ? this.centavos(m.total_menor, m.moneda) : ""; },
     f(d) { return this.facturas[d.id]; },
     proveedor(d) { return this.f(d)?.emisor?.nombre || d.factura_id; },
     canal(d) { return this.f(d)?.documento?.canal || ""; },
     aprobo(d) { return d.reevaluacion_de ? "CFO" : ""; },
-    cambiarRol(r) { this.rol = r; api.rol = r; },
     async abrir(d, pestana) {
       this.pestana = this.pestanas.some((p) => p[0] === pestana) ? pestana : "resumen";
-      this.sel = d; this.historial = []; this.estadoOrden = null; this.recibo = null; this.resultado = null; this.verifRecibo = null; this.tecnica = false; this.error = null; this.imagenFalla = false;
+      this.sel = d; this.historial = []; this.estadoOrden = null; this.recibo = null; this.resultado = null; this.verifRecibo = null; this.tecnica = false; this.error = null; this.imagenFalla = false; this.campo = "";
       try {
         const r = await api.detalle(d.id);
         this.factura = r.factura; this.historial = r.historial || []; this.estadoOrden = r.estado_orden ?? null;
         if (d.recibo_id) { this.recibo = await api.recibo(d.recibo_id); this.copia = JSON.stringify(this.recibo, null, 2); }
+        this.campo = CAMPO_ORIGEN[(this.diferencias.find((r) => CAMPO_ORIGEN[r.campo_origen]) || {}).campo_origen] || "";
       } catch (e) { this.error = e.message; }
-      if (matchMedia("(max-width: 1023px)").matches) this.$nextTick(() => this.$refs.detalle?.scrollIntoView({ block: "start" }));
+      if (matchMedia("(max-width: 1279px)").matches) this.$nextTick(() => this.$refs.detalle?.scrollIntoView({ block: "start" }));
     },
     moverPestana(paso) {
       const ids = this.pestanas.map((p) => p[0]);
@@ -106,16 +140,31 @@ function app() {
       return ["jpg", "jpeg", "png", "webp", "gif"].includes(ext) ? "imagen" : ext === "pdf" ? "pdf" : "texto";
     },
     get urlArchivo() { return `/api/muestras/${encodeURIComponent(this.muestraId)}/archivo`; },
+    get archivo() { return this.muestraId || (this.factura ? this.factura.documento.id : ""); },
     get leido() {
       const f = this.factura;
       if (!f) return [];
-      return [["Proveedor", f.emisor.nombre], ["Factura", f.referencias.numero], ["Total", f.montos.moneda + " " + this.entero(f.montos.total_menor, f.montos.moneda) + this.centavos(f.montos.total_menor, f.montos.moneda)],
-        ["Cuenta", f.cuenta.pais + " ****" + f.cuenta.ultimos4]];
+      const m = f.montos, ev = f.evidencia || {};
+      return [["proveedor", "Proveedor", f.emisor.nombre], ["numero_factura", "Factura", f.referencias.numero],
+        ["monto_total", "Total", m.moneda + " " + this.entero(m.total_menor, m.moneda) + this.centavos(m.total_menor, m.moneda)],
+        ["cuenta", "Cuenta", f.cuenta ? f.cuenta.pais + " ****" + f.cuenta.ultimos4 : "Sin cuenta"], ["tipo_documento", "Tipo", TIPOS[f.documento.tipo_documento]]]
+        .map(([clave, etiqueta, valor]) => ({ clave, etiqueta, valor, cita: ev[clave] || "" }));
     },
+    get citaActiva() { return (this.leido.find((c) => c.clave === this.campo) || {}).cita || ""; },
+    // Original partido en antes, cita y despues para resaltarla sin HTML crudo.
+    get partesOriginal() {
+      const o = this.original, c = this.citaActiva, i = c ? o.indexOf(c) : -1;
+      return i < 0 ? [o, "", ""] : [o.slice(0, i), c, o.slice(i + c.length)];
+    },
+    elegirCampo(clave) {
+      this.campo = this.campo === clave ? "" : clave;
+      this.$nextTick(() => this.$refs.marca?.scrollIntoView({ block: "nearest" }));
+    },
+    get proceso() { return this.sel && this.factura ? pasosProceso(this.factura, this.sel, this.nombresRegla) : []; },
     get diferencias() { return this.sel ? this.sel.reglas.filter((r) => r.estado === "falla") : []; },
     get etapas() {
       const o = this.estadoOrden;
-      return [["decision", "Decisión", this.sel ? this.veredictos[this.sel.veredicto].texto : "", true],
+      return [["decision", "Decisión", this.sel ? ROTULO[this.sel.veredicto] : "", true],
         ["autorizada", "Autorizada", o ? "Sí" : "No", !!o],
         ["orden", "Orden emitida (simulada)", o === "orden_simulada_emitida" ? "Sí" : "No", o === "orden_simulada_emitida"]];
     },
@@ -136,6 +185,7 @@ function app() {
       if (!this.error) this.estadoOrden = (await api.detalle(this.sel.id)).estado_orden ?? this.estadoOrden;
     },
     get puedeDecidir() { return this.rol === "cfo"; },
+    get aprobable() { return this.diferencias.every((r) => r.aprobable); },
     get esperaAprobacion() { return this.sel && this.sel.veredicto === "ESCALAR" && this.sel.estado === "pendiente"; },
     async decidir(accion) {
       this.error = null; this.ocupado = true;
@@ -143,7 +193,6 @@ function app() {
         const r = await api[accion](this.sel.id, this.nota);
         this.nota = "";
         await this.cargarLista();
-        await this.cargarCiclo();
         await this.abrir(accion === "aprobar" ? r.decision : this.decisiones.find((d) => d.id === this.sel.id));
       } catch (e) { this.error = e.message; }
       this.ocupado = false;

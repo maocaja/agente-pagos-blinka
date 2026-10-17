@@ -13,39 +13,17 @@
 <body x-data="app()" x-init="init()" class="min-h-screen">
   <header class="px-6 pt-5">
     <h1 class="text-2xl font-semibold">Decisiones</h1>
-    <p class="mt-1 max-w-3xl text-texto-2" data-testid="subtitulo">Cada factura que llegó y lo que decidió el motor de reglas, con su motivo. Importa porque ningún pago sale sin una regla que lo explique. <span class="text-sm">Mandato <span x-text="sesion ? sesion.mandato_version : '-'" data-testid="mandato-version"></span>.</span></p>
+    <p class="mt-1 max-w-3xl text-texto-2" data-testid="subtitulo">Cada factura que llegó y lo que decidió el motor de reglas, con su motivo.</p>
+    <ul class="mt-3 flex flex-wrap gap-x-5 gap-y-1" x-show="vigentes.length" x-cloak aria-label="Cifras" data-testid="resumen">
+      <template x-for="r in resumen" :key="r[0]">
+        <li :data-testid="'resumen-' + r[0]"><span class="cifra text-xl font-semibold" x-text="r[2]"></span> <span class="text-texto-2" x-text="r[1]"></span></li>
+      </template>
+    </ul>
   </header>
 
   <p x-show="error" x-cloak class="mx-6 mt-4 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="error" x-text="error"></p>
 
-  <section class="px-6 pt-4" x-show="ciclo" x-cloak aria-label="Contexto del periodo" data-testid="ciclo">
-    <div class="panel panel-fuerte grid gap-3 p-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      <div>
-        <p class="font-semibold" data-testid="ciclo-empresa" x-text="ciclo && ciclo.empresa"></p>
-        <p class="text-sm text-texto-2">Periodo <span data-testid="ciclo-id" x-text="ciclo && ciclo.ciclo_id"></span></p>
-        <div class="mt-2 h-3 w-full overflow-hidden rounded-3xl bg-elevado" role="img" :aria-label="'Presupuesto reservado: ' + porcentajeReservado + ' por ciento'"><div class="h-3 bg-pagar" :style="'width:' + porcentajeReservado + '%'" data-testid="ciclo-barra"></div></div>
-        <p class="mt-1 text-sm text-texto-2"><span class="cifra" data-testid="ciclo-reservado" x-text="ciclo && dineroCiclo(ciclo.reservado_menor)"></span> reservado de <span class="cifra" x-text="ciclo && dineroCiclo(ciclo.presupuesto_menor)"></span>; disponible <span class="cifra" data-testid="ciclo-disponible" x-text="ciclo && dineroCiclo(ciclo.disponible_menor)"></span></p>
-      </div>
-      <div>
-        <h2 class="text-sm font-semibold text-texto-2">Actividad reciente</h2>
-        <p class="text-sm text-texto-2" x-show="ciclo && ciclo.actividad.length === 0">Todavía no hay actividad.</p>
-        <ul class="mt-1 grid gap-1 text-sm" data-testid="actividad">
-          <template x-for="(a, i) in (ciclo ? ciclo.actividad : [])" :key="i"><li><span class="cifra text-texto-2" x-text="hora(a.hora)"></span> <span x-text="a.texto"></span></li></template>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="px-6 pt-4" x-show="vigentes.length" x-cloak aria-label="Resumen" data-testid="resumen">
-    <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-      <template x-for="r in resumen" :key="r[0]">
-        <li class="panel panel-fuerte p-3" :data-testid="'resumen-' + r[0]"><span class="cifra block text-2xl font-semibold" x-text="r[2]"></span><span class="text-sm text-texto-2" x-text="r[1]"></span></li>
-      </template>
-    </ul>
-    <p class="mt-3 font-semibold text-pagar" x-show="garantia" x-cloak data-testid="garantia" x-text="garantia"></p>
-  </section>
-
-  <main class="grid grid-cols-1 gap-6 p-4 sm:p-6 lg:grid-cols-[minmax(0,30rem)_minmax(0,1fr)]">
+  <main class="grid grid-cols-1 gap-6 p-4 sm:p-6 min-[1280px]:grid-cols-[minmax(0,25rem)_minmax(0,1fr)]">
     <section aria-label="Lista de decisiones" class="min-w-0">
       <p x-show="cargando" class="text-texto-2">Cargando…</p>
       <div x-show="!cargando && vigentes.length === 0" x-cloak class="panel panel-fuerte p-6" data-testid="lista-vacia">
@@ -55,27 +33,32 @@
         <p class="mt-3 text-texto-2" role="status" data-testid="progreso" x-text="progreso"></p>
       </div>
       <div x-show="vigentes.length" x-cloak>
-        <div class="segmento mb-4 flex flex-wrap rounded-3xl" role="radiogroup" aria-label="Filtrar por veredicto">
-          <template x-for="f in filtros" :key="f[0]">
-            <button type="button" role="radio" :aria-checked="filtro === f[0]" @click="filtro = f[0]" :data-testid="'filtro-' + f[0].toLowerCase()" x-text="f[1]"></button>
-          </template>
+        <div class="flex flex-wrap gap-2">
+          <input type="search" class="input w-auto min-w-[10rem] flex-1" placeholder="Buscar proveedor o número" aria-label="Buscar por proveedor o número" x-model="busqueda" data-testid="busqueda">
+          <select class="input w-auto" x-model="filtro" aria-label="Filtrar por estado" data-testid="filtro-estado">
+            <template x-for="f in filtros" :key="f[0]"><option :value="f[0]" x-text="f[1]"></option></template>
+          </select>
+        </div>
+        <button type="button" class="btn btn-fantasma" :aria-expanded="masFiltros" @click="masFiltros = !masFiltros" data-testid="mas-filtros" x-text="masFiltros ? 'Menos filtros' : 'Más filtros'"></button>
+        <div class="mb-3 grid grid-cols-2 gap-2" x-show="masFiltros" x-cloak>
+          <select class="input" x-model="formato" aria-label="Filtrar por formato" data-testid="filtro-formato"><option value="">Todos los formatos</option>
+            <template x-for="v in valoresReales('formato')" :key="v"><option :value="v" x-text="formatos[v] || v"></option></template></select>
+          <select class="input" x-model="canalFiltro" aria-label="Filtrar por canal" data-testid="filtro-canal"><option value="">Todos los canales</option>
+            <template x-for="v in valoresReales('canal')" :key="v"><option :value="v" x-text="canales[v] || v"></option></template></select>
         </div>
         <p x-show="visibles.length === 0" x-cloak class="text-texto-2" data-testid="filtro-vacio">Ningún documento con este filtro.</p>
-        <ul class="grid gap-3" data-testid="lista-decisiones">
+        <ul class="grid gap-2" data-testid="lista-decisiones">
           <template x-for="d in visibles" :key="d.id">
             <li>
-              <button type="button" class="panel panel-fuerte grid w-full gap-1 p-4 text-left hover:bg-elevado" :class="sel && sel.id === d.id ? 'bg-elevado' : ''" :aria-current="sel && sel.id === d.id" @click="abrir(d)" :data-testid="'decision-' + d.id">
-                <span class="flex flex-wrap items-center justify-between gap-2">
-                  <span class="font-semibold" x-text="proveedor(d)"></span>
-                  <span class="chip" :class="veredictos[d.veredicto].clase"><span aria-hidden="true" x-text="veredictos[d.veredicto].icono"></span><span x-text="veredictos[d.veredicto].texto"></span></span>
+              <button type="button" class="panel grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-x-3 gap-y-1 p-3 text-left hover:bg-elevado" :class="sel && sel.id === d.id ? 'bg-elevado border-acento' : ''" :aria-current="sel && sel.id === d.id ? 'true' : null" @click="abrir(d)" :data-testid="'decision-' + d.id">
+                <span class="chip chip-sombra self-center" x-show="f(d)" x-text="f(d) && (formatos[f(d).documento.formato] || f(d).documento.formato)"></span>
+                <span class="col-start-2 truncate font-semibold" x-text="proveedor(d)"></span>
+                <span class="cifra text-right font-semibold" x-show="f(d)"><span x-text="importe(d)"></span><span class="cent" x-text="centimos(d)"></span></span>
+                <span class="col-span-2 col-start-2 text-sm text-texto-2" x-text="[f(d) && f(d).referencias.numero, fecha(d), f(d) && (canales[canal(d)] || canal(d)), aprobo(d) && 'Aprobó: ' + aprobo(d)].filter(Boolean).join(' · ')"></span>
+                <span class="col-span-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+                  <span class="chip" :class="estadoDe(d).clase"><span aria-hidden="true" x-text="estadoDe(d).icono"></span><span x-text="estadoDe(d).texto"></span></span>
+                  <span x-text="d.motivo_corto"></span>
                 </span>
-                <span class="flex flex-wrap items-center gap-2 text-sm text-texto-2">
-                  <span class="chip chip-sombra uppercase" x-show="canal(d)" x-text="canal(d)"></span>
-                  <span class="cifra" x-show="f(d)" x-text="f(d) && f(d).montos.moneda + ' ' + entero(f(d).montos.total_menor, f(d).montos.moneda)"></span>
-                </span>
-                <span x-text="d.motivo_corto"></span>
-                <span class="text-sm font-semibold text-texto-2" x-show="aprobo(d)" x-text="'Aprobó: ' + aprobo(d)" data-testid="aprobo"></span>
-                <span class="text-sm font-semibold text-escalar" x-show="estados[d.estado]" x-text="estados[d.estado]"></span>
               </button>
             </li>
           </template>
@@ -86,12 +69,14 @@
     <section aria-label="Detalle" x-ref="detalle" x-show="sel" x-cloak class="grid min-w-0 grid-cols-1 content-start gap-6 scroll-mt-4">
       <template x-if="sel">
         <div class="panel p-5" data-testid="detalle">
-          <div class="flex items-center gap-3">
-            <span class="chip" :class="veredictos[sel.veredicto].clase"><span aria-hidden="true" x-text="veredictos[sel.veredicto].icono"></span><span x-text="veredictos[sel.veredicto].texto"></span></span>
-            <span class="text-texto-2" x-text="sel.modo_autonomia === 'autonomo' ? veredictos[sel.veredicto].autonomia : 'Sombra'" data-testid="autonomia"></span>
+          <div class="flex flex-wrap items-start justify-between gap-3">
+            <div class="min-w-0">
+              <h2 class="text-xl font-semibold" data-testid="detalle-proveedor" x-text="proveedor(sel)"></h2>
+              <p class="break-all text-sm text-texto-2"><span data-testid="detalle-archivo" x-text="archivo"></span> · Factura <span x-text="factura && factura.referencias.numero"></span></p>
+            </div>
+            <span class="chip" :class="estadoDe(sel).clase" data-testid="estado-decision"><span aria-hidden="true" x-text="estadoDe(sel).icono"></span><span x-text="estadoDe(sel).texto"></span></span>
           </div>
-          <p class="mt-2 font-semibold text-escalar" x-show="estados[sel.estado]" data-testid="estado-decision" x-text="estados[sel.estado]"></p>
-          <p class="mt-2 text-lg" x-text="sel.motivo_corto"></p>
+          <p class="mt-2 text-lg" data-testid="motivo" x-text="sel.motivo_corto"></p>
           <p class="mt-2 font-semibold text-texto-2" x-show="aprobo(sel)" data-testid="aprobo-detalle" x-text="'Aprobó: ' + aprobo(sel) + ', que reevaluó la decisión ' + sel.reevaluacion_de"></p>
 
           <div x-show="resultado" x-cloak class="mt-3 flex items-center gap-4" data-testid="sello" role="status">
@@ -113,7 +98,8 @@
           </div>
 
           <div id="panel-resumen" role="tabpanel" aria-labelledby="tab-resumen" x-show="pestana === 'resumen'" class="mt-4" data-testid="panel-resumen">
-            <p data-testid="explicacion" x-show="sel.explicacion && sel.explicacion !== sel.motivo_corto" x-text="sel.explicacion"></p>
+            <p class="text-sm text-texto-2" data-testid="autonomia" x-text="'Decisión: ' + (sel.modo_autonomia === 'autonomo' ? veredictos[sel.veredicto].autonomia : 'Sombra')"></p>
+            <p class="mt-2" data-testid="explicacion" x-show="sel.explicacion && sel.explicacion !== sel.motivo_corto" x-text="sel.explicacion"></p>
             <p class="mt-2 border-l-4 border-linea-fuerte pl-3 font-semibold" data-testid="que-hacer" x-show="sel.que_hacer"><span class="apoyo">Siguiente paso: </span><span x-text="sel.que_hacer"></span></p>
             <ol class="mt-4 grid gap-2 sm:grid-cols-3" data-testid="etapas" aria-label="Estado del trámite">
               <template x-for="e in etapas" :key="e[0]"><li class="panel p-3" :data-testid="'etapa-' + e[0]"><span class="block text-sm text-texto-2" x-text="e[1]"></span><span class="font-semibold" :class="e[3] ? 'text-pagar' : 'text-texto-2'" x-text="e[2]"></span></li></template>
@@ -121,23 +107,19 @@
             <p class="mt-2 text-sm text-texto-2" data-testid="sin-pago-confirmado">No hay "pago confirmado": este producto no mueve dinero. La orden emitida es una simulación.</p>
 
             <section class="panel panel-fuerte mt-4 p-4" x-show="esperaAprobacion" x-cloak data-testid="aprobacion" aria-label="Aprobación">
-              <h2 class="text-lg font-semibold">Espera aprobación</h2>
-              <p class="mt-1" data-testid="razon" x-text="sel && sel.motivo_corto"></p>
-              <div class="mt-3 flex flex-wrap items-center gap-3"><span class="text-sm text-texto-2" id="rol-etiqueta">Actuar como (simulado)</span>
-                <div class="segmento" role="radiogroup" aria-labelledby="rol-etiqueta">
-                  <template x-for="r in ['analista','cfo']" :key="r">
-                    <button type="button" role="radio" :aria-checked="rol === r" @click="cambiarRol(r)" :data-testid="'rol-' + r" x-text="r === 'cfo' ? 'CFO' : 'Analista'"></button>
-                  </template>
-                </div></div>
-              <p class="apoyo mt-2 text-sm" x-show="!puedeDecidir" data-testid="solo-cfo">Solo el CFO aprueba o rechaza. Cámbielo arriba para decidir.</p>
-              <div x-show="puedeDecidir" x-cloak class="mt-3 grid gap-3">
-                <label for="nota" class="apoyo text-sm">Nota (obligatoria al rechazar)</label>
-                <input id="nota" type="text" class="input" x-model="nota" data-testid="nota">
-                <div class="flex flex-wrap gap-3">
-                  <button type="button" class="btn btn-primario" data-testid="aprobar" :disabled="ocupado" @click="decidir('aprobar')">Aprobar y reevaluar</button>
-                  <button type="button" class="btn btn-peligro" data-testid="rechazar" :disabled="ocupado" @click="decidir('rechazar')">Rechazar</button>
+              <h3 class="text-lg font-semibold">Espera aprobación</h3>
+              <p class="apoyo mt-2 text-sm" x-show="!puedeDecidir" data-testid="solo-cfo">Solo el CFO aprueba o rechaza. Cambie el rol simulado en el encabezado para decidir.</p>
+              <template x-if="puedeDecidir && esperaAprobacion">
+                <div class="mt-3 grid gap-3">
+                  <p class="apoyo text-sm" x-show="!aprobable" data-testid="no-aprobable">Esta escalada no ofrece aprobar: se resuelve fuera de la aplicación. Puede rechazarla.</p>
+                  <label for="nota" class="apoyo text-sm">Nota (obligatoria al rechazar)</label>
+                  <input id="nota" type="text" class="input" x-model="nota" data-testid="nota">
+                  <div class="flex flex-wrap gap-3">
+                    <template x-if="aprobable"><button type="button" class="btn btn-primario" data-testid="aprobar" :disabled="ocupado" @click="decidir('aprobar')">Aprobar y reevaluar</button></template>
+                    <button type="button" class="btn btn-peligro" data-testid="rechazar" :disabled="ocupado" @click="decidir('rechazar')">Rechazar</button>
+                  </div>
                 </div>
-              </div>
+              </template>
             </section>
 
             <div class="mt-4 flex flex-wrap items-center gap-3" x-show="recibo" x-cloak>
@@ -148,28 +130,45 @@
           </div>
 
           <div id="panel-documento" role="tabpanel" aria-labelledby="tab-documento" x-show="pestana === 'documento'" x-cloak class="mt-4" data-testid="documento-leido">
-            <p class="text-sm text-texto-2" x-show="!original && !factura">No hay documento para esta decisión.</p>
-            <div class="grid gap-4 md:grid-cols-2" x-show="original || factura">
+            <ol class="grid gap-2 sm:grid-cols-2" data-testid="proceso" aria-label="Proceso de la decisión">
+              <template x-for="(p, i) in proceso" :key="p.id">
+                <li class="panel p-3" :data-testid="'proceso-' + p.id">
+                  <span class="flex items-center gap-2 text-sm font-semibold" :class="p.ok ? 'text-pagar' : 'text-frenar'"><span aria-hidden="true" x-text="p.ok ? '✓' : '✕'"></span><span x-text="(i + 1) + '. ' + p.titulo"></span></span>
+                  <span class="block text-sm" x-text="p.texto"></span>
+                </li>
+              </template>
+            </ol>
+            <p class="mt-3 text-sm text-texto-2" x-show="!original && !factura">No hay documento para esta decisión.</p>
+            <div class="mt-4 grid gap-4 md:grid-cols-2" x-show="original || factura">
               <div x-show="original"><h3 class="apoyo text-sm">Documento original</h3>
                 <img x-show="tipoOriginal === 'imagen' && !imagenFalla" :src="tipoOriginal === 'imagen' ? urlArchivo : null" @error="imagenFalla = true" :alt="'Foto original del documento ' + (factura ? factura.referencias.numero : '')" class="panel mt-1 w-full" style="max-height:20rem;object-fit:contain" data-testid="original-imagen">
                 <p class="mt-1 text-sm text-texto-2" x-show="tipoOriginal === 'imagen' && imagenFalla" data-testid="original-imagen-error">No se pudo cargar la imagen del documento.</p>
                 <a class="btn btn-sec mt-1" x-show="tipoOriginal === 'pdf'" :href="urlArchivo" target="_blank" rel="noopener" data-testid="abrir-documento">Abrir el documento</a>
-                <pre class="panel mt-1 max-h-[24rem] overflow-auto whitespace-pre-wrap p-3 font-tec text-sm" x-show="tipoOriginal !== 'imagen'" data-testid="original" x-text="original" tabindex="0"></pre></div>
-              <div><h3 class="apoyo text-sm">Lo leído</h3>
-                <dl class="mt-1 grid grid-cols-[6rem_minmax(0,1fr)] gap-y-1 text-sm" data-testid="leido">
-                  <template x-for="p in leido" :key="p[0]"><div class="contents"><dt class="apoyo" x-text="p[0]"></dt><dd x-text="p[1]"></dd></div></template>
-                </dl>
+                <p class="mt-2 text-sm" x-show="tipoOriginal !== 'texto' && citaActiva" data-testid="origen-cita"><span class="apoyo">Origen en el documento: </span><q x-text="citaActiva"></q></p>
+                <pre class="panel mt-1 max-h-[24rem] overflow-auto whitespace-pre-wrap p-3 font-tec text-sm" x-show="tipoOriginal === 'texto'" data-testid="original" tabindex="0"><span x-text="partesOriginal[0]"></span><mark x-ref="marca" class="rounded bg-escalar/30 text-texto" x-show="partesOriginal[1]" data-testid="cita-resaltada" x-text="partesOriginal[1]"></mark><span x-text="partesOriginal[2]"></span></pre></div>
+              <div><h3 class="apoyo text-sm">Campos leídos</h3>
+                <ul class="mt-1 grid gap-1" data-testid="leido">
+                  <template x-for="c in leido" :key="c.clave">
+                    <li><button type="button" class="grid w-full grid-cols-[6rem_minmax(0,1fr)] gap-x-2 rounded-[10px] border border-linea px-3 py-1.5 text-left text-sm hover:bg-elevado" :class="campo === c.clave ? 'bg-elevado border-acento' : ''" :aria-pressed="campo === c.clave" @click="elegirCampo(c.clave)" :data-testid="'campo-' + c.clave"><span class="apoyo" x-text="c.etiqueta"></span><span x-text="c.valor"></span></button></li>
+                  </template>
+                </ul>
+                <p class="mt-2 text-sm" x-show="campo" x-cloak data-testid="evidencia"><span class="apoyo">Evidencia: </span><q x-show="citaActiva" x-text="citaActiva"></q><span x-show="!citaActiva">este campo no trae cita.</span></p>
+                <p class="mt-2 text-sm text-texto-2" x-show="!campo">Elija un campo para ver su evidencia.</p>
               </div>
             </div>
-            <div class="mt-3" x-show="diferencias.length" data-testid="diferencias">
+            <div class="mt-4" data-testid="diferencias">
               <h3 class="apoyo text-sm">Lo que difiere</h3>
-              <ul class="grid gap-1"><template x-for="r in diferencias" :key="r.id"><li class="font-semibold text-frenar"><span x-text="r.id + ': ' + r.evidencia"></span></li></template></ul>
+              <p class="text-sm text-texto-2" x-show="!diferencias.length">Nada difiere del registro ni de las reglas.</p>
+              <ul class="grid gap-1"><template x-for="r in diferencias" :key="r.id"><li class="text-frenar"><span class="font-semibold" x-text="(nombresRegla[r.id] || r.id) + ': '"></span><span x-text="r.evidencia"></span></li></template></ul>
             </div>
-            <ul class="mt-4 grid gap-1 text-sm">
-              <template x-for="r in sel.reglas" :key="r.id">
-                <li class="flex gap-3"><span class="w-10 font-semibold" x-text="r.id"></span><span class="w-20" :class="r.estado === 'falla' ? 'text-frenar' : 'text-texto-2'" x-text="r.estado"></span><span class="text-texto-2" x-text="r.evidencia"></span></li>
-              </template>
-            </ul>
+            <details class="mt-3 text-sm">
+              <summary class="cursor-pointer text-texto-2">Todas las reglas evaluadas</summary>
+              <ul class="mt-1 grid gap-1">
+                <template x-for="r in sel.reglas" :key="r.id">
+                  <li class="flex gap-3"><span class="w-48 font-semibold" x-text="nombresRegla[r.id] || r.id"></span><span class="w-20" :class="r.estado === 'falla' ? 'text-frenar' : 'text-texto-2'" x-text="r.estado"></span><span class="text-texto-2" x-text="r.evidencia"></span></li>
+                </template>
+              </ul>
+            </details>
           </div>
 
           <div id="panel-recibo" role="tabpanel" aria-labelledby="tab-recibo" x-show="pestana === 'recibo'" x-cloak class="mt-4" data-testid="panel-recibo">

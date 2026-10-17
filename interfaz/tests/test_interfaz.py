@@ -161,7 +161,8 @@ def test_sesion_persistente_y_cabecera_limpia():
     api = (RAIZ / "dist" / "api.js").read_text(encoding="utf-8")
     assert 'memoria.leer("sesion")' in api and "sessionStorage" in api
     html = cliente.get("/").text
-    assert "rol simulado" not in html and 'data-testid="cambiar-tema"' not in html
+    nav = (RAIZ / "dist" / "nav.js").read_text(encoding="utf-8")
+    assert '"rol simulado"' in nav and 'data-testid="cambiar-tema"' not in html and html.count("rol-analista") == 0
     assert 'data-testid="cargar-set-ejemplo"' in html and "Pendientes de aprobación" in (RAIZ / "dist" / "app.js").read_text(encoding="utf-8")
 
 
@@ -189,3 +190,9 @@ def test_interfaz_nombra_con_decision_de_pagar_y_el_simulador_autoriza():
     assert res["autorizada"] and len(res["verificaciones"]) == 6
     assert cliente.get("/api/decisiones/dec_01").json()["estado_orden"] == "autorizada"
     assert cliente.post("/api/decisiones/dec_02/autorizar").status_code == 409
+
+
+def test_acciones_por_rol_no_se_pintan_sin_permiso():
+    html = cliente.get("/").text
+    assert 'x-if="puedeDecidir && esperaAprobacion"' in html and '<template x-if="aprobable">' in html
+    assert "r.aprobable" in (RAIZ / "dist" / "app.js").read_text(encoding="utf-8")
