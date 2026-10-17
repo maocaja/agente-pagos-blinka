@@ -19,3 +19,4 @@ dist/
 graphify-out/cache/
 graphify-out/graph.html
 verify-report.json
+!interfaz/dist/
