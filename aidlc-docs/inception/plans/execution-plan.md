@@ -136,10 +136,10 @@ Señales para decidir cortar (umbrales SUPUESTO; las horas salen de la sección 
 | 7 | El verificador hereda errores del motor | Escritura independiente, sin acceso al motor, y mutación por otra persona |
 | 8 | Cansancio y cambios tardíos | Congelamiento a las 10:00; domingo solo despliegue (SUPUESTO que baste) |
 
-Preguntas abiertas para la persona responsable:
-1. Horas de sueño: (a) 6 h cada noche, (b) 4 h la noche del sábado, (c) turnos entre Dev A y Dev B.
-2. Qué 3 reglas van en H1: (a) R2a, R3 y R6 (propuesta SUPUESTO), (b) R1, R2a y R6, (c) otra combinación.
-3. Quién consigue la clave de API: (a) Dev A, (b) Dev B, (c) una persona del equipo no técnico.
-4. Quién ejecuta la mutación (C22): (a) Dev B, (b) un agente distinto al del verificador, (c) Dev A.
-5. Cuándo se regraba el video: (a) domingo 07:00 a 10:00 tras la puerta de calidad, (b) solo el sábado con la versión local, (c) ambos.
-6. Resuelta: la nota NFR ya está aprobada. Si quieres cambiar la inactividad de sesión (60 min) o el límite de 30 s de la arena, dilo.
+Decisiones de la persona responsable (2026-10-17, "si" en bloque a las propuestas):
+1. Horas de sueño: (a) 6 h cada noche, el supuesto del plan. No se había propuesto de forma explícita; confirmar.
+2. Reglas de H1: R2a, R3 y R6.
+3. Clave de API: Dev A, antes del sábado 12:00.
+4. Mutación (C22): un agente distinto al del verificador.
+5. Regrabar el video: domingo 07:00 a 10:00, tras la puerta de calidad.
+6. Nota NFR aprobada; inactividad de sesión 60 min y límite de 30 s de la arena sin cambios.
