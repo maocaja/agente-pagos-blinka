@@ -1,27 +1,26 @@
 # Estado de AI-DLC: Agente de Pagos con Garantía
 
-Versión reducida para hackathon. Entrega: domingo 2026-10-18, 12:00.
+Versión reducida para hackathon. Entrega: domingo 2026-10-18, 12:00 (se congela a las 10:00). Actualizado: 2026-10-17, tras la Ola 2; Ola 3 en curso. Lo actualiza el orquestador al cerrar cada ola (`CLAUDE.md`, sección 4).
 
+## Etapas
 | Etapa | Estado |
 |---|---|
-| Detección del espacio de trabajo | Omitida (proyecto nuevo) |
-| Reverse engineering | Omitida |
-| **Análisis de requisitos (estándar)** | **Completo: 15 preguntas y 3 aclaraciones respondidas; `requirements.md` generado** |
-| Historias de usuario | Omitida (el PRD trae los recorridos) |
-| Diagnóstico de tres expertos | Aplicado a `requirements.md` (sección 6) |
-| Planeación del flujo | Siguiente |
-| Diseño de aplicación (ligero) | Completo: `application-design/components.md` |
-| Unidades de trabajo | Aprobadas (4 unidades) |
-| Diseño funcional: núcleo (reglas de negocio) | Aprobado |
-| Diseño funcional: interfaz | Aprobado |
-| Diseño funcional: lectura (U2) | Aprobado |
-| Diseño funcional: evaluación (U4) | Aprobado |
-| Contrato compartido | Aprobado (`contrato/`, 1.0.0-rc1) |
-| Plan de ejecución | Aprobado (2026-10-17); sus 6 preguntas abiertas esperan respuesta una por una |
-| Reglas del proyecto, subagentes y graphify | Instalados: `CLAUDE.md`, `.claude/agents/`, hook de fin de turno, grafo inicial |
-| Planes de código por unidad (x4) | Siguiente |
-| NFR e infraestructura (nota fusionada) | Aprobada |
-| Generación de código, build y pruebas | Pendiente; no se empieza hasta cerrar el diseño |
+| Requisitos, diseño de aplicación, unidades, diseños funcionales, contrato (1.0.0-rc1), plan de ejecución | Aprobados |
+| Reglas del proyecto, subagentes, graphify, sistema de diseño, estrategia de verificación | Instalados |
+| Planes de código por unidad (x4) | Aprobados; ejecución con código ligero (`CLAUDE.md` 5c) |
+| Arquitectura objetivo frente a MVP | `inception/architecture-target-vs-mvp.md` y `docs/arquitectura.html` |
+| Guion del video | v3; escena 2 ampliada a tres trampas seguidas |
 
-| Sistema de diseño de la interfaz | Definido: `docs/design-system/` y `interfaz/functional-design/design-system.md` (Tailwind compilado + Alpine) |
-| Estrategia de verificación | Definida y probada: `verify.py`, `verify.budget.json`, `conftest.py` |
+## Construcción por unidad (registro detallado en `construction/tandas.md`)
+| Unidad | Hecho | Pendiente |
+|---|---|---|
+| U1 Núcleo | T1, T1b y Ola 2: 11 reglas, guardián de 6 verificaciones, libro de reserva y nonce, mandatos v1 y v2, sesiones. 43 pruebas | Aprobar con reevaluación (T4); marcador, pentest y arena (rutas); despliegue; diferencias con `esperado.json` en f_10, f_12, f_13, f_15 y f_16 |
+| U2 Lectura | T1, T1b y asignación de proveedor. 11 pruebas | Ola 3 en curso: IVA en líneas, extractor con prompt versionado, tope de gasto. Después: adaptadores PDF, `.eml`, foto y chat; lecturas reales con la clave de API |
+| U3 Interfaz | Decisiones, recibo legible y guardián con campo alterable. 5 pruebas | Pantalla de reglas (solo lectura), marcador, escena del ataque, bandeja simulada, botón de guion |
+| U4 Evaluación | Esperados de las 18 facturas. 20 pruebas | Ola 3 en curso: verificador independiente y corrida. Después: pentest de 6 estrategias, arena acotada, 5 mutantes |
+| Datos | Registro maestro corregido (Nuevo Logos fuera del registro) | Ola 3 en curso: set multicanal simulado en `datos/documentos/` |
+
+`verify.py` global: VERDE, 79 pruebas (máximo 200).
+
+## Pendientes de personas
+Clave de API de Anthropic (Dev A, antes del sábado 12:00); cuenta de despliegue gratuito; video de respaldo el sábado y regrabación el domingo de 07:00 a 10:00; dos ensayos con cronómetro.
