@@ -1,6 +1,6 @@
 # Contrato compartido
 
-Version `1.1.0-rc3`. Es la ruta critica de las cuatro unidades. Se escribio antes que el codigo, a partir de los diseños funcionales aprobados en `aidlc-docs/construction/`.
+Version `1.1.0-rc5`. Es la ruta critica de las cuatro unidades. Se escribio antes que el codigo, a partir de los diseños funcionales aprobados en `aidlc-docs/construction/`.
 
 ## Archivos
 | Archivo | Que define | Quien lo produce | Quien lo consume |
