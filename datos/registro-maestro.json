@@ -148,30 +148,6 @@
       }
     },
     {
-      "id": "prov_logos",
-      "nombre": "Nuevo Logos LLC",
-      "alias": [
-        "NUEVO LOGOS LLC"
-      ],
-      "id_fiscal": null,
-      "estado": "activo",
-      "alta": "2026-10-02",
-      "nivel_autonomia": "ninguna",
-      "cuenta": {
-        "pais": "US",
-        "ultimos4": "3318",
-        "titular": "Nuevo Logos LLC",
-        "moneda": "USD"
-      },
-      "acuerdo": {
-        "ref": "AC-NLOGOS-2026-01",
-        "monto_maximo_menor": "90000",
-        "moneda": "USD",
-        "vigencia_desde": "2026-01-01",
-        "vigencia_hasta": "2026-12-31"
-      }
-    },
-    {
       "id": "prov_pampa",
       "nombre": "Taller Pampa SRL",
       "alias": [

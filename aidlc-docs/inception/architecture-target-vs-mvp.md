@@ -25,12 +25,36 @@ Transversal: registro de solo adición, aprobaciones con roles y doble firma,
 ```
 Principios: dominio puro y puertos para lo que cambia (modelos, firmador, reloj, almacenamiento); la política es un dato; dinero en enteros; falla cerrado; el servidor es la fuente de verdad.
 
+### 3b. Versionamiento de prompts, mandatos y contratos
+Todo lo que cambia el comportamiento tiene versión y queda en el recibo, para reproducir cualquier decisión.
+- **Prompts del extractor:** archivos versionados (`prompt-extractor.vN`) con hash. Cada extracción guarda versión de prompt, hash, modelo y costo.
+- **Promoción de un prompt:** un cambio pasa por el set de 18 facturas y las variantes de la arena; solo se promueve si no empeora los aciertos ni la escalada innecesaria. El prompt nunca contiene reglas de negocio: esas viven en el mandato.
+- **Mandato:** versionado (v1 sin R10, v2 con R10); el recibo cita la versión; un cambio exige propuesta y contrafirma.
+- **Contrato y esquemas:** versión semántica en `contrato/`; cambiarlo exige acuerdo de las dos personas desarrolladoras.
+- **Reglas:** `reglas.registro.json` con id y versión; los esperados cambian solo con revisión independiente.
+
+### 3c. Seguridad por capas
+| Amenaza | Control |
+|---|---|
+| Instrucción oculta en el documento (inyección de prompt) | El texto es dato; el modelo no decide; R8 marca texto dirigido al agente; el motor es determinista |
+| Cuenta o beneficiario cambiado (BEC) | R3 y R4 contra el registro maestro; ESCALAR con motivo escrito |
+| Recibo alterado o reutilizado | Firma Ed25519, vigencia 24 h, nonce de un solo uso; el guardián verifica antes de pagar |
+| Pago sin decisión | El guardián se niega sin recibo válido; falla cerrado |
+| Facturas partidas o duplicados | R2a, R2b y R10 (tope acumulado); el pentest lo prueba |
+| Fuga de secretos | Claves y API fuera del repositorio; llave de firma en KMS o HSM en producción |
+| Manipulación del historial | Registro de solo adición; estado derivado |
+| Abuso del modelo (costo) | Contador de tokens y tope duro por corrida |
+| Salida con datos hostiles en la interfaz | `x-text` y escape; nunca `x-html` con datos de facturas |
+| Verificador comprometido por el mismo autor | Verificador independiente y mutación corrida por otro agente |
+
 ## 4. Objetivo frente a MVP del hackathon
 | Componente | Objetivo en producción | MVP (lo que se construye) | Por qué el recorte es seguro |
 |---|---|---|---|
 | Entradas | Correo, chat, PDF, escaneado, foto, XML fiscal en vivo | Bandeja simulada con etiqueta visible; texto, PDF, `.eml` y chat de prueba; foto con doble lectura | Mismos adaptadores y la misma factura canónica; solo cambia la fuente |
 | Lectura | Cascada de modelos con caché, cuotas y monitoreo | Lecturas congeladas; modelo real si llega la clave | La lectura nunca decide; lo que lee pasa por el mismo motor |
 | Reglas | 11 reglas, registro extensible, auditoría de cambios | Reglas simples como filas del mandato; pocas con función propia | La precedencia y el falla cerrado no cambian |
+| Prompts | Versionados con hash, promoción por evaluación, registro por extracción | Un archivo por prompt con versión y hash guardados en cada extracción; la promoción es manual con el set de 18 | Se conserva la trazabilidad; solo falta la compuerta automática |
+| Seguridad | Capas de la sección 3c, llaves administradas, auditoría externa | Los mismos controles de decisión, recibo, guardián y escape; llave local | Los controles que el reto califica están completos |
 | Mandato | Versionado, dos firmas (CFO propone, analista contrafirma) | Dos versiones fijas (v1 sin R10, v2 con R10); pantalla de solo lectura | Basta para mostrar el hueco de política y su cierre |
 | Firma | Llave en KMS o HSM, rotación | Llave local de demo, Ed25519, nonce y vigencia | El algoritmo y la verificación son los mismos |
 | Guardián | Servicio en la ruta de pago del ERP o banco | Servicio y función con las mismas 6 verificaciones | La verificación es idéntica; cambia dónde se aloja |

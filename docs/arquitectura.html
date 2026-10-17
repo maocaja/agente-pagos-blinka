@@ -1,0 +1,231 @@
+<title>Arquitectura del Agente de Pagos</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap">
+<style>
+/* Documento técnico para el jurado: papel frío, tinta azul; color fuerte solo en los cuatro veredictos */
+:root{
+  --lienzo:#F7F7F4; --panel:#FFFFFF; --elevado:#F0F2F4; --linea:#DEDFDC; --linea-fuerte:#7C879A;
+  --texto:#1C253A; --texto-2:#555B6A; --texto-3:#626977; --acento:#2A4BD0; --acento-fuerte:#2140B3;
+  --pagar:#0B7A55; --frenar:#B8321E; --escalar:#8F5700; --registrar:#5B3FC4; --sello:#8A6A1F;
+  --pagar-bg:#E3F4EC; --frenar-bg:#FBE6E3; --escalar-bg:#FBF0D9; --registrar-bg:#ECE8FA;
+  --display:"Newsreader",Georgia,serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --lienzo:#111720; --panel:#18202C; --elevado:#1F2A3A; --linea:#2A3547; --linea-fuerte:#6580A0;
+  --texto:#E9EDF1; --texto-2:#B2BBC7; --texto-3:#8E9AAD; --acento:#B9C8FF; --acento-fuerte:#D3DDFF;
+  --pagar:#3DDBA8; --frenar:#FF7A6B; --escalar:#FFB84D; --registrar:#94AEFF; --sello:#C9A24A;
+  --pagar-bg:#12332A; --frenar-bg:#3A1F1C; --escalar-bg:#3A2D14; --registrar-bg:#262B4A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --lienzo:#111720; --panel:#18202C; --elevado:#1F2A3A; --linea:#2A3547; --linea-fuerte:#6580A0;
+  --texto:#E9EDF1; --texto-2:#B2BBC7; --texto-3:#8E9AAD; --acento:#B9C8FF; --acento-fuerte:#D3DDFF;
+  --pagar:#3DDBA8; --frenar:#FF7A6B; --escalar:#FFB84D; --registrar:#94AEFF; --sello:#C9A24A;
+  --pagar-bg:#12332A; --frenar-bg:#3A1F1C; --escalar-bg:#3A2D14; --registrar-bg:#262B4A; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--lienzo);color:var(--texto);font:15px/1.6 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 64px}
+main{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:48px}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:clamp(30px,5vw,46px);letter-spacing:-.01em;max-width:22ch}
+h2{font-size:26px}
+h3{font-size:18px}
+p{margin:0;max-width:68ch}
+.lead{font-size:18px;color:var(--texto-2);margin-top:14px;max-width:62ch}
+.sec{display:flex;flex-direction:column;gap:18px}
+.sec>p{color:var(--texto-2)}
+.tesis{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:24px}
+.tesis div{border-top:3px solid var(--linea-fuerte);padding-top:10px}
+.tesis b{font-family:var(--display);font-size:20px;display:block}
+.tesis span{color:var(--texto-2);font-size:14px}
+.tesis .l{border-color:var(--registrar)}.tesis .d{border-color:var(--acento)}.tesis .p{border-color:var(--sello)}.tesis .g{border-color:var(--pagar)}
+.diagrama{overflow-x:auto;border:1px solid var(--linea-fuerte);border-radius:6px;background:var(--panel);padding:12px}
+.diagrama svg{display:block;min-width:980px;width:100%;height:auto;color:var(--texto)}
+.diagrama text{font-family:var(--body);fill:currentColor}
+.t1{font-size:14px;font-weight:600}.t2{font-size:11.5px;fill:var(--texto-2)!important}.t3{font-size:11px;fill:var(--texto-3)!important;font-family:var(--mono)!important}
+.nodo{fill:var(--panel);stroke:var(--linea-fuerte);stroke-width:1.5}
+.nodo.clave{stroke:var(--acento);stroke-width:2.5}
+.banda{fill:var(--elevado);stroke:var(--linea-fuerte);stroke-width:1}
+.prod{fill:none;stroke:var(--linea-fuerte);stroke-width:1.5;stroke-dasharray:6 5}
+.flecha{stroke:currentColor;stroke-width:1.6;fill:none}
+.v-pagar{fill:var(--pagar-bg);stroke:var(--pagar)}.v-frenar{fill:var(--frenar-bg);stroke:var(--frenar)}.v-escalar{fill:var(--escalar-bg);stroke:var(--escalar)}.v-registrar{fill:var(--registrar-bg);stroke:var(--registrar)}
+.leyenda{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:13px;color:var(--texto-2);align-items:center}
+.leyenda i{display:inline-block;width:22px;height:12px;border:1.5px solid var(--linea-fuerte);vertical-align:-2px;margin-right:6px;border-radius:2px}
+.leyenda i.d{border-style:dashed}
+figcaption{font-size:13px;color:var(--texto-2);margin-top:10px;max-width:80ch}
+figure{margin:0}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.col{border:1px solid var(--linea);border-radius:6px;background:var(--panel);padding:16px 18px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.col p{font-size:14px;color:var(--texto-2)}
+.col code,td code{font-family:var(--mono);font-size:12.5px;background:var(--elevado);padding:1px 5px;border-radius:3px}
+.tabla{overflow-x:auto;border:1px solid var(--linea);border-radius:6px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--linea);vertical-align:top}
+th{font-weight:600;background:var(--elevado);font-size:13px}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:500;white-space:nowrap}
+.chip{display:inline-flex;gap:6px;align-items:center;font-size:12.5px;font-weight:600;padding:2px 9px;border-radius:99px;border:1.5px solid}
+.chip.p{background:var(--pagar-bg);border-color:var(--pagar);color:var(--pagar)}
+.chip.f{background:var(--frenar-bg);border-color:var(--frenar);color:var(--frenar)}
+.chip.e{background:var(--escalar-bg);border-color:var(--escalar);color:var(--escalar)}
+.chip.r{background:var(--registrar-bg);border-color:var(--registrar);color:var(--registrar)}
+.reglas{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 28px;list-style:none;margin:0;padding:0}
+.reglas li{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--linea);font-size:14px}
+.reglas b{font-family:var(--mono);font-weight:500;min-width:34px;color:var(--acento)}
+.principios{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px 32px;margin:0;padding:0;list-style:none;font-size:14px}
+.principios li{padding-left:14px;border-left:3px solid var(--linea-fuerte);color:var(--texto-2)}
+.principios b{color:var(--texto)}
+footer{font-size:13px;color:var(--texto-3);border-top:1px solid var(--linea);padding-top:16px}
+a{color:var(--acento)}
+:focus-visible{outline:3px solid var(--texto);outline-offset:2px}
+</style>
+
+<main>
+<header>
+  <h1>El modelo lee. Las reglas deciden. El recibo prueba. El guardián paga.</h1>
+  <p class="lead">Un agente que paga facturas puede equivocarse o ser engañado. Esta arquitectura separa quien interpreta el documento de quien decide el pago, deja cada decisión firmada y verificable, y pone un último control en el punto de pago.</p>
+  <div class="tesis">
+    <div class="l"><b>Lee</b><span>El modelo convierte cualquier documento en una factura canónica, con confianza y evidencia por campo.</span></div>
+    <div class="d"><b>Decide</b><span>Un motor determinista aplica las reglas del mandato de la empresa. Sin cortocircuito; ante la duda, escala.</span></div>
+    <div class="p"><b>Prueba</b><span>Cada decisión es un recibo legible con regla, versión del mandato, hora y firma Ed25519.</span></div>
+    <div class="g"><b>Paga</b><span>El guardián se niega a emitir la orden sin un recibo válido, vigente y de un solo uso.</span></div>
+  </div>
+</header>
+
+<section class="sec" aria-labelledby="flujo">
+  <h2 id="flujo">Del documento a la orden de pago</h2>
+  <figure>
+    <div class="diagrama">
+<svg viewBox="0 0 1270 560" role="img" aria-label="Flujo de ocho componentes desde los canales de entrada hasta la orden de pago, con cinco planos transversales debajo y la conexión a ERP o banco como diseño de producción.">
+  <defs><marker id="fl" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker></defs>
+  <g class="t2"><text x="8" y="20">Camino del dato</text></g>
+  <!-- nodos -->
+  <g>
+    <rect class="nodo" x="8" y="40" width="130" height="92" rx="6"/><text class="t1" x="20" y="66">Canales</text><text class="t2" x="20" y="86">correo, chat, PDF,</text><text class="t2" x="20" y="102">escaneado, foto</text>
+    <rect class="nodo" x="198" y="40" width="130" height="92" rx="6"/><text class="t1" x="210" y="66">Adaptadores</text><text class="t2" x="210" y="86">uno por formato,</text><text class="t2" x="210" y="102">registrados</text>
+    <rect class="nodo" x="388" y="40" width="130" height="92" rx="6"/><text class="t1" x="400" y="66">Extractor</text><text class="t2" x="400" y="86">modelo, cita y</text><text class="t2" x="400" y="102">verificaciones</text>
+    <rect class="nodo" x="578" y="40" width="130" height="92" rx="6"/><text class="t1" x="590" y="66">Factura canónica</text><text class="t2" x="590" y="86">contrato versionado,</text><text class="t2" x="590" y="102">dinero en enteros</text>
+    <rect class="nodo clave" x="768" y="40" width="130" height="92" rx="6"/><text class="t1" x="780" y="66">Motor de reglas</text><text class="t2" x="780" y="86">R1 a R10, mandato</text><text class="t2" x="780" y="102">versionado</text>
+    <rect class="nodo clave" x="958" y="40" width="130" height="92" rx="6"/><text class="t1" x="970" y="66">Recibo firmado</text><text class="t2" x="970" y="86">Ed25519, nonce,</text><text class="t2" x="970" y="102">vigencia 24 h</text>
+    <rect class="nodo clave" x="1148" y="40" width="116" height="92" rx="6"/><text class="t1" x="1160" y="66">Guardián</text><text class="t2" x="1160" y="86">6 verificaciones</text><text class="t2" x="1160" y="102">falla cerrado</text>
+  </g>
+  <!-- flechas -->
+  <g class="flecha">
+    <line x1="140" y1="86" x2="196" y2="86" marker-end="url(#fl)"/><line x1="330" y1="86" x2="386" y2="86" marker-end="url(#fl)"/>
+    <line x1="520" y1="86" x2="576" y2="86" marker-end="url(#fl)"/><line x1="710" y1="86" x2="766" y2="86" marker-end="url(#fl)"/>
+    <line x1="900" y1="86" x2="956" y2="86" marker-end="url(#fl)"/><line x1="1090" y1="86" x2="1146" y2="86" marker-end="url(#fl)"/>
+  </g>
+  <g class="t3">
+    <text x="146" y="78">bytes</text><text x="336" y="78">texto</text><text x="528" y="78">campos</text><text x="720" y="78">hechos</text><text x="906" y="78">veredicto</text><text x="1096" y="78">recibo</text>
+  </g>
+  <!-- veredictos -->
+  <g>
+    <rect class="v-pagar" x="768" y="146" width="62" height="24" rx="12" stroke-width="1.5"/><text class="t2" x="780" y="162" style="fill:var(--pagar)!important;font-weight:600">PAGAR</text>
+    <rect class="v-frenar" x="836" y="146" width="62" height="24" rx="12" stroke-width="1.5"/><text class="t2" x="846" y="162" style="fill:var(--frenar)!important;font-weight:600">FRENAR</text>
+    <rect class="v-escalar" x="904" y="146" width="70" height="24" rx="12" stroke-width="1.5"/><text class="t2" x="914" y="162" style="fill:var(--escalar)!important;font-weight:600">ESCALAR</text>
+    <rect class="v-registrar" x="980" y="146" width="84" height="24" rx="12" stroke-width="1.5"/><text class="t2" x="988" y="162" style="fill:var(--registrar)!important;font-weight:600">REGISTRAR</text>
+    <text class="t3" x="768" y="192">precedencia FRENAR &gt; ESCALAR &gt; PAGAR o REGISTRAR</text>
+  </g>
+  <!-- orden de pago y producción -->
+  <g class="flecha"><line x1="1206" y1="132" x2="1206" y2="226" marker-end="url(#fl)"/></g>
+  <text class="t3" x="1214" y="184">orden</text>
+  <rect class="nodo" x="1090" y="232" width="174" height="64" rx="6"/><text class="t1" x="1102" y="258">Orden de pago</text><text class="t2" x="1102" y="278">propuesta, sin mover dinero</text>
+  <rect class="prod" x="8" y="232" width="1010" height="64" rx="6"/>
+  <text class="t1" x="22" y="258" style="fill:var(--texto-2)!important">Integración de producción</text>
+  <text class="t2" x="22" y="278">ERP o banco para ejecutar la orden · llave de firma en KMS o HSM · XML fiscal · multiempresa</text>
+  <!-- planos transversales -->
+  <g class="t2"><text x="8" y="330">Planos transversales</text></g>
+  <rect class="banda" x="8" y="342" width="1256" height="38" rx="6"/><text class="t1" x="22" y="366">Registro de solo adición</text><text class="t2" x="230" y="366">cada decisión, aprobación y orden queda anotada; el estado se deriva, nunca se edita</text>
+  <rect class="banda" x="8" y="388" width="1256" height="38" rx="6"/><text class="t1" x="22" y="412">Versionamiento</text><text class="t2" x="230" y="412">mandato, prompts del extractor, contrato y reglas con versión y hash; el recibo cita la versión que decidió</text>
+  <rect class="banda" x="8" y="434" width="1256" height="38" rx="6"/><text class="t1" x="22" y="458">Seguridad</text><text class="t2" x="230" y="458">el texto es un dato, no una orden · falla cerrado · salida escapada · tope de gasto del modelo · sin secretos en el repositorio</text>
+  <rect class="banda" x="8" y="480" width="1256" height="38" rx="6"/><text class="t1" x="22" y="504">Evaluación independiente</text><text class="t2" x="230" y="504">verificador escrito aparte, pentest de 6 estrategias, arena con semilla, mutación del motor</text>
+</svg>
+    </div>
+    <figcaption>El dato fluye en un solo sentido. El modelo solo aparece en el extractor; todo lo que sigue es código determinista y verificable.</figcaption>
+  </figure>
+  <div class="leyenda" aria-label="Leyenda">
+    <span><i></i>Componente implementado y probado en la demostración</span>
+    <span><i class="d"></i>Integración de producción, fuera del alcance de la demostración</span>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="comp">
+  <h2 id="comp">Qué hace cada pieza</h2>
+  <div class="cols">
+    <div class="col"><h3>Lectura</h3><p>Un adaptador por formato entrega siempre la misma factura canónica. Las imágenes se leen dos veces con modelos distintos y nunca llegan a PAGAR sin una persona. Cada campo trae confianza y cita del documento.</p></div>
+    <div class="col"><h3>Motor de reglas</h3><p>Funciones puras sobre hechos. Las reglas simples son filas del mandato; las que tienen lógica propia son funciones registradas. Se evalúan todas, sin cortocircuito, y el resultado se agrega por precedencia.</p></div>
+    <div class="col"><h3>Recibo y firma</h3><p>El recibo se escribe para una persona y se firma para una máquina. Cualquiera con la clave pública puede verificarlo. Un byte alterado lo invalida.</p></div>
+    <div class="col"><h3>Guardián</h3><p>Seis verificaciones antes de emitir la orden: firma válida, hash de la factura, monto y beneficiario del recibo, veredicto o aprobación vigente, mandato vigente y recibo no usado antes. Reevalúa el presupuesto; reserva y nonce se confirman en una sola transacción.</p></div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="reglas">
+  <h2 id="reglas">Reglas del mandato</h2>
+  <p>La empresa define umbrales, límites, monedas y topes. El código no contiene ningún valor de negocio.</p>
+  <ul class="reglas">
+    <li><b>R1</b><span>Lectura confiable: confianza, totales que cuadran, origen de imagen.</span></li>
+    <li><b>R2a</b><span>Duplicado exacto: mismo proveedor y número.</span></li>
+    <li><b>R2b</b><span>Duplicado difuso: número reformateado, mismo monto.</span></li>
+    <li><b>R3</b><span>Beneficiario permitido en el registro de proveedores.</span></li>
+    <li><b>R4</b><span>Cuenta registrada: una cuenta distinta escala a una persona.</span></li>
+    <li><b>R5</b><span>Coincide con lo acordado: precio y condiciones del acuerdo.</span></li>
+    <li><b>R6</b><span>Monto: umbral de aprobación y tope por pago.</span></li>
+    <li><b>R7</b><span>Moneda permitida, con el monto en unidades menores.</span></li>
+    <li><b>R8</b><span>Texto dirigido al agente: instrucciones escondidas en el documento.</span></li>
+    <li><b>R9</b><span>Presupuesto del periodo: reserva y reevaluación.</span></li>
+    <li><b>R10</b><span>Tope acumulado por proveedor: cierra las facturas partidas.</span></li>
+  </ul>
+</section>
+
+<section class="sec" aria-labelledby="ver">
+  <h2 id="ver">Versionamiento</h2>
+  <p>Todo lo que cambia el comportamiento tiene versión y queda citado en el recibo, así que cualquier decisión se puede reproducir.</p>
+  <div class="tabla"><table>
+    <thead><tr><th>Artefacto</th><th>Qué versiona</th><th>Cómo cambia</th></tr></thead>
+    <tbody>
+      <tr><td>Mandato</td><td>Reglas, umbrales, límites y monedas de la empresa. <code>v1</code> sin R10, <code>v2</code> con R10.</td><td>Propuesta de quien finanzas designa y contrafirma de un segundo rol.</td></tr>
+      <tr><td>Prompts del extractor</td><td>Instrucciones al modelo, con versión y hash guardados en cada extracción junto al modelo y el costo.</td><td>Un prompt nuevo se promueve solo si no empeora los aciertos ni la escalada innecesaria en el set y la arena. Nunca contiene reglas de negocio.</td></tr>
+      <tr><td>Contrato</td><td>Esquemas de factura, decisión, recibo, mandato y resultados, y la API.</td><td>Versión semántica; exige el acuerdo de las dos personas desarrolladoras.</td></tr>
+      <tr><td>Reglas</td><td>Identificador y versión por regla.</td><td>Los resultados esperados los fija una revisión independiente, no el autor del código.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="sec" aria-labelledby="seg">
+  <h2 id="seg">Seguridad</h2>
+  <div class="tabla"><table>
+    <thead><tr><th>Amenaza</th><th>Control</th></tr></thead>
+    <tbody>
+      <tr><td>Instrucción escondida en el documento</td><td>El texto es un dato. El modelo no decide el pago. R8 marca el texto dirigido al agente.</td></tr>
+      <tr><td>Cuenta o beneficiario cambiado</td><td>R3 y R4 contra el registro maestro. Escala con el motivo escrito.</td></tr>
+      <tr><td>Recibo alterado o reutilizado</td><td>Firma Ed25519, vigencia de 24 horas y nonce de un solo uso, verificados por el guardián.</td></tr>
+      <tr><td>Pago sin decisión válida</td><td>El guardián se niega. Ante un error o una duda el resultado es ESCALAR o FRENAR, nunca PAGAR.</td></tr>
+      <tr><td>Facturas partidas o duplicadas</td><td>R2a, R2b y R10. El pentest prueba cada estrategia contra los mandatos v1 y v2.</td></tr>
+      <tr><td>Manipulación del historial</td><td>Registro de solo adición con estado derivado.</td></tr>
+      <tr><td>Costo descontrolado del modelo</td><td>Contador de tokens y tope duro por corrida, con costo en micro-USD.</td></tr>
+      <tr><td>Datos hostiles en la interfaz</td><td>Salida escapada; ningún dato de una factura se inserta como HTML.</td></tr>
+      <tr><td>Verificador comprometido por su autor</td><td>El verificador se escribe sin leer el motor y la mutación la corre otro agente.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="sec" aria-labelledby="eval">
+  <h2 id="eval">Cómo se evalúa</h2>
+  <div class="cols">
+    <div class="col"><h3>Verificador independiente</h3><p>Reescribe la condición de pago solo desde el texto de las reglas. Toda discrepancia con el motor se muestra.</p></div>
+    <div class="col"><h3>Pentest y arena</h3><p>Seis estrategias dirigidas y miles de variantes con semilla fija. El resultado se declara con su alcance: qué se probó y qué no.</p></div>
+    <div class="col"><h3>Mutación</h3><p>Se rompe el motor a propósito, una regla a la vez, y se comprueba que las pruebas lo detectan.</p></div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="ing">
+  <h2 id="ing">Principios de ingeniería</h2>
+  <ul class="principios">
+    <li><b>Dominio puro.</b> Las reglas no conocen la red, la base de datos ni el modelo; entran por puertos.</li>
+    <li><b>Política como dato.</b> El mandato se inyecta y se versiona; nada de negocio vive en el código.</li>
+    <li><b>Falla cerrado.</b> Un error, un tipo desconocido o una regla ausente no producen PAGAR.</li>
+    <li><b>Dinero en enteros.</b> Unidades menores como texto; el modelo no convierte monedas.</li>
+    <li><b>Idempotencia.</b> Cada comando lleva su clave; reserva y nonce se confirman juntos.</li>
+    <li><b>Servidor como fuente de verdad.</b> La interfaz no es optimista y los datos fluyen en un solo sentido.</li>
+  </ul>
+</section>
+
+<footer>Agente de pagos con garantía · diseño de arquitectura · 2026-10-17. Los datos de las facturas son de prueba y no se mueve dinero real.</footer>
+</main>
