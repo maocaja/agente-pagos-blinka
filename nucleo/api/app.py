@@ -1,12 +1,15 @@
 import base64
 import importlib.util
 import json
+from pathlib import Path
 
 from cryptography.hazmat.primitives import serialization
 from fastapi import APIRouter, Depends, FastAPI, Header, Request
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 from ..dominio.mandato import RAIZ_CONTRATO
+from .rutas_acciones import rutas_acciones
 from .sesiones import Sesiones
 
 _ESTADOS = {"pendientes": {"pendiente"}, "pagadas": {"con_recibo", "autorizada"},
@@ -58,10 +61,12 @@ def _rutas_facturas(validar, esquema, dep) -> APIRouter:
     r = APIRouter()
 
     @r.post("/api/facturas", status_code=201)
-    def crear_factura(factura: dict, servicio=Depends(dep), idempotency_key: str | None = Header(None)):
+    def crear_factura(factura: dict, servicio=Depends(dep), idempotency_key: str | None = Header(None),
+                      x_rol: str | None = Header(None)):
         errores = validar(factura, esquema)
         if errores:
             return _error(422, "cuerpo_invalido", "La factura no cumple el esquema.", {"errores": errores[:10]})
+        servicio.cargadores.setdefault(factura["id"], x_rol or "sistema")
         return servicio.idempotente("decision", idempotency_key, lambda: servicio.decidir(factura))
 
     @r.get("/api/decisiones")
@@ -119,7 +124,11 @@ def _rutas_recibos(dep) -> APIRouter:
     return r
 
 
-def crear_app(sesiones: Sesiones) -> FastAPI:
+RESULTADOS_SET = RAIZ_CONTRATO.parent / "evaluacion" / "salida" / "resultados-set.json"
+INTERFAZ_DIST = RAIZ_CONTRATO.parent / "interfaz" / "dist"
+
+
+def crear_app(sesiones: Sesiones, ruta_resultados: Path = RESULTADOS_SET, ruta_interfaz: Path = INTERFAZ_DIST) -> FastAPI:
     app = FastAPI(title="Nucleo")
     esquema = json.loads((RAIZ_CONTRATO / "factura-canonica.schema.json").read_text(encoding="utf-8"))
 
@@ -136,4 +145,7 @@ def crear_app(sesiones: Sesiones) -> FastAPI:
     app.include_router(_rutas_sesion(sesiones))
     app.include_router(_rutas_facturas(_cargar_validador(), esquema, servicio_de))
     app.include_router(_rutas_recibos(servicio_de))
+    app.include_router(rutas_acciones(servicio_de, ruta_resultados))
+    if ruta_interfaz.is_dir():
+        app.mount("/", StaticFiles(directory=ruta_interfaz, html=True), name="interfaz")  # al final: /api manda
     return app

@@ -15,6 +15,8 @@ class ServicioDecision:
         self.facturas: dict = {}
         self.recibos: dict = {}
         self.respuestas: dict = {}
+        self.aprobaciones: dict = {}
+        self.cargadores: dict = {}
 
     def modo_de(self, pid) -> str:
         dias = self.reg.dias_de_alta(pid, self.reloj().date()) if pid else None
@@ -29,8 +31,8 @@ class ServicioDecision:
             self.respuestas[(ambito, clave)] = producir()
         return self.respuestas[(ambito, clave)]
 
-    def _emitir(self, d, f) -> None:
-        r = emitir_recibo(d, f, self.m, self.ids, self.nonce, self.reloj, self.firmador)
+    def emitir(self, d, f, fallas_aprobadas=()) -> None:
+        r = emitir_recibo(d, f, self.m, self.ids, self.nonce, self.reloj, self.firmador, fallas_aprobadas)
         try:
             self.libro.reservar(r["id"], r["nonce"], r["beneficiario_id"], f["ciclo_id"],
                                 int(r["monto_base_menor"]), int(self.m.p["presupuesto_periodo_menor"]))
@@ -44,7 +46,7 @@ class ServicioDecision:
         d = decidir(f, self.m, self.reg, self.ids, self.reloj, self.modo_de(f["proveedor_asignado"]["proveedor_id"]),
                     requeridas=self.requeridas)
         if d["veredicto"] == "PAGAR":
-            self._emitir(d, f)
+            self.emitir(d, f)
         self.reg.registrar_factura(f, d["estado"])
         self.facturas[f["id"]] = f
         self.decisiones[d["id"]] = d

@@ -54,8 +54,8 @@ Es la escena 3 del video: se altera un byte y el guardián rechaza.
 - Listo cuando: las 11 reglas del registro corren y `contrato/reglas.registro.json` coincide con las reglas registradas en el código (prueba).
 
 ### T4. Aprobaciones, roles y ciclo (sábado de madrugada)
-- [ ] 4.1 Dos roles simulados (analista y CFO) con encabezado `X-Rol`; mapa de capacidades por rol; quien cargó no aprueba.
-- [ ] 4.2 Aprobar siempre reevalúa y emite un recibo nuevo; vigencia de 24 h; falla de lectura de R1 no se aprueba, se corrige.
+- [x] 4.1 Dos roles simulados (analista y CFO) con encabezado `X-Rol`; mapa de capacidades por rol; quien cargó no aprueba.
+- [x] 4.2 Aprobar siempre reevalúa y emite un recibo nuevo; vigencia de 24 h; falla de lectura de R1 no se aprueba, se corrige.
 - [ ] 4.3 Mandato propuesto por el CFO y contrafirmado por el analista; versión nueva.
 - [ ] 4.4 Ciclo de pagos y exportación de la conciliación.
 - [ ] 4.5 Vista previa "qué cambia si se aprueba".
