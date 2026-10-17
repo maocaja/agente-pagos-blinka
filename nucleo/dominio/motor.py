@@ -1,17 +1,33 @@
 import json
+from functools import lru_cache
 
+from . import reglas_simples  # noqa: F401  registra R3 a R7
 from .errores import FallaCerrada
 from .mandato import RAIZ_CONTRATO
-from .reglas import REGLAS, TIPOS_EVALUABLES, Resultado
+from .reglas import AL_FINAL, REGLAS, Resultado
 
 PRECEDENCIA = ("FRENAR", "ESCALAR")
-# Tipos que no se evalúan por reglas: resultado fijo. Lo no listado ni evaluable es ESCALAR.
-POLITICA_TIPO = {"estado_de_cuenta": ("FRENAR", "No es una factura.")}
+ESTADO_DE = {"FRENAR": "frenada", "ESCALAR": "pendiente", "PAGAR": "con_recibo", "REGISTRAR": "registrada"}
+# Politica por tipo: "fijo" no evalua reglas; "si_cumple" es el veredicto cuando todas pasan.
+POLITICA_TIPO = {
+    "factura": {"si_cumple": "PAGAR"},
+    "cuenta_de_cobro": {"si_cumple": "PAGAR"},
+    "nota_de_credito": {"si_cumple": "REGISTRAR", "motivo": "Nota de credito: se registra a favor del proveedor, sin orden."},
+    "proforma": {"si_cumple": "ESCALAR", "motivo": "Proforma: la decide una persona."},
+    "anticipo": {"si_cumple": "ESCALAR", "motivo": "Anticipo: lo decide una persona."},
+    "estado_de_cuenta": {"fijo": ("FRENAR", "No es una factura.")},
+}
+TIPO_DESCONOCIDO = ("ESCALAR", "Tipo de documento no soportado.")
+
+
+@lru_cache(maxsize=1)
+def _registro() -> dict:
+    datos = json.loads((RAIZ_CONTRATO / "reglas.registro.json").read_text(encoding="utf-8"))
+    return {r["id"]: r["tipos"] for r in datos["reglas"]}
 
 
 def ids_del_registro() -> tuple:
-    datos = json.loads((RAIZ_CONTRATO / "reglas.registro.json").read_text(encoding="utf-8"))
-    return tuple(r["id"] for r in datos["reglas"])
+    return tuple(_registro())
 
 
 def fallas_por_regla_faltante(registradas, requeridas) -> list:
@@ -20,46 +36,55 @@ def fallas_por_regla_faltante(registradas, requeridas) -> list:
             for i in requeridas if i not in registradas]
 
 
-def evaluar_reglas(f, m, reg, reglas=None, requeridas=None) -> list:
-    """Corre todas las reglas sin cortocircuito; una excepcion es falla ESCALAR no aprobable."""
-    reglas = REGLAS if reglas is None else reglas
-    salida = fallas_por_regla_faltante(reglas, ids_del_registro() if requeridas is None else requeridas)
-    for id_, fn in reglas.items():
+def _correr(f, m, reg, reglas, ids) -> list:
+    salida = []
+    for i in ids:
         try:
-            r = fn(f, m, reg)
+            r = reglas[i](f, m, reg)
         except (FallaCerrada, KeyError, TypeError, ValueError) as e:
             r = Resultado("falla", "ESCALAR", False, f"No se pudo evaluar: {e}", None)
-        salida.append((id_, r))
+        salida.append((i, r))
     return salida
 
 
-def agregar(resultados) -> str:
+def evaluar_reglas(f, m, reg, reglas=None, requeridas=None) -> list:
+    """Corre las reglas del tipo sin cortocircuito; las de AL_FINAL solo si nada fallo antes."""
+    reglas = REGLAS if reglas is None else reglas
+    tipo = f["documento"]["tipo_documento"]
+    aplican = [i for i, tipos in _registro().items() if tipo in tipos]
+    pedidas = [i for i in (ids_del_registro() if requeridas is None else requeridas) if i in aplican]
+    salida = fallas_por_regla_faltante(reglas, pedidas)
+    salida += _correr(f, m, reg, reglas, [i for i in aplican if i in reglas and i not in AL_FINAL])
+    if not any(r.estado == "falla" for _, r in salida):
+        salida += _correr(f, m, reg, reglas, [i for i in AL_FINAL if i in aplican and i in reglas])
+    orden = list(_registro())
+    return sorted(salida, key=lambda x: orden.index(x[0]) if x[0] in orden else len(orden))
+
+
+def agregar(resultados, si_cumple="PAGAR") -> str:
     acciones = {r.accion for _, r in resultados if r.estado == "falla"}
-    for a in PRECEDENCIA:
-        if a in acciones:
-            return a
-    return "PAGAR"
+    return next((a for a in PRECEDENCIA if a in acciones), si_cumple)
+
+
+def _veredicto(f, m, reg, reglas, requeridas):
+    pol = POLITICA_TIPO.get(f.get("documento", {}).get("tipo_documento"))
+    if pol is None or "fijo" in pol:
+        return (TIPO_DESCONOCIDO if pol is None else pol["fijo"]) + ([],)
+    res = evaluar_reglas(f, m, reg, reglas, requeridas)
+    fallas = [(i, r) for i, r in res if r.estado == "falla"]
+    top = next((x for a in PRECEDENCIA for x in fallas if x[1].accion == a), None)
+    motivo = top[1].evidencia if top else pol.get("motivo", "Cumple las reglas evaluadas.")
+    return agregar(res, pol["si_cumple"]), motivo, res
 
 
 def decidir(f, m, reg, ids, reloj, modo_autonomia, reglas=None, requeridas=None) -> dict:
-    tipo = f.get("documento", {}).get("tipo_documento")
-    fijo = POLITICA_TIPO.get(tipo)
-    if tipo in TIPOS_EVALUABLES:
-        res = evaluar_reglas(f, m, reg, reglas, requeridas)
-        veredicto = agregar(res)
-        fallas = [(i, r) for i, r in res if r.estado == "falla"]
-        top = next((x for a in PRECEDENCIA for x in fallas if x[1].accion == a), None)
-        motivo = top[1].evidencia if top else "Cumple las reglas evaluadas."
-    else:
-        veredicto, motivo = fijo or ("ESCALAR", "Tipo de documento no soportado.")
-        res = []
-    estado = {"FRENAR": "frenada", "ESCALAR": "pendiente", "PAGAR": "con_recibo"}[veredicto]
+    veredicto, motivo, res = _veredicto(f, m, reg, reglas, requeridas)
     return {
         "id": ids("dec"), "factura_id": f["id"], "ciclo_id": f["ciclo_id"], "mandato_version": m.version,
         "veredicto": veredicto, "motivo_corto": motivo,
         "reglas": [{"id": i, "estado": r.estado, "accion_si_falla": r.accion if r.estado == "falla" else None,
                     "aprobable": r.aprobable, "evidencia": r.evidencia, "campo_origen": r.campo} for i, r in res],
-        "modo_autonomia": modo_autonomia, "estado": estado,
+        "modo_autonomia": modo_autonomia, "estado": ESTADO_DE[veredicto],
         "creada_en": reloj().strftime("%Y-%m-%dT%H:%M:%SZ"),
         "reevaluacion_de": None, "recibo_id": None, "sin_orden": veredicto in ("FRENAR", "REGISTRAR"),
     }

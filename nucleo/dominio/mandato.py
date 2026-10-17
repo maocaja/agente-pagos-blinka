@@ -12,6 +12,7 @@ class Mandato:
     version: str
     estado: str
     p: dict
+    doc: dict | None = None
 
     def tasa(self, moneda: str):
         from fractions import Fraction
@@ -23,7 +24,7 @@ class Mandato:
 
 def cargar_mandato(ruta: Path) -> Mandato:
     d = json.loads(Path(ruta).read_text(encoding="utf-8"))
-    return Mandato(d["version"], d["estado"], d["parametros"])
+    return Mandato(d["version"], d["estado"], d["parametros"], d)
 
 
 def ruta_ejemplo(version: str) -> Path:

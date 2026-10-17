@@ -1,3 +1,3 @@
 from pathlib import Path
 
-DATOS = Path(__file__).resolve().parents[1] / "datos_prueba"
+REGISTRO = Path(__file__).resolve().parents[2] / "datos" / "registro-maestro.json"

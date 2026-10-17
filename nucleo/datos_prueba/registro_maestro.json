@@ -1,9 +1,0 @@
-{
-  "proveedores": [
-    {"id": "prov_andino", "nombre": "Estudio Andino SAS", "estado": "activo", "alta": "2026-01-15", "cuenta": {"pais": "CO", "ultimos4": "4417"}, "acuerdo": {"ref": "AC-ANDINO-2026-01", "monto_maximo_menor": "150000", "moneda": "USD"}},
-    {"id": "prov_pixel", "nombre": "Pixel Studio Ltda", "estado": "activo", "alta": "2026-02-01", "cuenta": {"pais": "BR", "ultimos4": "3380"}, "acuerdo": {"ref": "AC-PIXEL-01", "monto_maximo_menor": "150000", "moneda": "USD"}},
-    {"id": "prov_cloud", "nombre": "Invoice Cloud Inc", "estado": "activo", "alta": "2026-03-01", "cuenta": {"pais": "US", "ultimos4": "6052"}, "acuerdo": {"ref": "AC-CLOUD-01", "monto_maximo_menor": "200000", "moneda": "USD"}},
-    {"id": "prov_marta", "nombre": "Marta Ruiz", "estado": "activo", "alta": "2026-04-01", "cuenta": {"pais": "CO", "ultimos4": "2291"}, "acuerdo": {"ref": "AC-MARTA-01", "monto_maximo_menor": "120000", "moneda": "USD"}},
-    {"id": "prov_bloqueado", "nombre": "Proveedor Bloqueado SA", "estado": "bloqueado", "alta": "2026-01-01", "cuenta": {"pais": "CO", "ultimos4": "0000"}, "acuerdo": null}
-  ]
-}

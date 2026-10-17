@@ -34,22 +34,22 @@ Objetivo: un endpoint que reciba una factura canónica y devuelva decisión y re
 
 ### T2. Guardián y registro (sábado por la tarde)
 Es la escena 3 del video: se altera un byte y el guardián rechaza.
-- [ ] 2.1 Guardián de 6 verificaciones con la clave pública, según `nucleo/functional-design/business-rules.md` (leer la lista oficial antes de escribirlo): firma y hash, monto y beneficiario del recibo, vigencia y versión de mandato vigente, nonce no usado, **modo sombra exige aprobación humana**, **aprobación vigente y ligada al recibo**, y **reevaluación del presupuesto antes de autorizar**. Rechazo con motivo en una frase y verificaciones posteriores marcadas "no evaluada".
+- [x] 2.1 Guardián de 6 verificaciones con la clave pública, según `nucleo/functional-design/business-rules.md` (leer la lista oficial antes de escribirlo): firma y hash, monto y beneficiario del recibo, vigencia y versión de mandato vigente, nonce no usado, **modo sombra exige aprobación humana**, **aprobación vigente y ligada al recibo**, y **reevaluación del presupuesto antes de autorizar**. Rechazo con motivo en una frase y verificaciones posteriores marcadas "no evaluada".
 - [ ] 2.2 Firmador como proceso aparte del servidor web (o, si el servicio gratuito no lo permite, módulo aislado con claves por sesión, declarado como SUPUESTO).
-- [ ] 2.3 Registro de solo adición (SQLite): decisiones, resultados por regla, recibos, eventos; sin UPDATE ni DELETE (prueba de que fallan).
-- [ ] 2.4 Reserva de presupuesto y consumo del nonce en una sola transacción; presupuesto derivado de las reservas; compensación al denegar o vencer.
-- [ ] 2.6 **Orden de pago y punto de pago:** un PAGAR emite una `OrdenDePago` desde el recibo; el guardián la marca Autorizada o Denegada; al denegar se libera la reserva con un movimiento compensatorio. Sin recibo válido no existe orden.
-- [ ] 2.7 **R10** tope acumulado por proveedor y mandatos v1 (sin R10) y v2 (con R10); el pentest de U4 los necesita el sábado por la tarde.
-- [ ] 2.8 `Idempotency-Key` en los comandos que crean recibos o reservas (decisión, aprobación, corrección), con una sola semántica para el nonce: se consume al emitir el recibo y el guardián comprueba que no se haya usado antes en una autorización.
-- [ ] 2.5 `POST /api/guardian/verificar` (orden y recibo en el cuerpo) y `POST /api/recibos/{id}/verificar`, ambos ya en el contrato, con la respuesta del ejemplo `guardian.rechazo.json`. **No se añade ruta nueva:** la interfaz altera una copia del recibo y la envía al guardián.
+- [x] 2.3 Registro de solo adición (SQLite): decisiones, resultados por regla, recibos, eventos; sin UPDATE ni DELETE (prueba de que fallan).
+- [x] 2.4 Reserva de presupuesto y consumo del nonce en una sola transacción; presupuesto derivado de las reservas; compensación al denegar o vencer.
+- [x] 2.6 **Orden de pago y punto de pago:** un PAGAR emite una `OrdenDePago` desde el recibo; el guardián la marca Autorizada o Denegada; al denegar se libera la reserva con un movimiento compensatorio. Sin recibo válido no existe orden.
+- [x] 2.7 **R10** tope acumulado por proveedor y mandatos v1 (sin R10) y v2 (con R10); el pentest de U4 los necesita el sábado por la tarde.
+- [x] 2.8 `Idempotency-Key` en los comandos que crean recibos o reservas (decisión, aprobación, corrección), con una sola semántica para el nonce: se consume al emitir el recibo y el guardián comprueba que no se haya usado antes en una autorización.
+- [x] 2.5 `POST /api/guardian/verificar` (orden y recibo en el cuerpo) y `POST /api/recibos/{id}/verificar`, ambos ya en el contrato, con la respuesta del ejemplo `guardian.rechazo.json`. **No se añade ruta nueva:** la interfaz altera una copia del recibo y la envía al guardián.
 - Pruebas (≈ 18): guardián, una por verificación más motivos (10); orden sin recibo válido no existe y denegación libera la reserva 2; R10 y mandatos 2; reserva y carrera 2 (**simulada con una barrera o de forma secuencial, nunca con hilos reales**); registro de solo adición 1; contrato de la respuesta 1.
 - Listo cuando: un recibo alterado en un byte es rechazado con motivo, y dos pagos que juntos exceden el presupuesto no pasan ambos.
 
 ### T3. Resto de reglas y tipos (sábado por la noche)
-- [ ] 3.1 **R1** lectura confiable (confianza y causas de ESCALAR: lecturas distintas, sin segunda lectura, cita no encontrada; origen imagen nunca llega a PAGAR, ver `lectura/business-rules.md`).
-- [ ] 3.2 **R2b** duplicado difuso, **R5** coincide con lo acordado, **R7** moneda, **R8** texto dirigido al agente, **R9** presupuesto del periodo (siempre al final); R10 se entregó en T2.
-- [ ] 3.3 Política por tipo como tabla de datos: nota de crédito REGISTRAR sin orden; estado de cuenta FRENAR; proforma y anticipo ESCALAR; tipo desconocido ESCALAR.
-- [ ] 3.4 R9 y fallas de lectura de R1 no aprobables.
+- [x] 3.1 **R1** lectura confiable (confianza y causas de ESCALAR: lecturas distintas, sin segunda lectura, cita no encontrada; origen imagen nunca llega a PAGAR, ver `lectura/business-rules.md`).
+- [x] 3.2 **R2b** duplicado difuso, **R5** coincide con lo acordado, **R7** moneda, **R8** texto dirigido al agente, **R9** presupuesto del periodo (siempre al final); R10 se entregó en T2.
+- [x] 3.3 Política por tipo como tabla de datos: nota de crédito REGISTRAR sin orden; estado de cuenta FRENAR; proforma y anticipo ESCALAR; tipo desconocido ESCALAR.
+- [x] 3.4 R9 y fallas de lectura de R1 no aprobables.
 - Pruebas (≈ 21): 6 reglas x3 casos (18; R10 ya está en T2); tipos y REGISTRAR 3.
 - Listo cuando: las 11 reglas del registro corren y `contrato/reglas.registro.json` coincide con las reglas registradas en el código (prueba).
 
