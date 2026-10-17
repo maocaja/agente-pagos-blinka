@@ -9,7 +9,7 @@ Fecha: 2026-10-17. La aplicación es una mesa de trabajo de cuentas por pagar: s
 | Autorizada | El guardián verificó el recibo y permite emitir la orden |
 | Orden emitida (simulada) | Existe la orden de pago en formato bancario, marcada SIMULADA |
 | Pago confirmado | **No existe**: el producto no mueve dinero. Nunca se rotula "pagado" |
-El resumen de Decisiones usa "Autorizadas para pago", no "Pagadas".
+El resumen de Decisiones cuenta "Con decisión de pagar" (lo que decidió el motor); "Autorizada" solo aparece cuando el guardián verificó el recibo (`POST /api/decisiones/{id}/autorizar`). Nunca "Pagadas".
 
 ## Contexto al abrir (Decisiones)
 Empresa de demostración, periodo (ciclo), presupuesto reservado y disponible y actividad reciente (últimos eventos). Fuente: `GET /api/ciclo`.
