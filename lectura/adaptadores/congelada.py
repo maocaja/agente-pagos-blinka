@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from lectura.seguridad.instrucciones import con_senal_local
+
 from .base import Documento, Resultado, escalar
 
 CARPETA_MULTICANAL = Path(__file__).resolve().parents[1] / "extracciones_multicanal"
@@ -39,7 +41,10 @@ class AdaptadorDeTexto:
 
     def a_canonica(self, documento: Documento) -> Resultado:
         try:
-            self.texto(documento)
+            texto = self.texto(documento)
         except Ilegible as e:
             return escalar(e.motivo)
-        return canonica_congelada(documento, self._carpeta)
+        resultado = canonica_congelada(documento, self._carpeta)
+        if resultado.factura is not None:
+            con_senal_local(resultado.factura, texto)
+        return resultado

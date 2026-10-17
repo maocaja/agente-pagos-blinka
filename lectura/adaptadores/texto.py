@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from lectura.seguridad.instrucciones import con_senal_local
+
 from .base import Documento, Resultado
 from .congelada import canonica_congelada
 
@@ -29,4 +31,7 @@ class AdaptadorTexto:
         return documento.formato == "texto"
 
     def a_canonica(self, documento: Documento) -> Resultado:
-        return canonica_congelada(documento, self._carpeta)
+        resultado = canonica_congelada(documento, self._carpeta)
+        if resultado.factura is not None:
+            con_senal_local(resultado.factura, documento.contenido.decode("utf-8", errors="ignore"))
+        return resultado

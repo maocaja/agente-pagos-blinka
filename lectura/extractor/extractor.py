@@ -3,6 +3,8 @@ from pathlib import Path
 
 from lectura.adaptadores.base import Resultado, escalar, validar_contra
 
+from lectura.seguridad.instrucciones import detectar
+
 from .cliente import FallaCliente
 from .verificaciones import citas_en_texto, moneda_valida, totales_cuadran
 
@@ -46,6 +48,10 @@ class Extractor:
         for campo, motivo in _ESCALAN.items():
             if ver[campo] == "falla":
                 return escalar(motivo, [campo])
+        marca = resp.contenido["texto_dirigido_al_agente"]
+        p, cita = detectar(texto)
+        if p and not marca["presente"]:
+            marca.update(presente=True, cita=cita)
         meta = {"prompt_version": self._prompt_version, "prompt_hash": self._prompt_hash,
                 "modelo": self._modelos[clave_modelo]["id"], "tokens_entrada": resp.tokens_entrada,
                 "tokens_salida": resp.tokens_salida, "costo_microusd": str(costo)}

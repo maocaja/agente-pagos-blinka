@@ -1,6 +1,7 @@
 from lectura.extractor.verificaciones import totales_cuadran
 from lectura.normalizador.normalizador import normalizar_clave, normalizar_monto
 from lectura.proveedor import asignar_proveedor
+from lectura.seguridad.instrucciones import con_senal_local
 
 
 def _o_nulo(texto):
@@ -36,4 +37,4 @@ def desde_extraccion(ext, documento, contexto, lectura, canal="imagen", formato=
     factura["proveedor_asignado"] = asignar_proveedor(factura, contexto["registro"])
     if ext["texto_dirigido_al_agente"]["presente"]:
         factura["senales"] = {"texto_dirigido_al_agente": {"p": 1.0, "origen": ext["texto_dirigido_al_agente"]["cita"]}}
-    return factura
+    return con_senal_local(factura, documento.contenido.decode("utf-8", errors="ignore"))
