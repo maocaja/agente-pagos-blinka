@@ -22,5 +22,8 @@ Versión reducida para hackathon. Entrega: domingo 2026-10-18, 12:00 (se congela
 
 `verify.py` global: VERDE, 102 pruebas (máximo 200).
 
+## Decisiones recientes
+- 2026-10-17: Ola 5 incluye explicación en lenguaje claro, reglas editables con vista previa (sin lenguaje natural), paquete de auditoría verificable fuera de la app, orden de pago simulada (pain.001), y los canales XML fiscal y CSV de lote. Voz y lenguaje natural quedan como arquitectura objetivo.
+
 ## Pendientes de personas
 Clave de API de Anthropic (Dev A, antes del sábado 12:00); cuenta de despliegue gratuito; video de respaldo el sábado y regrabación el domingo de 07:00 a 10:00; dos ensayos con cronómetro.
