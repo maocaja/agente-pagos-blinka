@@ -10,7 +10,7 @@ CONTRATO = RAIZ.parent / "contrato"
 sys.path.insert(0, str(RAIZ))
 sys.path.insert(0, str(CONTRATO))
 
-from servidor_simulado import app  # noqa: E402
+from servidor_simulado import app, crear_app  # noqa: E402
 from validar import validar  # noqa: E402
 
 cliente = TestClient(app)
@@ -166,3 +166,17 @@ def test_set_curado_y_cifra_honesta():
     ids = json.loads((RAIZ / "dist" / "demo-set.json").read_text(encoding="utf-8"))["ids"]
     assert 10 <= len(ids) <= 12 and len(set(ids)) == len(ids)
     assert "ataques probados" not in (RAIZ / "dist" / "app.js").read_text(encoding="utf-8")
+
+
+def test_ciclo_y_historial_tras_rechazar():
+    cliente = TestClient(crear_app())
+    ciclo = cliente.get("/api/ciclo").json()
+    assert set(ciclo) == {"ciclo_id", "empresa", "moneda", "presupuesto_menor", "reservado_menor", "disponible_menor", "actividad"}
+    cliente.post("/api/decisiones/dec_11/rechazar", json={"nota": "Cuenta no confirmada"}, headers={"X-Rol": "cfo"})
+    det = cliente.get("/api/decisiones/dec_11").json()
+    assert det["historial"][-1]["nota"] == "Cuenta no confirmada" and det["estado_orden"] is None
+
+
+def test_interfaz_nombra_autorizadas_y_no_pagadas():
+    html = (RAIZ / "dist" / "app.js").read_text(encoding="utf-8")
+    assert "Autorizadas para pago" in html and '"Pagados"' not in html

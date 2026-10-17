@@ -1,10 +1,12 @@
+const ESTADOS = { pendiente: "Espera aprobación", rechazada: "Rechazada por el CFO", reevaluada: "Aprobada y reevaluada", denegada: "Denegada por el guardián", vencida: "Vencida" };
+
 function app() {
   return {
     rol: "analista", sesion: null, monedas: {}, marcador: null,
     decisiones: [], facturas: {}, filtro: "TODAS", error: null, cargando: true,
     sel: null, factura: null, recibo: null, tecnica: false,
-    nota: "", ocupado: false, progreso: "", copia: "", copiaError: null, resultado: null, verifRecibo: null,
-    veredictos: VEREDICTOS, estadoVerif: ESTADO_VERIF,
+    ciclo: null, muestras: [], historial: [], estadoOrden: null, nota: "", ocupado: false, progreso: "", copia: "", copiaError: null, resultado: null, verifRecibo: null,
+    veredictos: VEREDICTOS, estados: ESTADOS, estadoVerif: ESTADO_VERIF,
     filtros: [["TODAS", "Todas"], ["PAGAR", "Pagar"], ["FRENAR", "Frenar"], ["ESCALAR", "Escalar"], ["PENDIENTES", "Pendientes de aprobación"]],
 
     async init() {
@@ -12,11 +14,20 @@ function app() {
         this.monedas = (await (await fetch("monedas.json")).json()).monedas;
         this.sesion = await api.iniciar();
         api.marcador().then((m) => { this.marcador = m; }, () => {});
+        api.muestras().then((m) => { this.muestras = m; }, () => {});
+        await this.cargarCiclo();
         await this.cargarLista();
         await this.abrirDesdeUrl();
       } catch (e) { this.error = e.message; }
       this.cargando = false;
     },
+    // Si el servidor aun no sirve el ciclo, la pantalla sigue sin ese bloque.
+    async cargarCiclo() { try { this.ciclo = await api.ciclo(); } catch { this.ciclo = null; } },
+    get porcentajeReservado() {
+      const c = this.ciclo;
+      return c && Number(c.presupuesto_menor) > 0 ? Math.min(100, Math.round(Number(c.reservado_menor) * 100 / Number(c.presupuesto_menor))) : 0;
+    },
+    dineroCiclo(menor) { return dinero.texto(menor, this.ciclo.moneda, this.monedas); },
     // Una fila por documento: la decision reevaluada tras aprobar queda reemplazada por la nueva.
     async cargarLista() {
       this.decisiones = await api.decisiones();
@@ -46,7 +57,7 @@ function app() {
     },
     get resumen() {
       const v = this.vigentes, n = (f) => v.filter(f).length;
-      return [["documentos", "Documentos", v.length], ["pagados", "Pagados", n((d) => d.veredicto === "PAGAR")],
+      return [["documentos", "Documentos", v.length], ["autorizadas", "Autorizadas para pago", n((d) => d.veredicto === "PAGAR")],
         ["frenados", "Frenados", n((d) => d.veredicto === "FRENAR")], ["escalados", "Escalados", n((d) => d.veredicto === "ESCALAR")],
         ["pendientes", "Pendientes de aprobación", n((d) => d.estado === "pendiente")]];
     },
@@ -61,12 +72,33 @@ function app() {
     aprobo(d) { return d.reevaluacion_de ? "CFO" : ""; },
     cambiarRol(r) { this.rol = r; api.rol = r; },
     async abrir(d) {
-      this.sel = d; this.recibo = null; this.resultado = null; this.verifRecibo = null; this.tecnica = false; this.error = null;
+      this.sel = d; this.historial = []; this.estadoOrden = null; this.recibo = null; this.resultado = null; this.verifRecibo = null; this.tecnica = false; this.error = null;
       try {
-        this.factura = (await api.detalle(d.id)).factura;
+        const r = await api.detalle(d.id);
+        this.factura = r.factura; this.historial = r.historial || []; this.estadoOrden = r.estado_orden ?? null;
         if (d.recibo_id) { this.recibo = await api.recibo(d.recibo_id); this.copia = JSON.stringify(this.recibo, null, 2); }
       } catch (e) { this.error = e.message; }
       if (matchMedia("(max-width: 1023px)").matches) this.$nextTick(() => this.$refs.detalle?.scrollIntoView({ block: "start" }));
+    },
+    // El documento original solo existe para las muestras cargadas; la reevaluacion hereda el de su decision de origen.
+    get original() {
+      if (!this.sel) return "";
+      const hechas = api.muestrasCargadas(), ids = [this.sel.id, this.sel.reevaluacion_de];
+      const id = Object.keys(hechas).find((k) => ids.includes(hechas[k]));
+      return (this.muestras.find((m) => m.id === id) || {}).original || "";
+    },
+    get leido() {
+      const f = this.factura;
+      if (!f) return [];
+      return [["Proveedor", f.emisor.nombre], ["Factura", f.referencias.numero], ["Total", f.montos.moneda + " " + this.entero(f.montos.total_menor, f.montos.moneda) + this.centavos(f.montos.total_menor, f.montos.moneda)],
+        ["Cuenta", f.cuenta.pais + " ****" + f.cuenta.ultimos4]];
+    },
+    get diferencias() { return this.sel ? this.sel.reglas.filter((r) => r.estado === "falla") : []; },
+    get etapas() {
+      const o = this.estadoOrden;
+      return [["decision", "Decisión", this.sel ? this.veredictos[this.sel.veredicto].texto : "", true],
+        ["autorizada", "Autorizada", o ? "Sí" : "No", !!o],
+        ["orden", "Orden emitida (simulada)", o === "orden_simulada_emitida" ? "Sí" : "No", o === "orden_simulada_emitida"]];
     },
     get puedeDecidir() { return this.rol === "cfo"; },
     get esperaAprobacion() { return this.sel && this.sel.veredicto === "ESCALAR" && this.sel.estado === "pendiente"; },
@@ -76,6 +108,7 @@ function app() {
         const r = await api[accion](this.sel.id, this.nota);
         this.nota = "";
         await this.cargarLista();
+        await this.cargarCiclo();
         await this.abrir(accion === "aprobar" ? r.decision : this.decisiones.find((d) => d.id === this.sel.id));
       } catch (e) { this.error = e.message; }
       this.ocupado = false;

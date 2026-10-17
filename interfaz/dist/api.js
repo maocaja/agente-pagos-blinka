@@ -74,6 +74,7 @@ const api = {
   detalle: (id) => api.pedir("GET", `/api/decisiones/${encodeURIComponent(id)}`),
   recibo: (id) => api.pedir("GET", `/api/recibos/${encodeURIComponent(id)}`),
   verificarRecibo: (id) => api.pedir("POST", `/api/recibos/${encodeURIComponent(id)}/verificar`),
+  ciclo: () => api.pedir("GET", "/api/ciclo"),
   mandato: () => api.pedir("GET", "/api/mandato"),
   proveedores: () => api.pedir("GET", "/api/proveedores"),
   marcador: () => api.pedir("GET", "/api/marcador"),
