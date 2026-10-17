@@ -31,7 +31,8 @@
       "id": "prov_pixel",
       "nombre": "Pixel Studio Ltda",
       "alias": [
-        "PIXEL STUDIO LTDA"
+        "PIXEL STUDIO LTDA",
+        "PIXEL STUDIO"
       ],
       "id_fiscal": "CNPJ 00.000.000/0001-00",
       "estado": "activo",
@@ -127,7 +128,8 @@
       "id": "prov_logistica",
       "nombre": "Logistica Sur SpA",
       "alias": [
-        "LOGISTICA SUR SPA"
+        "LOGISTICA SUR SPA",
+        "LOGISTICA SUR"
       ],
       "id_fiscal": "RUT 76.000.000-0",
       "estado": "activo",
@@ -151,7 +153,8 @@
       "id": "prov_pampa",
       "nombre": "Taller Pampa SRL",
       "alias": [
-        "TALLER PAMPA SRL"
+        "TALLER PAMPA SRL",
+        "TALLER PAMPA"
       ],
       "id_fiscal": null,
       "estado": "activo",
