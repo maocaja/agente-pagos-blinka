@@ -139,3 +139,27 @@ function ataque() {
     get noPrueba() { return this.arena ? this.arena.no_prueba : []; },
   };
 }
+
+const ESTADOS_AVISO = {
+  enviada: { icono: "✓", texto: "Enviada", clase: "chip-pagar" },
+  simulada: { icono: "◌", texto: "Simulada, sin configurar", clase: "chip-sombra" },
+  fallida: { icono: "✕", texto: "Fallida", clase: "chip-frenar" },
+};
+
+function notificaciones() {
+  return {
+    avisos: [], filtro: "todos", error: null, resultado: null, confirmando: false, ocupado: false, estados: ESTADOS_AVISO,
+    async init() {
+      try { await api.iniciar(); await this.cargar(); } catch (e) { this.error = e.message; }
+    },
+    async cargar() { this.avisos = await api.notificaciones(); },
+    get visibles() { return this.filtro === "todos" ? this.avisos : this.avisos.filter((a) => a.estado === this.filtro); },
+    hora: horaCorta,
+    est(a) { return ESTADOS_AVISO[a.estado] || { icono: "?", texto: "Estado desconocido", clase: "chip-sombra" }; },
+    async probar() {
+      this.ocupado = true; this.error = null; this.resultado = null;
+      try { this.resultado = await api.probarNotificacion(); await this.cargar(); } catch (e) { this.error = e.message; }
+      this.ocupado = false; this.confirmando = false;
+    },
+  };
+}

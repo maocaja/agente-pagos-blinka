@@ -196,3 +196,13 @@ def test_acciones_por_rol_no_se_pintan_sin_permiso():
     html = cliente.get("/").text
     assert 'x-if="puedeDecidir && esperaAprobacion"' in html and '<template x-if="aprobable">' in html
     assert "r.aprobable" in (RAIZ / "dist" / "app.js").read_text(encoding="utf-8")
+
+
+def test_notificaciones_y_salud_simuladas_nunca_se_presentan_como_enviadas():
+    cliente = TestClient(crear_app())
+    avisos = cliente.get("/api/notificaciones").json()
+    assert avisos and {a["estado"] for a in avisos} == {"simulada"} and set(avisos[0]) == {"hora", "evento", "canal", "destino", "estado", "texto"}
+    assert cliente.post("/api/notificaciones/prueba", headers={"X-Rol": "auditor"}).status_code == 403
+    assert cliente.post("/api/notificaciones/prueba", headers={"X-Rol": "cfo"}).json()["estado"] == "simulada"
+    assert set(cliente.get("/api/salud").json()["notificaciones"]) == {"telegram", "correo"}
+    assert "notificaciones.html" in (RAIZ / "dist" / "nav.js").read_text(encoding="utf-8")

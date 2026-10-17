@@ -5,6 +5,7 @@ const PAGINAS = [
   { href: "marcador.html", texto: "Marcador" },
   { href: "bandeja.html", texto: "Bandeja simulada" },
   { href: "ataque.html", texto: "Ataque" },
+  { href: "notificaciones.html", texto: "Notificaciones" },
 ];
 const ESCENAS = [
   { pagina: "index.html?muestra=foto-04-andino-cambio-cuenta&pestana=documento", titulo: "1. Cambio de cuenta", texto: "Sin control, esta factura se paga. Aquí se escala: la cuenta 9021 no es la registrada (4417) y el motivo está escrito. Luego, en la pestaña Resumen, actúe como CFO: rechace con una nota y vea el historial." },
@@ -123,6 +124,25 @@ function montarTarjetaEmpresa() {
   return [tarjeta, cargar];
 }
 
+function montarSalud() {
+  const texto = el("span", { "data-testid": "salud-texto" }, "Comprobando el sistema");
+  const canales = el("span", { class: "block text-sm text-texto-2", "data-testid": "salud-canales" });
+  const icono = el("span", { "aria-hidden": "true" }, "…");
+  const caja = el("p", { class: "panel p-3", "data-testid": "salud" }, "", [icono, document.createTextNode(" "), texto, canales]);
+  const estado = (c) => (c === "configurado" ? "configurado" : "simulado");
+  document.addEventListener("sesion-lista", async () => {
+    try {
+      const s = await api.salud();
+      const vivo = s.estado === "operativo";
+      icono.textContent = vivo ? "✓" : "✕";
+      texto.textContent = vivo ? "Sistema operativo" : "Sistema con fallas";
+      caja.classList.toggle("text-frenar", !vivo);
+      canales.textContent = `Telegram ${estado(s.notificaciones.telegram)}, correo ${estado(s.notificaciones.correo)}`;
+    } catch { icono.textContent = "✕"; texto.textContent = "Sin respuesta del sistema"; caja.classList.add("text-frenar"); }
+  });
+  return caja;
+}
+
 function montarLateral(actual) {
   const pendientes = el("span", { class: "chip chip-escalar", "data-testid": "nav-pendientes" });
   const items = PAGINAS.map((p) => {
@@ -131,18 +151,21 @@ function montarLateral(actual) {
     if (p.href === "index.html") a.append(pendientes);
     return a;
   });
+  const avisos = el("span", { class: "chip chip-sombra", "data-testid": "nav-avisos", style: "display:none" });
+  items.find((a) => a.getAttribute("href") === "notificaciones.html").append(avisos);
   const [tarjeta, cargarCiclo] = montarTarjetaEmpresa();
   const lectura = el("p", { class: "etiqueta-simulada rounded-[10px]! px-3! py-1.5 text-sm", "data-testid": "lectura" });
   const rotular = () => { lectura.textContent = `Datos de demostración, lectura ${api.lectura === "en_vivo" ? "en vivo" : "guardada"}, no se mueve dinero`; };
   const mostrar = (n) => { pendientes.textContent = n; pendientes.style.display = n === 0 ? "none" : ""; };
   const contar = async () => { try { mostrar((await api.decisiones()).filter((d) => d.estado === "pendiente").length); } catch { /* sin contador */ } };
-  document.addEventListener("sesion-lista", () => { rotular(); cargarCiclo(); contar(); });
-  document.addEventListener("decisiones-cambiaron", (ev) => { cargarCiclo(); mostrar(ev.detail); });
+  const contarAvisos = async () => { try { const n = (await api.notificaciones()).length; avisos.textContent = n; avisos.style.display = n ? "" : "none"; } catch { /* sin contador */ } };
+  document.addEventListener("sesion-lista", () => { rotular(); cargarCiclo(); contar(); contarAvisos(); });
+  document.addEventListener("decisiones-cambiaron", (ev) => { cargarCiclo(); mostrar(ev.detail); contarAvisos(); });
   rotular();
   const lista = el("div", { class: "grid gap-1", role: "list" }, "", items);
   const marca = el("p", { class: "px-1 text-xl font-semibold" }, "Mesa de pagos");
   const cuerpo = el("nav", { class: "grid gap-4", "aria-label": "Secciones", "data-testid": "nav" }, "", [lista]);
-  return el("aside", { class: "flex flex-col gap-4 border-b border-linea bg-panel p-4 lg:fixed lg:inset-y-0 lg:left-0 lg:z-20 lg:w-64 lg:border-b-0 lg:border-r lg:overflow-y-auto", "data-testid": "lateral" }, "", [marca, tarjeta, cuerpo, el("div", { class: "grid gap-2 lg:mt-auto" }, "", [...montarPaquete(), lectura])]);
+  return el("aside", { class: "flex flex-col gap-4 border-b border-linea bg-panel p-4 lg:fixed lg:inset-y-0 lg:left-0 lg:z-20 lg:w-64 lg:border-b-0 lg:border-r lg:overflow-y-auto", "data-testid": "lateral" }, "", [marca, tarjeta, cuerpo, el("div", { class: "grid gap-2 lg:mt-auto" }, "", [montarSalud(), ...montarPaquete(), lectura])]);
 }
 
 function montarNav() {

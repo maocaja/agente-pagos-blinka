@@ -3,7 +3,9 @@ import copy
 import json
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from datetime import datetime, timezone
+
+from fastapi import FastAPI, Header, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -66,6 +68,33 @@ def _rutas_ciclo(app, decisiones, facturas, resoluciones):
                 "actividad": [{"hora": e["hora"], "texto": f"{e['evento']} ({e['id']})"} for e in recientes]}
 
 
+def _rutas_notificaciones(app, decisiones):
+    pruebas = []
+    eventos = {"ESCALAR": ("escalada pendiente", "Escalada pendiente de aprobacion."), "FRENAR": ("factura frenada", "Factura frenada por las reglas.")}
+
+    def entrada(evento, canal, texto, hora):
+        return {"hora": hora, "evento": evento, "canal": canal, "destino": "***" + canal[:3], "estado": "simulada", "texto": texto}
+
+    @app.get("/api/notificaciones")
+    def notificaciones():
+        base = [entrada(eventos[d["veredicto"]][0], c, f"{eventos[d['veredicto']][1]} {d['id']}", d["creada_en"])
+                for d in decisiones.values() if d["veredicto"] in eventos for c in ("correo", "telegram")]
+        return sorted(base + pruebas, key=lambda e: e["hora"], reverse=True)
+
+    @app.post("/api/notificaciones/prueba")
+    def prueba(x_rol: str = Header("analista")):
+        if x_rol not in ("analista", "cfo"):
+            return JSONResponse({"codigo": "rol_no_permitido", "mensaje": "Rol no permitido.", "detalle": None}, status_code=403)
+        e = entrada("prueba", "telegram", "Prueba: el sistema esta vivo.", datetime.now(timezone.utc).isoformat())
+        pruebas.append(e)
+        return e
+
+    @app.get("/api/salud")
+    def salud():
+        return {"estado": "operativo", "version": "1.1.0-rc6", "mandato": "v2", "lectura": "guardada",
+                "libro": "ok", "notificaciones": {"telegram": "simulado", "correo": "simulado"}}
+
+
 def crear_app() -> FastAPI:
     app = FastAPI(title="Servidor simulado de la interfaz")
     decisiones = {d["id"]: d for d in _decisiones()}
@@ -116,6 +145,7 @@ def crear_app() -> FastAPI:
                    _ejemplo("mandato.v2.json"))
     registrar_ola6(app, decisiones, _ejemplo("aprobacion.ejemplo.json"), _ejemplo("recibo.pagar.json"), _ejemplo("mandato.v2.json"), resoluciones)
     _rutas_ciclo(app, decisiones, facturas, resoluciones)
+    _rutas_notificaciones(app, decisiones)
     app.mount("/", StaticFiles(directory=RAIZ / "dist", html=True), name="dist")
     return app
 
