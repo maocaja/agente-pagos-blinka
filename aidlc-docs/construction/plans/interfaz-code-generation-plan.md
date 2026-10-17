@@ -20,15 +20,15 @@ interfaz/
 
 ### T1. Pantalla de Decisiones con el recibo (sábado temprano)
 Primer hito: la factura con su decisión, el motivo escrito y el recibo.
-- [ ] 1.1 Compilación de Tailwind con `tokens.css` y `componentes.css`; tema claro por defecto y oscuro; Alpine copiado a `dist/`.
+- [x] 1.1 Compilación de Tailwind con `tokens.css` y `componentes.css`; tema claro por defecto y oscuro; Alpine copiado a `dist/`.
 - [ ] 1.2 Cliente de la API (sesión, rol, `Idempotency-Key`) y store de sesión y rol; mapa de capacidades por rol.
-- [ ] 1.3 Lista de decisiones con chip de veredicto (ícono y palabra), razón en una frase y filtros.
-- [ ] 1.4 **Recibo legible** como documento papel: factura, regla y versión del mandato, decisión, hora, firma; alternar a vista técnica.
+- [x] 1.3 Lista de decisiones con chip de veredicto (ícono y palabra), razón en una frase y filtros.
+- [x] 1.4 **Recibo legible** como documento papel: factura, regla y versión del mandato, decisión, hora, firma; alternar a vista técnica.
 - Pruebas (≈ 3): escape de salida 3.
 
 ### T2. Escena 3 del video: recibo alterable y guardián (sábado)
-- [ ] 2.1 Campo del recibo editable con la etiqueta "alterar para la demo"; la interfaz altera una **copia** del recibo y la envía a `POST /api/guardian/verificar`; Verificar usa `POST /api/recibos/{id}/verificar` (sin rutas nuevas).
-- [ ] 2.2 Sello que se estampa o se parte según el resultado; lista de las 6 verificaciones con motivo y "no evaluada" en las posteriores.
+- [x] 2.1 Campo del recibo editable con la etiqueta "alterar para la demo"; la interfaz altera una **copia** del recibo y la envía a `POST /api/guardian/verificar`; Verificar usa `POST /api/recibos/{id}/verificar` (sin rutas nuevas).
+- [x] 2.2 Sello que se estampa o se parte según el resultado; lista de las 6 verificaciones con motivo y "no evaluada" en las posteriores.
 - [ ] 2.3 Verificación de la firma: en el navegador con la clave pública si el algoritmo es compatible; si no, con el endpoint del servidor (SUPUESTO sin verificar).
 - Pruebas (≈ 3): permisos por rol y capacidades 2; rechazo mostrado con motivo 1.
 
