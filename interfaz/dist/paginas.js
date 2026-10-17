@@ -90,10 +90,10 @@ function bandeja() {
       } catch (e) { this.error = e.message; }
       this.ocupado = false;
     },
-    async cargarSet() {
+    async cargarSet(todas = false) {
       this.error = null; this.progreso = ""; this.ocupado = true;
       try {
-        const r = await api.cargarSet((i, n, t) => { this.progreso = `Cargando ${i} de ${n}: ${t}`; });
+        const r = await api.cargarSet((i, n, t) => { this.progreso = `Cargando ${i} de ${n}: ${t}`; }, todas);
         await this.recuperar();
         this.progreso = `Set cargado: ${r.total - r.fallos.length} de ${r.total}.`;
         if (r.fallos.length) this.error = r.fallos.join(" | ");
