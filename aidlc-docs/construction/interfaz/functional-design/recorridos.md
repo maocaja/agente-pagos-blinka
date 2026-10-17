@@ -33,3 +33,6 @@ Proveedores, montos, fechas y estados coinciden entre Decisiones, Bandeja, detal
 
 ## Cierre de una tanda de interfaz
 Se recorre cada recorrido en el navegador contra la app real (no contra el simulador) y se informa qué se vio. Las pruebas técnicas no sustituyen este paso.
+
+## Detalle de una decisión (pestañas)
+El detalle se organiza en pestañas: **Resumen** (razón, siguiente paso, tres estados y acciones: aprobar o rechazar, pedir autorización al guardián, descargar la orden), **Documento** (original junto a lo leído y las reglas que difieren), **Recibo** (verificar firma, vista técnica, alterar para la demo, verificar sin la aplicación) e **Historial**. El sello de autorizada o rechazada y su motivo van siempre visibles sobre las pestañas. El modo Demo abre la pestaña que cada escena necesita.

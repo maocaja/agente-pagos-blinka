@@ -88,3 +88,13 @@ Consumo medido: unos 650.000 tokens de subagentes en estas olas; acumulado cerca
 | Reglas | R1 incluye el formato imagen en el texto de las reglas del núcleo | n/a | aclarado | Corrida del set multicanal: 15 de 15 coinciden con sus esperados |
 Puerta de calidad: `verify.py --gate` con dos corridas idénticas y mutación en OK. Presupuesto de pruebas: 197 de 200.
 Consumo medido: unos 900.000 tokens de subagentes en estas olas; acumulado cerca de 4,3 M.
+
+## Olas 14 a 17 (2026-10-17)
+| Unidad | Tanda | Pruebas | Resultado | Hallazgos |
+|---|---|---|---|---|
+| U1 Núcleo | Ola 14: `/api/ciclo`, historial y `estado_orden`. Ola 15: razón principal por relevancia, importes legibles, actividad legible, `/api/muestras/{id}/archivo`. Ola 16: `POST /api/decisiones/{id}/autorizar`, actividad coherente, nombres del registro, tildes. Ola 17: el titular usa la razón principal | 77 | verde | Contrato 1.1.0-rc5 aditivo. La decisión PAGAR no se llamaba "Autorizada" hasta que el guardián autoriza |
+| U3 Interfaz | Ola 14: contexto, historial, vocabulario de estados. Ola 15: imagen original, etiquetas de autonomía, descargas con sesión. Ola 16: "Con decisión de pagar", botón de autorización, orden pain.001 condicionada. Ola 17: detalle en pestañas | 20 | verde | Verificado por mí en Chrome contra la app real: escena 1 (foto con cuenta cambiada junto a lo leído), contexto de la empresa, modo Demo con confirmación y escena 1. Recorrido 2 validado por el agente con el guardián real y el script (`PAQUETE VALIDO`) |
+| Datos | Nombre de la empresa de demostración en `registro-maestro.json` | n/a | hecho | |
+Documentación: nuevos `personas.md`, `recorridos.md` y `demo-operativo.md`; vocabulario de estados corregido (nunca "pagado"); regla de cierre de interfaz en el navegador y de documentación siempre al día en `CLAUDE.md`.
+Sin revisar a mano: escenas 2, 4 y 5 del modo Demo, tema oscuro, alterar un campo del recibo en la pestaña Recibo, y la tarjeta de la guía que tapa parte de la pantalla.
+Presupuesto de pruebas: 207 de 210 (tope subido de 200). Consumo medido: unos 1,5 M tokens de subagentes en estas olas; acumulado cerca de 5,8 M.
