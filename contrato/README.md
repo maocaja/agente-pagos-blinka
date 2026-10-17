@@ -1,6 +1,6 @@
 # Contrato compartido
 
-Version `1.1.0-rc5`. Es la ruta critica de las cuatro unidades. Se escribio antes que el codigo, a partir de los diseños funcionales aprobados en `aidlc-docs/construction/`.
+Version `1.1.0-rc6`. Es la ruta critica de las cuatro unidades. Se escribio antes que el codigo, a partir de los diseños funcionales aprobados en `aidlc-docs/construction/`.
 
 ## Archivos
 | Archivo | Que define | Quien lo produce | Quien lo consume |
@@ -72,3 +72,6 @@ Hay valores que se calibran despues: `umbral_senal_texto`, `dias_proveedor_nuevo
 
 ## Cambios de 1.1.0-rc5 (aditivos, Ola 16)
 - `api.openapi.yaml`: ruta nueva `POST /api/decisiones/{id}/autorizar` (analista o CFO): pide al guardian la orden de una decision con recibo y devuelve sus verificaciones; 409 si no es autorizable. El historial anade el evento `autorizada`.
+
+## Cambios de 1.1.0-rc6 (aditivos, Ola 19)
+- `api.openapi.yaml`: rutas nuevas `GET /api/notificaciones` (bandeja de salida de avisos), `POST /api/notificaciones/prueba` (analista o CFO; una cada 10 s, 429 si se excede) y `GET /api/salud`. Esquema nuevo `Aviso`.

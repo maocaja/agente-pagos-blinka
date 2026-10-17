@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Agente de Pagos con Garantia, API del nucleo
-  version: 1.1.0-rc5
+  version: 1.1.0-rc6
   description: |
     Contrato entre U1 (nucleo), U2 (lectura), U3 (interfaz) y U4 (evaluacion). Escrito primero; cambia solo de comun acuerdo.
     Cada peticion (menos POST /api/sesion) lleva el encabezado X-Sesion-Id. El rol es simulado y viaja en X-Rol.
@@ -17,8 +17,60 @@ tags:
   - name: guardian
   - name: evaluacion
   - name: ciclo
+  - name: notificaciones
 security:
   - sesion: []
+  /api/notificaciones:
+    get:
+      tags: [notificaciones]
+      summary: Bandeja de salida de avisos de la sesion
+      responses:
+        '200':
+          description: Cada intento de aviso, con destino enmascarado
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {$ref: '#/components/schemas/Aviso'}
+  /api/notificaciones/prueba:
+    post:
+      tags: [notificaciones]
+      summary: Envia un aviso de prueba por los canales (analista o CFO; una cada 10 s)
+      parameters: [{$ref: '#/components/parameters/Rol'}]
+      responses:
+        '200':
+          description: Avisos creados
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {$ref: '#/components/schemas/Aviso'}
+        '403': {$ref: '#/components/responses/RolNoPermitido'}
+        '429': {$ref: '#/components/responses/Error'}
+  /api/salud:
+    get:
+      tags: [notificaciones]
+      summary: Salud del servicio; nunca expone secretos
+      responses:
+        '200':
+          description: Estado
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [estado, version, mandato, lectura, libro, notificaciones]
+                properties:
+                  estado: {type: string, enum: [ok, degradado]}
+                  version: {type: string}
+                  mandato: {type: string}
+                  lectura: {type: string, enum: [en_vivo, guardada]}
+                  libro: {type: string, enum: [ok, falla]}
+                  notificaciones:
+                    type: object
+                    required: [telegram, correo]
+                    properties:
+                      telegram: {type: string, enum: [configurado, simulado]}
+                      correo: {type: string, enum: [configurado, simulado]}
 components:
   securitySchemes:
     sesion:
@@ -87,6 +139,17 @@ components:
         application/json:
           schema: {$ref: '#/components/schemas/Error'}
   schemas:
+    Aviso:
+      type: object
+      required: [hora, evento, canal, destino, estado, texto, motivo]
+      properties:
+        hora: {type: string}
+        evento: {type: string, enum: [escalada_pendiente, denegacion_guardian, frenada, autorizada, resuelta, prueba]}
+        canal: {type: string, enum: [telegram, correo]}
+        destino: {type: string, description: Enmascarado}
+        estado: {type: string, enum: [en_cola, enviada, simulada, fallida]}
+        texto: {type: string, maxLength: 500}
+        motivo: {type: [string, 'null']}
     Error:
       type: object
       required: [codigo, mensaje]

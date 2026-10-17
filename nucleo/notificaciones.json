@@ -1,0 +1,21 @@
+{
+  "rutas": {
+    "escalada_pendiente": ["telegram", "correo"],
+    "denegacion_guardian": ["telegram", "correo"],
+    "frenada": ["correo"],
+    "autorizada": ["telegram"],
+    "resuelta": ["telegram"],
+    "prueba": ["telegram", "correo"]
+  },
+  "por_veredicto": {"ESCALAR": "escalada_pendiente", "FRENAR": "frenada"},
+  "plantillas": {
+    "escalada_pendiente": "Escalada pendiente de aprobacion: {proveedor}, {importe}. {que_hacer} {enlace}",
+    "denegacion_guardian": "Alerta de seguridad: el guardian denego una orden de pago ({proveedor}). Verificacion fallida: {falla}. {enlace}",
+    "frenada": "Factura frenada por las reglas: {proveedor}, {importe}. {que_hacer} {enlace}",
+    "autorizada": "Pago autorizado por el guardian: {proveedor}, {importe}. {enlace}",
+    "resuelta": "Escalada {resultado}: {proveedor}, {importe}. {enlace}",
+    "prueba": "Prueba de aviso: el sistema esta vivo."
+  },
+  "entrega": {"corte": 500, "espaciado_s": 1.1, "rafaga_max": 5, "reintentos": 3, "espera_s": 1, "espera_max_s": 30,
+              "prueba_cada_s": 10}
+}

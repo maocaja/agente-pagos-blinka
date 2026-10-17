@@ -4,11 +4,16 @@ class Sesiones:
     def __init__(self, fabrica, ids):
         self._fabrica, self._ids = fabrica, ids
         self._por_id: dict = {}
-        self.defecto = fabrica("v2")
+        self.defecto = self._nuevo("v2", "defecto")
+
+    def _nuevo(self, version, sid):
+        s = self._fabrica(version)
+        s.asignar_sesion(sid)
+        return s
 
     def crear(self, version: str = "v2") -> str:
         sid = self._ids("s")
-        self._por_id[sid] = self._fabrica(version)
+        self._por_id[sid] = self._nuevo(version, sid)
         return sid
 
     def obtener(self, sid):
@@ -18,7 +23,7 @@ class Sesiones:
         servicio = self.obtener(sid)
         if servicio is None:
             return False
-        nuevo = self._fabrica(servicio.m.version)
+        nuevo = self._nuevo(servicio.m.version, sid or "defecto")
         if sid is None:
             self.defecto = nuevo
         else:
