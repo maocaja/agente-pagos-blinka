@@ -1,4 +1,5 @@
 {
+  "empresa": "Empresa Demo S.A. (datos de prueba)",
   "version": "1",
   "fuente": "Derivado de la maqueta demo-front/motor.js (PROVEEDORES, PARAMS_INICIALES) y de las 18 facturas de datos/facturas/, no de reglas. Sintetico, sin datos reales. Los umbrales y listas de beneficiarios viven en el mandato, no aqui.",
   "unidad_monto": "unidades menores (centavos) como texto",
