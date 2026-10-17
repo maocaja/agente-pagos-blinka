@@ -36,6 +36,15 @@ El CFO aprobando una escalada queda como extra fuera del video principal.
 - Escena 4: pentest, mandatos v1 y v2, R10, arena y verificador independiente (U1, U4, U3). El hueco es de política (mandato v1 sin R10) y así se cuenta; se comprueba que el v2 lo cierra y que ninguna otra estrategia pasa.
 - Escena 5: marcador con la cifra y la lista de lo no probado (U3, U4).
 
+## Capacidades que el video puede mostrar (añadidas 2026-10-17)
+- **Explicación en lenguaje claro:** cada decisión dice qué regla la detuvo y qué hacer (escenas 1 y 2).
+- **Detector determinista de instrucciones:** R8 no depende solo del modelo; las trampas se ven con la regla que las detuvo (escena 2).
+- **Paquete de auditoría:** un script de 31 líneas verifica todas las firmas fuera de la app (escena 3, 10 segundos).
+- **Orden de pago simulada (pain.001):** se descarga con la etiqueta SIMULADA; no se mueve dinero (cierre).
+- **Reglas editables con vista previa:** cambiar un umbral y ver cuántas facturas cambian de veredicto (opcional, entre escenas 3 y 4).
+- **Canales:** PDF, escaneado, foto, correo, chat, XML fiscal y CSV de lote; los marca la bandeja simulada.
+- **Cifras reales para el cierre (2026-10-17):** pentest con el mandato v1 deja pasar 1 ataque de facturas partidas y con el v2 ninguno; arena de 3.200 variantes sin pagos indebidos; set multicanal 13 de 15 coinciden. Declarar siempre el alcance: no se probó la lectura real del modelo ni los documentos originales mutados.
+
 ## Reglas de producción
 - Set fijo y botón de guion que reinicia todo al mismo punto.
 - Todo lo grabado funciona sin clave de API: lectura guardada, etiquetada. La lectura en vivo es un extra.

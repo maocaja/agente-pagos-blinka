@@ -1,6 +1,6 @@
 # Plan de ejecución
 
-Etapa Workflow Planning de AI-DLC. Fecha: 2026-10-16. Entrega: domingo 2026-10-18 12:00; congelamiento 10:00. Todo horario exacto marcado SUPUESTO no está en los documentos y lo confirma la persona responsable.
+Etapa Workflow Planning de AI-DLC. Fecha: 2026-10-16. Estado de la ejecución (2026-10-17): olas 1 a 10 cerradas (ver `construction/tandas.md` y `aidlc-state.md`); quedan la puerta de calidad, el despliegue, el video y los ensayos. Entrega: domingo 2026-10-18 12:00; congelamiento 10:00. Todo horario exacto marcado SUPUESTO no está en los documentos y lo confirma la persona responsable.
 
 ## 1. Resumen de la evaluación
 

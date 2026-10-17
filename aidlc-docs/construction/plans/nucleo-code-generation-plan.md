@@ -58,13 +58,13 @@ Es la escena 3 del video: se altera un byte y el guardián rechaza.
 - [x] 4.2 Aprobar siempre reevalúa y emite un recibo nuevo; vigencia de 24 h; falla de lectura de R1 no se aprueba, se corrige.
 - [ ] 4.3 Mandato propuesto por el CFO y contrafirmado por el analista; versión nueva.
 - [ ] 4.4 Ciclo de pagos y exportación de la conciliación.
-- [ ] 4.5 Vista previa "qué cambia si se aprueba".
+- [x] 4.5 Vista previa "qué cambia si se aprueba".
 - Pruebas (≈ 9): permisos por rol 3; aprobar con reevaluación 2; vencimiento 1; mandato con dos firmas 2; vista previa 1.
 
 ### T5. API completa, sesión y despliegue (sábado 23:00 a domingo)
 - [ ] 5.1 Las rutas de `contrato/api.openapi.yaml` que dependen solo de U1, `X-Sesion-Id` y errores con el formato del contrato.
-- [ ] 5.6 **Integración con U2 y U4 (Dev A con Dev B y el subagente):** `/api/pentest/ejecutar`, `/api/arena/ejecutar`, `/api/marcador`, `/api/costo`, `/api/muestras` y `/api/documentos` dependen de código de otras carpetas. U1 define los puertos (interfaces) y monta las rutas; U2 y U4 aportan funciones en sus carpetas, registradas por configuración. U1 expone `copiar_estado_sesion()` para que la arena y el pentest corran sobre una copia de la sesión sin tocar la original.
-- [ ] 5.2 Sesión por visitante: copia del set base y par de claves por sesión; reinicio.
+- [x] 5.6 **Integración con U2 y U4 (Dev A con Dev B y el subagente):** `/api/pentest/ejecutar`, `/api/arena/ejecutar`, `/api/marcador`, `/api/costo`, `/api/muestras` y `/api/documentos` dependen de código de otras carpetas. U1 define los puertos (interfaces) y monta las rutas; U2 y U4 aportan funciones en sus carpetas, registradas por configuración. U1 expone `copiar_estado_sesion()` para que la arena y el pentest corran sobre una copia de la sesión sin tocar la original.
+- [x] 5.2 Sesión por visitante: copia del set base y par de claves por sesión; reinicio.
 - [ ] 5.3 Modo público: solo lectura salvo la sesión propia; sin llamadas a modelos.
 - [ ] 5.4 Despliegue en un servicio gratuito: SQLite sembrada al arrancar; despertar antes del pitch (riesgos 5 y 6 del plan de ejecución).
 - [ ] 5.5 Exportar `/openapi.json` y comprobarlo contra `api.openapi.yaml` (prueba de contrato).

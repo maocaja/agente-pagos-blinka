@@ -27,9 +27,9 @@ evaluacion/
 - Pruebas (≈ 18): una prueba parametrizada sobre las 18 facturas.
 
 ### T2. Verificador independiente (sábado 08:00 a 12:00)
-- [ ] 2.1 Condición de pago escrita solo desde `contrato/reglas.registro.json` y el texto de las reglas, con estado propio; sin importar `nucleo/`.
-- [ ] 2.2 Corrida del set contra la API de U1 (o su servidor simulado): coincidencia entre motor y verificador; toda discrepancia se muestra.
-- [ ] 2.3 Resultados con `contrato/resultados.schema.json`: aciertos de reglas, de extremo a extremo, autonomía, escalada innecesaria.
+- [x] 2.1 Condición de pago escrita solo desde `contrato/reglas.registro.json` y el texto de las reglas, con estado propio; sin importar `nucleo/`.
+- [x] 2.2 Corrida del set contra la API de U1 (o su servidor simulado): coincidencia entre motor y verificador; toda discrepancia se muestra.
+- [x] 2.3 Resultados con `contrato/resultados.schema.json`: aciertos de reglas, de extremo a extremo, autonomía, escalada innecesaria.
 - Pruebas (≈ 10): verificador por regla y por tipo.
 
 ### T3. Pentest y arena nivel 1 (sábado por la tarde)

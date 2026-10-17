@@ -87,3 +87,12 @@ Tres revisiones independientes (seguridad de agentes, arquitectura y evaluación
 
 ### Recorte, en orden de lo primero que se corta
 1. Servidor MCP. 2. Verificación fuera de banda y máquina del tiempo. 3. Grabación del agente atacante (queda el pentest por código). 4. Jev (queda Haiku). 5. Adaptador XML (el XML del set queda escrito a mano) y pesos de prioridad. 6. Cadena de hashes y modo sombra. **Núcleo intocable:** lectura con esquema y caché, motor con identificadores únicos, recibo firmado, guardián, verificador independiente, registro de solo adición y una interfaz mínima.
+
+## Cambios posteriores a la aprobación (2026-10-17)
+- **Canales de entrada:** además de PDF, escaneado, foto, correo y chat, se añaden XML fiscal (UBL, sin DOCTYPE) y CSV de lote, ambos deterministas y sin modelo. Voz y lenguaje natural quedan como arquitectura objetivo.
+- **Explicabilidad:** cada decisión trae `explicacion` y `que_hacer` en español, deterministas.
+- **Reglas editables:** vista previa de "qué cambia" al proponer un mandato (`POST /api/mandato/previa`).
+- **Auditoría:** paquete exportable y script que verifica las firmas fuera de la app; orden de pago simulada pain.001.
+- **Seguridad:** detector determinista de instrucciones (es, en, pt) además de la señal del modelo; `senales.remitente_inconsistente` para el `Reply-To` falso.
+- **Contrato:** 1.1.0-rc2, solo cambios aditivos.
+- **Ejecución:** código ligero (`CLAUDE.md` 5c); la arquitectura profesional completa vive en `inception/architecture-target-vs-mvp.md`.
