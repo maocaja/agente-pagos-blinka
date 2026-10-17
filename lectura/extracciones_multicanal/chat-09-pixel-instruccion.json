@@ -72,9 +72,9 @@
     "motivo_falla": null
   },
   "proveedor_asignado": {
-    "proveedor_id": null,
-    "metodo": "ninguno",
-    "pista": "prov_pixel"
+    "proveedor_id": "prov_pixel",
+    "metodo": "nombre",
+    "pista": null
   },
   "senales": {
     "texto_dirigido_al_agente": {

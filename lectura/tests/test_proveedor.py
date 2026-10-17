@@ -20,6 +20,10 @@ def test_coincide_por_id_fiscal_aunque_el_registro_traiga_prefijo():
 def test_coincide_por_nombre_normalizado():
     r = asignar_proveedor(_fac("Marta  Ruiz"), REGISTRO)
     assert (r["proveedor_id"], r["metodo"]) == ("prov_marta", "nombre")
+    for nombre, esperado in [("Pixel Studio", "prov_pixel"), ("Logistica Sur", "prov_logistica"),
+                             ("Taller Pampa", "prov_pampa")]:
+        assert asignar_proveedor(_fac(nombre), REGISTRO)["proveedor_id"] == esperado
+    assert asignar_proveedor(_fac("Pixel Studios"), REGISTRO)["proveedor_id"] is None
 
 
 def test_sin_coincidencia_queda_nulo_y_el_conflicto_no_decide():
@@ -33,3 +37,4 @@ def test_18_extracciones_validan_con_proveedor_asignado():
         fac = json.loads(ruta.read_text(encoding="utf-8"))
         assert validar_canonica(fac) == [], ruta.name
         assert fac["proveedor_asignado"] == asignar_proveedor(fac, REGISTRO), ruta.name
+

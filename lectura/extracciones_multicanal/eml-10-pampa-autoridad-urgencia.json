@@ -72,9 +72,9 @@
     "motivo_falla": null
   },
   "proveedor_asignado": {
-    "proveedor_id": null,
-    "metodo": "ninguno",
-    "pista": "prov_pampa"
+    "proveedor_id": "prov_pampa",
+    "metodo": "nombre",
+    "pista": null
   },
   "senales": {
     "texto_dirigido_al_agente": {
