@@ -29,3 +29,10 @@ def emitir_recibo(decision, f, m, ids, nonce, reloj, firmador) -> dict:
     }
     r["firma"] = base64.b64encode(firmador.firmar(serializar(r))).decode("ascii")
     return r
+
+
+def orden_desde_recibo(recibo: dict) -> dict:
+    """Sin recibo no hay orden: es la unica forma de construirla."""
+    return {"recibo_id": recibo["id"], "beneficiario_id": recibo["beneficiario_id"],
+            "monto_menor": recibo["monto_menor"], "moneda": recibo["moneda"],
+            "concepto": f"Pago de la factura {recibo['factura_id']}"}

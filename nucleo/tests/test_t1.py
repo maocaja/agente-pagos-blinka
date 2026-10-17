@@ -10,18 +10,19 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from fastapi.testclient import TestClient
 
 from nucleo.api.app import crear_app
+from nucleo.api.sesiones import Sesiones
+from nucleo.dominio.motor import decidir
+from nucleo.dominio.reglas import REGLAS
 from nucleo.dominio.mandato import RAIZ_CONTRATO, cargar_mandato, ruta_ejemplo
 from nucleo.dominio.registro_maestro import RegistroMaestro
 from nucleo.dominio.servicio import ServicioDecision
 from nucleo.infra.firmador import FirmadorEd25519, verificar_firma
-from nucleo.tests import DATOS
+from nucleo.infra.libro import LibroSqlite
+from nucleo.tests import REGISTRO
 
 _spec = importlib.util.spec_from_file_location("validar_c", RAIZ_CONTRATO / "validar.py")
 _v = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_v)
-
-
-REGLAS_T1 = ("R2a", "R3", "R4", "R6")
 
 
 def esquema(nombre):
@@ -30,7 +31,7 @@ def esquema(nombre):
 
 def factura(**cambios):
     f = json.loads((RAIZ_CONTRATO / "ejemplos" / "factura-canonica.f11.json").read_text(encoding="utf-8"))
-    f["cuenta"] = {"pais": "BR", "ultimos4": "3380"}
+    f["cuenta"] = {"pais": "BR", "ultimos4": "8830"}
     for ruta, valor in cambios.items():
         *padres, hoja = ruta.split("__")
         o = f
@@ -44,9 +45,9 @@ def factura(**cambios):
 def servicio(ahora):
     n = itertools.count(1)
     return ServicioDecision(
-        cargar_mandato(ruta_ejemplo("v2")), RegistroMaestro.desde_archivo(DATOS / "registro_maestro.json"),
-        lambda p: f"{p}_{next(n):03d}", lambda: "n_fijo", lambda: ahora,
-        FirmadorEd25519(Ed25519PrivateKey.from_private_bytes(bytes(range(32))), "k1"), REGLAS_T1)
+        cargar_mandato(ruta_ejemplo("v2")), RegistroMaestro.desde_archivo(REGISTRO, LibroSqlite()),
+        lambda p: f"{p}_{next(n):03d}", lambda: f"n_{next(n):03d}", lambda: ahora,
+        FirmadorEd25519(Ed25519PrivateKey.from_private_bytes(bytes(range(32))), "k1"))
 
 
 def regla(d, id_):
@@ -101,7 +102,7 @@ def test_precedencia_frenar_sobre_escalar_y_decision_valida(servicio):
 
 def test_falla_cerrado_moneda_sin_tasa_y_mandato_v1_sin_valores_quemados(servicio):
     d = servicio.decidir(factura(montos__moneda="EUR"))
-    assert d["veredicto"] == "ESCALAR" and regla(d, "R6")["aprobable"] is False
+    assert (d["veredicto"], regla(d, "R7")["aprobable"], regla(d, "R6")["estado"]) == ("FRENAR", False, "cumple")
     assert cargar_mandato(ruta_ejemplo("v1")).p["tope_acumulado_proveedor"]["activo"] is False
     assert cargar_mandato(ruta_ejemplo("v2")).p["tope_acumulado_proveedor"]["activo"] is True
 
@@ -111,7 +112,7 @@ def test_pagar_emite_recibo_firmado_valido_contra_esquema(servicio, ahora):
     assert d["veredicto"] == "PAGAR" and d["estado"] == "con_recibo"
     r = servicio.recibos[d["recibo_id"]]
     assert _v.validar(r, esquema("recibo.schema.json")) == []
-    assert (r["nonce"], r["clave_version"], r["monto_base_menor"]) == ("n_fijo", "k1", "150000")
+    assert (r["nonce"][:2], r["clave_version"], r["monto_base_menor"]) == ("n_", "k1", "150000")
     assert r["vence_en"] == "2026-10-18T12:00:00Z"
     assert verificar_firma(r, servicio.firmador.clave_publica)
 
@@ -123,22 +124,29 @@ def test_recibo_alterado_un_byte_no_verifica(servicio):
     assert not verificar_firma(r, servicio.firmador.clave_publica)
 
 
+def _sin(regla_id):
+    return {k: v for k, v in REGLAS.items() if k != regla_id}
+
+
+def _decidir_sin(servicio, f, regla_id):
+    return decidir(f, servicio.m, servicio.reg, servicio.ids, servicio.reloj, "autonomo", reglas=_sin(regla_id))
+
+
 def test_falla_cerrado_regla_del_registro_no_implementada(servicio):
-    servicio.requeridas = None
-    d = servicio.decidir(factura())
+    d = _decidir_sin(servicio, factura(), "R1")
     faltante = next(r for r in d["reglas"] if r["evidencia"] == "Regla R1 no implementada")
     assert (d["veredicto"], d["recibo_id"], faltante["aprobable"]) == ("ESCALAR", None, False)
     assert d["motivo_corto"] == "Regla R1 no implementada"
 
 
 def test_frenar_gana_a_escalar_aunque_falte_una_regla(servicio):
-    servicio.requeridas = None
-    d = servicio.decidir(factura(id="f_2", proveedor_asignado={"proveedor_id": "prov_bloqueado", "metodo": "id_fiscal", "pista": None}))
+    f = factura(id="f_2", proveedor_asignado={"proveedor_id": "prov_bloqueado", "metodo": "id_fiscal", "pista": None})
+    d = _decidir_sin(servicio, f, "R1")
     assert (d["veredicto"], d["estado"]) == ("FRENAR", "frenada")
 
 
 def test_escalar_no_emite_recibo(servicio):
-    d = servicio.decidir(factura(montos__moneda="EUR"))
+    d = servicio.decidir(factura(cuenta={"pais": "CO", "ultimos4": "1"}))
     assert d["veredicto"] == "ESCALAR" and d["recibo_id"] is None and not servicio.recibos
 
 
@@ -149,7 +157,7 @@ def test_recibo_con_otra_clave_no_verifica(servicio):
 
 
 def test_api_post_y_consulta_de_decision(servicio):
-    c = TestClient(crear_app(servicio, json.loads(ruta_ejemplo("v2").read_text(encoding="utf-8"))))
+    c = TestClient(crear_app(Sesiones(lambda version: servicio, lambda p: p + "_1")))
     r = c.post("/api/facturas", json=factura())
     assert r.status_code == 201 and r.json()["veredicto"] == "PAGAR"
     did = r.json()["id"]

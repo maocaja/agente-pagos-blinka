@@ -14,6 +14,9 @@ class FirmadorEd25519:
     def firmar(self, datos: bytes) -> bytes:
         return self._clave.sign(datos)
 
+    def firma_valida(self, documento: dict) -> bool:
+        return verificar_firma(documento, self.clave_publica)
+
     @property
     def clave_publica(self) -> Ed25519PublicKey:
         return self._clave.public_key()

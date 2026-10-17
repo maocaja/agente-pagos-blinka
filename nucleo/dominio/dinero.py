@@ -22,3 +22,13 @@ def a_base_menor(monto_menor: str, moneda: str, m: Mandato) -> int:
     tasa_base = m.tasa(base)
     v = Fraction(int(monto_menor), 10 ** exp[moneda]) * tasa_base / m.tasa(moneda) * 10 ** exp[base]
     return int(_REDONDEO[m.p["redondeo"]](v))
+
+
+def convertible(moneda: str, m: Mandato) -> bool:
+    return moneda in m.p["monedas_permitidas"] and moneda in m.p["tasas_cambio"]["unidades_por_usd"]
+
+
+def base_de(f: dict, m: Mandato):
+    """Total de la factura en base; None si la moneda no es convertible (R7 la frena)."""
+    mo = f["montos"]
+    return a_base_menor(mo["total_menor"], mo["moneda"], m) if convertible(mo["moneda"], m) else None
