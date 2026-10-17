@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from fastapi import Body, FastAPI, HTTPException
+from fastapi.responses import FileResponse
 
 PROVEEDORES = [
     {"id": "prov_pixel", "nombre": "Pixel Studio Ltda", "estado": "activo", "nivel_autonomia": "autonomo"},
@@ -29,7 +30,7 @@ MUESTRAS = [
      "Hola, desde hoy la cuenta es otra: CO ****4821. Factura PX-2303, total R$ 7.500,00.",
      "R4", "ESCALAR", "La cuenta no es la registrada.", "CO"),
     ("m_04", "Factura limpia en foto", "foto",
-     "[Foto] Factura PX-2304\nTotal: R$ 1.200,00\nConta: BR ****7710",
+     "documento binario: foto-04-andino-cambio-cuenta.jpg",
      None, "PAGAR", "Cumple todas las reglas.", "BR"),
 ]
 
@@ -75,6 +76,13 @@ def _rutas_muestras(app, decisiones, facturas, base_decision, base_factura):
     @app.get("/api/muestras")
     def muestras():
         return [{"id": m[0], "titulo": m[1], "tipo": m[2], "lectura_guardada": True, "original": m[3]} for m in MUESTRAS]
+
+    @app.get("/api/muestras/{id}/archivo")
+    def archivo(id: str):
+        ruta = Path(__file__).resolve().parent.parent / "datos" / "documentos" / "foto-04-andino-cambio-cuenta.jpg"
+        if id != "m_04" or not ruta.exists():
+            raise HTTPException(404, "Archivo no encontrado")
+        return FileResponse(ruta, media_type="image/jpeg")
 
     @app.post("/api/muestras/{id}/cargar", status_code=201)
     def cargar(id: str):

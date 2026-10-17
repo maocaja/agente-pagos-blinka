@@ -21,7 +21,7 @@
   <p x-show="error" x-cloak class="mx-6 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="error" x-text="error"></p>
   <main class="grid gap-6 p-6 lg:grid-cols-2">
     <section class="panel p-5" aria-label="Parametros del mandato" x-show="mandato" x-cloak>
-      <h2 class="text-lg font-semibold">Lo que la empresa definio</h2>
+      <h2 class="text-lg font-semibold">Lo que la empresa definió</h2>
       <dl class="mt-4 grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-y-3" data-testid="parametros">
         <template x-for="p in parametros" :key="p.k">
           <div class="contents"><dt class="apoyo" x-text="p.texto"></dt><dd class="cifra" :data-testid="'param-' + p.k" x-text="valor(p)"></dd></div>
@@ -47,15 +47,15 @@
         </ul>
       </div>
     </section>
-    <section class="panel p-5" aria-label="Proveedores y autonomia">
-      <h2 class="text-lg font-semibold">Proveedores y autonomia</h2>
+    <section class="panel p-5" aria-label="Proveedores y autonomía">
+      <h2 class="text-lg font-semibold">Proveedores y autonomía</h2>
       <p class="apoyo mt-1 text-sm">Los beneficiarios permitidos salen de este registro.</p>
       <ul class="mt-4 grid gap-2" data-testid="lista-proveedores">
         <template x-for="p in proveedores" :key="p.id">
           <li class="flex flex-wrap items-center gap-3" :data-testid="'proveedor-' + p.id">
             <span class="grow" x-text="p.nombre"></span>
             <span class="text-sm text-texto-2" x-text="p.estado"></span>
-            <span class="chip" :class="p.nivel_autonomia === 'autonomo' ? 'chip-pagar' : 'chip-sombra'" x-text="p.nivel_autonomia === 'autonomo' ? 'Autonomo' : 'Sombra'"></span>
+            <span class="chip" :class="p.nivel_autonomia === 'autonomo' ? 'chip-pagar' : 'chip-sombra'" x-text="p.nivel_autonomia === 'autonomo' ? 'Autónomo' : 'Sombra'"></span>
           </li>
         </template>
       </ul>

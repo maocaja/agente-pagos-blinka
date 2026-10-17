@@ -1,9 +1,15 @@
 const VEREDICTOS = {
-  PAGAR: { icono: "✓", clase: "chip-pagar", texto: "Pagar" },
-  FRENAR: { icono: "✕", clase: "chip-frenar", texto: "Frenar" },
-  ESCALAR: { icono: "▲", clase: "chip-escalar", texto: "Escalar" },
-  REGISTRAR: { icono: "●", clase: "chip-registrar", texto: "Registrar" },
+  PAGAR: { icono: "✓", clase: "chip-pagar", texto: "Pagar", autonomia: "Autónomo bajo reglas" },
+  FRENAR: { icono: "✕", clase: "chip-frenar", texto: "Frenar", autonomia: "Frenada por las reglas" },
+  ESCALAR: { icono: "▲", clase: "chip-escalar", texto: "Escalar", autonomia: "Requiere una persona" },
+  REGISTRAR: { icono: "●", clase: "chip-registrar", texto: "Registrar", autonomia: "Solo registrada" },
 };
+
+// El servidor manda ISO UTC; se muestra HH:MM local, o el texto tal cual si no es una fecha.
+function horaCorta(iso) {
+  const d = new Date(iso);
+  return isNaN(d) ? iso : d.toLocaleTimeString("es", { hour: "2-digit", minute: "2-digit", hour12: false });
+}
 const ESTADO_VERIF = {
   ok: { icono: "✓", texto: "Cumple", clase: "text-pagar" },
   falla: { icono: "✕", texto: "Falla", clase: "text-frenar" },
@@ -23,9 +29,23 @@ const api = {
   sesion: null,
   rol: "analista",
   lectura: null,
+  cabeceras() {
+    const c = { "X-Rol": this.rol };
+    if (this.sesion) c["X-Sesion-Id"] = this.sesion;
+    return c;
+  },
+  // Descarga con la sesion (un enlace directo no la envia) y entrega por blob.
+  async descargar(ruta, nombre) {
+    const r = await fetch(ruta, { headers: this.cabeceras() }).catch(() => null);
+    if (!r || !r.ok) throw new Error(`No se pudo descargar ${nombre}${r ? ` (error ${r.status})` : ": no hay conexión con el servidor"}.`);
+    const enlace = Object.assign(document.createElement("a"), { href: URL.createObjectURL(await r.blob()), download: nombre });
+    document.body.append(enlace);
+    enlace.click();
+    enlace.remove();
+    setTimeout(() => URL.revokeObjectURL(enlace.href), 1000);
+  },
   async pedir(metodo, ruta, cuerpo) {
-    const cabeceras = { "X-Rol": this.rol };
-    if (this.sesion) cabeceras["X-Sesion-Id"] = this.sesion;
+    const cabeceras = this.cabeceras();
     if (metodo === "POST") cabeceras["Idempotency-Key"] = crypto.randomUUID();
     if (cuerpo !== undefined) cabeceras["Content-Type"] = "application/json";
     const r = await fetch(ruta, { method: metodo, headers: cabeceras, body: cuerpo === undefined ? undefined : JSON.stringify(cuerpo) });

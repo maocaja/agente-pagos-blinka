@@ -1,8 +1,8 @@
 // Componentes Alpine de Reglas, Marcador, Bandeja y Ataque. El servidor decide; aqui solo se muestra.
 const PARAMETROS = [
-  { k: "umbral_aprobacion_menor", texto: "Umbral de aprobacion", tipo: "dinero" },
-  { k: "tope_pago_menor", texto: "Limite por pago", tipo: "dinero" },
-  { k: "presupuesto_periodo_menor", texto: "Limite por periodo", tipo: "dinero" },
+  { k: "umbral_aprobacion_menor", texto: "Umbral de aprobación", tipo: "dinero" },
+  { k: "tope_pago_menor", texto: "Límite por pago", tipo: "dinero" },
+  { k: "presupuesto_periodo_menor", texto: "Límite por periodo", tipo: "dinero" },
   { k: "tope_acumulado_proveedor", texto: "Tope acumulado por proveedor", tipo: "tope" },
   { k: "monedas_permitidas", texto: "Monedas permitidas", tipo: "lista" },
   { k: "tolerancia_acuerdo_pct", texto: "Tolerancia frente a lo acordado (%)", tipo: "texto" },
@@ -56,7 +56,7 @@ function marcador() {
       const m = this.m;
       if (!m) return [];
       return [["aciertos-reglas", "Aciertos de las reglas", m.aciertos_reglas], ["aciertos-e2e", "Aciertos de extremo a extremo", m.aciertos_extremo_a_extremo],
-        ["autonomia", "Autonomia", m.autonomia], ["escalada", "Escalada innecesaria", m.escalada_innecesaria], ["costo", "Costo de lecturas guardadas", this.costo]]
+        ["autonomia", "Autonomía", m.autonomia], ["escalada", "Escalada innecesaria", m.escalada_innecesaria], ["costo", "Costo de lecturas guardadas", this.costo]]
         .map(([id, texto, valor]) => ({ id, texto, valor }));
     },
     get costo() { if (!this.m) return ""; const u = Number(this.m.costo.lecturas_guardadas_microusd) / 1e6; return "USD " + u.toFixed(4).replace(".", ","); },
@@ -107,11 +107,11 @@ function bandeja() {
 
 const ESTRATEGIAS = {
   E1: "Partir una compra en facturas bajo el umbral del mismo proveedor",
-  E2: "Facturas justo en el umbral y una unidad menor sobre el",
+  E2: "Facturas justo en el umbral y una unidad menor sobre él",
   E3: "Redondeo de moneda que cruza el umbral",
-  E4: "Numero de factura reformateado para repetir un pago",
-  E5: "Proveedor nuevo: pago pequeno y luego uno grande",
-  E6: "Cambio de cuenta despues de una aprobacion",
+  E4: "Número de factura reformateado para repetir un pago",
+  E5: "Proveedor nuevo: pago pequeño y luego uno grande",
+  E6: "Cambio de cuenta después de una aprobación",
 };
 const CLASES = { verificada: "Coincide con el verificador", pago_indebido: "Pago indebido", desvio_conservador: "Desvio conservador" };
 const porEstrategia = (casos) => casos.reduce((g, c) => { (g[c.id.split("-")[0]] ||= []).push(c); return g; }, {});

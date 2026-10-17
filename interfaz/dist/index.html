@@ -30,7 +30,7 @@
         <h2 class="text-sm font-semibold text-texto-2">Actividad reciente</h2>
         <p class="text-sm text-texto-2" x-show="ciclo && ciclo.actividad.length === 0">Todavía no hay actividad.</p>
         <ul class="mt-1 grid gap-1 text-sm" data-testid="actividad">
-          <template x-for="(a, i) in (ciclo ? ciclo.actividad : [])" :key="i"><li><span class="cifra text-texto-2" x-text="a.hora"></span> <span x-text="a.texto"></span></li></template>
+          <template x-for="(a, i) in (ciclo ? ciclo.actividad : [])" :key="i"><li><span class="cifra text-texto-2" x-text="hora(a.hora)"></span> <span x-text="a.texto"></span></li></template>
         </ul>
       </div>
     </div>
@@ -88,7 +88,7 @@
         <div class="panel p-5" data-testid="detalle">
           <div class="flex items-center gap-3">
             <span class="chip" :class="veredictos[sel.veredicto].clase"><span aria-hidden="true" x-text="veredictos[sel.veredicto].icono"></span><span x-text="veredictos[sel.veredicto].texto"></span></span>
-            <span class="text-texto-2" x-text="sel.modo_autonomia === 'autonomo' ? 'Autonomo bajo reglas' : 'Sombra'"></span>
+            <span class="text-texto-2" x-text="sel.modo_autonomia === 'autonomo' ? veredictos[sel.veredicto].autonomia : 'Sombra'" data-testid="autonomia"></span>
           </div>
           <p class="mt-2 font-semibold text-escalar" x-show="estados[sel.estado]" data-testid="estado-decision" x-text="estados[sel.estado]"></p>
           <p class="mt-2 text-lg" x-text="sel.motivo_corto"></p>
@@ -102,7 +102,11 @@
           <div class="mt-4 border-t border-linea pt-4" data-testid="documento-leido" x-show="original || factura">
             <h2 class="text-lg font-semibold">Documento y lo que se leyó</h2>
             <div class="mt-2 grid gap-4 md:grid-cols-2">
-              <div x-show="original"><h3 class="apoyo text-sm">Documento original</h3><pre class="panel mt-1 overflow-x-auto whitespace-pre-wrap p-3 font-tec text-sm" data-testid="original" x-text="original"></pre></div>
+              <div x-show="original"><h3 class="apoyo text-sm">Documento original</h3>
+                <img x-show="tipoOriginal === 'imagen' && !imagenFalla" :src="tipoOriginal === 'imagen' ? urlArchivo : null" @error="imagenFalla = true" :alt="'Foto original del documento ' + (factura ? factura.referencias.numero : '')" class="panel mt-1 w-full" style="max-height:24rem;object-fit:contain" data-testid="original-imagen">
+                <p class="mt-1 text-sm text-texto-2" x-show="tipoOriginal === 'imagen' && imagenFalla" data-testid="original-imagen-error">No se pudo cargar la imagen del documento.</p>
+                <a class="btn btn-sec mt-1" x-show="tipoOriginal === 'pdf'" :href="urlArchivo" target="_blank" rel="noopener" data-testid="abrir-documento">Abrir el documento</a>
+                <pre class="panel mt-1 overflow-x-auto whitespace-pre-wrap p-3 font-tec text-sm" x-show="tipoOriginal !== 'imagen'" data-testid="original" x-text="original"></pre></div>
               <div><h3 class="apoyo text-sm">Lo leído</h3>
                 <dl class="mt-1 grid grid-cols-[6rem_minmax(0,1fr)] gap-y-1 text-sm" data-testid="leido">
                   <template x-for="p in leido" :key="p[0]"><div class="contents"><dt class="apoyo" x-text="p[0]"></dt><dd x-text="p[1]"></dd></div></template>
@@ -118,7 +122,7 @@
             <h2 class="text-lg font-semibold">Historial</h2>
             <p class="text-sm text-texto-2" x-show="historial.length === 0">Sin eventos registrados.</p>
             <ol class="mt-1 grid gap-2 text-sm">
-              <template x-for="(h, i) in historial" :key="i"><li class="grid gap-x-3 sm:grid-cols-[11rem_minmax(0,1fr)]"><span class="cifra text-texto-2" x-text="h.hora"></span><span><span class="font-semibold" x-text="h.evento"></span> <span class="text-texto-2" x-text="'- ' + h.actor"></span><span class="block" x-show="h.nota" x-text="h.nota"></span></span></li></template>
+              <template x-for="(h, i) in historial" :key="i"><li class="grid gap-x-3 sm:grid-cols-[11rem_minmax(0,1fr)]"><span class="cifra text-texto-2" x-text="hora(h.hora)"></span><span><span class="font-semibold" x-text="h.evento"></span> <span class="text-texto-2" x-text="'- ' + h.actor"></span><span class="block" x-show="h.nota" x-text="h.nota"></span></span></li></template>
             </ol>
           </div>
           <ul class="mt-4 grid gap-1 text-sm">
@@ -150,7 +154,7 @@
       </section>
 
       <template x-if="sel && !recibo">
-        <p class="panel p-4 text-texto-2" data-testid="sin-recibo">Esta decision no tiene recibo: no se emitio orden de pago.</p>
+        <p class="panel p-4 text-texto-2" data-testid="sin-recibo">Esta decisión no tiene recibo: no se emitió orden de pago.</p>
       </template>
 
       <template x-if="recibo">
@@ -171,7 +175,7 @@
               <dt class="apoyo">Factura</dt><dd x-text="(factura?.emisor?.nombre || '') + ' - ' + (factura?.referencias?.numero || recibo.factura_id)"></dd>
               <dt class="apoyo">Monto</dt>
               <dd class="cifra"><span x-text="recibo.moneda"></span> <span x-text="entero(recibo.monto_menor, recibo.moneda)"></span><span class="cent" x-text="centavos(recibo.monto_menor, recibo.moneda)"></span></dd>
-              <dt class="apoyo">Decisión</dt><dd x-text="veredictos[recibo.veredicto].texto + ' (' + recibo.modo_autonomia + ')'"></dd>
+              <dt class="apoyo">Decisión</dt><dd x-text="veredictos[recibo.veredicto].texto + ' (' + (recibo.modo_autonomia === 'autonomo' ? 'autónomo' : recibo.modo_autonomia) + ')'"></dd>
               <dt class="apoyo">Mandato</dt><dd x-text="recibo.mandato_version"></dd>
               <dt class="apoyo">Emitido</dt><dd x-text="recibo.emitido_en"></dd>
               <dt class="apoyo">Vence</dt><dd x-text="recibo.vence_en"></dd>
@@ -189,7 +193,7 @@
             <textarea id="copia" rows="14" class="input font-tec text-sm" x-model="copia" data-testid="copia-recibo"></textarea>
             <p x-show="copiaError" x-cloak class="text-frenar" role="alert" x-text="copiaError"></p>
             <div class="flex flex-wrap gap-3">
-              <button type="button" class="btn btn-recibo" data-testid="verificar-copia" @click="verificarCopia()">Verificar con el guardian</button>
+              <button type="button" class="btn btn-recibo" data-testid="verificar-copia" @click="verificarCopia()">Verificar con el guardián</button>
               <button type="button" class="btn btn-recibo-sec" data-testid="restaurar-copia" @click="restaurar()">Restaurar</button>
             </div>
           </div>
@@ -197,13 +201,13 @@
           <div class="linea mt-4 border-t pt-4" data-testid="verificar-externo">
             <h3 class="font-semibold">Verificar sin esta aplicación</h3>
             <ol class="mt-1 grid gap-1 text-sm">
-              <li>Descargue el <a class="underline" href="/api/auditoria/paquete" download="paquete-auditoria.json" data-testid="enlace-paquete">paquete de auditoría</a> (paquete-auditoria.json).</li>
+              <li>Descargue el <a class="underline" href="/api/auditoria/paquete" download="paquete-auditoria.json" @click.prevent="descargar('/api/auditoria/paquete', 'paquete-auditoria.json')" data-testid="enlace-paquete">paquete de auditoría</a> (paquete-auditoria.json).</li>
               <li>Ejecute: <code class="font-tec" data-testid="comando-verificar">python3 nucleo/auditoria/verificar_paquete.py paquete-auditoria.json</code></li>
               <li>Resultado esperado: <span class="font-semibold" data-testid="resultado-esperado">PAQUETE VALIDO</span>. Si alguien altera un recibo, el script imprime PAQUETE INVALIDO.</li>
             </ol>
           </div>
           <div class="linea mt-4 flex flex-wrap items-center gap-3 border-t pt-4">
-            <a class="btn btn-recibo-sec max-w-full flex-wrap text-center" :href="'/api/ordenes/' + recibo.id + '/pain001'" download data-testid="descargar-pain001">Orden de pago <span class="etiqueta-simulada">SIMULADA</span> (pain.001)</a>
+            <a class="btn btn-recibo-sec max-w-full flex-wrap text-center" :href="'/api/ordenes/' + recibo.id + '/pain001'" download @click.prevent="descargar('/api/ordenes/' + recibo.id + '/pain001', 'orden-simulada-' + recibo.id + '.xml')" data-testid="descargar-pain001">Orden de pago <span class="etiqueta-simulada">SIMULADA</span> (pain.001)</a>
           </div>
 
           <div x-show="resultado" x-cloak class="linea mt-4 border-t pt-4" data-testid="guardian">
