@@ -59,8 +59,11 @@ const api = {
     if (!hechas[id]) { hechas[id] = (await api.cargarMuestra(id)).id; memoria.guardar("muestras", hechas); }
     return hechas[id];
   },
-  async cargarSet(avance) {
-    const muestras = await api.muestras(), fallos = [];
+  // Por defecto solo el set curado de demo-set.json; todas=true acumula topes y repeticiones entre muestras.
+  async cargarSet(avance, todas = false) {
+    const todasLasMuestras = await api.muestras();
+    const curado = todas ? null : (await (await fetch("demo-set.json")).json()).ids;
+    const muestras = curado ? curado.map((id) => todasLasMuestras.find((m) => m.id === id) || { id, titulo: id }) : todasLasMuestras, fallos = [];
     for (const [i, m] of muestras.entries()) {
       avance(i + 1, muestras.length, m.titulo);
       try { await api.cargarUna(m.id); } catch (e) { fallos.push(m.titulo + ": " + e.message); }

@@ -160,3 +160,9 @@ def test_sesion_persistente_y_cabecera_limpia():
     html = cliente.get("/").text
     assert "rol simulado" not in html and 'data-testid="cambiar-tema"' not in html
     assert 'data-testid="cargar-set-ejemplo"' in html and "Pendientes de aprobación" in (RAIZ / "dist" / "app.js").read_text(encoding="utf-8")
+
+
+def test_set_curado_y_cifra_honesta():
+    ids = json.loads((RAIZ / "dist" / "demo-set.json").read_text(encoding="utf-8"))["ids"]
+    assert 10 <= len(ids) <= 12 and len(set(ids)) == len(ids)
+    assert "ataques probados" not in (RAIZ / "dist" / "app.js").read_text(encoding="utf-8")

@@ -15,8 +15,10 @@
     <div class="flex flex-wrap items-center gap-3">
       <h1 class="text-2xl font-semibold">Bandeja</h1>
       <span class="etiqueta-simulada" data-testid="etiqueta-simulada">simulada</span>
-      <button type="button" class="btn btn-sec sm:ml-auto" data-testid="cargar-set" :disabled="ocupado" @click="cargarSet()">Cargar el set</button>
+      <button type="button" class="btn btn-primario sm:ml-auto" data-testid="cargar-set" :disabled="ocupado" @click="cargarSet()">Cargar el set de ejemplo</button>
+      <button type="button" class="btn btn-sec" data-testid="cargar-todas" :disabled="ocupado" @click="cargarSet(true)">Cargar todas las muestras</button>
     </div>
+    <p class="mt-1 text-sm text-texto-2 sm:text-right" data-testid="nota-todas">Cargar todas las muestras en una sola sesión acumula topes y repeticiones: casi todo se escala.</p>
     <p class="mt-1 max-w-3xl text-texto-2" data-testid="subtitulo">Los correos, chats, PDF y fotos tal como llegan, junto a lo que el agente leyó y lo que decidió el motor. Importa porque el texto de un documento es un dato, nunca una orden.</p>
   </header>
   <p x-show="error" x-cloak class="mx-6 mt-4 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="error" x-text="error"></p>
