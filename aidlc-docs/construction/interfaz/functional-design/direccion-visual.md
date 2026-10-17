@@ -1,6 +1,6 @@
 # Dirección visual: mesa de revisión de cuentas por pagar
 
-Fecha: 2026-10-17. Estado: **PROPUESTA, pendiente de aprobación**. Prototipo: `docs/propuesta-pantalla-principal.html` (datos reales del set curado de 12 muestras). Personas en `inception/personas.md`; recorridos en `recorridos.md`.
+Fecha: 2026-10-17. Estado: **ESTRUCTURA REEMPLAZADA por `adaptacion-biblioteca.md` (referencia del equipo); se conservan el diagnóstico (sección 1) y las tres escenas (sección 4)**. Texto original: propuesta pendiente de aprobación. Prototipo: `docs/propuesta-pantalla-principal.html` (datos reales del set curado de 12 muestras). Personas en `inception/personas.md`; recorridos en `recorridos.md`.
 
 ## 1. Diagnóstico (app real, revisada en Chrome)
 Qué impide entender el valor en 10 segundos:
