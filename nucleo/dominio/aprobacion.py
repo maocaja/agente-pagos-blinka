@@ -6,7 +6,7 @@ from .motor import decidir
 from .recibo import orden_desde_recibo, serializar
 
 # Capacidades por rol: el servidor valida aunque la interfaz oculte el boton.
-CAPACIDADES = {"aprobar": {"cfo"}, "rechazar": {"cfo"}, "autorizar": {"analista", "cfo"}}
+CAPACIDADES = {"aprobar": {"cfo"}, "rechazar": {"cfo"}, "autorizar": {"analista", "cfo"}, "probar_aviso": {"analista", "cfo"}}
 _FMT = "%Y-%m-%dT%H:%M:%SZ"
 
 
@@ -67,6 +67,7 @@ def aprobar(s, decision_id, rol, nota) -> dict:
         raise ErrorAccion(409, "no_aprobable", nueva["motivo_corto"])
     nueva["estado"], d["estado"] = "con_recibo", "reevaluada"
     s.decisiones[nueva["id"]] = nueva
+    s.avisar("resuelta", nueva, resultado="aprobada")
     return {"decision": nueva, "aprobacion": _aprobacion(s, "aprobar", nueva["id"], nueva["recibo_id"], rol, nota, ids_fallas)}
 
 
@@ -77,6 +78,7 @@ def rechazar(s, decision_id, rol, nota) -> dict:
         raise ErrorAccion(422, "cuerpo_invalido", "La nota es obligatoria al rechazar.")
     d["estado"] = "rechazada"
     _aprobacion(s, "rechazar", d["id"], None, rol, nota, [r["id"] for r in _fallas(d)])
+    s.avisar("resuelta", d, resultado="rechazada")
     return d
 
 

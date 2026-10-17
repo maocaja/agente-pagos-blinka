@@ -2,16 +2,19 @@ from .errores import FallaCerrada
 from .guardian import ContextoGuardian, verificar
 from .historial import actividad
 from .motor import decidir
+from .notificaciones import cargar_datos
+from .operacion import anotar
 from .recibo import emitir_recibo
 
 
 class ServicioDecision:
     """Casos de uso del nucleo: decide, reserva, emite el recibo y autoriza ordenes. Todo se inyecta."""
 
-    def __init__(self, mandato, registro, ids, nonce, reloj, firmador, requeridas=None):
+    def __init__(self, mandato, registro, ids, nonce, reloj, firmador, requeridas=None, avisos=None, sesion_id="defecto"):
         self.m, self.reg, self.ids, self.nonce, self.reloj, self.firmador = mandato, registro, ids, nonce, reloj, firmador
         self.libro = registro.libro
-        self.requeridas = requeridas
+        self.requeridas, self.avisos, self.sesion_id = requeridas, avisos, sesion_id
+        self.evento_de = cargar_datos()["por_veredicto"]
         self.decisiones: dict = {}
         self.facturas: dict = {}
         self.recibos: dict = {}
@@ -61,7 +64,22 @@ class ServicioDecision:
         self.reg.registrar_factura(f, d["estado"])
         self.facturas[f["id"]] = f
         self.decisiones[d["id"]] = d
+        anotar("decision", sesion=self.sesion_id, decision=d["id"], recibo=d["recibo_id"], veredicto=d["veredicto"], estado=d["estado"])
+        if d["veredicto"] in self.evento_de:
+            self.avisar(self.evento_de[d["veredicto"]], d)
         return d
+
+    def asignar_sesion(self, sid) -> None:
+        self.sesion_id = sid
+        if self.avisos:
+            self.avisos.sesion_id = sid
+
+    def avisar(self, evento, d, **extra) -> None:
+        if self.avisos:
+            self.avisos.avisar(evento, self, d, **extra)
+
+    def _decision_de(self, recibo_id):
+        return next((x for x in self.decisiones.values() if x["recibo_id"] == recibo_id), None)
 
     def _hash_factura(self, factura_id):
         f = self.facturas.get(factura_id)
@@ -72,11 +90,21 @@ class ServicioDecision:
                                self.libro.consumir_nonce)
         res = verificar(orden, recibo, aprobacion, ctx)
         self._cerrar_orden(res, recibo)
+        self._anotar_orden(res, recibo)
         return res
+
+    def _anotar_orden(self, res, recibo) -> None:
+        d = self._decision_de(recibo.get("id"))
+        anotar("autorizacion" if res["autorizada"] else "denegacion", sesion=self.sesion_id,
+               decision=(d or {}).get("id"), recibo=recibo.get("id"), autorizada=res["autorizada"])
+        if res["autorizada"]:
+            return self.avisar("autorizada", d)
+        falla = next((v["nombre"] for v in res["verificaciones"] if v["estado"] == "falla"), "")
+        self.avisar("denegacion_guardian", d, falla=falla)
 
     def _cerrar_orden(self, res, recibo) -> None:
         """Autorizada o Denegada. Solo un recibo genuino (verificaciones 1 a 3 en ok) libera su reserva."""
-        d = next((x for x in self.decisiones.values() if x["recibo_id"] == recibo.get("id")), None)
+        d = self._decision_de(recibo.get("id"))
         n = next((v["n"] for v in res["verificaciones"] if v["estado"] == "falla"), None)
         if d is None or d["estado"] != "con_recibo":
             return
