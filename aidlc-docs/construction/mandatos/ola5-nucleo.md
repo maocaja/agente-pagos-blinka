@@ -10,6 +10,7 @@ Hacer:
 2. Vista previa del mandato: dado un mandato propuesto (o cambios sobre el vigente), reevalúa las facturas de la sesión (o las 18 del set) y devuelve cuántas cambian de veredicto y cuáles, sin guardar nada. Si ya existe `/api/mandato/propuestas` o `/previa` con ese fin, úsalas.
 3. Paquete de auditoría: `GET /api/auditoria/paquete` entrega un JSON con los recibos de la sesión, la clave pública y el mandato citado en cada recibo, más `verificar_paquete.py` en `nucleo/auditoria/` (≤ 40 líneas, solo `cryptography` y biblioteca estándar, sin importar el resto del núcleo) que verifica todas las firmas fuera de la app.
 4. Orden de pago simulada: cuando el guardián autoriza, la orden se puede descargar como XML tipo pain.001 mínimo (sin enviar nada, con la etiqueta SIMULADA). Ruta: `GET /api/ordenes/{id}/pain001`.
-5. Pruebas (máx. 12): explicación por regla (R4, R8, R10), vista previa v1 contra v2 cambia lo esperado, el script verifica un paquete bueno y rechaza uno alterado, el XML bien formado.
+5. R1 (lectura confiable) falla con ESCALAR si `senales.remitente_inconsistente` está presente, con el motivo en la explicación.
+6. Pruebas (máx. 12): explicación por regla (R4, R8, R10), vista previa v1 contra v2 cambia lo esperado, el script verifica un paquete bueno y rechaza uno alterado, el XML bien formado.
 
 Listo cuando: `python3 verify.py --etapa nucleo` verde y `contrato` valida. En el informe incluye la fila para `tandas.md` y los cambios del contrato. Falla cerrado, comentarios cortos, `graphify query` antes de grep, no commit ni push. Máximo 150 palabras.

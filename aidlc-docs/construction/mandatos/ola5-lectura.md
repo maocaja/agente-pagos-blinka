@@ -11,4 +11,6 @@ Hacer:
 3. Registrar ambos sin editar el registro. Sin modelo, sin red.
 4. 6 a 8 pruebas: UBL válido, XML con entidad externa rechazado, totales incoherentes escalan, CSV con fila inválida, lote con facturas partidas produce las filas esperadas.
 
+5. `Reply-To` distinto del remitente: el adaptador `.eml` llena `senales.remitente_inconsistente` con el motivo (campo aditivo ya añadido al esquema canónico); actualiza las lecturas congeladas del `.eml` afectado y una prueba.
+
 Listo cuando: `python3 verify.py --etapa lectura` verde. Incluye la fila para `tandas.md`. Comentarios cortos, `graphify query` antes de grep, no commit ni push. Máximo 150 palabras.
