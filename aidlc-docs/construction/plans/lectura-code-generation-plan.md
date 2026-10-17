@@ -22,9 +22,9 @@ datos/documentos/   facturas simuladas (las genera el subagente)
 
 ### T1. Extracciones a mano y adaptador de texto (sábado temprano, sin clave de API)
 Desbloquea a U1, U3 y U4.
-- [ ] 1.1 Extracciones escritas a mano de las 18 facturas del set, validadas contra el esquema; guardadas como lecturas congeladas.
-- [ ] 1.2 Normalizador (C4): unidades menores como texto, formatos numéricos, monedas, identificador fiscal o nombre normalizado.
-- [ ] 1.3 Registro de adaptadores (C1) con `soporta` y `a_canonica`; tipo desconocido escala.
+- [x] 1.1 Extracciones escritas a mano de las 18 facturas del set, validadas contra el esquema; guardadas como lecturas congeladas.
+- [x] 1.2 Normalizador (C4): unidades menores como texto, formatos numéricos, monedas, identificador fiscal o nombre normalizado.
+- [x] 1.3 Registro de adaptadores (C1) con `soporta` y `a_canonica`; tipo desconocido escala.
 - Pruebas (≈ 6): normalizador y formatos 3; adaptadores y tipo desconocido 3.
 
 ### T2. Extractor con Haiku (sábado 08:00 a 12:00; real cuando llegue la clave)

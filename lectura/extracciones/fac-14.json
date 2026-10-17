@@ -1,0 +1,84 @@
+{
+  "id": "f_14",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_14",
+    "hash": "6176b62d42ca007a404aa05927c1d44e20b73f28045bd109517c15f2f543c6f2",
+    "canal": "correo",
+    "formato": "texto",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-09T12:30:00Z"
+  },
+  "emisor": {
+    "nombre": "TALLER PAMPA SRL",
+    "nombre_normalizado": "TALLERPAMPASRL",
+    "id_fiscal": "",
+    "pais": "AR"
+  },
+  "referencias": {
+    "numero": "TP-9",
+    "numero_normalizado": "TP9",
+    "acuerdo_ref": "AC-PAMPA-2026-01"
+  },
+  "fechas": {
+    "emision": "2026-10-09",
+    "vencimiento": "2026-10-30"
+  },
+  "montos": {
+    "moneda": "ARS",
+    "total_menor": "45000000",
+    "suma_lineas_menor": "33057900",
+    "lineas": [
+      {
+        "descripcion": "Mantenimiento preventivo, 3 equipos",
+        "total_menor": "33057900"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "AR",
+    "ultimos4": "5509"
+  },
+  "proveedor_asignado": {
+    "proveedor_id": null,
+    "metodo": "ninguno",
+    "pista": null
+  },
+  "evidencia": {
+    "tipo_documento": "Factura B No. TP-9",
+    "numero_factura": "TP-9",
+    "monto_total": "TOTAL                                   450.000 ARS... (ver nota)",
+    "moneda": "450.000 ARS",
+    "proveedor": "TALLER PAMPA SRL",
+    "cuenta": "CBU terminada en 5509"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.97,
+    "monto_total": 0.7,
+    "moneda": 0.98,
+    "proveedor": 0.97,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "falla",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  }
+}

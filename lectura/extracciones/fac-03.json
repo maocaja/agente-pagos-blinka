@@ -1,0 +1,84 @@
+{
+  "id": "f_03",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_03",
+    "hash": "cc914827c8063b6fa46eaa3d99003d4d161bb921bc8a3a7bbe0b772b4dbeccae",
+    "canal": "chat",
+    "formato": "texto",
+    "tipo_documento": "cuenta_de_cobro",
+    "recibido_en": "2026-10-09T18:32:00Z"
+  },
+  "emisor": {
+    "nombre": "Marta Ruiz",
+    "nombre_normalizado": "MARTARUIZ",
+    "id_fiscal": "",
+    "pais": "CO"
+  },
+  "referencias": {
+    "numero": "CC-21",
+    "numero_normalizado": "CC21",
+    "acuerdo_ref": "AC-RUIZ-2026-02"
+  },
+  "fechas": {
+    "emision": "2026-10-09",
+    "vencimiento": "2026-11-08"
+  },
+  "montos": {
+    "moneda": "USD",
+    "total_menor": "120000",
+    "suma_lineas_menor": "120000",
+    "lineas": [
+      {
+        "descripcion": "Traducciones tecnicas, 40 horas x USD 30",
+        "total_menor": "120000"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "CO",
+    "ultimos4": "2291"
+  },
+  "proveedor_asignado": {
+    "proveedor_id": null,
+    "metodo": "ninguno",
+    "pista": null
+  },
+  "evidencia": {
+    "tipo_documento": "Cuenta de cobro No. CC-21",
+    "numero_factura": "Cuenta de cobro No. CC-21",
+    "monto_total": "Total USD 1.200 (sin impuestos)",
+    "moneda": "Total USD 1.200",
+    "proveedor": "Marta Ruiz",
+    "cuenta": "mi cuenta Bancolombia (ficticia) terminada en 2291, pais Colombia"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.97,
+    "monto_total": 0.97,
+    "moneda": 0.98,
+    "proveedor": 0.97,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "ok",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "id": "f_08",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_08",
+    "hash": "285cd0699ef51af6a77607b33d0392203cd20c0543a47e6c0fbd272813f33a0e",
+    "canal": "correo",
+    "formato": "texto",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-14T15:15:00Z"
+  },
+  "emisor": {
+    "nombre": "CLOUD ADVISORS LLC",
+    "nombre_normalizado": "CLOUDADVISORSLLC",
+    "id_fiscal": "",
+    "pais": "US"
+  },
+  "referencias": {
+    "numero": "CA-402",
+    "numero_normalizado": "CA402",
+    "acuerdo_ref": "MSA-CLOUD-2026-07"
+  },
+  "fechas": {
+    "emision": "2026-10-14",
+    "vencimiento": "2026-11-13"
+  },
+  "montos": {
+    "moneda": "USD",
+    "total_menor": "200000",
+    "suma_lineas_menor": "200000",
+    "lineas": [
+      {
+        "descripcion": "Security posture review",
+        "total_menor": "140000"
+      },
+      {
+        "descripcion": "Cost optimization sessions",
+        "total_menor": "60000"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "US",
+    "ultimos4": "6052"
+  },
+  "proveedor_asignado": {
+    "proveedor_id": null,
+    "metodo": "ninguno",
+    "pista": null
+  },
+  "evidencia": {
+    "tipo_documento": "INVOICE No.: CA-402",
+    "numero_factura": "CA-402",
+    "monto_total": "TOTAL DUE                              USD 2,000.00",
+    "moneda": "USD 2,000.00",
+    "proveedor": "CLOUD ADVISORS LLC",
+    "cuenta": "Account ending 6052"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.97,
+    "monto_total": 0.97,
+    "moneda": 0.98,
+    "proveedor": 0.97,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "ok",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  }
+}

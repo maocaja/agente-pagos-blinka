@@ -1,0 +1,88 @@
+{
+  "id": "f_06",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_06",
+    "hash": "d9cb3a1e217696554d78bc565f25426f50129b3ffa0995d1316a7ce3235cb85c",
+    "canal": "pdf",
+    "formato": "pdf",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-08T00:00:00Z"
+  },
+  "emisor": {
+    "nombre": "PIXEL STUDIO LTDA",
+    "nombre_normalizado": "PIXELSTUDIOLTDA",
+    "id_fiscal": "",
+    "pais": "BR"
+  },
+  "referencias": {
+    "numero": "px 2301",
+    "numero_normalizado": "PX2301",
+    "acuerdo_ref": "AC-PIXEL-2026-03"
+  },
+  "fechas": {
+    "emision": "2026-10-08",
+    "vencimiento": "2026-11-07"
+  },
+  "montos": {
+    "moneda": "BRL",
+    "total_menor": "750000",
+    "suma_lineas_menor": "750000",
+    "lineas": [
+      {
+        "descripcion": "Edicao de video institucional",
+        "total_menor": "600000"
+      },
+      {
+        "descripcion": "Legendas e versoes para redes",
+        "total_menor": "150000"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "BR",
+    "ultimos4": "8830"
+  },
+  "proveedor_asignado": {
+    "proveedor_id": null,
+    "metodo": "ninguno",
+    "pista": null
+  },
+  "evidencia": {
+    "tipo_documento": "FATURA No. px 2301",
+    "numero_factura": "px 2301",
+    "monto_total": "TOTAL                                7.500,00 BRL",
+    "moneda": "7.500,00 BRL",
+    "proveedor": "PIXEL STUDIO LTDA",
+    "cuenta": "Conta final 8830"
+  },
+  "confianza": {
+    "tipo_documento": 0.95,
+    "numero_factura": 0.97,
+    "monto_total": 0.97,
+    "moneda": 0.98,
+    "proveedor": 0.97,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "ok",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "manual-congelada",
+    "reintentos": 0,
+    "tokens_entrada": 0,
+    "tokens_salida": 0,
+    "costo_microusd": "0",
+    "desde_cache": true,
+    "motivo_falla": null
+  }
+}
