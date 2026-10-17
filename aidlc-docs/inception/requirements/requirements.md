@@ -96,3 +96,4 @@ Tres revisiones independientes (seguridad de agentes, arquitectura y evaluación
 - **Seguridad:** detector determinista de instrucciones (es, en, pt) además de la señal del modelo; `senales.remitente_inconsistente` para el `Reply-To` falso.
 - **Contrato:** 1.1.0-rc2, solo cambios aditivos.
 - **Ejecución:** código ligero (`CLAUDE.md` 5c); la arquitectura profesional completa vive en `inception/architecture-target-vs-mvp.md`.
+- **Personas:** `inception/personas.md` define qué espera ver cada persona (directora financiera, analista, auditor, jurado) y las brechas actuales de la interfaz.
