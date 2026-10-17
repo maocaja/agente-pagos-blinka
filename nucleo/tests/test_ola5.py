@@ -125,3 +125,37 @@ def test_lectura_cambia_con_la_variable_sin_exponerla(tmp_path, monkeypatch):
     monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-secreto")
     r = c.post("/api/sesion")
     assert r.json()["lectura"] == "en_vivo" and "sk-secreto" not in r.text
+
+
+def _cliente_muestras(tmp_path):
+    from fastapi.testclient import TestClient
+    return TestClient(crear_app(Sesiones(fabrica_de_servicios(), lambda p: p + "_1"), tmp_path / "r.json", tmp_path / "d"))
+
+
+def _con_sesion(c):
+    return {"X-Sesion-Id": c.post("/api/sesion").json()["sesion_id"]}
+
+
+def test_muestras_lista_33_y_cargar_da_decision_con_explicacion(tmp_path):
+    c = _cliente_muestras(tmp_path)
+    h = _con_sesion(c)
+    assert len(c.get("/api/muestras", headers=h).json()) == 33
+    r = c.post("/api/muestras/fac-01/cargar", headers=h)
+    assert r.status_code == 201 and r.json()["explicacion"]
+    assert c.post("/api/muestras/no-existe/cargar", headers=h).status_code == 404
+
+
+def test_muestra_con_instruccion_escala_por_r8(tmp_path):
+    c = _cliente_muestras(tmp_path)
+    d = c.post("/api/muestras/fac-11/cargar", headers=_con_sesion(c)).json()
+    assert d["veredicto"] == "ESCALAR" and regla(d, "R8")["estado"] == "falla"
+
+
+def test_lista_sin_adjunto_y_cargar_todas_no_da_duplicado(tmp_path):
+    c = _cliente_muestras(tmp_path)
+    h = _con_sesion(c)
+    muestras = c.get("/api/muestras", headers=h).json()
+    assert "adjunto-devnorte-dn2201" not in [m["id"] for m in muestras]
+    assert next(m for m in muestras if m["id"] == "fac-01")["titulo"] == "correo andino"
+    decisiones = {m["id"]: c.post(f"/api/muestras/{m['id']}/cargar", headers=h).json() for m in muestras}
+    assert all(regla(decisiones["eml-05-devnorte-replyto"], r)["estado"] != "falla" for r in ("R2a", "R2b"))

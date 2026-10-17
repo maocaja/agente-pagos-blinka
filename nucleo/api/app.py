@@ -13,6 +13,7 @@ from ..dominio.mandato import RAIZ_CONTRATO
 from .rutas_acciones import rutas_acciones
 from .rutas_evaluacion import rutas_evaluacion
 from .rutas_informes import rutas_informes
+from .rutas_muestras import rutas_muestras
 from .sesiones import Sesiones
 
 _ESTADOS = {"pendientes": {"pendiente"}, "pagadas": {"con_recibo", "autorizada"},
@@ -60,17 +61,23 @@ def _rutas_sesion(sesiones: Sesiones) -> APIRouter:
     return r
 
 
-def _rutas_facturas(validar, esquema, dep) -> APIRouter:
+def _procesar_factura(validar, esquema):
+    def procesar(servicio, factura, clave, rol):
+        errores = validar(factura, esquema)
+        if errores:
+            return _error(422, "cuerpo_invalido", "La factura no cumple el esquema.", {"errores": errores[:10]})
+        servicio.cargadores.setdefault(factura["id"], rol or "sistema")
+        return servicio.idempotente("decision", clave, lambda: servicio.decidir(factura))
+    return procesar
+
+
+def _rutas_facturas(procesar, dep) -> APIRouter:
     r = APIRouter()
 
     @r.post("/api/facturas", status_code=201)
     def crear_factura(factura: dict, servicio=Depends(dep), idempotency_key: str | None = Header(None),
                       x_rol: str | None = Header(None)):
-        errores = validar(factura, esquema)
-        if errores:
-            return _error(422, "cuerpo_invalido", "La factura no cumple el esquema.", {"errores": errores[:10]})
-        servicio.cargadores.setdefault(factura["id"], x_rol or "sistema")
-        return servicio.idempotente("decision", idempotency_key, lambda: servicio.decidir(factura))
+        return procesar(servicio, factura, idempotency_key, x_rol)
 
     @r.get("/api/decisiones")
     def listar(estado: str = "todas", servicio=Depends(dep)):
@@ -146,7 +153,9 @@ def crear_app(sesiones: Sesiones, ruta_resultados: Path = RESULTADOS_SET, ruta_i
         return _error(401, "sesion_invalida", "La sesion no existe o vencio.")
 
     app.include_router(_rutas_sesion(sesiones))
-    app.include_router(_rutas_facturas(_cargar_validador(), esquema, servicio_de))
+    procesar = _procesar_factura(_cargar_validador(), esquema)
+    app.include_router(_rutas_facturas(procesar, servicio_de))
+    app.include_router(rutas_muestras(servicio_de, procesar))
     app.include_router(_rutas_recibos(servicio_de))
     app.include_router(rutas_acciones(servicio_de, ruta_resultados))
     app.include_router(rutas_informes(servicio_de, _clave_publica))
