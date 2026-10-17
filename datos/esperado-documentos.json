@@ -60,16 +60,17 @@
     "esperado_reglas": {
       "veredicto": "ESCALAR",
       "reglas_que_fallan": [
+        "R1",
         "R5",
         "R6",
         "R10"
       ],
-      "explicacion": "La factura adjunta (USD 5.200) escala por monto; el Reply-To externo no tiene regla propia."
+      "explicacion": "El Reply-To externo activa senales.remitente_inconsistente y R1 escala; ademas la factura adjunta (USD 5.200) supera el acuerdo, el umbral y el tope acumulado."
     },
     "esperado_extremo_a_extremo": {
       "veredicto": "ESCALAR",
       "lectura_esperada": "dos_lecturas_coinciden",
-      "explicacion": "El adjunto se lee bien; escala por monto, no por el Reply-To."
+      "explicacion": "El adjunto se lee bien; escala por el remitente inconsistente (R1) y por monto."
     },
     "sello": null
   },
@@ -137,18 +138,14 @@
     "archivo": "documentos/pdf-01-andino-tabla.pdf",
     "grupo": "visible",
     "esperado_reglas": {
-      "veredicto": "ESCALAR",
-      "reglas_que_fallan": [
-        "R5",
-        "R6",
-        "R10"
-      ],
-      "explicacion": "USD 7.140 (6.000 mas IVA 19%) contra un acuerdo de USD 1.500: supera tolerancia, umbral y tope acumulado."
+      "veredicto": "PAGAR",
+      "reglas_que_fallan": [],
+      "explicacion": "USD 1.428 (1.200 mas IVA 19%) dentro del acuerdo de 1.500, cuenta 4417 registrada, bajo el umbral y el tope acumulado."
     },
     "esperado_extremo_a_extremo": {
-      "veredicto": "ESCALAR",
+      "veredicto": "PAGAR",
       "lectura_esperada": "dos_lecturas_coinciden",
-      "explicacion": "PDF con texto y tabla legible; escala por monto."
+      "explicacion": "PDF con texto y tabla legible; la suma de lineas cuadra con el total."
     },
     "sello": null
   },
@@ -159,12 +156,12 @@
     "esperado_reglas": {
       "veredicto": "PAGAR",
       "reglas_que_fallan": [],
-      "explicacion": "USD 1.800 dentro del acuerdo de 4.500, cuenta 6052 registrada, bajo el umbral y el tope acumulado."
+      "explicacion": "Factura de USD 1.800 con layout compacto, dentro del acuerdo de 4.500, cuenta 6052 registrada, bajo el umbral y el tope acumulado."
     },
     "esperado_extremo_a_extremo": {
       "veredicto": "PAGAR",
       "lectura_esperada": "dos_lecturas_coinciden",
-      "explicacion": "Layout de recibo con texto legible; se trata como factura."
+      "explicacion": "Layout compacto titulado FACTURA con texto legible; es una factura."
     },
     "sello": null
   },
