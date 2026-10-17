@@ -68,3 +68,13 @@ Consumo medido: unos 510.000 tokens de subagentes; acumulado cerca de 2,5 M.
 | U4 Evaluación | Esperados ajustados (pdf-01 PAGAR, pdf-02 factura, eml-05 con R1) | 60 | verde | Hueco restante: calibrar falsos positivos de R8 con más documentos |
 Hueco de integración detectado: `/api/muestras` y `/cargar` existen solo en el servidor simulado de la interfaz; la app real no los sirve. Tampoco se ha corrido el set multicanal de extremo a extremo contra los esperados.
 Consumo medido: unos 330.000 tokens; acumulado cerca de 2,8 M.
+
+## Olas 8 a 10 (2026-10-17)
+| Unidad | Tanda | Pruebas | Resultado | Hallazgos |
+|---|---|---|---|---|
+| U1 Núcleo | Ola 8: `/api/muestras` y `/cargar` en la app real. Ola 9: lista sin el adjunto (33 muestras) y títulos legibles | 65 | verde | Prueba de humo con `uvicorn nucleo.api.principal:app`: la trampa de instrucción da ESCALAR con motivo, la factura limpia paga y `/` sirve la interfaz |
+| U3 Interfaz | Ataque con la forma real (E1 a E6, v1 contra v2), rótulo de lectura, "Cargar el set", revisión de contraste y foco | 16 | verde | Corregidos: `TypeError` en Reglas y bordes de tarjetas con contraste 1,25:1. La ventana de Chrome no se redimensionó: se auditó a 375 px en un iframe; consola solo desde la carga. Los nombres E1 a E6 están copiados en `paginas.js` |
+| U2 Lectura | Ola 9: proveedor por alias. Ola 10: país del banco en las 3 trampas de instrucción | 45 | verde | Las 16 lecturas tienen proveedor. Las trampas ya disparan solo R8 |
+| U4 Evaluación | Ola 8: corrida de extremo a extremo. Ola 10: la corrida salta el adjunto | 63 (tope 65) | verde | 13 de 15 documentos coinciden, 3 pagan (los esperados PAGAR) y ninguna imagen ni trampa paga. Quedan 2 diferencias de lista de reglas (foto-04 y pdf-03): el motor añade R1 por imagen, el esperado no |
+Datos: alias cortos de Pixel, Logística Sur y Pampa en el registro maestro. Presupuesto de pruebas: 189 de 200.
+Consumo medido: unos 650.000 tokens de subagentes en estas olas; acumulado cerca de 3,4 M.
