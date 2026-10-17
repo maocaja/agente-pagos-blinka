@@ -16,17 +16,29 @@ def _original(archivo: Path | None) -> str:
     return f"documento binario: {archivo.name}"
 
 
+def _titulos_multicanal(docs: Path) -> dict[str, tuple[str, bool]]:
+    """Stem -> (titulo legible, es adjunto); el manifiesto marca el adjunto en `trampa`."""
+    doc = json.loads((docs / "manifiesto.json").read_text(encoding="utf-8"))["documentos"]
+    return {d["archivo"].rsplit(".", 1)[0]: (d["nota"] or f'{d["proveedor_id"].removeprefix("prov_")} ({d["canal"]})',
+                                            d["trampa"].startswith("adjunto del")) for d in doc}
+
+
 def _catalogo(raiz: Path) -> dict[str, dict]:
     """Muestras = lecturas congeladas (datos) con su documento original al lado."""
     docs, lect = raiz / "datos" / "documentos", raiz / "lectura"
-    muestras = {}
+    muestras, multicanal = {}, _titulos_multicanal(docs)
     for carpeta, originales in ((lect / "extracciones", (raiz / "datos" / "facturas").glob("*.txt")),
                                 (lect / "extracciones_multicanal", docs.iterdir())):
         por_sello = {p.name.rsplit(".", 1)[0]: p for p in originales}
         for ruta in sorted(carpeta.glob("*.json")):
             clave = next((k for k in por_sello if k == ruta.stem or k.startswith(ruta.stem + "-")), None)
+            titulo, adjunto = multicanal.get(ruta.stem, (None, False))
+            if adjunto:
+                continue
+            if titulo is None:
+                titulo = clave.split("-", 2)[2].replace("-", " ") if clave and clave.count("-") >= 2 else ruta.stem
             lectura = json.loads(ruta.read_text(encoding="utf-8"))
-            muestras[ruta.stem] = {"lectura": lectura, "original": _original(por_sello.get(clave))}
+            muestras[ruta.stem] = {"lectura": lectura, "original": _original(por_sello.get(clave)), "titulo": titulo}
     return muestras
 
 
@@ -36,7 +48,7 @@ def rutas_muestras(dep, cargar_factura, raiz: Path = _RAIZ) -> APIRouter:
 
     @r.get("/api/muestras")
     def listar():
-        return [{"id": id_, "titulo": id_.replace("-", " "), "tipo": m["lectura"]["documento"]["canal"],
+        return [{"id": id_, "titulo": m["titulo"], "tipo": m["lectura"]["documento"]["canal"],
                  "lectura_guardada": True, "original": m["original"]} for id_, m in catalogo.items()]
 
     @r.post("/api/muestras/{id}/cargar", status_code=201)
