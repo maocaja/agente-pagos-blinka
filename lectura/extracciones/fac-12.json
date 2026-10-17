@@ -37,7 +37,7 @@
   "proveedor_asignado": {
     "proveedor_id": null,
     "metodo": "ninguno",
-    "pista": null
+    "pista": "prov_marta"
   },
   "evidencia": {
     "tipo_documento": "CUENTA DE C0BRO  N0. CC-2?",
