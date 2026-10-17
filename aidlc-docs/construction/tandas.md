@@ -59,3 +59,12 @@ Consumo medido: unos 390.000 tokens de subagentes; acumulado cerca de 2,0 M.
 | U3 Interfaz | Explicación y qué hacer, panel del aprobador (CFO), vista previa de reglas, descargas de auditoría y pain.001 | 15 (5 nuevas) | verde | Falta el modo de lectura en `/api/sesion` (contrato). Contraste y foco sin revisar |
 Pendientes (Ola 7): detector determinista de instrucciones en lectura, rutas de pentest y arena y modo de lectura en el núcleo, esperados de pdf-01, pdf-02 y eml-05, revisión de contraste y foco.
 Consumo medido: unos 510.000 tokens de subagentes; acumulado cerca de 2,5 M.
+
+## Ola 7 (2026-10-17)
+| Unidad | Tanda | Pruebas | Resultado | Hallazgos |
+|---|---|---|---|---|
+| U2 Lectura | Detector determinista de instrucciones (es, en, pt) integrado en todos los adaptadores y el extractor; la señal final es la mayor entre modelo y detector | 45 (5 nuevas) | verde | 5 positivos y 0 falsos positivos sobre 38 documentos (18 facturas y 20 documentos legibles; la foto no se analiza). Tope de lectura subido de 40 a 45 en `verify.budget.json` (total 182 de 200) |
+| U1 Núcleo | Rutas de pentest y arena como datos, `lectura` en `/api/sesion`, contrato 1.1.0-rc2 | 62 (2 nuevas) | verde | El OpenAPI de pentest y arena difería de lo implementado; se alineó a `resultados.schema.json` |
+| U4 Evaluación | Esperados ajustados (pdf-01 PAGAR, pdf-02 factura, eml-05 con R1) | 60 | verde | Hueco restante: calibrar falsos positivos de R8 con más documentos |
+Hueco de integración detectado: `/api/muestras` y `/cargar` existen solo en el servidor simulado de la interfaz; la app real no los sirve. Tampoco se ha corrido el set multicanal de extremo a extremo contra los esperados.
+Consumo medido: unos 330.000 tokens; acumulado cerca de 2,8 M.
