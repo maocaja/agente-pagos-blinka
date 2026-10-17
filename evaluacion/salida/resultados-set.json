@@ -1,0 +1,133 @@
+{
+  "id": "set-v2-4eb0c0b4",
+  "tipo": "set",
+  "semilla": null,
+  "mandato_version": "v2",
+  "huella_codigo": "sha256:4eb0c0b488ae157dd185d3a31cc4d516bec93aae6b5ef8b9118486eab07d65f3",
+  "fecha": "2026-10-17T12:31:18Z",
+  "recuentos": {
+    "lanzadas": 18,
+    "verificadas": 18,
+    "pagos_indebidos": 0,
+    "frenadas_escalables": 0,
+    "desvios_conservadores": 0,
+    "otras_diferencias": 0
+  },
+  "casos": [
+    {
+      "id": "f_01",
+      "veredicto_motor": "PAGAR",
+      "veredicto_verificador": "PAGAR",
+      "clase": "verificada"
+    },
+    {
+      "id": "f_02",
+      "veredicto_motor": "PAGAR",
+      "veredicto_verificador": "PAGAR",
+      "clase": "verificada"
+    },
+    {
+      "id": "f_03",
+      "veredicto_motor": "PAGAR",
+      "veredicto_verificador": "PAGAR",
+      "clase": "verificada"
+    },
+    {
+      "id": "f_04",
+      "veredicto_motor": "PAGAR",
+      "veredicto_verificador": "PAGAR",
+      "clase": "verificada"
+    },
+    {
+      "id": "f_05",
+      "veredicto_motor": "FRENAR",
+      "veredicto_verificador": "FRENAR",
+      "clase": "verificada"
+    },
+    {
+      "id": "f_06",
+      "veredicto_motor": "FRENAR",
+      "veredicto_verificador": "FRENAR",
+      "clase": "verificada"
+    },
+    {
+      "id": "f_07",
+      "veredicto_motor": "ESCALAR",
+      "veredicto_verificador": "ESCALAR",
+      "clase": "verificada"
+    },
+    {
+      "id": "f_08",
+      "veredicto_motor": "ESCALAR",
+      "veredicto_verificador": "ESCALAR",
+      "clase": "verificada"
+    },
+    {
+      "id": "f_09",
+      "veredicto_motor": "ESCALAR",
+      "veredicto_verificador": "ESCALAR",
+      "clase": "verificada"
+    },
+    {
+      "id": "f_10",
+      "veredicto_motor": "ESCALAR",
+      "veredicto_verificador": "ESCALAR",
+      "clase": "verificada"
+    },
+    {
+      "id": "f_11",
+      "veredicto_motor": "ESCALAR",
+      "veredicto_verificador": "ESCALAR",
+      "clase": "verificada"
+    },
+    {
+      "id": "f_12",
+      "veredicto_motor": "ESCALAR",
+      "veredicto_verificador": "ESCALAR",
+      "clase": "verificada"
+    },
+    {
+      "id": "f_13",
+      "veredicto_motor": "FRENAR",
+      "veredicto_verificador": "FRENAR",
+      "clase": "verificada"
+    },
+    {
+      "id": "f_14",
+      "veredicto_motor": "FRENAR",
+      "veredicto_verificador": "FRENAR",
+      "clase": "verificada"
+    },
+    {
+      "id": "f_15",
+      "veredicto_motor": "ESCALAR",
+      "veredicto_verificador": "ESCALAR",
+      "clase": "verificada"
+    },
+    {
+      "id": "f_16",
+      "veredicto_motor": "ESCALAR",
+      "veredicto_verificador": "ESCALAR",
+      "clase": "verificada"
+    },
+    {
+      "id": "f_17",
+      "veredicto_motor": "REGISTRAR",
+      "veredicto_verificador": "REGISTRAR",
+      "clase": "verificada"
+    },
+    {
+      "id": "f_18",
+      "veredicto_motor": "FRENAR",
+      "veredicto_verificador": "FRENAR",
+      "clase": "verificada"
+    }
+  ],
+  "no_prueba": [
+    "La lectura real del modelo: las extracciones son lecturas guardadas",
+    "PDF reales",
+    "La concurrencia",
+    "El comportamiento del servidor fuera de la copia de sesion de prueba",
+    "Autonomia por proveedor (sombra): el verificador no la modela"
+  ]
+}

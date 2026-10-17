@@ -1,0 +1,107 @@
+{
+  "resumen": {
+    "casos": 18,
+    "aciertos_reglas_motor": 18,
+    "aciertos_reglas_verificador": 18,
+    "aciertos_extremo_a_extremo_motor": 18,
+    "autonomia": {
+      "sin_persona": 10,
+      "de": 18,
+      "pagadas": 4
+    },
+    "escalada_innecesaria": []
+  },
+  "discrepancias": [
+    {
+      "id": "f_10",
+      "entre": "verificador y esperado_reglas",
+      "verificador": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R1",
+          "R5",
+          "R10"
+        ],
+        "motivo": ""
+      },
+      "esperado": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R5"
+        ]
+      }
+    },
+    {
+      "id": "f_12",
+      "entre": "verificador y esperado_reglas",
+      "verificador": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R1",
+          "R3",
+          "R5"
+        ],
+        "motivo": ""
+      },
+      "esperado": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R1"
+        ]
+      }
+    },
+    {
+      "id": "f_13",
+      "entre": "verificador y esperado_reglas",
+      "verificador": {
+        "veredicto": "FRENAR",
+        "reglas": [
+          "R6",
+          "R10"
+        ],
+        "motivo": ""
+      },
+      "esperado": {
+        "veredicto": "FRENAR",
+        "reglas": [
+          "R6"
+        ]
+      }
+    },
+    {
+      "id": "f_15",
+      "entre": "verificador y esperado_reglas",
+      "verificador": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R1",
+          "R4"
+        ],
+        "motivo": ""
+      },
+      "esperado": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R4"
+        ]
+      }
+    },
+    {
+      "id": "f_16",
+      "entre": "verificador y esperado_reglas",
+      "verificador": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R1"
+        ],
+        "motivo": ""
+      },
+      "esperado": {
+        "veredicto": "ESCALAR",
+        "reglas": [
+          "R9"
+        ]
+      }
+    }
+  ]
+}
