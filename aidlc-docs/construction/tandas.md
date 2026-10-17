@@ -78,3 +78,13 @@ Consumo medido: unos 330.000 tokens; acumulado cerca de 2,8 M.
 | U4 Evaluación | Ola 8: corrida de extremo a extremo. Ola 10: la corrida salta el adjunto | 63 (tope 65) | verde | 13 de 15 documentos coinciden, 3 pagan (los esperados PAGAR) y ninguna imagen ni trampa paga. Quedan 2 diferencias de lista de reglas (foto-04 y pdf-03): el motor añade R1 por imagen, el esperado no |
 Datos: alias cortos de Pixel, Logística Sur y Pampa en el registro maestro. Presupuesto de pruebas: 189 de 200.
 Consumo medido: unos 650.000 tokens de subagentes en estas olas; acumulado cerca de 3,4 M.
+
+## Olas 11 a 13 (2026-10-17)
+| Unidad | Tanda | Pruebas | Resultado | Hallazgos |
+|---|---|---|---|---|
+| U4 Evaluación | Ola 11: mutación del motor (17 mutantes) y corrida final con las 4 ocultas. Ola 13b: esperados de imágenes | 65 | verde | Mutación: 13 de 17 atrapados; los 4 sobrevivientes eran pruebas faltantes (falla cerrado ante excepción, límite de R9, guardián con FRENAR y con recibo vencido). Ocultas: 3 de 4 veredictos coinciden, 0 pagos indebidos; oc-a (nota de voz, DevNorte) escala por R4 porque la cuenta dictada termina en 8821 y el registro dice 3306: inconsistencia de datos, no se corrigió para no contaminar la prueba ciega |
+| U1 Núcleo | Ola 11b: 4 pruebas contra los mutantes sobrevivientes | 69 | verde | Mutación 17 de 17 atrapados |
+| U3 Interfaz | Ola 12: sesión persistente, Decisiones como pantalla principal, cabecera limpia. Ola 13: cifra honesta, set de demostración curado (12 muestras) | 18 | verde | Bug real: cada página creaba una sesión nueva y lo cargado se perdía. La banda decía "18 ataques" siendo 18 facturas. Cargar las 33 muestras juntas escalaba 20 por topes acumulados |
+| Reglas | R1 incluye el formato imagen en el texto de las reglas del núcleo | n/a | aclarado | Corrida del set multicanal: 15 de 15 coinciden con sus esperados |
+Puerta de calidad: `verify.py --gate` con dos corridas idénticas y mutación en OK. Presupuesto de pruebas: 197 de 200.
+Consumo medido: unos 900.000 tokens de subagentes en estas olas; acumulado cerca de 4,3 M.

@@ -119,12 +119,13 @@
     "esperado_reglas": {
       "veredicto": "ESCALAR",
       "reglas_que_fallan": [
+        "R1",
         "R4",
         "R5",
         "R6",
         "R10"
       ],
-      "explicacion": "Cuenta 9021 distinta de la registrada 4417; USD 3.570 contra un acuerdo de 1.500."
+      "explicacion": "Formato imagen: R1 escala sin una persona. Cuenta 9021 distinta de la registrada 4417; USD 3.570 contra un acuerdo de 1.500."
     },
     "esperado_extremo_a_extremo": {
       "veredicto": "ESCALAR",
@@ -172,9 +173,10 @@
     "esperado_reglas": {
       "veredicto": "ESCALAR",
       "reglas_que_fallan": [
+        "R1",
         "R5"
       ],
-      "explicacion": "USD 2.500 contra un acuerdo de USD 1.500: supera la tolerancia de 5%."
+      "explicacion": "Formato imagen: R1 escala sin una persona. USD 2.500 contra un acuerdo de USD 1.500: supera la tolerancia de 5%."
     },
     "esperado_extremo_a_extremo": {
       "veredicto": "ESCALAR",

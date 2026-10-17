@@ -57,3 +57,5 @@ Huecos (no cubiertos por ninguna regla):
 - Cuenta nueva declarada en el texto (foto-04, "NUEVA CUENTA"): R4 compara con la registrada, pero no hay verificacion fuera de banda.
 
 Cubierto: el `Reply-To` distinto del remitente (eml-05) activa `senales.remitente_inconsistente` y R1 escala, tambien con montos bajos. pdf-01 (USD 1.428 con IVA, acuerdo 1.500, cuenta registrada) se espera PAGAR; pdf-02 ahora se titula FACTURA y se espera PAGAR.
+
+Resuelto (2026-10-17): R1 incluye ahora el formato imagen en el texto de las reglas del núcleo (`business-rules.md`), y los esperados d_07 y d_10 incluyen R1. Corrida del set multicanal: 15 de 15 coinciden.

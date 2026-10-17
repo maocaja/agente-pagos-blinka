@@ -13,7 +13,7 @@ Fecha: 2026-10-16. Fuente: 13 respuestas del diseño funcional más los requisit
 ## Reglas
 | Id | Regla | Falla cuando | Acción | Parámetros del mandato |
 |---|---|---|---|---|
-| R1 | Lectura confiable | Un campo de dinero (monto, moneda, beneficiario, cuenta) tiene confianza menor que el mínimo de dinero; otro campo, menor que el mínimo general; falta un campo obligatorio; la suma de líneas no cuadra con el total; las dos lecturas no coinciden; no hay segunda lectura; la cita de evidencia no se encuentra en el documento | ESCALAR | `conf_min_dinero`, `conf_min_general`, `tolerancia_lineas` |
+| R1 | Lectura confiable | El documento es una imagen o un PDF escaneado (formato imagen: la cita no se puede verificar y nunca se paga sin una persona); un campo de dinero (monto, moneda, beneficiario, cuenta) tiene confianza menor que el mínimo de dinero; otro campo, menor que el mínimo general; falta un campo obligatorio; la suma de líneas no cuadra con el total; las dos lecturas no coinciden; no hay segunda lectura; la cita de evidencia no se encuentra en el documento | ESCALAR | `conf_min_dinero`, `conf_min_general`, `tolerancia_lineas` |
 | R2a | Duplicado exacto | Mismo proveedor y mismo número normalizado (mayúsculas, sin símbolos, **sin quitar ceros**), o mismo hash de archivo | FRENAR | |
 | R2b | Duplicado difuso | Mismo proveedor, número distinto, monto dentro de la tolerancia y dentro de la ventana | ESCALAR | `dup_tolerancia_monto_pct`, `dup_ventana_dias` |
 | R3 | Beneficiario permitido | El proveedor no está en el registro maestro: ESCALAR. Está bloqueado: FRENAR | ESCALAR o FRENAR | estado del proveedor en el registro |

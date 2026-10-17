@@ -4,64 +4,13 @@
   "saltados": {
     "d_01": "adjunto del eml-05"
   },
-  "coinciden": 13,
+  "coinciden": 15,
   "pagados": [
     "d_02",
     "d_08",
     "d_09"
   ],
-  "discrepancias": [
-    {
-      "caso": "d_07",
-      "archivo": "documentos/foto-04-andino-cambio-cuenta.jpg",
-      "motor": {
-        "veredicto": "ESCALAR",
-        "reglas": [
-          "R1",
-          "R4",
-          "R5",
-          "R6",
-          "R10"
-        ]
-      },
-      "esperado_reglas": {
-        "veredicto": "ESCALAR",
-        "reglas": [
-          "R4",
-          "R5",
-          "R6",
-          "R10"
-        ]
-      },
-      "esperado_extremo_a_extremo": "ESCALAR",
-      "coincide": false,
-      "motivos": [
-        "reglas ['R1', 'R4', 'R5', 'R6', 'R10'] contra esperadas ['R4', 'R5', 'R6', 'R10']"
-      ]
-    },
-    {
-      "caso": "d_10",
-      "archivo": "documentos/pdf-03-pixel-escaneado.pdf",
-      "motor": {
-        "veredicto": "ESCALAR",
-        "reglas": [
-          "R1",
-          "R5"
-        ]
-      },
-      "esperado_reglas": {
-        "veredicto": "ESCALAR",
-        "reglas": [
-          "R5"
-        ]
-      },
-      "esperado_extremo_a_extremo": "ESCALAR",
-      "coincide": false,
-      "motivos": [
-        "reglas ['R1', 'R5'] contra esperadas ['R5']"
-      ]
-    }
-  ],
+  "discrepancias": [],
   "casos": [
     {
       "caso": "d_02",
@@ -180,6 +129,7 @@
       "esperado_reglas": {
         "veredicto": "ESCALAR",
         "reglas": [
+          "R1",
           "R4",
           "R5",
           "R6",
@@ -187,10 +137,8 @@
         ]
       },
       "esperado_extremo_a_extremo": "ESCALAR",
-      "coincide": false,
-      "motivos": [
-        "reglas ['R1', 'R4', 'R5', 'R6', 'R10'] contra esperadas ['R4', 'R5', 'R6', 'R10']"
-      ]
+      "coincide": true,
+      "motivos": []
     },
     {
       "caso": "d_08",
@@ -235,14 +183,13 @@
       "esperado_reglas": {
         "veredicto": "ESCALAR",
         "reglas": [
+          "R1",
           "R5"
         ]
       },
       "esperado_extremo_a_extremo": "ESCALAR",
-      "coincide": false,
-      "motivos": [
-        "reglas ['R1', 'R5'] contra esperadas ['R5']"
-      ]
+      "coincide": true,
+      "motivos": []
     },
     {
       "caso": "d_11",

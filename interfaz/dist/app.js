@@ -53,7 +53,7 @@ function app() {
     // La frase solo se muestra si el marcador real la respalda.
     get garantia() {
       const m = this.marcador;
-      return m && m.pagos_indebidos === 0 && m.verificados > 0 ? `${m.verificados} facturas del set verificadas, 0 pagos indebidos.` : "";
+      return m && m.pagos_indebidos === 0 && m.verificados > 0 ? `Verificación independiente de las ${m.verificados} facturas del set: 0 pagos indebidos.` : "";
     },
     f(d) { return this.facturas[d.id]; },
     proveedor(d) { return this.f(d)?.emisor?.nombre || d.factura_id; },
