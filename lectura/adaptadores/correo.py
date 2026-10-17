@@ -1,5 +1,6 @@
 from email import policy
 from email.parser import BytesParser
+from email.utils import parseaddr
 
 from .congelada import AdaptadorDeTexto, Ilegible
 from .pdf import leer_pdf
@@ -35,3 +36,22 @@ class AdaptadorCorreo(AdaptadorDeTexto):
         partes += [f"Subject: {c['asunto']}", "", c["cuerpo"]]
         partes += [f"[Adjunto {n}]\n{t}" for n, _, t in c["adjuntos"]]
         return "\n".join(partes)
+
+    def a_canonica(self, documento):
+        resultado = super().a_canonica(documento)
+        motivo = _motivo_remitente(leer_correo(documento.contenido))
+        if resultado.factura is not None and motivo:
+            resultado.factura.setdefault("senales", {})["remitente_inconsistente"] = {"motivo": motivo}
+        return resultado
+
+
+def _dominio(direccion):
+    return parseaddr(direccion)[1].rpartition("@")[2].lower()
+
+
+def _motivo_remitente(correo):
+    """Reply-To en otro dominio que el remitente: las respuestas irian a un tercero."""
+    destino = _dominio(correo["reply_to"])
+    if destino and destino != _dominio(correo["de"]):
+        return f"Reply-To en el dominio {destino}, distinto del remitente {_dominio(correo['de'])}"
+    return None

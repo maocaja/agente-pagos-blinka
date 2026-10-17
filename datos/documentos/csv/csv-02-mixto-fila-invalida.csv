@@ -1,0 +1,4 @@
+numero,proveedor,id_fiscal,pais,moneda,monto,concepto,emision,vencimiento,cuenta_ultimos4,acuerdo_ref
+CV-120,Codigo Verde SAS,NIT 901.000.222-1,CO,USD,850.00,Desarrollo,2026-10-12,2026-11-11,1096,AC-CVERDE-2026-02
+CV-121,Codigo Verde SAS,NIT 901.000.222-1,CO,USD,,Soporte,2026-10-12,2026-11-11,1096,AC-CVERDE-2026-02
+LS-77,Logistica Sur SpA,RUT 76.000.000-0,CL,USD,"1.200,50",Flete,2026-10-12,2026-11-11,7745,AC-LSUR-2026-05

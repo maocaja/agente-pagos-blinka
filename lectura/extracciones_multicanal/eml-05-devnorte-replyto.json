@@ -76,5 +76,10 @@
     "proveedor_id": "prov_devnorte",
     "metodo": "nombre",
     "pista": null
+  },
+  "senales": {
+    "remitente_inconsistente": {
+      "motivo": "Reply-To en el dominio correo-externo.example, distinto del remitente devnorte.example"
+    }
   }
 }
