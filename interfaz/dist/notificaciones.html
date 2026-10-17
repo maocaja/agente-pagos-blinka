@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notificaciones</title>
+  <link rel="stylesheet" href="app.css">
+  <script src="api.js"></script>
+  <script src="paginas.js"></script>
+  <script src="nav.js"></script>
+  <script defer src="alpine.min.js"></script>
+</head>
+<body x-data="notificaciones()" x-init="init()" class="min-h-screen pb-40">
+  <header class="px-6 pt-5">
+    <div class="flex flex-wrap items-center gap-3">
+      <h1 class="text-2xl font-semibold">Notificaciones</h1>
+      <label class="apoyo text-sm sm:ml-auto" for="filtro">Estado</label>
+      <select id="filtro" class="input" style="width:auto;min-width:10rem" x-model="filtro" data-testid="filtro-estado">
+        <option value="todos">Todos</option><option value="enviada">Enviadas</option><option value="simulada">Simuladas</option><option value="fallida">Fallidas</option>
+      </select>
+      <button type="button" class="btn btn-primario" data-testid="prueba-abrir" :disabled="ocupado || confirmando" x-show="!confirmando" @click="confirmando = true">Enviar notificación de prueba</button>
+      <span x-show="confirmando" x-cloak class="flex flex-wrap items-center gap-2" role="alertdialog" data-testid="prueba-confirmacion">
+        <span role="status">¿Enviar un aviso de prueba por los canales?</span>
+        <button type="button" class="btn btn-primario" data-testid="prueba-confirmar" :disabled="ocupado" @click="probar()" x-text="ocupado ? 'Enviando…' : 'Enviar'"></button>
+        <button type="button" class="btn btn-sec" data-testid="prueba-cancelar" :disabled="ocupado" @click="confirmando = false">Cancelar</button>
+      </span>
+    </div>
+    <p class="mt-1 max-w-3xl text-texto-2" data-testid="subtitulo">Los avisos que el sistema envía por Telegram y correo. Informan, no autorizan nada. Importa porque un canal sin configurar queda como simulado y aquí nunca se presenta como enviado.</p>
+  </header>
+  <p x-show="error" x-cloak class="mx-6 mt-4 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="error" x-text="error"></p>
+  <p x-show="resultado" x-cloak class="mx-6 mt-4 panel p-4" role="status" data-testid="prueba-resultado">
+    Prueba registrada por <span x-text="resultado && resultado.canal"></span>: <strong x-text="resultado && est(resultado).texto"></strong>
+  </p>
+  <main class="p-6">
+    <p x-show="!visibles.length" x-cloak class="text-texto-2" data-testid="sin-avisos">No hay avisos con este filtro.</p>
+    <ul class="grid gap-3" data-testid="lista-avisos">
+      <template x-for="(a, i) in visibles" :key="a.hora + a.canal + i">
+        <li class="panel p-4" :data-testid="'aviso-' + i">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="font-tec" x-text="hora(a.hora)"></span>
+            <span class="font-semibold" x-text="a.evento"></span>
+            <span class="chip chip-sombra uppercase" x-text="a.canal"></span>
+            <span class="apoyo" x-text="a.destino"></span>
+            <span class="chip sm:ml-auto" :class="est(a).clase" data-testid="aviso-estado"><span aria-hidden="true" x-text="est(a).icono"></span><span x-text="est(a).texto"></span></span>
+          </div>
+          <p class="mt-2" x-text="a.texto"></p>
+        </li>
+      </template>
+    </ul>
+  </main>
+  <style>[x-cloak]{display:none !important}</style>
+</body>
+</html>
