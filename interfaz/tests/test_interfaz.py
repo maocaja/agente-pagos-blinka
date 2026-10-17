@@ -152,6 +152,9 @@ def test_paginas_nuevas_enlazan_descargas_normales():
     html = cliente.get("/").text
     nav = (RAIZ / "dist" / "nav.js").read_text(encoding="utf-8")
     assert 'href: "/api/auditoria/paquete"' in nav and "pain001" in html and 'data-testid="que-hacer"' in html
+    r = cliente.get("/api/muestras/m_04/archivo")
+    assert r.status_code == 200 and r.headers["content-type"] == "image/jpeg" and cliente.get("/api/muestras/x/archivo").status_code == 404
+    assert "createObjectURL" in (RAIZ / "dist" / "api.js").read_text(encoding="utf-8")
 
 
 def test_sesion_persistente_y_cabecera_limpia():
@@ -180,3 +183,4 @@ def test_ciclo_y_historial_tras_rechazar():
 def test_interfaz_nombra_autorizadas_y_no_pagadas():
     html = (RAIZ / "dist" / "app.js").read_text(encoding="utf-8")
     assert "Autorizadas para pago" in html and '"Pagados"' not in html
+

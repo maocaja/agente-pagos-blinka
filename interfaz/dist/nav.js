@@ -7,9 +7,9 @@ const PAGINAS = [
   { href: "ataque.html", texto: "Ataque" },
 ];
 const ESCENAS = [
-  { pagina: "index.html?muestra=foto-04-andino-cambio-cuenta", titulo: "1. Cambio de cuenta", texto: "Sin control, esta factura se paga. Aqui se escala: la cuenta 9021 no es la registrada (4417) y el motivo esta escrito. Actue como CFO, rechace con una nota y vea el historial." },
+  { pagina: "index.html?muestra=foto-04-andino-cambio-cuenta", titulo: "1. Cambio de cuenta", texto: "Sin control, esta factura se paga. Aquí se escala: la cuenta 9021 no es la registrada (4417) y el motivo está escrito. Actúe como CFO, rechace con una nota y vea el historial." },
   { pagina: "bandeja.html", titulo: "2. Las trampas", texto: "Abra cada muestra: el texto de una factura es un dato, no una orden. Decide el motor, con su regla." },
-  { pagina: "index.html?muestra=fac-01", titulo: "3. El recibo", texto: "Cada decision es un recibo firmado: pulse Verificar firma. Luego, en el panel Verificar sin esta aplicacion, el auditor descarga el paquete y lo comprueba con su propio script." },
+  { pagina: "index.html?muestra=fac-01", titulo: "3. El recibo", texto: "Cada decisión es un recibo firmado: pulse Verificar firma. Luego, en el panel Verificar sin esta aplicación, el auditor descarga el paquete y lo comprueba con su propio script." },
   { pagina: "ataque.html", titulo: "4. El ataque", texto: "El mandato v1 deja un hueco (facturas partidas); el v2 lo cierra. Nos atacamos primero." },
   { pagina: "marcador.html", titulo: "5. Cierre honesto", texto: "La cifra y, debajo, lo que esta cifra no prueba." },
 ];
@@ -36,7 +36,13 @@ function montarOpciones() {
   tema.onclick = () => { memoria.guardar("tema", memoria.leer("tema") === "oscuro" ? "claro" : "oscuro"); aplicarTema(memoria.leer("tema")); rotular(); };
   rotular();
   const paquete = el("a", { class: "btn btn-sec w-full", href: "/api/auditoria/paquete", download: "", "data-testid": "descargar-paquete" }, "Paquete de auditoría");
-  const menu = el("div", { class: "panel panel-fuerte absolute right-0 z-20 mt-2 grid w-56 gap-2 p-3" }, "", [tema, paquete]);
+  const falla = el("p", { class: "text-sm text-frenar", role: "alert", "data-testid": "error-descarga" });
+  paquete.onclick = async (ev) => {
+    ev.preventDefault();
+    falla.textContent = "";
+    try { await api.descargar("/api/auditoria/paquete", "paquete-auditoria.json"); } catch (e) { falla.textContent = e.message; }
+  };
+  const menu = el("div", { class: "panel panel-fuerte absolute right-0 z-20 mt-2 grid w-56 gap-2 p-3" }, "", [tema, paquete, falla]);
   return el("details", { class: "relative", "data-testid": "opciones" }, "", [el("summary", { class: "btn btn-sec cursor-pointer list-none" }, "Opciones"), menu]);
 }
 

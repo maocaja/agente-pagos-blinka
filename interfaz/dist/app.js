@@ -5,7 +5,7 @@ function app() {
     rol: "analista", sesion: null, monedas: {}, marcador: null,
     decisiones: [], facturas: {}, filtro: "TODAS", error: null, cargando: true,
     sel: null, factura: null, recibo: null, tecnica: false,
-    ciclo: null, muestras: [], historial: [], estadoOrden: null, nota: "", ocupado: false, progreso: "", copia: "", copiaError: null, resultado: null, verifRecibo: null,
+    ciclo: null, muestras: [], historial: [], estadoOrden: null, nota: "", ocupado: false, progreso: "", copia: "", copiaError: null, resultado: null, verifRecibo: null, imagenFalla: false,
     veredictos: VEREDICTOS, estados: ESTADOS, estadoVerif: ESTADO_VERIF,
     filtros: [["TODAS", "Todas"], ["PAGAR", "Pagar"], ["FRENAR", "Frenar"], ["ESCALAR", "Escalar"], ["PENDIENTES", "Pendientes de aprobación"]],
 
@@ -47,9 +47,15 @@ function app() {
         const r = await api.cargarSet((i, n, t) => { this.progreso = `Cargando ${i} de ${n}: ${t}`; });
         this.progreso = r.fallos.length ? `Se cargaron ${r.total - r.fallos.length} de ${r.total}. ${r.fallos[0]}` : "";
         await this.cargarLista();
+        await this.cargarCiclo();
       } catch (e) { this.error = e.message; }
       this.ocupado = false;
     },
+    async descargar(ruta, nombre) {
+      this.error = null;
+      try { await api.descargar(ruta, nombre); } catch (e) { this.error = e.message; }
+    },
+    hora: horaCorta,
     get vigentes() { return this.decisiones.filter((d) => d.estado !== "reevaluada"); },
     get visibles() {
       const f = this.filtro;
@@ -72,7 +78,7 @@ function app() {
     aprobo(d) { return d.reevaluacion_de ? "CFO" : ""; },
     cambiarRol(r) { this.rol = r; api.rol = r; },
     async abrir(d) {
-      this.sel = d; this.historial = []; this.estadoOrden = null; this.recibo = null; this.resultado = null; this.verifRecibo = null; this.tecnica = false; this.error = null;
+      this.sel = d; this.historial = []; this.estadoOrden = null; this.recibo = null; this.resultado = null; this.verifRecibo = null; this.tecnica = false; this.error = null; this.imagenFalla = false;
       try {
         const r = await api.detalle(d.id);
         this.factura = r.factura; this.historial = r.historial || []; this.estadoOrden = r.estado_orden ?? null;
@@ -81,12 +87,18 @@ function app() {
       if (matchMedia("(max-width: 1023px)").matches) this.$nextTick(() => this.$refs.detalle?.scrollIntoView({ block: "start" }));
     },
     // El documento original solo existe para las muestras cargadas; la reevaluacion hereda el de su decision de origen.
-    get original() {
+    get muestraId() {
       if (!this.sel) return "";
       const hechas = api.muestrasCargadas(), ids = [this.sel.id, this.sel.reevaluacion_de];
-      const id = Object.keys(hechas).find((k) => ids.includes(hechas[k]));
-      return (this.muestras.find((m) => m.id === id) || {}).original || "";
+      return Object.keys(hechas).find((k) => ids.includes(hechas[k])) || "";
     },
+    get original() { return (this.muestras.find((m) => m.id === this.muestraId) || {}).original || ""; },
+    // El servidor describe un binario como "documento binario: nombre.ext"; la extension decide como mostrarlo.
+    get tipoOriginal() {
+      const ext = (/^documento binario: .*\.(\w+)$/.exec(this.original) || [])[1]?.toLowerCase();
+      return ["jpg", "jpeg", "png", "webp", "gif"].includes(ext) ? "imagen" : ext === "pdf" ? "pdf" : "texto";
+    },
+    get urlArchivo() { return `/api/muestras/${encodeURIComponent(this.muestraId)}/archivo`; },
     get leido() {
       const f = this.factura;
       if (!f) return [];
