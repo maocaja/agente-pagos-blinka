@@ -13,7 +13,7 @@
 <body x-data="reglas()" x-init="init()" class="min-h-screen pb-40">
   <header class="flex flex-wrap items-center gap-4 px-6 py-4">
     <h1 class="text-xl font-semibold">Reglas</h1>
-    <span class="etiqueta-simulada">solo lectura</span>
+    <span class="etiqueta-simulada">vista previa, sin guardar</span>
     <span class="text-texto-2 text-sm" x-show="mandato" x-cloak>Mandato <span data-testid="mandato-version" x-text="mandato && mandato.version"></span>
       (<span x-text="mandato && mandato.estado"></span>), firmado por <span x-text="mandato && mandato.firmas.map((f) => f.rol).join(' y ')"></span></span>
   </header>
@@ -26,6 +26,25 @@
           <div class="contents"><dt class="apoyo" x-text="p.texto"></dt><dd class="cifra" :data-testid="'param-' + p.k" x-text="valor(p)"></dd></div>
         </template>
       </dl>
+    </section>
+    <section class="panel p-5 lg:col-span-2" aria-label="Vista previa de cambios" x-show="mandato" x-cloak>
+      <h2 class="text-lg font-semibold">Probar un cambio</h2>
+      <p class="apoyo mt-1 text-sm">Escriba el valor nuevo en unidades menores. La vista previa no guarda nada.</p>
+      <div class="mt-4 grid gap-3 sm:grid-cols-3">
+        <template x-for="p in editables" :key="p.k">
+          <div class="grid gap-1"><label :for="'ed-' + p.k" class="apoyo text-sm" x-text="p.texto"></label>
+            <input :id="'ed-' + p.k" type="text" inputmode="numeric" class="input cifra" x-model="edicion[p.k]" :placeholder="mandato.parametros[p.k]" :data-testid="'edit-' + p.k"></div>
+        </template>
+      </div>
+      <button type="button" class="btn btn-primario mt-4" data-testid="vista-previa" :disabled="ocupado" @click="verPrevia()">Vista previa</button>
+      <div x-show="previa" x-cloak class="mt-4" data-testid="resultado-previa">
+        <p class="font-semibold"><span data-testid="previa-cambian" x-text="previa && previa.cambian"></span> de <span x-text="previa && previa.evaluadas"></span> facturas cambian de veredicto (mandato <span x-text="previa && previa.mandato_vigente"></span>).</p>
+        <ul class="mt-2 grid gap-1 text-sm" data-testid="previa-cambios">
+          <template x-for="c in (previa ? previa.cambios : [])" :key="c.factura_id">
+            <li><span class="font-semibold" x-text="c.factura_id"></span>: <span x-text="c.antes"></span> pasa a <span x-text="c.despues"></span>. <span class="apoyo" x-text="c.explicacion"></span></li>
+          </template>
+        </ul>
+      </div>
     </section>
     <section class="panel p-5" aria-label="Proveedores y autonomia">
       <h2 class="text-lg font-semibold">Proveedores y autonomia</h2>

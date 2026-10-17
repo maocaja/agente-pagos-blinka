@@ -50,7 +50,8 @@ def _decision(base: dict, m: tuple, n: int) -> dict:
             r["evidencia"] = "Bajo el presupuesto del periodo."
         if r["id"] == m[4]:
             r.update(estado="falla", accion_si_falla="ESCALAR", evidencia=m[6])
-    d.update(id=f"dec_m{n}", factura_id=f"f_m{n}", veredicto=m[5], motivo_corto=m[6], reglas=reglas,
+    d.update(id=f"dec_m{n}", factura_id=f"f_m{n}", veredicto=m[5], motivo_corto=m[6], explicacion=m[6], reglas=reglas,
+             que_hacer="Revisar el original con el proveedor antes de decidir." if m[5] == "ESCALAR" else None,
              estado="pendiente" if m[5] == "ESCALAR" else "con_recibo", recibo_id=None, sin_orden=m[5] != "PAGAR")
     return d
 

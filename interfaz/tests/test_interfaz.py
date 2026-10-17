@@ -100,3 +100,43 @@ def test_reiniciar_quita_las_muestras_cargadas():
     cliente.post("/api/muestras/m_01/cargar")
     assert cliente.post("/api/sesion/reiniciar").status_code == 200
     assert not any(d["id"].startswith("dec_m") for d in cliente.get("/api/decisiones").json())
+
+
+def test_aprobar_solo_cfo_reevalua_y_emite_recibo_nuevo():
+    cliente.post("/api/sesion/reiniciar")
+    assert cliente.post("/api/decisiones/dec_11/aprobar", json={"nota": "ok"}, headers={"X-Rol": "analista"}).status_code == 403
+    r = cliente.post("/api/decisiones/dec_11/aprobar", json={"nota": "ok"}, headers={"X-Rol": "cfo"}).json()
+    assert validar(r["decision"], _esquema("decision.schema.json")) == []
+    assert validar(r["aprobacion"], _esquema("aprobacion.schema.json")) == []
+    assert r["decision"]["reevaluacion_de"] == "dec_11" and r["decision"]["recibo_id"]
+    assert cliente.post("/api/decisiones/dec_11/aprobar", json={"nota": "ok"}, headers={"X-Rol": "cfo"}).status_code == 409
+
+
+def test_rechazar_exige_nota_y_deja_la_decision_rechazada():
+    cliente.post("/api/muestras/m_01/cargar")
+    h = {"X-Rol": "cfo"}
+    assert cliente.post("/api/decisiones/dec_m1/rechazar", json={"nota": " "}, headers=h).status_code == 422
+    d = cliente.post("/api/decisiones/dec_m1/rechazar", json={"nota": "No coincide"}, headers=h).json()
+    assert d["estado"] == "rechazada" and validar(d, _esquema("decision.schema.json")) == []
+
+
+def test_vista_previa_del_mandato_no_persiste():
+    antes = cliente.get("/api/mandato").json()
+    previa = cliente.post("/api/mandato/previa", json={"parametros": {"umbral_aprobacion_menor": "9999999"}}).json()
+    assert previa["cambian"] == len(previa["cambios"]) >= 0 and previa["evaluadas"] >= previa["cambian"]
+    assert cliente.get("/api/mandato").json() == antes
+    assert cliente.post("/api/mandato/previa", json={"parametros": {"inventado": "1"}}).status_code == 422
+
+
+def test_auditoria_paquete_y_pain001_simulada():
+    paq = cliente.get("/api/auditoria/paquete")
+    assert "attachment" in paq.headers["content-disposition"]
+    assert {"formato", "generado_en", "clave_publica", "clave_version", "recibos", "mandatos"} <= paq.json().keys()
+    assert validar(paq.json()["recibos"][0], _esquema("recibo.schema.json")) == []
+    xml = cliente.get("/api/ordenes/rec_01/pain001")
+    assert "SIMULADA" in xml.text and cliente.get("/api/ordenes/otro/pain001").status_code == 404
+
+
+def test_paginas_nuevas_enlazan_descargas_normales():
+    html = cliente.get("/").text
+    assert 'href="/api/auditoria/paquete"' in html and "pain001" in html and 'data-testid="que-hacer"' in html
