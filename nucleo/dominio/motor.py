@@ -3,7 +3,7 @@ from functools import lru_cache
 
 from . import reglas_simples  # noqa: F401  registra R3 a R7
 from .errores import FallaCerrada
-from .explicacion import explicar
+from .explicacion import clave_razon, explicar
 from .mandato import RAIZ_CONTRATO
 from .reglas import AL_FINAL, REGLAS, Resultado
 
@@ -73,7 +73,7 @@ def _veredicto(f, m, reg, reglas, requeridas):
         return (TIPO_DESCONOCIDO if pol is None else pol["fijo"]) + ([],)
     res = evaluar_reglas(f, m, reg, reglas, requeridas)
     fallas = [(i, r) for i, r in res if r.estado == "falla"]
-    top = next((x for a in PRECEDENCIA for x in fallas if x[1].accion == a), None)
+    top = min(fallas, key=lambda x: clave_razon(x[0], x[1].accion), default=None)
     motivo = top[1].evidencia if top else pol.get("motivo", "Cumple las reglas evaluadas.")
     return agregar(res, pol["si_cumple"]), motivo, res
 

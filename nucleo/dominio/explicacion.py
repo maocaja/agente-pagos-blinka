@@ -19,10 +19,15 @@ PRIORIDAD = {r: i for i, r in enumerate(("R8", "R4", "R3", "R2a", "R2b", "R7", "
 QUE_HACER_GENERICO = "Que una persona revise la decision."
 
 
+def clave_razon(regla_id, accion) -> tuple:
+    """Orden de relevancia: accion por precedencia y luego PRIORIDAD."""
+    return (PRECEDENCIA.index(accion) if accion in PRECEDENCIA else len(PRECEDENCIA),
+            PRIORIDAD.get(regla_id, len(PRIORIDAD)))
+
+
 def fallas_por_precedencia(reglas) -> list:
     fallas = [r for r in reglas if r["estado"] == "falla"]
-    return sorted(fallas, key=lambda r: (PRECEDENCIA.index(r["accion_si_falla"]) if r["accion_si_falla"] in PRECEDENCIA else len(PRECEDENCIA),
-                                          PRIORIDAD.get(r["id"], len(PRIORIDAD))))
+    return sorted(fallas, key=lambda r: clave_razon(r["id"], r["accion_si_falla"]))
 
 
 def explicar(veredicto, motivo_corto, reglas) -> tuple:

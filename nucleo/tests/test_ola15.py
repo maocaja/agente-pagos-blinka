@@ -7,6 +7,7 @@ def test_foto_de_cuenta_cambiada_tiene_r4_como_razon_principal(tmp_path):
     c = _cliente_muestras(tmp_path)
     d = c.post("/api/muestras/foto-04-andino-cambio-cuenta/cargar", headers=_con_sesion(c)).json()
     assert d["explicacion"].startswith("La cuenta") and "Además:" in d["explicacion"]
+    assert d["motivo_corto"].startswith("La cuenta")
     assert d["que_hacer"].startswith("Confirmar la cuenta con el proveedor")
     assert "unidades menores" not in d["explicacion"]
     actividad = c.get("/api/ciclo", headers=_con_sesion(c)).json()["actividad"]
