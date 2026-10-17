@@ -43,10 +43,33 @@ def _guardian(recibo: dict) -> dict:
             "verificaciones": [{"n": i + 1, "nombre": n, "estado": "ok", "motivo": None} for i, n in enumerate(nombres)]}
 
 
+def _historial(d: dict, resoluciones: dict) -> list[dict]:
+    base = [{"hora": d["creada_en"], "evento": "Recibida", "actor": "Sistema", "nota": ""},
+            {"hora": d["creada_en"], "evento": f"Decidida por el motor: {d['veredicto']}", "actor": "Motor de reglas", "nota": d["motivo_corto"]}]
+    return base + resoluciones.get(d["id"], []) + ([{"hora": d["creada_en"], "evento": "Recibo emitido", "actor": "Sistema", "nota": ""}] if d.get("recibo_id") else [])
+
+
+def _estado_orden(d: dict):
+    return "orden_simulada_emitida" if d.get("recibo_id") else None
+
+
+def _rutas_ciclo(app, decisiones, facturas, resoluciones):
+    @app.get("/api/ciclo")
+    def ciclo():
+        total = lambda i: int((facturas.get(i) or _ejemplo("factura-canonica.f11.json"))["montos"]["total_menor"])
+        reservado = sum(total(i) for i, d in decisiones.items() if d.get("recibo_id"))
+        eventos = [dict(e, id=i) for i, d in decisiones.items() for e in _historial(d, resoluciones)]
+        recientes = sorted(eventos, key=lambda e: e["hora"], reverse=True)[:6]
+        return {"ciclo_id": "2026-10", "empresa": "Empresa de demostracion SA", "moneda": "BRL", "presupuesto_menor": "5000000",
+                "reservado_menor": str(reservado), "disponible_menor": str(5000000 - reservado),
+                "actividad": [{"hora": e["hora"], "texto": f"{e['evento']} ({e['id']})"} for e in recientes]}
+
+
 def crear_app() -> FastAPI:
     app = FastAPI(title="Servidor simulado de la interfaz")
     decisiones = {d["id"]: d for d in _decisiones()}
     facturas = {}
+    resoluciones = {}
 
     @app.post("/api/sesion", status_code=201)
     def sesion():
@@ -60,7 +83,8 @@ def crear_app() -> FastAPI:
     def detalle(id: str):
         if id not in decisiones:
             raise HTTPException(404, "Decision no encontrada")
-        return {"decision": decisiones[id], "factura": facturas.get(id) or _ejemplo("factura-canonica.f11.json")}
+        return {"decision": decisiones[id], "factura": facturas.get(id) or _ejemplo("factura-canonica.f11.json"),
+                "historial": _historial(decisiones[id], resoluciones), "estado_orden": _estado_orden(decisiones[id])}
 
     @app.get("/api/recibos/{id}")
     def recibo(id: str):
@@ -78,7 +102,8 @@ def crear_app() -> FastAPI:
 
     registrar_ola4(app, decisiones, facturas, _ejemplo("decision.f11.json"), _ejemplo("factura-canonica.f11.json"),
                    _ejemplo("mandato.v2.json"))
-    registrar_ola6(app, decisiones, _ejemplo("aprobacion.ejemplo.json"), _ejemplo("recibo.pagar.json"), _ejemplo("mandato.v2.json"))
+    registrar_ola6(app, decisiones, _ejemplo("aprobacion.ejemplo.json"), _ejemplo("recibo.pagar.json"), _ejemplo("mandato.v2.json"), resoluciones)
+    _rutas_ciclo(app, decisiones, facturas, resoluciones)
     app.mount("/", StaticFiles(directory=RAIZ / "dist", html=True), name="dist")
     return app
 

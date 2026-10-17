@@ -1,5 +1,6 @@
 """Rutas simuladas de la Ola 6 (aprobar, rechazar, vista previa del mandato, auditoria), con datos del contrato."""
 import copy
+from datetime import datetime, timezone
 
 from fastapi import Body, FastAPI, Header
 from fastapi.responses import JSONResponse, Response
@@ -26,12 +27,18 @@ def _cfo_sobre_escalada(decisiones: dict, id: str, rol: str):
     return None
 
 
-def _rutas_decidir(app, decisiones, base_aprobacion):
+def anotar(resoluciones: dict, id: str, evento: str, nota: str):
+    ahora = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    resoluciones.setdefault(id, []).append({"hora": ahora, "evento": evento, "actor": "CFO", "nota": nota})
+
+
+def _rutas_decidir(app, decisiones, base_aprobacion, resoluciones):
     @app.post("/api/decisiones/{id}/aprobar")
     def aprobar(id: str, cuerpo: dict = Body(default_factory=dict), x_rol: str = Header(default="analista")):
         if (fallo := _cfo_sobre_escalada(decisiones, id, x_rol)):
             return fallo
         previa = decisiones[id]
+        anotar(resoluciones, id, "Aprobada y reevaluada", cuerpo.get("nota") or "Aprobada.")
         previa["estado"] = "reevaluada"
         nueva = copy.deepcopy(previa)
         nueva.update(id=id + "_r", veredicto="PAGAR", estado="con_recibo", recibo_id="rec_01", reevaluacion_de=id,
@@ -47,6 +54,7 @@ def _rutas_decidir(app, decisiones, base_aprobacion):
             return fallo
         if not (cuerpo.get("nota") or "").strip():
             return _error(422, "invalido", "La nota es obligatoria al rechazar.")
+        anotar(resoluciones, id, "Rechazada", cuerpo["nota"].strip())
         decisiones[id].update(estado="rechazada", que_hacer=None)
         return decisiones[id]
 
@@ -86,7 +94,7 @@ def _rutas_auditoria(app, recibo, mandato):
         return Response(xml, media_type="application/xml", headers={"Content-Disposition": f'attachment; filename="{id}-pain001.xml"'})
 
 
-def registrar_ola6(app: FastAPI, decisiones: dict, base_aprobacion: dict, recibo: dict, mandato: dict):
-    _rutas_decidir(app, decisiones, base_aprobacion)
+def registrar_ola6(app: FastAPI, decisiones: dict, base_aprobacion: dict, recibo: dict, mandato: dict, resoluciones: dict):
+    _rutas_decidir(app, decisiones, base_aprobacion, resoluciones)
     _rutas_mandato(app, decisiones, mandato)
     _rutas_auditoria(app, recibo, mandato)

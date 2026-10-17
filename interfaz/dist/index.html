@@ -18,6 +18,24 @@
 
   <p x-show="error" x-cloak class="mx-6 mt-4 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="error" x-text="error"></p>
 
+  <section class="px-6 pt-4" x-show="ciclo" x-cloak aria-label="Contexto del periodo" data-testid="ciclo">
+    <div class="panel panel-fuerte grid gap-3 p-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <div>
+        <p class="font-semibold" data-testid="ciclo-empresa" x-text="ciclo && ciclo.empresa"></p>
+        <p class="text-sm text-texto-2">Periodo <span data-testid="ciclo-id" x-text="ciclo && ciclo.ciclo_id"></span></p>
+        <div class="mt-2 h-3 w-full overflow-hidden rounded-3xl bg-elevado" role="img" :aria-label="'Presupuesto reservado: ' + porcentajeReservado + ' por ciento'"><div class="h-3 bg-pagar" :style="'width:' + porcentajeReservado + '%'" data-testid="ciclo-barra"></div></div>
+        <p class="mt-1 text-sm text-texto-2"><span class="cifra" data-testid="ciclo-reservado" x-text="ciclo && dineroCiclo(ciclo.reservado_menor)"></span> reservado de <span class="cifra" x-text="ciclo && dineroCiclo(ciclo.presupuesto_menor)"></span>; disponible <span class="cifra" data-testid="ciclo-disponible" x-text="ciclo && dineroCiclo(ciclo.disponible_menor)"></span></p>
+      </div>
+      <div>
+        <h2 class="text-sm font-semibold text-texto-2">Actividad reciente</h2>
+        <p class="text-sm text-texto-2" x-show="ciclo && ciclo.actividad.length === 0">Todavía no hay actividad.</p>
+        <ul class="mt-1 grid gap-1 text-sm" data-testid="actividad">
+          <template x-for="(a, i) in (ciclo ? ciclo.actividad : [])" :key="i"><li><span class="cifra text-texto-2" x-text="a.hora"></span> <span x-text="a.texto"></span></li></template>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <section class="px-6 pt-4" x-show="vigentes.length" x-cloak aria-label="Resumen" data-testid="resumen">
     <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
       <template x-for="r in resumen" :key="r[0]">
@@ -57,7 +75,7 @@
                 </span>
                 <span x-text="d.motivo_corto"></span>
                 <span class="text-sm font-semibold text-texto-2" x-show="aprobo(d)" x-text="'Aprobó: ' + aprobo(d)" data-testid="aprobo"></span>
-                <span class="text-sm font-semibold text-escalar" x-show="d.estado === 'pendiente'">Espera aprobación</span>
+                <span class="text-sm font-semibold text-escalar" x-show="estados[d.estado]" x-text="estados[d.estado]"></span>
               </button>
             </li>
           </template>
@@ -72,10 +90,37 @@
             <span class="chip" :class="veredictos[sel.veredicto].clase"><span aria-hidden="true" x-text="veredictos[sel.veredicto].icono"></span><span x-text="veredictos[sel.veredicto].texto"></span></span>
             <span class="text-texto-2" x-text="sel.modo_autonomia === 'autonomo' ? 'Autonomo bajo reglas' : 'Sombra'"></span>
           </div>
+          <p class="mt-2 font-semibold text-escalar" x-show="estados[sel.estado]" data-testid="estado-decision" x-text="estados[sel.estado]"></p>
           <p class="mt-2 text-lg" x-text="sel.motivo_corto"></p>
           <p class="mt-2 font-semibold text-texto-2" x-show="aprobo(sel)" data-testid="aprobo-detalle" x-text="'Aprobó: ' + aprobo(sel) + ', que reevaluó la decisión ' + sel.reevaluacion_de"></p>
           <p class="mt-2" data-testid="explicacion" x-show="sel.explicacion && sel.explicacion !== sel.motivo_corto" x-text="sel.explicacion"></p>
-          <p class="mt-2 border-l-4 border-linea-fuerte pl-3 font-semibold" data-testid="que-hacer" x-show="sel.que_hacer"><span class="apoyo">Qué hacer: </span><span x-text="sel.que_hacer"></span></p>
+          <p class="mt-2 border-l-4 border-linea-fuerte pl-3 font-semibold" data-testid="que-hacer" x-show="sel.que_hacer"><span class="apoyo">Siguiente paso: </span><span x-text="sel.que_hacer"></span></p>
+          <ol class="mt-4 grid gap-2 sm:grid-cols-3" data-testid="etapas" aria-label="Estado del trámite">
+            <template x-for="e in etapas" :key="e[0]"><li class="panel p-3" :data-testid="'etapa-' + e[0]"><span class="block text-sm text-texto-2" x-text="e[1]"></span><span class="font-semibold" :class="e[3] ? 'text-pagar' : 'text-texto-2'" x-text="e[2]"></span></li></template>
+          </ol>
+          <p class="mt-2 text-sm text-texto-2" data-testid="sin-pago-confirmado">No hay "pago confirmado": este producto no mueve dinero. La orden emitida es una simulación.</p>
+          <div class="mt-4 border-t border-linea pt-4" data-testid="documento-leido" x-show="original || factura">
+            <h2 class="text-lg font-semibold">Documento y lo que se leyó</h2>
+            <div class="mt-2 grid gap-4 md:grid-cols-2">
+              <div x-show="original"><h3 class="apoyo text-sm">Documento original</h3><pre class="panel mt-1 overflow-x-auto whitespace-pre-wrap p-3 font-tec text-sm" data-testid="original" x-text="original"></pre></div>
+              <div><h3 class="apoyo text-sm">Lo leído</h3>
+                <dl class="mt-1 grid grid-cols-[6rem_minmax(0,1fr)] gap-y-1 text-sm" data-testid="leido">
+                  <template x-for="p in leido" :key="p[0]"><div class="contents"><dt class="apoyo" x-text="p[0]"></dt><dd x-text="p[1]"></dd></div></template>
+                </dl>
+              </div>
+            </div>
+            <div class="mt-3" x-show="diferencias.length" data-testid="diferencias">
+              <h3 class="apoyo text-sm">Lo que difiere</h3>
+              <ul class="grid gap-1"><template x-for="r in diferencias" :key="r.id"><li class="font-semibold text-frenar"><span x-text="r.id + ': ' + r.evidencia"></span></li></template></ul>
+            </div>
+          </div>
+          <div class="mt-4 border-t border-linea pt-4" data-testid="historial">
+            <h2 class="text-lg font-semibold">Historial</h2>
+            <p class="text-sm text-texto-2" x-show="historial.length === 0">Sin eventos registrados.</p>
+            <ol class="mt-1 grid gap-2 text-sm">
+              <template x-for="(h, i) in historial" :key="i"><li class="grid gap-x-3 sm:grid-cols-[11rem_minmax(0,1fr)]"><span class="cifra text-texto-2" x-text="h.hora"></span><span><span class="font-semibold" x-text="h.evento"></span> <span class="text-texto-2" x-text="'- ' + h.actor"></span><span class="block" x-show="h.nota" x-text="h.nota"></span></span></li></template>
+            </ol>
+          </div>
           <ul class="mt-4 grid gap-1 text-sm">
             <template x-for="r in sel.reglas" :key="r.id">
               <li class="flex gap-3"><span class="w-10 font-semibold" x-text="r.id"></span><span class="w-20" :class="r.estado === 'falla' ? 'text-frenar' : 'text-texto-2'" x-text="r.estado"></span><span class="text-texto-2" x-text="r.evidencia"></span></li>
@@ -149,6 +194,14 @@
             </div>
           </div>
 
+          <div class="linea mt-4 border-t pt-4" data-testid="verificar-externo">
+            <h3 class="font-semibold">Verificar sin esta aplicación</h3>
+            <ol class="mt-1 grid gap-1 text-sm">
+              <li>Descargue el <a class="underline" href="/api/auditoria/paquete" download="paquete-auditoria.json" data-testid="enlace-paquete">paquete de auditoría</a> (paquete-auditoria.json).</li>
+              <li>Ejecute: <code class="font-tec" data-testid="comando-verificar">python3 nucleo/auditoria/verificar_paquete.py paquete-auditoria.json</code></li>
+              <li>Resultado esperado: <span class="font-semibold" data-testid="resultado-esperado">PAQUETE VALIDO</span>. Si alguien altera un recibo, el script imprime PAQUETE INVALIDO.</li>
+            </ol>
+          </div>
           <div class="linea mt-4 flex flex-wrap items-center gap-3 border-t pt-4">
             <a class="btn btn-recibo-sec max-w-full flex-wrap text-center" :href="'/api/ordenes/' + recibo.id + '/pain001'" download data-testid="descargar-pain001">Orden de pago <span class="etiqueta-simulada">SIMULADA</span> (pain.001)</a>
           </div>

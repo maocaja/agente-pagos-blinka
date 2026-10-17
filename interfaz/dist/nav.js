@@ -7,9 +7,9 @@ const PAGINAS = [
   { href: "ataque.html", texto: "Ataque" },
 ];
 const ESCENAS = [
-  { pagina: "index.html?muestra=foto-04-andino-cambio-cuenta", titulo: "1. Cambio de cuenta", texto: "Sin el agente, esta factura se paga. Con el agente se escala y el motivo esta escrito: la cuenta no es la registrada." },
+  { pagina: "index.html?muestra=foto-04-andino-cambio-cuenta", titulo: "1. Cambio de cuenta", texto: "Sin control, esta factura se paga. Aqui se escala: la cuenta 9021 no es la registrada (4417) y el motivo esta escrito. Actue como CFO, rechace con una nota y vea el historial." },
   { pagina: "bandeja.html", titulo: "2. Las trampas", texto: "Abra cada muestra: el texto de una factura es un dato, no una orden. Decide el motor, con su regla." },
-  { pagina: "index.html?muestra=fac-01&tecnica=1", titulo: "3. El recibo", texto: "Altere un byte de la copia y pida al guardian que verifique: rechaza con el motivo." },
+  { pagina: "index.html?muestra=fac-01", titulo: "3. El recibo", texto: "Cada decision es un recibo firmado: pulse Verificar firma. Luego, en el panel Verificar sin esta aplicacion, el auditor descarga el paquete y lo comprueba con su propio script." },
   { pagina: "ataque.html", titulo: "4. El ataque", texto: "El mandato v1 deja un hueco (facturas partidas); el v2 lo cierra. Nos atacamos primero." },
   { pagina: "marcador.html", titulo: "5. Cierre honesto", texto: "La cifra y, debajo, lo que esta cifra no prueba." },
 ];
