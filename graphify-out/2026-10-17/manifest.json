@@ -162,9 +162,9 @@
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1792213090.756844,
-    "seen": 1792213118.320267,
-    "ast_hash": "cec14bc7576db3a4e499ab49e325bded",
+    "mtime": 1792214025.09142,
+    "seen": 1792214026.99547,
+    "ast_hash": "6880392fa8918e984e93b8f6d88e2976",
     "semantic_hash": ""
   },
   "PRD.md": {
@@ -180,9 +180,9 @@
     "semantic_hash": ""
   },
   "aidlc-docs/aidlc-state.md": {
-    "mtime": 1792213104.0829272,
-    "seen": 1792213118.320269,
-    "ast_hash": "deb4e6b02cdc89f3c844a9bc016d9028",
+    "mtime": 1792214035.797667,
+    "seen": 1792214036.7668989,
+    "ast_hash": "bfb8b3e51f4223cafb1d576086b658c6",
     "semantic_hash": ""
   },
   "aidlc-docs/construction/evaluacion/functional-design/business-logic-model.md": {
@@ -216,9 +216,9 @@
     "semantic_hash": ""
   },
   "aidlc-docs/construction/interfaz/functional-design/frontend-components.md": {
-    "mtime": 1792211872.3561633,
-    "seen": 1792213118.320273,
-    "ast_hash": "21e353eea7cc9f4436781021199481b1",
+    "mtime": 1792214025.0904655,
+    "seen": 1792214026.99548,
+    "ast_hash": "231a7d2ceae6af3b573225fa7b87620c",
     "semantic_hash": ""
   },
   "aidlc-docs/construction/lectura/functional-design/business-logic-model.md": {
@@ -312,9 +312,9 @@
     "semantic_hash": ""
   },
   "aidlc-docs/inception/plans/execution-plan.md": {
-    "mtime": 1792213104.081912,
-    "seen": 1792213118.3202848,
-    "ast_hash": "6cdefae0b857643559c007fa9cacb713",
+    "mtime": 1792213593.021569,
+    "seen": 1792214026.9954932,
+    "ast_hash": "4dab8ca1f6cf9dc39112d32a2243bbe2",
     "semantic_hash": ""
   },
   "aidlc-docs/inception/plans/unit-of-work-plan.md": {
@@ -471,6 +471,42 @@
     "mtime": 1792207943.435524,
     "seen": 1792213118.320301,
     "ast_hash": "be5a287a2f8fe745ef0575858634a8c0",
+    "semantic_hash": ""
+  },
+  ".mcp.json": {
+    "mtime": 1792213297.6359813,
+    "seen": 1792214026.9953651,
+    "ast_hash": "f93852c7eb0f85ac0294007207f1bdfc",
+    "semantic_hash": ""
+  },
+  "conftest.py": {
+    "mtime": 1792213516.5260234,
+    "seen": 1792214026.9953659,
+    "ast_hash": "eb2aafd6e86b00721253e3b21eba375e",
+    "semantic_hash": ""
+  },
+  "verify.budget.json": {
+    "mtime": 1792213593.0001957,
+    "seen": 1792214026.9954638,
+    "ast_hash": "94a01ec2d1654ad99e79f7d8652feb05",
+    "semantic_hash": ""
+  },
+  "verify.py": {
+    "mtime": 1792213516.5284877,
+    "seen": 1792214026.995466,
+    "ast_hash": "2cdee2e3c1f9becc5eada847569e0547",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/estrategia-de-verificacion.md": {
+    "mtime": 1792213593.0482938,
+    "seen": 1792214026.9954739,
+    "ast_hash": "e50156b2d24494446c1ccaec48438940",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/interfaz/functional-design/design-system.md": {
+    "mtime": 1792214025.0983613,
+    "seen": 1792214026.995479,
+    "ast_hash": "005abcb45c377ec5b81f0b69f0c339b7",
     "semantic_hash": ""
   }
 }
