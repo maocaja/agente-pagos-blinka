@@ -14,6 +14,12 @@ def _esperados():
     return json.loads((RAIZ / "datos/esperado-documentos.json").read_text(encoding="utf-8"))
 
 
+def _adjuntos():
+    # Un adjunto va dentro de su correo; como documento aparte daria R2a en sesion limpia.
+    m = json.loads((RAIZ / "datos/documentos/manifiesto.json").read_text(encoding="utf-8"))
+    return {d["archivo"]: d["trampa"] for d in m["documentos"] if d.get("trampa", "").startswith("adjunto del ")}
+
+
 def _fila(sesion, esperado, lecturas):
     ruta = lecturas / (Path(esperado["archivo"]).stem + ".json")
     estado, d = sesion.enviar(json.loads(ruta.read_text(encoding="utf-8")))
@@ -36,8 +42,11 @@ def _fila(sesion, esperado, lecturas):
 def correr(salida, casos=None, lecturas=None):
     lecturas = lecturas or RAIZ / "lectura/extracciones_multicanal"
     sesion = servidor.Sesion(servidor.arrancar())
-    filas = [_fila(sesion, e, lecturas) for e in _esperados() if casos is None or e["caso"] in casos]
-    resultado = {"mandato_version": sesion.mandato()["version"], "documentos": len(filas),
+    adjuntos = _adjuntos()
+    todos = [e for e in _esperados() if casos is None or e["caso"] in casos]
+    saltados = {e["caso"]: adjuntos[Path(e["archivo"]).name] for e in todos if Path(e["archivo"]).name in adjuntos}
+    filas = [_fila(sesion, e, lecturas) for e in todos if e["caso"] not in saltados]
+    resultado = {"mandato_version": sesion.mandato()["version"], "documentos": len(filas), "saltados": saltados,
                  "coinciden": sum(f["coincide"] for f in filas),
                  "pagados": [f["caso"] for f in filas if f["motor"]["veredicto"] == "PAGAR"],
                  "discrepancias": [f for f in filas if not f["coincide"]], "casos": filas}
@@ -52,7 +61,7 @@ def main():
     ap.add_argument("--casos", default="")
     a = ap.parse_args()
     r = correr(Path(a.salida), set(a.casos.split(",")) if a.casos else None)
-    print(json.dumps({k: r[k] for k in ("mandato_version", "documentos", "coinciden", "pagados")}, ensure_ascii=False))
+    print(json.dumps({k: r[k] for k in ("mandato_version", "documentos", "saltados", "coinciden", "pagados")}, ensure_ascii=False))
     for f in r["discrepancias"]:
         print(f["caso"], f["archivo"], "|", "; ".join(f["motivos"]))
 
