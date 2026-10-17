@@ -3,7 +3,7 @@ function app() {
     rol: "analista", tema: "claro", sesion: null, monedas: {},
     decisiones: [], filtro: "TODAS", error: null, cargando: true,
     sel: null, factura: null, recibo: null, tecnica: false,
-    copia: "", copiaError: null, resultado: null, verifRecibo: null,
+    nota: "", ocupado: false, copia: "", copiaError: null, resultado: null, verifRecibo: null,
     veredictos: VEREDICTOS, estadoVerif: ESTADO_VERIF,
     filtros: ["TODAS", "PAGAR", "FRENAR", "ESCALAR", "REGISTRAR"],
 
@@ -32,6 +32,18 @@ function app() {
         this.factura = (await api.detalle(d.id)).factura;
         if (d.recibo_id) { this.recibo = await api.recibo(d.id); this.copia = JSON.stringify(this.recibo, null, 2); }
       } catch (e) { this.error = e.message; }
+    },
+    get puedeDecidir() { return this.rol === "cfo"; },
+    get esperaAprobacion() { return this.sel && this.sel.veredicto === "ESCALAR" && this.sel.estado === "pendiente"; },
+    async decidir(accion) {
+      this.error = null; this.ocupado = true;
+      try {
+        const r = await api[accion](this.sel.id, this.nota);
+        this.nota = "";
+        this.decisiones = await api.decisiones();
+        await this.abrir(accion === "aprobar" ? r.decision : this.decisiones.find((d) => d.id === this.sel.id));
+      } catch (e) { this.error = e.message; }
+      this.ocupado = false;
     },
     entero(menor, moneda) { return dinero.entero(menor, dinero.exponente(this.monedas, moneda)); },
     centavos(menor, moneda) { return dinero.centavos(menor, dinero.exponente(this.monedas, moneda)); },

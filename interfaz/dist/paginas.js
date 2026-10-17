@@ -14,13 +14,23 @@ async function cargarMonedas() { return (await (await fetch("monedas.json")).jso
 
 function reglas() {
   return {
-    mandato: null, proveedores: [], monedas: {}, error: null, parametros: PARAMETROS,
+    mandato: null, proveedores: [], monedas: {}, error: null, parametros: PARAMETROS, edicion: {}, previa: null, ocupado: false,
     async init() {
       try {
         this.monedas = await cargarMonedas();
         await api.iniciar();
         [this.mandato, this.proveedores] = await Promise.all([api.mandato(), api.proveedores()]);
       } catch (e) { this.error = e.message; }
+    },
+    get editables() { return PARAMETROS.filter((p) => p.tipo === "dinero"); },
+    async verPrevia() {
+      this.error = null; this.previa = null;
+      const cambios = Object.fromEntries(Object.entries(this.edicion).filter(([k, v]) => String(v).trim() !== "" && String(v).trim() !== this.mandato.parametros[k]));
+      if (!Object.keys(cambios).length) { this.error = "Cambie al menos un valor antes de pedir la vista previa."; return; }
+      if (!Object.values(cambios).every((v) => /^\d+$/.test(String(v).trim()))) { this.error = "Escriba enteros en unidades menores, sin puntos ni comas."; return; }
+      this.ocupado = true;
+      try { this.previa = await api.previaMandato(Object.fromEntries(Object.entries(cambios).map(([k, v]) => [k, String(v).trim()]))); } catch (e) { this.error = e.message; }
+      this.ocupado = false;
     },
     valor(p) {
       if (!this.mandato) return "";

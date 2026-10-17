@@ -7,6 +7,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 
 from rutas_ola4 import registrar_ola4
+from rutas_ola6 import registrar_ola6
 
 RAIZ = Path(__file__).resolve().parent
 EJEMPLOS = RAIZ.parent / "contrato" / "ejemplos"
@@ -18,7 +19,7 @@ def _ejemplo(nombre: str) -> dict:
 
 def _variante(base: dict, id_: str, veredicto: str, motivo: str, **extra) -> dict:
     d = copy.deepcopy(base)
-    d.update(id=id_, veredicto=veredicto, motivo_corto=motivo, **extra)
+    d.update(id=id_, veredicto=veredicto, motivo_corto=motivo, explicacion=motivo, que_hacer=None, **extra)
     return d
 
 
@@ -26,6 +27,9 @@ def _decisiones() -> list[dict]:
     base = _ejemplo("decision.f11.json")
     pagar = _variante(base, "dec_01", "PAGAR", "Cumple todas las reglas.", factura_id="f_01", estado="con_recibo", recibo_id="rec_01")
     frenar = _variante(base, "dec_02", "FRENAR", "El proveedor no esta en el registro.", factura_id="f_02", estado="frenada", sin_orden=True)
+    frenar["que_hacer"] = "Pedir al proveedor que se registre antes de volver a enviar la factura."
+    base = dict(base, explicacion="La cuenta de la factura (CO) no es la registrada (BR); no se paga sin que una persona lo confirme.",
+                que_hacer="Confirmar la cuenta con el proveedor por un canal conocido y luego aprobar o rechazar.")
     return [base, pagar, frenar]
 
 
@@ -60,7 +64,7 @@ def crear_app() -> FastAPI:
 
     @app.get("/api/recibos/{id}")
     def recibo(id: str):
-        if id != "dec_01":
+        if not (id in decisiones and decisiones[id]["recibo_id"]):
             raise HTTPException(404, "Recibo no encontrado")
         return _ejemplo("recibo.pagar.json")
 
@@ -74,6 +78,7 @@ def crear_app() -> FastAPI:
 
     registrar_ola4(app, decisiones, facturas, _ejemplo("decision.f11.json"), _ejemplo("factura-canonica.f11.json"),
                    _ejemplo("mandato.v2.json"), _ejemplo("resultados.arena.json"))
+    registrar_ola6(app, decisiones, _ejemplo("aprobacion.ejemplo.json"), _ejemplo("recibo.pagar.json"), _ejemplo("mandato.v2.json"))
     app.mount("/", StaticFiles(directory=RAIZ / "dist", html=True), name="dist")
     return app
 

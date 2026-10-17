@@ -35,7 +35,7 @@ Primer hito: la factura con su decisión, el motivo escrito y el recibo.
 ### T3. Pantalla de Reglas, la que pide el reto (sábado)
 - [x] 3.1 La empresa define sus reglas: umbral de aprobación, límites por pago y por periodo, monedas y tope acumulado por proveedor (los beneficiarios permitidos no están en el mandato: salen del registro de proveedores y se ven en una lista de solo lectura desde `/api/proveedores`); edición como mandato nuevo con versión (CFO propone, analista contrafirma).
 - [x] 3.2 Vista previa "qué cambia si se aprueba" y autonomía visible por proveedor.
-- [ ] 3.3 Bandeja del aprobador: razón en una frase, un botón por rol, aprobar siempre reevalúa.
+- [x] 3.3 Bandeja del aprobador: razón en una frase, un botón por rol, aprobar siempre reevalúa.
 - Pruebas (≈ 4): aprobar con reevaluación 2; mandato con dos firmas 1; modo público de solo lectura 1.
 
 ### T4. Marcador y escena del ataque (sábado por la noche)

@@ -20,7 +20,8 @@
       </template>
     </div>
     <span class="text-texto-2 text-sm">Mandato <span x-text="sesion ? sesion.mandato_version : '-'" data-testid="mandato-version"></span></span>
-    <button type="button" class="btn btn-sec ml-auto" data-testid="cambiar-tema" @click="cambiarTema(tema === 'claro' ? 'oscuro' : 'claro')" x-text="tema === 'claro' ? 'Tema oscuro' : 'Tema claro'"></button>
+    <a class="btn btn-sec ml-auto" href="/api/auditoria/paquete" download data-testid="descargar-paquete">Paquete de auditoria</a>
+    <button type="button" class="btn btn-sec" data-testid="cambiar-tema" @click="cambiarTema(tema === 'claro' ? 'oscuro' : 'claro')" x-text="tema === 'claro' ? 'Tema oscuro' : 'Tema claro'"></button>
   </header>
 
   <p x-show="error" x-cloak class="m-6 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="error" x-text="error"></p>
@@ -55,6 +56,8 @@
             <span class="text-texto-2" x-text="sel.modo_autonomia === 'autonomo' ? 'Autonomo bajo reglas' : 'Sombra'"></span>
           </div>
           <p class="mt-2 text-lg" x-text="sel.motivo_corto"></p>
+          <p class="mt-2" data-testid="explicacion" x-show="sel.explicacion" x-text="sel.explicacion"></p>
+          <p class="mt-2 border-l-4 border-linea-fuerte pl-3 font-semibold" data-testid="que-hacer" x-show="sel.que_hacer"><span class="apoyo">Que hacer: </span><span x-text="sel.que_hacer"></span></p>
           <ul class="mt-4 grid gap-1 text-sm">
             <template x-for="r in sel.reglas" :key="r.id">
               <li class="flex gap-3"><span class="w-10 font-semibold" x-text="r.id"></span><span class="w-20" :class="r.estado === 'falla' ? 'text-frenar' : 'text-texto-2'" x-text="r.estado"></span><span class="text-texto-2" x-text="r.evidencia"></span></li>
@@ -62,6 +65,20 @@
           </ul>
         </div>
       </template>
+
+      <section class="panel panel-fuerte p-5" x-show="esperaAprobacion" x-cloak data-testid="aprobacion" aria-label="Aprobacion">
+        <h2 class="text-lg font-semibold">Espera aprobacion</h2>
+        <p class="mt-1" data-testid="razon" x-text="sel && sel.motivo_corto"></p>
+        <p class="apoyo mt-2 text-sm" x-show="!puedeDecidir" data-testid="solo-cfo">Solo el CFO aprueba o rechaza. Cambie el rol arriba para decidir.</p>
+        <div x-show="puedeDecidir" x-cloak class="mt-3 grid gap-3">
+          <label for="nota" class="apoyo text-sm">Nota (obligatoria al rechazar)</label>
+          <input id="nota" type="text" class="input" x-model="nota" data-testid="nota">
+          <div class="flex flex-wrap gap-3">
+            <button type="button" class="btn btn-primario" data-testid="aprobar" :disabled="ocupado" @click="decidir('aprobar')">Aprobar y reevaluar</button>
+            <button type="button" class="btn btn-peligro" data-testid="rechazar" :disabled="ocupado" @click="decidir('rechazar')">Rechazar</button>
+          </div>
+        </div>
+      </section>
 
       <template x-if="sel && !recibo">
         <p class="panel p-4 text-texto-2" data-testid="sin-recibo">Esta decision no tiene recibo: no se emitio orden de pago.</p>
@@ -105,6 +122,7 @@
 
           <div class="linea mt-4 flex flex-wrap items-center gap-3 border-t pt-4">
             <button type="button" class="btn btn-recibo" data-testid="verificar-recibo" @click="verificar()">Verificar firma</button>
+            <a class="btn btn-recibo-sec" :href="'/api/ordenes/' + recibo.id + '/pain001'" download data-testid="descargar-pain001">Orden de pago <span class="etiqueta-simulada">SIMULADA</span> (pain.001)</a>
             <span x-show="verifRecibo" x-cloak data-testid="resultado-firma" x-text="verifRecibo && verifRecibo.valida ? 'Firma valida (clave ' + verifRecibo.clave_version + ')' : 'Firma no valida'"></span>
           </div>
 
