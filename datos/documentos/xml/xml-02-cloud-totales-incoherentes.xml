@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+  <cbc:ID>CLD-880</cbc:ID>
+  <cbc:IssueDate>2026-10-12</cbc:IssueDate>
+  <cbc:DueDate>2026-11-11</cbc:DueDate>
+  <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+  <cbc:DocumentCurrencyCode>USD</cbc:DocumentCurrencyCode>
+  <cac:ContractDocumentReference><cbc:ID>MSA-CLOUD-2026-07</cbc:ID></cac:ContractDocumentReference>
+  <cac:AccountingSupplierParty><cac:Party>
+    <cac:PartyName><cbc:Name>Cloud Advisors LLC</cbc:Name></cac:PartyName>
+    <cac:PostalAddress><cac:Country><cbc:IdentificationCode>US</cbc:IdentificationCode></cac:Country></cac:PostalAddress>
+    <cac:PartyTaxScheme><cbc:CompanyID>00-0000000</cbc:CompanyID></cac:PartyTaxScheme>
+  </cac:Party></cac:AccountingSupplierParty>
+  <cac:PaymentMeans><cac:PayeeFinancialAccount><cbc:ID>000000006052</cbc:ID></cac:PayeeFinancialAccount></cac:PaymentMeans>
+  <cac:InvoiceLine><cbc:ID>1</cbc:ID><cbc:LineExtensionAmount currencyID="USD">2400.00</cbc:LineExtensionAmount><cac:Item><cbc:Description>Hosting octubre</cbc:Description></cac:Item></cac:InvoiceLine>
+  <cac:InvoiceLine><cbc:ID>2</cbc:ID><cbc:LineExtensionAmount currencyID="USD">300.00</cbc:LineExtensionAmount><cac:Item><cbc:Description>Soporte</cbc:Description></cac:Item></cac:InvoiceLine>
+  <cac:LegalMonetaryTotal><cbc:PayableAmount currencyID="USD">3000.00</cbc:PayableAmount></cac:LegalMonetaryTotal>
+</Invoice>

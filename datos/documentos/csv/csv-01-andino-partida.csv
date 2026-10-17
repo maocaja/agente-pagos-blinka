@@ -1,0 +1,4 @@
+numero,proveedor,id_fiscal,pais,moneda,monto,concepto,emision,vencimiento,cuenta_ultimos4,acuerdo_ref
+AND-3201-A,Estudio Andino SAS,NIT 900.000.111-0,CO,USD,700.00,Diseno parte 1,2026-10-12,2026-11-11,4417,AC-ANDINO-2026-01
+AND-3201-B,Estudio Andino SAS,NIT 900.000.111-0,CO,USD,700.00,Diseno parte 2,2026-10-12,2026-11-11,4417,AC-ANDINO-2026-01
+AND-3201-C,Estudio Andino SAS,NIT 900.000.111-0,CO,USD,700.00,Diseno parte 3,2026-10-12,2026-11-11,4417,AC-ANDINO-2026-01

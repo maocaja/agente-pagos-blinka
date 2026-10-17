@@ -4,7 +4,8 @@ from .base import Documento, Resultado
 from .congelada import canonica_congelada
 
 _EXTRACCIONES = Path(__file__).resolve().parents[1] / "extracciones"
-_FORMATO_POR_EXTENSION = {".pdf": "pdf", ".eml": "eml", ".jpg": "imagen", ".jpeg": "imagen", ".png": "imagen"}
+_FORMATO_POR_EXTENSION = {".pdf": "pdf", ".eml": "eml", ".jpg": "imagen", ".jpeg": "imagen", ".png": "imagen",
+                          ".xml": "xml", ".csv": "csv"}
 
 
 def documento_desde_archivo(ruta):

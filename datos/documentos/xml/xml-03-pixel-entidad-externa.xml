@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Invoice [<!ENTITY xxe SYSTEM "file:///etc/passwd">]>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+  <cbc:ID>PX-410</cbc:ID>
+  <cbc:IssueDate>2026-10-12</cbc:IssueDate>
+  <cbc:DueDate>2026-11-11</cbc:DueDate>
+  <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+  <cbc:DocumentCurrencyCode>BRL</cbc:DocumentCurrencyCode>
+  <cac:ContractDocumentReference><cbc:ID>AC-PIXEL-2026-03</cbc:ID></cac:ContractDocumentReference>
+  <cac:AccountingSupplierParty><cac:Party>
+    <cac:PartyName><cbc:Name>Pixel Studio Ltda</cbc:Name></cac:PartyName>
+    <cac:PostalAddress><cac:Country><cbc:IdentificationCode>BR</cbc:IdentificationCode></cac:Country></cac:PostalAddress>
+    <cac:PartyTaxScheme><cbc:CompanyID>00.000.000/0001-00</cbc:CompanyID></cac:PartyTaxScheme>
+  </cac:Party></cac:AccountingSupplierParty>
+  <cac:PaymentMeans><cac:PayeeFinancialAccount><cbc:ID>0000008830</cbc:ID></cac:PayeeFinancialAccount></cac:PaymentMeans>
+  <cac:InvoiceLine><cbc:ID>1</cbc:ID><cbc:LineExtensionAmount currencyID="BRL">5000.00</cbc:LineExtensionAmount><cac:Item><cbc:Description>Animacion</cbc:Description></cac:Item></cac:InvoiceLine>
+  <cac:LegalMonetaryTotal><cbc:PayableAmount currencyID="BRL">5000.00</cbc:PayableAmount></cac:LegalMonetaryTotal>
+</Invoice>
