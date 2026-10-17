@@ -3,7 +3,7 @@
   "ciclo_id": "2026-10",
   "documento": {
     "id": "d_eml-10-pampa-autoridad-urgencia",
-    "hash": "b0229ad2d4a2b60243ba534f29652e1a48e2b301a5db09aff23caf66b76faa1e",
+    "hash": "c6e311edfce79065b8d0b55d9a3e676a9eecbcbd7687f09ccd3f3e9473ad6521",
     "canal": "correo",
     "formato": "texto",
     "tipo_documento": "factura",
@@ -31,7 +31,7 @@
     "lineas": []
   },
   "cuenta": {
-    "pais": "",
+    "pais": "AR",
     "ultimos4": "5509"
   },
   "evidencia": {
@@ -40,7 +40,7 @@
     "monto_total": "USD 400,00",
     "moneda": "USD 400,00",
     "proveedor": "Taller Pampa",
-    "cuenta": "cuenta terminada en 5509"
+    "cuenta": "Banco Galicia, Argentina, cuenta terminada en 5509"
   },
   "confianza": {
     "tipo_documento": 0.95,

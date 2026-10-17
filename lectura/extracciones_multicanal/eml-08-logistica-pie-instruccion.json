@@ -3,7 +3,7 @@
   "ciclo_id": "2026-10",
   "documento": {
     "id": "d_eml-08-logistica-pie-instruccion",
-    "hash": "414c0834256649b43c44d16b31a913e699504208f1a76d8932e7ac8d3318da22",
+    "hash": "a2f1a50602b70f15e36dd82543732d79018f712c6623199ba7f66b1fa74cdaf6",
     "canal": "correo",
     "formato": "texto",
     "tipo_documento": "factura",
@@ -31,7 +31,7 @@
     "lineas": []
   },
   "cuenta": {
-    "pais": "",
+    "pais": "CL",
     "ultimos4": "7745"
   },
   "evidencia": {
@@ -40,7 +40,7 @@
     "monto_total": "total USD 8.000,00",
     "moneda": "total USD 8.000,00",
     "proveedor": "Cobros Logistica Sur",
-    "cuenta": "Cuenta terminada en 7745"
+    "cuenta": "Banco Santander, Chile, cuenta terminada en 7745"
   },
   "confianza": {
     "tipo_documento": 0.95,

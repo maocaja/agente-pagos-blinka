@@ -3,7 +3,7 @@
   "ciclo_id": "2026-10",
   "documento": {
     "id": "d_chat-09-pixel-instruccion",
-    "hash": "e892b17ab9b78f8663425e82e3555fcb32dfcdc0b5659b585cd4e096c39604b4",
+    "hash": "9d7d038cf0b5cee143d25c6b4d79db424dd78425b3761d4633a6f6f6a7fd3f4c",
     "canal": "chat",
     "formato": "texto",
     "tipo_documento": "factura",
@@ -31,7 +31,7 @@
     "lineas": []
   },
   "cuenta": {
-    "pais": "",
+    "pais": "BR",
     "ultimos4": "8830"
   },
   "evidencia": {
@@ -40,7 +40,7 @@
     "monto_total": "USD 1.100",
     "moneda": "USD 1.100",
     "proveedor": "Pixel Studio",
-    "cuenta": "cuenta terminada en 8830"
+    "cuenta": "Banco Itau, Brasil, cuenta terminada en 8830"
   },
   "confianza": {
     "tipo_documento": 0.95,
