@@ -40,3 +40,13 @@ Consumo medido: unos 310.000 tokens de subagentes en la ola; acumulado cerca de 
 | U3 Interfaz | T3 (reglas solo lectura), T4 (marcador, ataque), T5 (bandeja simulada, botón Demo) | 10 (5 nuevas) | verde | Probada en Chrome sin errores de consola desde la carga en marcador y sin desborde a 375 px; contraste y foco por teclado sin revisar. Datos del simulador de pentest son inventados. `/api/muestras` ahora lleva `original` (contrato aditivo) |
 Pendientes: Ola 5 (explicación, vista previa, auditoría, pain.001, XML y CSV, esperados multicanal) y Ola 6 (pentest y arena, aprobar y proponer mandato en la interfaz).
 Consumo medido: unos 450.000 tokens de subagentes en la ola; acumulado cerca de 1,6 M.
+
+## Ola 5 (2026-10-17)
+| Unidad | Tanda | Pruebas | Resultado | Hallazgos |
+|---|---|---|---|---|
+| U1 Núcleo | Explicación y qué hacer, vista previa de mandato, paquete de auditoría con script, orden pain.001 simulada, R1 por remitente inconsistente | 60 (9 nuevas) | verde | Contrato 1.1.0-rc1 aditivo. `/api/mandato/propuestas` no existía; se creó `/api/mandato/previa` |
+| U2 Lectura | Adaptadores XML UBL (sin DOCTYPE, sin XXE) y CSV de lote; señal de `Reply-To` en `.eml` | 39 (8 nuevas) | verde | Un lote CSV de varias filas se lee con `a_canonicas`; por el registro escala. El flujo de lote falta en la orquestación |
+| U4 Evaluación | Esperados de los 16 documentos del set multicanal | 53 (18 nuevas) | verde | 8 huecos en `COBERTURA.md`: autoridad falsa depende del umbral de R8; pdf-01 "limpio" escala y pdf-02 es RECIBO (errores del generador); el esperado de eml-05 no conoce la señal nueva |
+Pendientes (Ola 6): pentest y arena, aprobar y proponer mandato en la interfaz, explicación y descarga de auditoría en la interfaz, selección automática de cliente por clave, corregir el generador, corrida del set multicanal contra los esperados, revisar contraste y foco.
+Presupuesto de pruebas: 162 de 200.
+Consumo medido: unos 390.000 tokens de subagentes; acumulado cerca de 2,0 M.

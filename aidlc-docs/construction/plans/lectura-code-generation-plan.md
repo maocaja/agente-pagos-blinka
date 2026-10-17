@@ -46,7 +46,7 @@ Prioridad por el guion: la foto con cambio de cuenta, el `.eml` con adjunto y el
 - [x] 4.2 Adaptador de imagen y PDF escaneado: lectura con Claude como imagen y **doble lectura independiente** (Haiku y Sonnet); campos críticos deben coincidir; origen imagen marcado en la factura para que R1 no deje pasar a PAGAR.
 - [x] 4.3 Adaptador de correo `.eml` con la biblioteca estándar: encabezados, `Reply-To`, cuerpo y adjunto PDF.
 - [x] 4.4 Adaptador de chat (exportación estilo WhatsApp).
-- [ ] 4.5 Adaptador XML (UBL) con parser sin modelo, **solo si sobra tiempo**.
+- [x] 4.5 Adaptador XML (UBL) con parser sin modelo, **solo si sobra tiempo**.
 - Pruebas (≈ 6): imagen doble lectura 2; correo 2; chat 1; PDF cifrado 1.
 
 ### T5. Lecturas reales y muestras guardadas (domingo temprano)
