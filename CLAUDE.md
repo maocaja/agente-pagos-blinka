@@ -5,6 +5,7 @@ Entrega: domingo 2026-10-18 12:00; se congela a las 10:00. Estas reglas se cumpl
 ## 1. Fuentes de verdad
 - Requisitos y decisiones: `aidlc-docs/inception/requirements/requirements.md`. Plan de ejecucion: `aidlc-docs/inception/plans/execution-plan.md`. Estado: `aidlc-docs/aidlc-state.md`.
 - Disenos por unidad: `aidlc-docs/construction/{nucleo,lectura,interfaz,evaluacion}/functional-design/`. Contrato: `contrato/` (manda sobre cualquier otro documento). `PRD.md` esta superado.
+- La documentacion muestra la arquitectura objetivo (profesional); el codigo es la version ligera. El puente es `aidlc-docs/inception/architecture-target-vs-mvp.md`: todo recorte de ejecucion se anota ahi, los disenos no se reducen.
 - Cada unidad vive en su carpeta (`nucleo/`, `lectura/`, `interfaz/`, `evaluacion/`) y su rama. Nadie edita carpetas ajenas.
 
 ## 2. Orquestador y subagentes
@@ -44,11 +45,13 @@ Se usan pocos y solo si resuelven un riesgo o un requisito de los diseños; un p
 - **Front:** el servidor es la fuente de verdad y los datos fluyen en un solo sentido; componentes de presentacion con estado local minimo (Alpine) y un store para sesion y rol; mapa de capacidades por rol que decide que se pinta (el servidor igual lo valida); acciones como comandos con clave de idempotencia y **nunca interfaz optimista**; maquinas de estado para la guia de la demo y para la verificacion del recibo; tokens de diseno como unica fuente de color y tipografia.
 - **No se usan:** microservicios, CQRS ni event sourcing completo, fabricas abstractas, herencia profunda, bibliotecas de estado global, SPA con enrutador, ni una abstraccion que no tenga hoy dos usos reales.
 
-## 5c. Calidad del codigo: SOLID y sin duplicacion (obligatorio)
+## 5c. Calidad del codigo: codigo ligero, SOLID y sin duplicacion (obligatorio)
 Se cumple siempre; `python3 verify.py` lo comprueba con `calidad.py` y una unidad con hallazgos no cierra la tanda. Una excepcion puntual se marca con `# calidad-ok: <motivo>` en la linea del `def` y la revisa el orquestador.
-- **S, una razon de cambio:** funcion de maximo 40 lineas y complejidad 10; archivo de maximo 400 lineas; una clase o modulo hace una cosa. Si crece, se divide.
-- **O, abierto a extension:** una regla, un adaptador o una estrategia nueva se agrega registrandola; no se edita el motor, el registro de adaptadores ni la agregacion. Prohibido encadenar `if tipo == ...` para elegir comportamiento: se usa una tabla o un registro.
-- **L e I, sustituibles y pequenos:** los puertos (Protocol) tienen como maximo 5 metodos y toda implementacion (real, simulada, de lectura congelada) cumple el mismo contrato.
+- **Codigo ligero (hackathon):** toda la funcionalidad definida, con el menor codigo posible. Lo minimo que cumpla el criterio de listo: sin archivos, clases, puertos ni capas que el encargo no pida; sin configuracion ni parametros "por si acaso". Cada encargo trae un tope de lineas de diff y el revisor rechaza lo que sobre. Minimo no es quitar validaciones de seguridad ni el falla cerrado.
+- **Reglas como datos:** las reglas simples (tope, umbral, cuenta registrada, moneda) son filas del mandato que lee un evaluador generico; solo las que tienen logica propia son funciones.
+- **S, una razon de cambio:** funcion de maximo 60 lineas y complejidad 12; archivo de maximo 400 lineas.
+- **O, abierto a extension:** una regla o estrategia nueva se agrega a la tabla o al registro; no se edita el motor ni la agregacion. Prohibido encadenar `if tipo == ...` para elegir comportamiento.
+- **L e I:** un puerto (Protocol) solo existe si tiene dos usos reales hoy (cliente del modelo real y congelado, reloj); maximo 5 metodos.
 - **D, depender de abstracciones:** `dominio/` no importa fastapi, sqlite3, anthropic, httpx ni requests; reloj, ids, nonces, firmador, repositorios y modelos entran por inyeccion.
 - **Sin duplicacion (DRY):** una regla de negocio vive en un solo lugar. Antes de escribir una funcion se busca con `graphify query` si ya existe; se reutiliza o se extrae, no se copia. Ningun bloque de 6 o mas lineas se repite. Una unidad no copia la logica de otra: la consume por la API o por el contrato (`contrato/` se cambia solo con acuerdo de ambos desarrolladores). Unica excepcion deliberada: `evaluacion/verificador/`, que se escribe aparte a proposito para ser independiente.
 - **Nombres y comentarios:** el nombre dice que hace; si hace falta un comentario largo, el codigo esta mal dividido.

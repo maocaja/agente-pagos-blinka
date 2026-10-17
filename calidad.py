@@ -10,8 +10,8 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-MAX_LINEAS_FUNCION = 40
-MAX_COMPLEJIDAD = 10
+MAX_LINEAS_FUNCION = 60
+MAX_COMPLEJIDAD = 12
 MAX_LINEAS_ARCHIVO = 400
 MAX_METODOS_PUERTO = 5
 VENTANA_DUPLICADO = 6
