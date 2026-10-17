@@ -12,10 +12,11 @@
 </head>
 <body x-data="ataque()" x-init="init()" class="min-h-screen pb-40">
   <header class="flex flex-wrap items-center gap-4 px-6 py-4">
-    <h1 class="text-xl font-semibold">Ataque</h1>
+    <h1 class="text-2xl font-semibold">Ataque</h1>
     <label class="apoyo text-sm" for="semilla">Semilla</label>
     <input id="semilla" type="number" class="input w-28" x-model="semilla" data-testid="semilla">
     <button type="button" class="btn btn-primario" data-testid="ejecutar" :disabled="ocupado" @click="ejecutar()">Ejecutar ataque</button>
+    <p class="basis-full max-w-3xl text-texto-2" data-testid="subtitulo">Los ataques que probamos contra el motor, con el mandato v1 y con el v2. Importa porque muestra qué dejó pasar el v1 y que el v2 lo cierra.</p>
   </header>
   <p x-show="error" x-cloak class="mx-6 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="error" x-text="error"></p>
   <main class="grid gap-6 p-6 lg:grid-cols-2" x-show="v1" x-cloak>

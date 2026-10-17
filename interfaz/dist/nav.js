@@ -7,9 +7,9 @@ const PAGINAS = [
   { href: "ataque.html", texto: "Ataque" },
 ];
 const ESCENAS = [
-  { pagina: "index.html?decision=dec_11", titulo: "1. Cambio de cuenta", texto: "Sin el agente, esta factura se paga. Con el agente se escala y el motivo esta escrito: la cuenta no es la registrada." },
+  { pagina: "index.html?muestra=foto-04-andino-cambio-cuenta", titulo: "1. Cambio de cuenta", texto: "Sin el agente, esta factura se paga. Con el agente se escala y el motivo esta escrito: la cuenta no es la registrada." },
   { pagina: "bandeja.html", titulo: "2. Las trampas", texto: "Abra cada muestra: el texto de una factura es un dato, no una orden. Decide el motor, con su regla." },
-  { pagina: "index.html?decision=dec_01&tecnica=1", titulo: "3. El recibo", texto: "Altere un byte de la copia y pida al guardian que verifique: rechaza con el motivo." },
+  { pagina: "index.html?muestra=fac-01&tecnica=1", titulo: "3. El recibo", texto: "Altere un byte de la copia y pida al guardian que verifique: rechaza con el motivo." },
   { pagina: "ataque.html", titulo: "4. El ataque", texto: "El mandato v1 deja un hueco (facturas partidas); el v2 lo cierra. Nos atacamos primero." },
   { pagina: "marcador.html", titulo: "5. Cierre honesto", texto: "La cifra y, debajo, lo que esta cifra no prueba." },
 ];
@@ -28,10 +28,23 @@ function irA(n) {
   location.href = u.href;
 }
 
+function aplicarTema(t) { document.documentElement.dataset.tema = t === "oscuro" ? "oscuro" : ""; }
+
+function montarOpciones() {
+  const tema = el("button", { type: "button", class: "btn btn-sec w-full", "data-testid": "cambiar-tema" });
+  const rotular = () => { tema.textContent = memoria.leer("tema") === "oscuro" ? "Tema claro" : "Tema oscuro"; };
+  tema.onclick = () => { memoria.guardar("tema", memoria.leer("tema") === "oscuro" ? "claro" : "oscuro"); aplicarTema(memoria.leer("tema")); rotular(); };
+  rotular();
+  const paquete = el("a", { class: "btn btn-sec w-full", href: "/api/auditoria/paquete", download: "", "data-testid": "descargar-paquete" }, "Paquete de auditoría");
+  const menu = el("div", { class: "panel panel-fuerte absolute right-0 z-20 mt-2 grid w-56 gap-2 p-3" }, "", [tema, paquete]);
+  return el("details", { class: "relative", "data-testid": "opciones" }, "", [el("summary", { class: "btn btn-sec cursor-pointer list-none" }, "Opciones"), menu]);
+}
+
 function montarNav() {
+  aplicarTema(memoria.leer("tema"));
   const actual = location.pathname.split("/").pop() || "index.html";
   const paso = Number(new URLSearchParams(location.search).get("demo")) || 0;
-  const barra = el("nav", { class: "flex flex-wrap items-center gap-2 border-b border-linea px-6 py-2", "aria-label": "Paginas", "data-testid": "nav" });
+  const barra = el("nav", { class: "flex flex-wrap items-center gap-2 border-b border-linea px-4 py-2 sm:px-6", "aria-label": "Paginas", "data-testid": "nav" });
   PAGINAS.forEach((p) => {
     const a = el("a", { href: p.href, class: "btn btn-fantasma", "data-testid": "nav-" + p.href.replace(".html", "") }, p.texto);
     if (p.href === actual) a.setAttribute("aria-current", "page");
@@ -41,19 +54,25 @@ function montarNav() {
   const rotular = () => { lectura.textContent = api.lectura === "en_vivo" ? "Lectura en vivo" : api.lectura === "guardada" ? "Lectura guardada" : ""; };
   document.addEventListener("sesion-lista", rotular);
   rotular();
-  const confirmar = el("span", { class: "hidden items-center gap-2", "data-testid": "demo-confirmacion", role: "alertdialog" }, "Reiniciar la sesion y empezar el guion?");
+  const confirmar = el("span", { class: "hidden flex-wrap items-center gap-2", "data-testid": "demo-confirmacion", role: "alertdialog" });
+  const aviso = el("span", { role: "status" }, "¿Reiniciar la sesión y empezar el guion?");
   const demo = el("button", { type: "button", class: "btn btn-primario", "data-testid": "demo" }, "Demo");
   const si = el("button", { type: "button", class: "btn btn-peligro", "data-testid": "demo-confirmar" }, "Reiniciar");
   const no = el("button", { type: "button", class: "btn btn-sec", "data-testid": "demo-cancelar" }, "Cancelar");
-  confirmar.append(si, no);
+  confirmar.append(aviso, si, no);
   const cerrar = () => { confirmar.classList.add("hidden"); confirmar.classList.remove("flex"); demo.classList.remove("hidden"); };
   demo.onclick = () => { confirmar.classList.remove("hidden"); confirmar.classList.add("flex"); demo.classList.add("hidden"); si.focus(); };
   no.onclick = cerrar;
   si.onclick = async () => {
-    si.disabled = true;
-    try { await api.pedir("POST", "/api/sesion/reiniciar"); irA(1); } catch (e) { confirmar.textContent = e.message; }
+    si.disabled = no.disabled = true;
+    try {
+      await api.iniciar();
+      await api.reiniciar();
+      await api.cargarSet((i, n) => { aviso.textContent = `Cargando el set: ${i} de ${n}`; });
+      irA(1);
+    } catch (e) { aviso.textContent = e.message; si.disabled = no.disabled = false; }
   };
-  barra.append(lectura, confirmar, demo);
+  barra.append(lectura, confirmar, demo, montarOpciones());
   document.body.prepend(barra);
   if (paso >= 1 && paso <= ESCENAS.length) montarGuia(paso);
   document.addEventListener("keydown", (ev) => { if (ev.key === "Escape") cerrar(); });
@@ -78,6 +97,7 @@ function montarGuia(paso) {
   sig.onclick = () => mover(1);
   salir.onclick = salirGuia;
   document.addEventListener("keydown", (ev) => {
+    if (/^(INPUT|TEXTAREA)$/.test(ev.target.tagName)) return;
     if (ev.key === "ArrowRight") mover(1);
     else if (ev.key === "ArrowLeft") mover(-1);
     else if (ev.key === "Escape") salirGuia();

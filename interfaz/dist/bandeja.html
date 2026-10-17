@@ -11,22 +11,24 @@
   <script defer src="alpine.min.js"></script>
 </head>
 <body x-data="bandeja()" x-init="init()" class="min-h-screen pb-40">
-  <header class="flex flex-wrap items-center gap-4 px-6 py-4">
-    <h1 class="text-xl font-semibold">Bandeja</h1>
-    <span class="etiqueta-simulada" data-testid="etiqueta-simulada">simulada</span>
-    <button type="button" class="btn btn-sec ml-auto" data-testid="cargar-set" :disabled="ocupado" @click="cargarSet()">Cargar el set</button>
+  <header class="px-6 pt-5">
+    <div class="flex flex-wrap items-center gap-3">
+      <h1 class="text-2xl font-semibold">Bandeja</h1>
+      <span class="etiqueta-simulada" data-testid="etiqueta-simulada">simulada</span>
+      <button type="button" class="btn btn-sec sm:ml-auto" data-testid="cargar-set" :disabled="ocupado" @click="cargarSet()">Cargar el set</button>
+    </div>
+    <p class="mt-1 max-w-3xl text-texto-2" data-testid="subtitulo">Los correos, chats, PDF y fotos tal como llegan, junto a lo que el agente leyó y lo que decidió el motor. Importa porque el texto de un documento es un dato, nunca una orden.</p>
   </header>
-  <p x-show="error" x-cloak class="mx-6 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="error" x-text="error"></p>
-  <p x-show="progreso" x-cloak class="mx-6 text-texto-2" role="status" data-testid="progreso" x-text="progreso"></p>
-  <ul x-show="fallos.length" x-cloak class="mx-6 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="fallos-carga"><template x-for="f in fallos" :key="f"><li x-text="f"></li></template></ul>
+  <p x-show="error" x-cloak class="mx-6 mt-4 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="error" x-text="error"></p>
+  <p x-show="progreso" x-cloak class="mx-6 mt-3 text-texto-2" role="status" data-testid="progreso" x-text="progreso"></p>
   <main class="grid gap-6 p-6 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)]">
     <section aria-label="Mensajes">
-      <ul class="grid gap-3" data-testid="lista-muestras">
+      <ul class="grid max-h-[70vh] gap-3 overflow-y-auto" data-testid="lista-muestras">
         <template x-for="m in muestras" :key="m.id">
           <li><button type="button" class="panel panel-fuerte w-full p-4 text-left hover:bg-elevado" :class="sel && sel.id === m.id ? 'bg-elevado' : ''" :disabled="ocupado" @click="abrir(m)" :data-testid="'muestra-' + m.id">
-            <span class="apoyo text-sm uppercase" x-text="m.tipo"></span>
-            <span class="block" x-text="m.titulo"></span>
-            <template x-if="cargadas[m.id]"><span class="chip mt-2" :class="veredictos[cargadas[m.id].decision.veredicto].clase"><span aria-hidden="true" x-text="veredictos[cargadas[m.id].decision.veredicto].icono"></span><span x-text="veredictos[cargadas[m.id].decision.veredicto].texto"></span></span></template>
+            <span class="block font-semibold capitalize" x-text="m.titulo"></span>
+            <span class="mt-1 flex flex-wrap items-center gap-2"><span class="chip chip-sombra uppercase" x-text="m.tipo"></span>
+            <template x-if="cargadas[m.id]"><span class="chip" :class="veredictos[cargadas[m.id].decision.veredicto].clase"><span aria-hidden="true" x-text="veredictos[cargadas[m.id].decision.veredicto].icono"></span><span x-text="veredictos[cargadas[m.id].decision.veredicto].texto"></span></span></template></span>
           </button></li>
         </template>
       </ul>
@@ -34,14 +36,14 @@
     <section class="grid content-start gap-4 xl:grid-cols-3" x-show="actual" x-cloak aria-label="Muestra abierta" data-testid="muestra-abierta">
       <div class="panel p-4"><h2 class="font-semibold">Original</h2>
         <pre class="font-tec mt-2 whitespace-pre-wrap text-sm" data-testid="original" x-text="sel && sel.original ? sel.original : 'Original no disponible.'"></pre></div>
-      <div class="panel p-4"><h2 class="font-semibold">Lo leido <span class="etiqueta-simulada">lectura guardada</span></h2>
+      <div class="panel p-4"><h2 class="font-semibold">Lo leído <span class="etiqueta-simulada">lectura guardada</span></h2>
         <dl class="mt-2 grid grid-cols-[6rem_1fr] gap-y-1 text-sm" data-testid="leido" x-show="actual">
           <dt class="apoyo">Proveedor</dt><dd x-text="actual && actual.factura.emisor.nombre"></dd>
-          <dt class="apoyo">Numero</dt><dd x-text="actual && actual.factura.referencias.numero"></dd>
-          <dt class="apoyo">Total</dt><dd class="cifra" x-text="actual && actual.factura.montos.moneda + ' ' + actual.factura.montos.total_menor + ' (menores)'"></dd>
+          <dt class="apoyo">Número</dt><dd x-text="actual && actual.factura.referencias.numero"></dd>
+          <dt class="apoyo">Total</dt><dd class="cifra" x-text="actual && actual.factura.montos.moneda + ' ' + actual.factura.montos.total_menor + ' (unidades menores)'"></dd>
           <dt class="apoyo">Cuenta</dt><dd x-text="actual && actual.factura.cuenta.pais + ' ****' + actual.factura.cuenta.ultimos4"></dd>
         </dl></div>
-      <div class="panel p-4" data-testid="decision"><h2 class="font-semibold">Decision</h2>
+      <div class="panel p-4" data-testid="decision"><h2 class="font-semibold">Decisión</h2>
         <template x-if="actual"><div>
           <span class="chip mt-2" :class="veredictos[actual.decision.veredicto].clase"><span aria-hidden="true" x-text="veredictos[actual.decision.veredicto].icono"></span><span x-text="veredictos[actual.decision.veredicto].texto"></span></span>
           <p class="mt-2" x-text="actual.decision.motivo_corto"></p>

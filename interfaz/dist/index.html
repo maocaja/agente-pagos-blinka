@@ -11,44 +11,61 @@
   <script defer src="alpine.min.js"></script>
 </head>
 <body x-data="app()" x-init="init()" class="min-h-screen">
-  <header class="flex flex-wrap items-center gap-4 border-b border-linea px-6 py-3">
-    <h1 class="text-xl font-semibold">Decisiones</h1>
-    <span class="etiqueta-simulada">rol simulado</span>
-    <div class="segmento" role="radiogroup" aria-label="Rol">
-      <template x-for="r in ['analista','cfo']" :key="r">
-        <button type="button" role="radio" :aria-checked="rol === r" @click="cambiarRol(r)" :data-testid="'rol-' + r" x-text="r === 'cfo' ? 'CFO' : 'Analista'"></button>
-      </template>
-    </div>
-    <span class="text-texto-2 text-sm">Mandato <span x-text="sesion ? sesion.mandato_version : '-'" data-testid="mandato-version"></span></span>
-    <a class="btn btn-sec ml-auto" href="/api/auditoria/paquete" download data-testid="descargar-paquete">Paquete de auditoria</a>
-    <button type="button" class="btn btn-sec" data-testid="cambiar-tema" @click="cambiarTema(tema === 'claro' ? 'oscuro' : 'claro')" x-text="tema === 'claro' ? 'Tema oscuro' : 'Tema claro'"></button>
+  <header class="px-6 pt-5">
+    <h1 class="text-2xl font-semibold">Decisiones</h1>
+    <p class="mt-1 max-w-3xl text-texto-2" data-testid="subtitulo">Cada factura que llegó y lo que decidió el motor de reglas, con su motivo. Importa porque ningún pago sale sin una regla que lo explique. <span class="text-sm">Mandato <span x-text="sesion ? sesion.mandato_version : '-'" data-testid="mandato-version"></span>.</span></p>
   </header>
 
-  <p x-show="error" x-cloak class="m-6 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="error" x-text="error"></p>
+  <p x-show="error" x-cloak class="mx-6 mt-4 panel panel-fuerte p-4 text-frenar" role="alert" data-testid="error" x-text="error"></p>
 
-  <main class="grid gap-6 p-6 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)]">
-    <section aria-label="Lista de decisiones">
-      <div class="segmento mb-4 flex-wrap" role="radiogroup" aria-label="Filtrar por veredicto">
-        <template x-for="f in filtros" :key="f">
-          <button type="button" role="radio" :aria-checked="filtro === f" @click="filtro = f" :data-testid="'filtro-' + f.toLowerCase()" x-text="f === 'TODAS' ? 'Todas' : veredictos[f].texto"></button>
-        </template>
+  <section class="px-6 pt-4" x-show="vigentes.length" x-cloak aria-label="Resumen" data-testid="resumen">
+    <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+      <template x-for="r in resumen" :key="r[0]">
+        <li class="panel panel-fuerte p-3" :data-testid="'resumen-' + r[0]"><span class="cifra block text-2xl font-semibold" x-text="r[2]"></span><span class="text-sm text-texto-2" x-text="r[1]"></span></li>
+      </template>
+    </ul>
+    <p class="mt-3 font-semibold text-pagar" x-show="garantia" x-cloak data-testid="garantia" x-text="garantia"></p>
+  </section>
+
+  <main class="grid grid-cols-1 gap-6 p-4 sm:p-6 lg:grid-cols-[minmax(0,30rem)_minmax(0,1fr)]">
+    <section aria-label="Lista de decisiones" class="min-w-0">
+      <p x-show="cargando" class="text-texto-2">Cargando…</p>
+      <div x-show="!cargando && vigentes.length === 0" x-cloak class="panel panel-fuerte p-6" data-testid="lista-vacia">
+        <h2 class="text-lg font-semibold">Todavía no hay documentos</h2>
+        <p class="mt-1 text-texto-2">El set de ejemplo trae facturas por correo, chat, PDF y foto, algunas con trampas. El motor decide cada una y verá aquí el motivo.</p>
+        <button type="button" class="btn btn-primario mt-4" data-testid="cargar-set-ejemplo" :disabled="ocupado" @click="cargarSet()">Cargar el set de ejemplo</button>
+        <p class="mt-3 text-texto-2" role="status" data-testid="progreso" x-text="progreso"></p>
       </div>
-      <p x-show="cargando" class="text-texto-2">Cargando...</p>
-      <p x-show="!cargando && visibles.length === 0" x-cloak class="text-texto-2" data-testid="lista-vacia">No hay decisiones con este veredicto.</p>
-      <ul class="grid gap-3" data-testid="lista-decisiones">
-        <template x-for="d in visibles" :key="d.id">
-          <li>
-            <button type="button" class="panel panel-fuerte w-full p-4 text-left hover:bg-elevado" :class="sel && sel.id === d.id ? 'bg-elevado' : ''" :aria-current="sel && sel.id === d.id" @click="abrir(d)" :data-testid="'decision-' + d.id">
-              <span class="chip" :class="veredictos[d.veredicto].clase"><span aria-hidden="true" x-text="veredictos[d.veredicto].icono"></span><span x-text="veredictos[d.veredicto].texto"></span></span>
-              <span class="mt-2 block text-sm text-texto-2" x-text="d.factura_id"></span>
-              <span class="block" x-text="d.motivo_corto"></span>
-            </button>
-          </li>
-        </template>
-      </ul>
+      <div x-show="vigentes.length" x-cloak>
+        <div class="segmento mb-4 flex flex-wrap rounded-3xl" role="radiogroup" aria-label="Filtrar por veredicto">
+          <template x-for="f in filtros" :key="f[0]">
+            <button type="button" role="radio" :aria-checked="filtro === f[0]" @click="filtro = f[0]" :data-testid="'filtro-' + f[0].toLowerCase()" x-text="f[1]"></button>
+          </template>
+        </div>
+        <p x-show="visibles.length === 0" x-cloak class="text-texto-2" data-testid="filtro-vacio">Ningún documento con este filtro.</p>
+        <ul class="grid gap-3" data-testid="lista-decisiones">
+          <template x-for="d in visibles" :key="d.id">
+            <li>
+              <button type="button" class="panel panel-fuerte grid w-full gap-1 p-4 text-left hover:bg-elevado" :class="sel && sel.id === d.id ? 'bg-elevado' : ''" :aria-current="sel && sel.id === d.id" @click="abrir(d)" :data-testid="'decision-' + d.id">
+                <span class="flex flex-wrap items-center justify-between gap-2">
+                  <span class="font-semibold" x-text="proveedor(d)"></span>
+                  <span class="chip" :class="veredictos[d.veredicto].clase"><span aria-hidden="true" x-text="veredictos[d.veredicto].icono"></span><span x-text="veredictos[d.veredicto].texto"></span></span>
+                </span>
+                <span class="flex flex-wrap items-center gap-2 text-sm text-texto-2">
+                  <span class="chip chip-sombra uppercase" x-show="canal(d)" x-text="canal(d)"></span>
+                  <span class="cifra" x-show="f(d)" x-text="f(d) && f(d).montos.moneda + ' ' + entero(f(d).montos.total_menor, f(d).montos.moneda)"></span>
+                </span>
+                <span x-text="d.motivo_corto"></span>
+                <span class="text-sm font-semibold text-texto-2" x-show="aprobo(d)" x-text="'Aprobó: ' + aprobo(d)" data-testid="aprobo"></span>
+                <span class="text-sm font-semibold text-escalar" x-show="d.estado === 'pendiente'">Espera aprobación</span>
+              </button>
+            </li>
+          </template>
+        </ul>
+      </div>
     </section>
 
-    <section aria-label="Detalle" x-show="sel" x-cloak class="grid content-start gap-6">
+    <section aria-label="Detalle" x-ref="detalle" x-show="sel" x-cloak class="grid min-w-0 grid-cols-1 content-start gap-6 scroll-mt-4">
       <template x-if="sel">
         <div class="panel p-5" data-testid="detalle">
           <div class="flex items-center gap-3">
@@ -56,8 +73,9 @@
             <span class="text-texto-2" x-text="sel.modo_autonomia === 'autonomo' ? 'Autonomo bajo reglas' : 'Sombra'"></span>
           </div>
           <p class="mt-2 text-lg" x-text="sel.motivo_corto"></p>
-          <p class="mt-2" data-testid="explicacion" x-show="sel.explicacion" x-text="sel.explicacion"></p>
-          <p class="mt-2 border-l-4 border-linea-fuerte pl-3 font-semibold" data-testid="que-hacer" x-show="sel.que_hacer"><span class="apoyo">Que hacer: </span><span x-text="sel.que_hacer"></span></p>
+          <p class="mt-2 font-semibold text-texto-2" x-show="aprobo(sel)" data-testid="aprobo-detalle" x-text="'Aprobó: ' + aprobo(sel) + ', que reevaluó la decisión ' + sel.reevaluacion_de"></p>
+          <p class="mt-2" data-testid="explicacion" x-show="sel.explicacion && sel.explicacion !== sel.motivo_corto" x-text="sel.explicacion"></p>
+          <p class="mt-2 border-l-4 border-linea-fuerte pl-3 font-semibold" data-testid="que-hacer" x-show="sel.que_hacer"><span class="apoyo">Qué hacer: </span><span x-text="sel.que_hacer"></span></p>
           <ul class="mt-4 grid gap-1 text-sm">
             <template x-for="r in sel.reglas" :key="r.id">
               <li class="flex gap-3"><span class="w-10 font-semibold" x-text="r.id"></span><span class="w-20" :class="r.estado === 'falla' ? 'text-frenar' : 'text-texto-2'" x-text="r.estado"></span><span class="text-texto-2" x-text="r.evidencia"></span></li>
@@ -66,10 +84,16 @@
         </div>
       </template>
 
-      <section class="panel panel-fuerte p-5" x-show="esperaAprobacion" x-cloak data-testid="aprobacion" aria-label="Aprobacion">
-        <h2 class="text-lg font-semibold">Espera aprobacion</h2>
+      <section class="panel panel-fuerte p-5" x-show="esperaAprobacion" x-cloak data-testid="aprobacion" aria-label="Aprobación">
+        <h2 class="text-lg font-semibold">Espera aprobación</h2>
         <p class="mt-1" data-testid="razon" x-text="sel && sel.motivo_corto"></p>
-        <p class="apoyo mt-2 text-sm" x-show="!puedeDecidir" data-testid="solo-cfo">Solo el CFO aprueba o rechaza. Cambie el rol arriba para decidir.</p>
+        <div class="mt-3 flex flex-wrap items-center gap-3"><span class="text-sm text-texto-2" id="rol-etiqueta">Actuar como (simulado)</span>
+          <div class="segmento" role="radiogroup" aria-labelledby="rol-etiqueta">
+            <template x-for="r in ['analista','cfo']" :key="r">
+              <button type="button" role="radio" :aria-checked="rol === r" @click="cambiarRol(r)" :data-testid="'rol-' + r" x-text="r === 'cfo' ? 'CFO' : 'Analista'"></button>
+            </template>
+          </div></div>
+        <p class="apoyo mt-2 text-sm" x-show="!puedeDecidir" data-testid="solo-cfo">Solo el CFO aprueba o rechaza. Cámbielo arriba para decidir.</p>
         <div x-show="puedeDecidir" x-cloak class="mt-3 grid gap-3">
           <label for="nota" class="apoyo text-sm">Nota (obligatoria al rechazar)</label>
           <input id="nota" type="text" class="input" x-model="nota" data-testid="nota">
@@ -87,17 +111,22 @@
       <template x-if="recibo">
         <article class="recibo p-6" data-testid="recibo">
           <div class="flex flex-wrap items-center justify-between gap-3">
-            <h2 class="text-xl font-semibold">Recibo de decision</h2>
+            <h2 class="text-xl font-semibold">Recibo de decisión</h2>
+            <span class="font-semibold" data-testid="recibo-mandato">Mandato <span x-text="recibo.mandato_version"></span></span>
             <span class="etiqueta-simulada">firma de demo</span>
-            <button type="button" class="btn btn-recibo-sec" data-testid="alternar-tecnica" @click="tecnica = !tecnica" x-text="tecnica ? 'Ver documento' : 'Ver vista tecnica'"></button>
+          </div>
+          <div class="mt-3 flex flex-wrap items-center gap-3">
+            <button type="button" class="btn btn-recibo" data-testid="verificar-recibo" @click="verificar()">Verificar firma</button>
+            <span x-show="verifRecibo" x-cloak class="font-semibold" role="status" data-testid="resultado-firma" x-text="verifRecibo && verifRecibo.valida ? 'Firma válida (clave ' + verifRecibo.clave_version + ')' : 'Firma no válida'"></span>
+            <button type="button" class="btn btn-recibo-sec ml-auto" data-testid="alternar-tecnica" @click="tecnica = !tecnica" x-text="tecnica ? 'Ver documento' : 'Ver vista técnica'"></button>
           </div>
 
           <div x-show="!tecnica" class="mt-4 grid gap-3" data-testid="recibo-documento">
-            <dl class="grid grid-cols-[10rem_1fr] gap-y-2">
+            <dl class="grid grid-cols-[7rem_minmax(0,1fr)] gap-y-2 sm:grid-cols-[10rem_minmax(0,1fr)]">
               <dt class="apoyo">Factura</dt><dd x-text="(factura?.emisor?.nombre || '') + ' - ' + (factura?.referencias?.numero || recibo.factura_id)"></dd>
               <dt class="apoyo">Monto</dt>
               <dd class="cifra"><span x-text="recibo.moneda"></span> <span x-text="entero(recibo.monto_menor, recibo.moneda)"></span><span class="cent" x-text="centavos(recibo.monto_menor, recibo.moneda)"></span></dd>
-              <dt class="apoyo">Decision</dt><dd x-text="veredictos[recibo.veredicto].texto + ' (' + recibo.modo_autonomia + ')'"></dd>
+              <dt class="apoyo">Decisión</dt><dd x-text="veredictos[recibo.veredicto].texto + ' (' + recibo.modo_autonomia + ')'"></dd>
               <dt class="apoyo">Mandato</dt><dd x-text="recibo.mandato_version"></dd>
               <dt class="apoyo">Emitido</dt><dd x-text="recibo.emitido_en"></dd>
               <dt class="apoyo">Vence</dt><dd x-text="recibo.vence_en"></dd>
@@ -121,9 +150,7 @@
           </div>
 
           <div class="linea mt-4 flex flex-wrap items-center gap-3 border-t pt-4">
-            <button type="button" class="btn btn-recibo" data-testid="verificar-recibo" @click="verificar()">Verificar firma</button>
-            <a class="btn btn-recibo-sec" :href="'/api/ordenes/' + recibo.id + '/pain001'" download data-testid="descargar-pain001">Orden de pago <span class="etiqueta-simulada">SIMULADA</span> (pain.001)</a>
-            <span x-show="verifRecibo" x-cloak data-testid="resultado-firma" x-text="verifRecibo && verifRecibo.valida ? 'Firma valida (clave ' + verifRecibo.clave_version + ')' : 'Firma no valida'"></span>
+            <a class="btn btn-recibo-sec max-w-full flex-wrap text-center" :href="'/api/ordenes/' + recibo.id + '/pain001'" download data-testid="descargar-pain001">Orden de pago <span class="etiqueta-simulada">SIMULADA</span> (pain.001)</a>
           </div>
 
           <div x-show="resultado" x-cloak class="linea mt-4 border-t pt-4" data-testid="guardian">
