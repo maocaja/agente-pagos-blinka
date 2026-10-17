@@ -1,6 +1,6 @@
 # Estado de AI-DLC: Agente de Pagos con Garantía
 
-Versión reducida para hackathon. Entrega: domingo 2026-10-18, 12:00 (se congela a las 10:00). Actualizado: 2026-10-17, tras la Ola 2; Ola 3 en curso. Lo actualiza el orquestador al cerrar cada ola (`CLAUDE.md`, sección 4).
+Versión reducida para hackathon. Entrega: domingo 2026-10-18, 12:00 (se congela a las 10:00). Actualizado: 2026-10-17, tras la Ola 3. Lo actualiza el orquestador al cerrar cada ola (`CLAUDE.md`, sección 4).
 
 ## Etapas
 | Etapa | Estado |
@@ -15,12 +15,12 @@ Versión reducida para hackathon. Entrega: domingo 2026-10-18, 12:00 (se congela
 | Unidad | Hecho | Pendiente |
 |---|---|---|
 | U1 Núcleo | T1, T1b y Ola 2: 11 reglas, guardián de 6 verificaciones, libro de reserva y nonce, mandatos v1 y v2, sesiones. 43 pruebas | Aprobar con reevaluación (T4); marcador, pentest y arena (rutas); despliegue; diferencias con `esperado.json` en f_10, f_12, f_13, f_15 y f_16 |
-| U2 Lectura | T1, T1b y asignación de proveedor. 11 pruebas | Ola 3 en curso: IVA en líneas, extractor con prompt versionado, tope de gasto. Después: adaptadores PDF, `.eml`, foto y chat; lecturas reales con la clave de API |
+| U2 Lectura | T1, T1b y asignación de proveedor. 11 pruebas | Ola 3 hecha: IVA en líneas, extractor con prompt versionado y tope de gasto (19 pruebas). Pendiente: adaptadores PDF, `.eml`, foto y chat; lecturas reales con la clave de API |
 | U3 Interfaz | Decisiones, recibo legible y guardián con campo alterable. 5 pruebas | Pantalla de reglas (solo lectura), marcador, escena del ataque, bandeja simulada, botón de guion |
-| U4 Evaluación | Esperados de las 18 facturas. 20 pruebas | Ola 3 en curso: verificador independiente y corrida. Después: pentest de 6 estrategias, arena acotada, 5 mutantes |
-| Datos | Registro maestro corregido (Nuevo Logos fuera del registro) | Ola 3 en curso: set multicanal simulado en `datos/documentos/` |
+| U4 Evaluación | Esperados de las 18 facturas. 20 pruebas | Ola 3 hecha: verificador independiente y corrida (35 pruebas; motor y verificador coinciden en las 18). Pendiente: esperados del set multicanal, pentest de 6 estrategias, arena acotada, 5 mutantes |
+| Datos | Registro maestro corregido (Nuevo Logos fuera del registro) | Set multicanal simulado generado en `datos/documentos/` (18 archivos); faltan sus esperados |
 
-`verify.py` global: VERDE, 79 pruebas (máximo 200).
+`verify.py` global: VERDE, 102 pruebas (máximo 200).
 
 ## Pendientes de personas
 Clave de API de Anthropic (Dev A, antes del sábado 12:00); cuenta de despliegue gratuito; video de respaldo el sábado y regrabación el domingo de 07:00 a 10:00; dos ensayos con cronómetro.

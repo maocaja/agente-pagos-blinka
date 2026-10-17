@@ -67,41 +67,6 @@
           "R6"
         ]
       }
-    },
-    {
-      "id": "f_15",
-      "entre": "verificador y esperado_reglas",
-      "verificador": {
-        "veredicto": "ESCALAR",
-        "reglas": [
-          "R1",
-          "R4"
-        ],
-        "motivo": ""
-      },
-      "esperado": {
-        "veredicto": "ESCALAR",
-        "reglas": [
-          "R4"
-        ]
-      }
-    },
-    {
-      "id": "f_16",
-      "entre": "verificador y esperado_reglas",
-      "verificador": {
-        "veredicto": "ESCALAR",
-        "reglas": [
-          "R1"
-        ],
-        "motivo": ""
-      },
-      "esperado": {
-        "veredicto": "ESCALAR",
-        "reglas": [
-          "R9"
-        ]
-      }
     }
   ]
 }

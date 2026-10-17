@@ -6,7 +6,7 @@ from .ayudas import MANDATO_V2, RAIZ
 
 ESPERADOS = {e["caso"]: e for e in json.loads((RAIZ / "datos/esperado.json").read_text(encoding="utf-8"))}
 # Listas de reglas del esperado que el texto de las reglas no respalda con estas extracciones
-DIVERGENCIAS = {"f_10", "f_12", "f_13", "f_15", "f_16"}
+DIVERGENCIAS = {"f_10", "f_12", "f_13"}
 
 
 def correr_set():

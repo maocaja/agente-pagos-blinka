@@ -22,3 +22,12 @@ Consumo medido: 47.000 a 100.000 tokens de subagente por tanda, unos 540.000 en 
 | U3 Interfaz | Decisiones, recibo legible, guardián con campo alterable | 5 | verde | `dist/` estaba ignorado por `.gitignore`: ahora se versiona. Sin store ni mapa de capacidades por rol |
 Pendientes: las líneas de f_10, 14, 15, 16 y 18 no suman el total porque el IVA va aparte (lectura); `tandas.md` y `aidlc-state.md` al día; aprobar con reevaluación (núcleo T4).
 Consumo medido: unos 320.000 tokens de subagentes en la ola.
+
+## Ola 3 (2026-10-17)
+| Unidad | Tanda | Pruebas | Resultado | Hallazgos |
+|---|---|---|---|---|
+| U2 Lectura | IVA en líneas (f_14, 15, 16), extractor con prompt `extractor.v1` versionado y hash, cliente real y congelado, tope de gasto | 19 (8 nuevas) | verde | Cliente real sin probar (no hay clave). f_10 (documento incoherente) y f_18 (estado de cuenta) escalan por lectura. El cliente emite motivos de falla que el contrato no tiene: decisión de los dos desarrolladores |
+| U4 Evaluación | Verificador independiente, corrida del set, `COBERTURA.md` | 35 (15 nuevas) | verde | Motor y verificador coinciden en las 18 (0 pagos indebidos en este set). Quedan 3 diferencias de lista de reglas con `esperado.json` (f_10, f_12, f_13), mismo veredicto: pendiente de revisión humana |
+| Datos | Set multicanal simulado en `datos/documentos/`: 18 archivos (PDF, escaneado, foto, `.eml`, chat), instrucción oculta en 3 formatos y autoridad falsa | n/a | generado | Regenerable con semilla; dependencias `pillow` y `fpdf2` en el venv. Sin esperados todavía |
+Pendientes: esperados del set multicanal (los fija evaluación), adaptadores PDF, `.eml`, foto y chat (lectura), pentest y arena, aprobar con reevaluación, marcador y pantallas restantes.
+Consumo medido: unos 310.000 tokens de subagentes en la ola; acumulado cerca de 1,17 M.
