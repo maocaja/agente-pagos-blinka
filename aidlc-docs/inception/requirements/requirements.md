@@ -27,7 +27,7 @@ Salida de la etapa de análisis de requisitos, profundidad estándar. Fuentes: e
 | App pública | Modo guardado: usa extracciones ya hechas y no llama a la API |
 
 ## 3. Requisitos funcionales
-1. **RF1 Ingesta.** Aceptar documentos por adaptador (texto, PDF, XML). Un tipo desconocido se escala, nunca se pierde.
+1. **RF1 Ingesta.** Aceptar documentos por adaptador: texto, PDF con texto, PDF escaneado, imagen o foto, correo (`.eml` con adjunto) y chat (exportación de mensajes), todos simulados con aspecto real y sin datos reales; XML fiscal solo si sobra tiempo. Un tipo desconocido se escala, nunca se pierde. Cambio del 2026-10-17: antes las imágenes no se leían; el reto menciona PDF, imagen, correo y chat, y la documentación oficial de Claude confirma lectura de PDF e imágenes (https://platform.claude.com/docs/en/build-with-claude/pdf-support y .../vision, leídas 2026-10-17).
 2. **RF2 Factura canónica.** Todo adaptador entrega la factura canónica validada contra el esquema; si no valida, ESCALAR.
 3. **RF3 Lectura.** Extracción con esquema fijo y confianza por campo; cascada Haiku, luego Sonnet, luego persona.
 4. **RF4 Motor.** Reglas R1 a R10 por empresa; se evalúan todas, precedencia FRENAR, luego ESCALAR, luego PAGAR o REGISTRAR (cuarto veredicto, solo para una nota de crédito que pasa todas las reglas, sin orden de pago); el presupuesto va al final.

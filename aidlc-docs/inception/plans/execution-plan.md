@@ -135,6 +135,7 @@ Señales para decidir cortar (umbrales SUPUESTO; las horas salen de la sección 
 | 6 | El servicio gratuito se duerme | Despertar la app antes del pitch; video de respaldo |
 | 7 | El verificador hereda errores del motor | Escritura independiente, sin acceso al motor, y mutación por otra persona |
 | 8 | Cansancio y cambios tardíos | Congelamiento a las 10:00; domingo solo despliegue (SUPUESTO que baste) |
+| 9 | Set multicanal (PDF, escaneado, foto, correo, chat) suma 8 a 12 h y exige clave de API el sábado 12:00 (decisión 2026-10-17) | Un subagente (Sonnet) genera los documentos simulados en `datos/documentos/` con un mandato escrito; prioridad: la foto o PDF escaneado con cambio de cuenta, el `.eml` con adjunto y el chat; XML solo si sobra tiempo; sin clave, el video usa lecturas guardadas; las imágenes nunca llegan a PAGAR solas |
 
 Decisiones de la persona responsable (2026-10-17, "si" en bloque a las propuestas):
 1. Horas de sueño: (a) 6 h cada noche, el supuesto del plan. No se había propuesto de forma explícita; confirmar.

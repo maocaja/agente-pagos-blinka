@@ -44,8 +44,8 @@ Además de monto, moneda, número y totales, las reglas buscan en el texto el **
 Una falla de lectura de R1 (lecturas que no coinciden, sin segunda lectura, cita no encontrada) **no se supera aprobando**: se resuelve con **Corregir**. La persona fija el valor viendo el original, esa corrección cuenta como la segunda lectura y la factura se reevalúa. Ver el cambio en el núcleo y la interfaz.
 
 ## Documentos sin texto verificable
-- PDF sin texto, PDF cifrado o fuera de límites: **ESCALAR con motivo propio, sin llamar a la API**.
-- Imágenes y fotos: no hay texto local, así que la cita no se puede verificar y no hay segunda lectura. **ESCALAR sin llamar a la API** (ver supuesto 1).
+- PDF cifrado o fuera de límites: **ESCALAR con motivo propio, sin llamar a la API**.
+- **Imágenes, fotos y PDF escaneados (decisión del 2026-10-17):** se leen con Claude como imagen. No hay texto local, así que la cita no se puede verificar; la segunda lectura es una **segunda lectura independiente con otro modelo** (Haiku y luego Sonnet), y todos los campos críticos (proveedor, monto, moneda, cuenta, número, fecha) deben coincidir. Cualquier diferencia, confianza baja o campo ilegible: ESCALAR. Además, la factura de origen imagen **nunca llega a PAGAR sola**: si el motor diría PAGAR, la política por origen lo convierte en ESCALAR con el motivo "lectura de imagen: confirmar contra el original". FRENAR y ESCALAR sí son autónomos. Esto es política como dato en el mandato (SUPUESTO: se puede aflojar si el set mide un buen desempeño).
 
 ## Fallas de la API
 | Falla | Qué ocurre |
@@ -89,10 +89,22 @@ Cuatro muestras: una **proforma**, una **orden de compra enviada como factura** 
 La regla R1 del núcleo debe incluir, como causas de ESCALAR: "las dos lecturas no coinciden", "sin segunda lectura" y "cita de evidencia no encontrada". Ya está reflejado en `nucleo/functional-design/business-rules.md`.
 
 ## Supuestos a confirmar
-1. **Imágenes y fotos no se leen en el MVP:** sin texto local no hay cita verificable ni segunda lectura, así que siempre escalan sin llamar a la API. Si quieres leerlas, hace falta una lectura de texto local (OCR), que hoy no está en el alcance.
+1. **Imágenes, fotos y PDF escaneados sí se leen (cambio del 2026-10-17):** con doble lectura de modelos y sin PAGAR autónomo; ver "Documentos sin texto verificable". Riesgo: un modelo puede equivocarse con imágenes borrosas, rotadas o pequeñas (documentación de visión, leída 2026-10-17), por eso se prueba el set con la API real el sábado.
 2. **XML sin modelo:** las dos lecturas son parser y reglas; el modelo no interviene.
 3. **Menor autonomía en canales informales:** los mensajes de chat y correos con datos poco estructurados escalarán más por "sin segunda lectura". Se mide en el marcador.
 4. **Fallas de lectura no aprobables:** R1 por lectura se resuelve con Corregir y no con Aprobar. Es un cambio sobre lo aprobado del núcleo y de la interfaz, ya reflejado allí.
 5. **Fallas por formato numérico y moneda ambigua** escalan sin adivinar. Aumenta las escaladas de facturas con "$" sin código.
 6. **Costo de leer un PDF:** la estimación de 2.000 tokens por factura no está medida para PDFs; hay que medir un PDF real.
 7. **El SDK reintenta 408, 409 y 429** (verificado en la documentación del SDK de Python el 2026-10-16), aunque son 4xx; se mantiene, y los demás 4xx no se reintentan.
+
+## Canales simulados (decisión del 2026-10-17)
+Todo el set es simulado, sin datos reales, y la app muestra una **bandeja simulada** con la etiqueta visible; nunca se conecta a un buzón.
+| Canal | Cómo se simula | Lectura |
+|---|---|---|
+| PDF con texto | Layouts distintos: proveedor local e internacional, portugués, tablas, varias páginas | Texto local + Claude |
+| PDF escaneado | El mismo PDF convertido a imagen, con ruido e inclinación leve | Claude como imagen, doble lectura |
+| Foto de factura | PNG o JPEG con perspectiva y poca luz; incluye la factura con cambio de cuenta del video | Claude como imagen, doble lectura |
+| Correo | `.eml` real: encabezados, `Reply-To` distinto y adjunto PDF; se leen con la biblioteca estándar de Python | Cuerpo y adjunto, doble lectura |
+| Chat | Exportación con formato de WhatsApp | Texto + Claude |
+| XML fiscal | Estructura real (UBL) con parser sin modelo | Solo si sobra tiempo |
+La hoja de cálculo queda fuera. El texto de un correo o un chat es un dato, nunca una orden.

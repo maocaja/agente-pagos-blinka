@@ -7,7 +7,8 @@ flowchart TD
   B --> C{¿Ya está en caché?}
   C -->|Sí| Z[Usar la lectura guardada]
   C -->|No| D{¿Tiene texto verificable?}
-  D -->|No: escaneado, imagen, cifrado, fuera de límites| E1[ESCALAR sin llamar a la API]
+  D -->|No: cifrado o fuera de límites| E1[ESCALAR sin llamar a la API]
+  D -->|Imagen o PDF escaneado| I[Doble lectura Haiku y Sonnet; campos críticos deben coincidir; nunca PAGAR autónomo]
   D -->|Sí, XML| X[Parser estructurado y reglas sobre el texto]
   D -->|Sí, texto o PDF| H[Lectura con Haiku 5.5, con cita de evidencia]
   H --> V{¿Verificaciones?}
