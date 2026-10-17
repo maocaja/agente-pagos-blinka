@@ -96,3 +96,32 @@ def test_rutas_paquete_y_pain001(ahora, tmp_path):
     r = c.get(f"/api/ordenes/{rec['id']}/pain001")
     assert r.status_code == 200 and ET.fromstring(r.content) is not None
     assert script.verificar(c.get("/api/auditoria/paquete").json()) == []
+
+
+def _cliente_eval(tmp_path):
+    from fastapi.testclient import TestClient
+    ses = Sesiones(fabrica_de_servicios(lambda: None), lambda p: p + "_1")
+    return TestClient(crear_app(ses, tmp_path / "r.json", tmp_path / "dist"))
+
+
+def test_pentest_y_arena_sirven_resultados_validos_o_404(tmp_path):
+    raiz = Path(__file__).resolve().parents[2]
+    esquema = json.loads((raiz / "contrato" / "resultados.schema.json").read_text(encoding="utf-8"))
+    validar = importlib.util.module_from_spec(s := importlib.util.spec_from_file_location("v", raiz / "contrato" / "validar.py"))
+    s.loader.exec_module(validar)
+    c = _cliente_eval(raiz / "evaluacion" / "salida")
+    for ruta in ("/api/pentest/ejecutar", "/api/arena/ejecutar"):
+        r = c.post(ruta)
+        assert r.status_code == 200 and validar.validar(r.json(), esquema) == []
+    assert c.post("/api/pentest/ejecutar", json={"mandato_base": "v1"}).json()["mandato_version"] == "v1"
+    r = _cliente_eval(tmp_path).post("/api/arena/ejecutar")
+    assert r.status_code == 404 and "evaluacion.arena" in r.json()["mensaje"]
+
+
+def test_lectura_cambia_con_la_variable_sin_exponerla(tmp_path, monkeypatch):
+    c = _cliente_eval(tmp_path)
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    assert c.post("/api/sesion").json()["lectura"] == "guardada"
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-secreto")
+    r = c.post("/api/sesion")
+    assert r.json()["lectura"] == "en_vivo" and "sk-secreto" not in r.text

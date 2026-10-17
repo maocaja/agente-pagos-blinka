@@ -1,6 +1,6 @@
 # Contrato compartido
 
-Version `1.1.0-rc1`. Es la ruta critica de las cuatro unidades. Se escribio antes que el codigo, a partir de los diseños funcionales aprobados en `aidlc-docs/construction/`.
+Version `1.1.0-rc2`. Es la ruta critica de las cuatro unidades. Se escribio antes que el codigo, a partir de los diseños funcionales aprobados en `aidlc-docs/construction/`.
 
 ## Archivos
 | Archivo | Que define | Quien lo produce | Quien lo consume |
@@ -58,3 +58,6 @@ Hay valores que se calibran despues: `umbral_senal_texto`, `dias_proveedor_nuevo
 ## Cambios de 1.1.0-rc1 (aditivos, Ola 5)
 - `decision.schema.json`: campos opcionales `explicacion` y `que_hacer`.
 - `api.openapi.yaml`: rutas nuevas `POST /api/mandato/previa`, `GET /api/auditoria/paquete` y `GET /api/ordenes/{id}/pain001`.
+
+## Cambios de 1.1.0-rc2 (aditivos, Ola 7)
+- `api.openapi.yaml`: campo opcional `lectura` (`en_vivo` o `guardada`) en la respuesta de `POST /api/sesion`.
