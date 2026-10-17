@@ -124,12 +124,12 @@ pre.code{background:var(--panel2);border:1px solid var(--line);border-radius:8px
 <defs><marker id="c1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
 <text class="l" x="16" y="18">Adaptadores de entrada</text>
 <g>
-<rect class="b-code" x="16" y="30" width="190" height="48" rx="6"/><text class="t" x="28" y="51">XML fiscal</text><text class="s" x="28" y="68">parser, sin modelo</text>
-<rect class="b-agent" x="16" y="92" width="190" height="48" rx="6"/><text class="t" x="28" y="113">PDF</text><text class="s" x="28" y="130">texto local + Claude</text>
+<rect class="b-code" x="16" y="30" width="190" height="48" rx="6"/><text class="t" x="28" y="51">XML fiscal</text><text class="s" x="28" y="68">parser. MVP: XML a mano</text>
+<rect class="b-agent" x="16" y="92" width="190" height="48" rx="6"/><text class="t" x="28" y="113">PDF</text><text class="s" x="28" y="130">texto local + Claude. MVP: sí</text>
 <rect class="b-ext" x="16" y="154" width="190" height="48" rx="6"/><text class="t" x="28" y="175">Imagen o foto</text><text class="s" x="28" y="192">no se lee en el MVP: escala</text>
-<rect class="b-agent" x="16" y="216" width="190" height="48" rx="6"/><text class="t" x="28" y="237">Correo</text><text class="s" x="28" y="254">cuerpo y adjuntos</text>
-<rect class="b-agent" x="16" y="278" width="190" height="48" rx="6"/><text class="t" x="28" y="299">Chat</text><text class="s" x="28" y="316">mensajes informales</text>
-<rect class="b-code" x="16" y="340" width="190" height="48" rx="6"/><text class="t" x="28" y="361">Hoja de cálculo</text><text class="s" x="28" y="378">parser, sin modelo</text>
+<rect class="b-agent" x="16" y="216" width="190" height="48" rx="6"/><text class="t" x="28" y="237">Correo</text><text class="s" x="28" y="254">MVP: llega como texto</text>
+<rect class="b-agent" x="16" y="278" width="190" height="48" rx="6"/><text class="t" x="28" y="299">Chat</text><text class="s" x="28" y="316">MVP: texto pegado</text>
+<rect class="b-code" x="16" y="340" width="190" height="48" rx="6"/><text class="t" x="28" y="361">Hoja de cálculo</text><text class="s" x="28" y="378">parser. Siguiente adaptador</text>
 </g>
 <path class="ln" d="M206,54 L270,178" marker-end="url(#c1)"/><path class="ln" d="M206,116 L270,190" marker-end="url(#c1)"/><path class="ln" d="M206,178 L270,202" marker-end="url(#c1)"/>
 <path class="ln" d="M206,240 L270,214" marker-end="url(#c1)"/><path class="ln" d="M206,302 L270,226" marker-end="url(#c1)"/><path class="ln" d="M206,364 L270,238" marker-end="url(#c1)"/>
@@ -150,7 +150,7 @@ pre.code{background:var(--panel2);border:1px solid var(--line);border-radius:8px
 <rect class="b-ext" x="900" y="296" width="194" height="56" rx="6"/><text class="t" x="912" y="318">USDC</text><text class="s" x="912" y="336">Base, Solana y otras</text>
 <path class="ln" d="M860,200 L900,84" marker-end="url(#c1)"/><path class="ln" d="M860,210 L900,164" marker-end="url(#c1)"/><path class="ln" d="M860,220 L900,244" marker-end="url(#c1)"/><path class="ln" d="M860,230 L900,324" marker-end="url(#c1)"/>
 </svg></div>
-  <figcaption>Todo lo de los extremos es un adaptador intercambiable. Los formatos fiscales y las hojas de cálculo se leen con un parser, sin modelo y sin costo de tokens; solo el texto y el PDF van a un modelo. Las fotos no se leen en el MVP y se escalan sin llamar a la API. Las rutas de salida son las que lista blinka.co.</figcaption></figure>
+  <figcaption>Todo lo de los extremos es un adaptador intercambiable. Los formatos fiscales y las hojas de cálculo se leen con un parser, sin modelo y sin costo de tokens; solo el texto y el PDF van a un modelo. Las fotos no se leen en el MVP y se escalan sin llamar a la API. Las rutas de salida son las que lista blinka.co. La caja de cada formato dice qué se construye en el MVP; lo demás es el siguiente adaptador y no está implementado.</figcaption></figure>
 </section>
 
 <section>
