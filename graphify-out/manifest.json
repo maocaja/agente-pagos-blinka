@@ -1,0 +1,476 @@
+{
+  ".claude/settings.json": {
+    "mtime": 1792213090.799963,
+    "seen": 1792213118.320242,
+    "ast_hash": "2c2f65c16a0409fa7e0e881af4a92b67",
+    "semantic_hash": ""
+  },
+  "contrato/aprobacion.schema.json": {
+    "mtime": 1792211791.352218,
+    "seen": 1792212934.8964999,
+    "ast_hash": "4fb0a99c8c4b466127c30bcc8d4c1804",
+    "semantic_hash": "4fb0a99c8c4b466127c30bcc8d4c1804"
+  },
+  "contrato/decision.schema.json": {
+    "mtime": 1792211791.3474405,
+    "seen": 1792212934.896501,
+    "ast_hash": "728bb1be0a55cd549adee617bef02763",
+    "semantic_hash": "728bb1be0a55cd549adee617bef02763"
+  },
+  "contrato/ejemplos/aprobacion.ejemplo.json": {
+    "mtime": 1792212054.103231,
+    "seen": 1792212934.896502,
+    "ast_hash": "cb8f48f6befc4412f0f4dbe8957c6a1a",
+    "semantic_hash": "cb8f48f6befc4412f0f4dbe8957c6a1a"
+  },
+  "contrato/ejemplos/decision.f11.json": {
+    "mtime": 1792212054.1029546,
+    "seen": 1792212934.896503,
+    "ast_hash": "2c7e43052790dc9e04b1fc1ac8fa4196",
+    "semantic_hash": "2c7e43052790dc9e04b1fc1ac8fa4196"
+  },
+  "contrato/ejemplos/esperado.f11.json": {
+    "mtime": 1792212054.1036806,
+    "seen": 1792212934.8965042,
+    "ast_hash": "2d0f1ebd00c79a218cc88d08ef0a5a5e",
+    "semantic_hash": "2d0f1ebd00c79a218cc88d08ef0a5a5e"
+  },
+  "contrato/ejemplos/factura-canonica.f11.json": {
+    "mtime": 1792212054.1027336,
+    "seen": 1792212934.8965042,
+    "ast_hash": "caab43d7f8439a3b93d0a4202cea935b",
+    "semantic_hash": "caab43d7f8439a3b93d0a4202cea935b"
+  },
+  "contrato/ejemplos/guardian.rechazo.json": {
+    "mtime": 1792212054.1034555,
+    "seen": 1792212934.896505,
+    "ast_hash": "04be5abbd6222b3193c1c6600426c161",
+    "semantic_hash": "04be5abbd6222b3193c1c6600426c161"
+  },
+  "contrato/ejemplos/mandato.v1.json": {
+    "mtime": 1792212029.6147823,
+    "seen": 1792212934.896505,
+    "ast_hash": "8f638902495aedee4fa6b8bc05c32740",
+    "semantic_hash": "8f638902495aedee4fa6b8bc05c32740"
+  },
+  "contrato/ejemplos/mandato.v2.json": {
+    "mtime": 1792212029.6156833,
+    "seen": 1792212934.896506,
+    "ast_hash": "362ea06ce5860c65ab7456a8fcaa396d",
+    "semantic_hash": "362ea06ce5860c65ab7456a8fcaa396d"
+  },
+  "contrato/ejemplos/recibo.pagar.json": {
+    "mtime": 1792212054.103115,
+    "seen": 1792212934.8965068,
+    "ast_hash": "e635313acef267ab8e1f868a68253e07",
+    "semantic_hash": "e635313acef267ab8e1f868a68253e07"
+  },
+  "contrato/ejemplos/resultados.arena.json": {
+    "mtime": 1792212054.1035838,
+    "seen": 1792212934.8965068,
+    "ast_hash": "bac85f7b9f725063056bce11a459620e",
+    "semantic_hash": "bac85f7b9f725063056bce11a459620e"
+  },
+  "contrato/esperado.schema.json": {
+    "mtime": 1792212029.616272,
+    "seen": 1792212934.896508,
+    "ast_hash": "887e8ac55ebd4fa65dfda878536fcc55",
+    "semantic_hash": "887e8ac55ebd4fa65dfda878536fcc55"
+  },
+  "contrato/extraccion.schema.json": {
+    "mtime": 1792212029.612606,
+    "seen": 1792212934.896509,
+    "ast_hash": "a5ca86bcdf7053748c5a0b3c9f51e4a5",
+    "semantic_hash": "a5ca86bcdf7053748c5a0b3c9f51e4a5"
+  },
+  "contrato/factura-canonica.schema.json": {
+    "mtime": 1792212029.6136568,
+    "seen": 1792212934.896509,
+    "ast_hash": "0d73fe663177d8e8996cac0910f65c54",
+    "semantic_hash": "0d73fe663177d8e8996cac0910f65c54"
+  },
+  "contrato/mandato.schema.json": {
+    "mtime": 1792212029.6140497,
+    "seen": 1792212934.89651,
+    "ast_hash": "57458dcc867c8c70fcd2c95bf674ca0c",
+    "semantic_hash": "57458dcc867c8c70fcd2c95bf674ca0c"
+  },
+  "contrato/monedas.json": {
+    "mtime": 1792212029.6159294,
+    "seen": 1792212934.89651,
+    "ast_hash": "0472096b9cba9410e558c0651bed8919",
+    "semantic_hash": "0472096b9cba9410e558c0651bed8919"
+  },
+  "contrato/recibo.schema.json": {
+    "mtime": 1792211791.3500252,
+    "seen": 1792212934.896511,
+    "ast_hash": "cf252f781c728591172a80c47eb75e15",
+    "semantic_hash": "cf252f781c728591172a80c47eb75e15"
+  },
+  "contrato/registro.schema.json": {
+    "mtime": 1792211791.354289,
+    "seen": 1792212934.896511,
+    "ast_hash": "6b44fb60d8a46a06497100872d7d7229",
+    "semantic_hash": "6b44fb60d8a46a06497100872d7d7229"
+  },
+  "contrato/reglas.registro.json": {
+    "mtime": 1792211791.356576,
+    "seen": 1792212934.896512,
+    "ast_hash": "33caedf4d51909f85968a448bc8ac64b",
+    "semantic_hash": "33caedf4d51909f85968a448bc8ac64b"
+  },
+  "contrato/resultados.schema.json": {
+    "mtime": 1792212029.6160445,
+    "seen": 1792212934.896513,
+    "ast_hash": "f5860a8da6247165d18108aaa36fed3e",
+    "semantic_hash": "f5860a8da6247165d18108aaa36fed3e"
+  },
+  "contrato/validar.py": {
+    "mtime": 1792212054.111155,
+    "seen": 1792212934.896513,
+    "ast_hash": "b953a62554077f4bc59deb100dd6f56e",
+    "semantic_hash": "b953a62554077f4bc59deb100dd6f56e"
+  },
+  "datos/esperado.json": {
+    "mtime": 1792207729.0549037,
+    "seen": 1792212934.896514,
+    "ast_hash": "c83603f2b460c71fccdea08898188021",
+    "semantic_hash": "c83603f2b460c71fccdea08898188021"
+  },
+  "demo-front/motor.js": {
+    "mtime": 1792206833.384057,
+    "seen": 1792212934.8965151,
+    "ast_hash": "d0dae8f6d2188df32ad363be332f20cd",
+    "semantic_hash": "d0dae8f6d2188df32ad363be332f20cd"
+  },
+  ".claude/agents/ejecutor-de-unidad.md": {
+    "mtime": 1792213090.769044,
+    "seen": 1792213118.320265,
+    "ast_hash": "82d7269dcfcc7f8c532bdeb8cc155688",
+    "semantic_hash": ""
+  },
+  ".claude/agents/explorador.md": {
+    "mtime": 1792213090.7664835,
+    "seen": 1792213118.320266,
+    "ast_hash": "4b3c491b667c5710377e5f8c16f33327",
+    "semantic_hash": ""
+  },
+  ".claude/agents/revisor.md": {
+    "mtime": 1792213090.7714307,
+    "seen": 1792213118.320267,
+    "ast_hash": "1f5983573962ae29281eba9f090d61c8",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1792213090.756844,
+    "seen": 1792213118.320267,
+    "ast_hash": "cec14bc7576db3a4e499ab49e325bded",
+    "semantic_hash": ""
+  },
+  "PRD.md": {
+    "mtime": 1792212427.3961523,
+    "seen": 1792213118.320268,
+    "ast_hash": "4a2696cd3a048e026845d695659794df",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1792201086.1652129,
+    "seen": 1792213118.320269,
+    "ast_hash": "cd0706ff44c953f5b91c487e760f9f8f",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/aidlc-state.md": {
+    "mtime": 1792213104.0829272,
+    "seen": 1792213118.320269,
+    "ast_hash": "deb4e6b02cdc89f3c844a9bc016d9028",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/evaluacion/functional-design/business-logic-model.md": {
+    "mtime": 1792211309.7822282,
+    "seen": 1792213118.32027,
+    "ast_hash": "45bd99004e71ba8b8f9601a3c65805c0",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/evaluacion/functional-design/business-rules.md": {
+    "mtime": 1792211872.3571696,
+    "seen": 1792213118.32027,
+    "ast_hash": "1ea63d1e31a70cd74dea615ddd787d19",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/evaluacion/functional-design/domain-entities.md": {
+    "mtime": 1792211309.7846432,
+    "seen": 1792213118.320271,
+    "ast_hash": "bd940bd149b960338f37bc4653086716",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/interfaz/functional-design/business-logic-model.md": {
+    "mtime": 1792210351.4731753,
+    "seen": 1792213118.320272,
+    "ast_hash": "e1f54b12c23d8db149fc063d0d67af07",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/interfaz/functional-design/business-rules.md": {
+    "mtime": 1792211872.3554242,
+    "seen": 1792213118.320272,
+    "ast_hash": "c459966bec60cd7048316411375009ee",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/interfaz/functional-design/frontend-components.md": {
+    "mtime": 1792211872.3561633,
+    "seen": 1792213118.320273,
+    "ast_hash": "21e353eea7cc9f4436781021199481b1",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/lectura/functional-design/business-logic-model.md": {
+    "mtime": 1792210899.6200225,
+    "seen": 1792213118.3202739,
+    "ast_hash": "a863bfce763965dd04d72276198ff326",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/lectura/functional-design/business-rules.md": {
+    "mtime": 1792212068.4714603,
+    "seen": 1792213118.3202739,
+    "ast_hash": "67a9a7e2eac5681a25e42cefe740b032",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/lectura/functional-design/domain-entities.md": {
+    "mtime": 1792210899.6221707,
+    "seen": 1792213118.3202748,
+    "ast_hash": "d9f8b6e08cbd0e701a0d0b7c7830745f",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/nfr-e-infraestructura.md": {
+    "mtime": 1792211562.2618809,
+    "seen": 1792213118.320276,
+    "ast_hash": "32da466765d92b8b1026e82cefdb7203",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/nucleo/functional-design/business-logic-model.md": {
+    "mtime": 1792209568.463543,
+    "seen": 1792213118.320276,
+    "ast_hash": "1f5af00f4ff3a2a1603b3fa19f33813f",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/nucleo/functional-design/business-rules.md": {
+    "mtime": 1792211872.3532472,
+    "seen": 1792213118.320277,
+    "ast_hash": "6de52d92c0c031764961e7889c9fc948",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/nucleo/functional-design/domain-entities.md": {
+    "mtime": 1792209486.1489434,
+    "seen": 1792213118.320278,
+    "ast_hash": "44064393067b69f7afdf3bd46df77fed",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/plans/evaluacion-functional-design-plan.md": {
+    "mtime": 1792211562.2537975,
+    "seen": 1792213118.320278,
+    "ast_hash": "d18409ea9466771bf93a950e881aa435",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/plans/interfaz-functional-design-plan.md": {
+    "mtime": 1792210467.0380406,
+    "seen": 1792213118.3202791,
+    "ast_hash": "d04fd5ea9c9ef498b6158f32aeda6e44",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/plans/lectura-functional-design-plan.md": {
+    "mtime": 1792210993.6651082,
+    "seen": 1792213118.32028,
+    "ast_hash": "b8c8bb2652f61c301b2dde149deaa4e6",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/plans/nucleo-functional-design-plan.md": {
+    "mtime": 1792209606.5622284,
+    "seen": 1792213118.32028,
+    "ast_hash": "3caa4a6532b2585e4cb36c30a14749c2",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/construction/tandas.md": {
+    "mtime": 1792213090.8084207,
+    "seen": 1792213118.320281,
+    "ast_hash": "e05eb5c278faf9fa8fd6ab0882070c12",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/inception/application-design/components.md": {
+    "mtime": 1792209097.0275428,
+    "seen": 1792213118.320281,
+    "ast_hash": "547f2b26a228fe2ffd34880fa09b65f4",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/inception/application-design/unit-of-work-dependency.md": {
+    "mtime": 1792209097.028028,
+    "seen": 1792213118.3202822,
+    "ast_hash": "bb6f6a3cb3b5f02b1fd7d9c9ca232b97",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/inception/application-design/unit-of-work.md": {
+    "mtime": 1792211378.3110917,
+    "seen": 1792213118.320284,
+    "ast_hash": "6a63c49c9622e3c7f3e66ede4d5c6af7",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/inception/plans/execution-plan.md": {
+    "mtime": 1792213104.081912,
+    "seen": 1792213118.3202848,
+    "ast_hash": "6cdefae0b857643559c007fa9cacb713",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/inception/plans/unit-of-work-plan.md": {
+    "mtime": 1792209159.7610965,
+    "seen": 1792213118.3202848,
+    "ast_hash": "e78aadb92bf5b0ea88f259cfe093494a",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/inception/requirements/requirement-clarification-questions.md": {
+    "mtime": 1792208144.2138267,
+    "seen": 1792213118.320286,
+    "ast_hash": "e0bfccb757d34b3b22b5d44346e4dc61",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/inception/requirements/requirement-verification-questions.md": {
+    "mtime": 1792208092.9409912,
+    "seen": 1792213118.320287,
+    "ast_hash": "e3e2de9603c16e691dbc50fc9eb6d441",
+    "semantic_hash": ""
+  },
+  "aidlc-docs/inception/requirements/requirements.md": {
+    "mtime": 1792211872.3587162,
+    "seen": 1792213118.320287,
+    "ast_hash": "58e2c0f4bb171003d370293d0257a8ec",
+    "semantic_hash": ""
+  },
+  "contrato/README.md": {
+    "mtime": 1792212068.4703038,
+    "seen": 1792213118.320288,
+    "ast_hash": "f535d442c0c63f7b7e3bb7b3ec4b7b78",
+    "semantic_hash": ""
+  },
+  "contrato/api.openapi.yaml": {
+    "mtime": 1792212029.6172314,
+    "seen": 1792213118.320288,
+    "ast_hash": "45f8c0635dcc1fbc026c859161493cc6",
+    "semantic_hash": ""
+  },
+  "datos/LEEME.md": {
+    "mtime": 1792207736.1787379,
+    "seen": 1792213118.3202891,
+    "ast_hash": "49f465ae3685ff54488d072c8f4404c4",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-01-correo-andino.txt": {
+    "mtime": 1792207694.192164,
+    "seen": 1792213118.32029,
+    "ast_hash": "7f5430376892d347544ffa88625ca6a6",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-02-pdf-pixel.txt": {
+    "mtime": 1792207694.19474,
+    "seen": 1792213118.320291,
+    "ast_hash": "8e957c6afdce19148e4ce8c50be8a3b3",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-03-chat-marta.txt": {
+    "mtime": 1792207694.1972191,
+    "seen": 1792213118.320291,
+    "ast_hash": "c41bf5e2f3660cb6e3ed83ab07ba19a1",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-04-invoice-cloud.txt": {
+    "mtime": 1792207694.199546,
+    "seen": 1792213118.320292,
+    "ast_hash": "fa0a3981ddd3bc1dbdf2fdba14988ef2",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-05-correo-reenvio-andino.txt": {
+    "mtime": 1792207694.2017844,
+    "seen": 1792213118.320292,
+    "ast_hash": "7922a8afecc7b1087387a89dd983f29c",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-06-pdf-pixel-reformateada.txt": {
+    "mtime": 1792207694.2038493,
+    "seen": 1792213118.3202932,
+    "ast_hash": "8fc1b25fffcca56d2cb000c1f636ec4e",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-07-correo-pixel-parecida.txt": {
+    "mtime": 1792207694.206007,
+    "seen": 1792213118.320294,
+    "ast_hash": "706426a2c9994ec8f81cefd4a9ad956a",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-08-invoice-cloud-segunda.txt": {
+    "mtime": 1792207694.208285,
+    "seen": 1792213118.320294,
+    "ast_hash": "a87d9aea54878842d067ea3b50bd98b8",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-09-correo-nuevo-logos.txt": {
+    "mtime": 1792207694.2102447,
+    "seen": 1792213118.3202949,
+    "ast_hash": "818cdb654deb60f2a33fce8f30b3e819",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-10-pdf-andino-mas-caro.txt": {
+    "mtime": 1792207694.212237,
+    "seen": 1792213118.320296,
+    "ast_hash": "a922a45873395d5856217aab1c3db0ba",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-11-invoice-cloud-instruccion.txt": {
+    "mtime": 1792207694.2142725,
+    "seen": 1792213118.320296,
+    "ast_hash": "342439155d2458be711b9d8d672ddc1a",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-12-foto-borrosa-marta.txt": {
+    "mtime": 1792207694.2164452,
+    "seen": 1792213118.320297,
+    "ast_hash": "d31987dfdda4f5bb93f849042afc543a",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-13-pdf-logistica.txt": {
+    "mtime": 1792207694.2184606,
+    "seen": 1792213118.320297,
+    "ast_hash": "f08ef44a73837f227c9ea78f7d80dc13",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-14-correo-taller-pampa.txt": {
+    "mtime": 1792207694.220447,
+    "seen": 1792213118.320298,
+    "ast_hash": "48fef07ff253341a8badae8e76e5ab2f",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-15-xml-devnorte.txt": {
+    "mtime": 1792207694.2224941,
+    "seen": 1792213118.320299,
+    "ast_hash": "92a3201148d11b6309f18abef7f452d6",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-16-pdf-codigo-verde.txt": {
+    "mtime": 1792207706.1577785,
+    "seen": 1792213118.320299,
+    "ast_hash": "14f63c87087a53f03cedec90639349cc",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-17-nota-credito-andino.txt": {
+    "mtime": 1792207694.2271628,
+    "seen": 1792213118.3203,
+    "ast_hash": "9159f5adf11e082378850e2237e87ca3",
+    "semantic_hash": ""
+  },
+  "datos/facturas/fac-18-estado-cuenta-codigo-verde.txt": {
+    "mtime": 1792207694.2292962,
+    "seen": 1792213118.3203,
+    "ast_hash": "83f29a7f6e379e4630531d43249cbe60",
+    "semantic_hash": ""
+  },
+  "investigacion/estado-del-arte.md": {
+    "mtime": 1792207943.435524,
+    "seen": 1792213118.320301,
+    "ast_hash": "be5a287a2f8fe745ef0575858634a8c0",
+    "semantic_hash": ""
+  }
+}

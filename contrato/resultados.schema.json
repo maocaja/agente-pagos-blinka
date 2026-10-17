@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "resultados.schema.json",
+  "title": "Resultados de una corrida de evaluacion",
+  "description": "Lo escribe U4 y lo lee el Marcador de U3. Cada cifra lleva su alcance.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "tipo",
+    "semilla",
+    "mandato_version",
+    "huella_codigo",
+    "fecha",
+    "recuentos",
+    "casos",
+    "no_prueba"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "tipo": {
+      "type": "string",
+      "enum": [
+        "set",
+        "arena",
+        "pentest",
+        "ocultas",
+        "mutacion"
+      ]
+    },
+    "semilla": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "mandato_version": {
+      "type": "string"
+    },
+    "huella_codigo": {
+      "type": "string"
+    },
+    "fecha": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "recuentos": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lanzadas",
+        "verificadas",
+        "pagos_indebidos",
+        "frenadas_escalables",
+        "desvios_conservadores",
+        "otras_diferencias"
+      ],
+      "properties": {
+        "lanzadas": {
+          "type": "integer"
+        },
+        "verificadas": {
+          "type": "integer"
+        },
+        "pagos_indebidos": {
+          "type": "integer"
+        },
+        "frenadas_escalables": {
+          "type": "integer"
+        },
+        "desvios_conservadores": {
+          "type": "integer"
+        },
+        "otras_diferencias": {
+          "type": "integer"
+        }
+      }
+    },
+    "casos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "veredicto_motor",
+          "veredicto_verificador",
+          "clase"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "veredicto_motor": {
+            "type": "string",
+            "enum": [
+              "PAGAR",
+              "FRENAR",
+              "ESCALAR",
+              "REGISTRAR"
+            ]
+          },
+          "veredicto_verificador": {
+            "type": "string",
+            "enum": [
+              "PAGAR",
+              "FRENAR",
+              "ESCALAR",
+              "REGISTRAR"
+            ]
+          },
+          "clase": {
+            "type": "string",
+            "enum": [
+              "verificada",
+              "pago_indebido",
+              "frenada_escalable",
+              "desvio_conservador",
+              "otra"
+            ]
+          }
+        }
+      }
+    },
+    "no_prueba": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Lo que esta cifra no prueba; se muestra en pantalla"
+    }
+  }
+}

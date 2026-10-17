@@ -1,0 +1,476 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "factura-canonica.schema.json",
+  "title": "Factura canonica",
+  "description": "Producto final de U2 y entrada del motor de U1. Dinero en unidades menores como texto. Un adaptador que no produzca esto valido hace que la factura se ESCALE.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "ciclo_id",
+    "documento",
+    "emisor",
+    "referencias",
+    "fechas",
+    "montos",
+    "cuenta",
+    "proveedor_asignado",
+    "evidencia",
+    "confianza",
+    "verificaciones",
+    "lectura"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "ciclo_id": {
+      "type": "string"
+    },
+    "documento": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "hash",
+        "canal",
+        "formato",
+        "tipo_documento",
+        "recibido_en"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "hash": {
+          "type": "string",
+          "description": "SHA-256 del archivo"
+        },
+        "canal": {
+          "type": "string",
+          "enum": [
+            "correo",
+            "chat",
+            "pdf",
+            "imagen",
+            "xml",
+            "hoja"
+          ]
+        },
+        "formato": {
+          "type": "string",
+          "enum": [
+            "texto",
+            "pdf",
+            "imagen",
+            "xml",
+            "csv"
+          ]
+        },
+        "tipo_documento": {
+          "type": "string",
+          "enum": [
+            "factura",
+            "cuenta_de_cobro",
+            "nota_de_credito",
+            "estado_de_cuenta",
+            "proforma",
+            "anticipo",
+            "desconocido"
+          ]
+        },
+        "recibido_en": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "emisor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "nombre",
+        "nombre_normalizado",
+        "id_fiscal",
+        "pais"
+      ],
+      "properties": {
+        "nombre": {
+          "type": "string"
+        },
+        "nombre_normalizado": {
+          "type": "string"
+        },
+        "id_fiscal": {
+          "type": "string"
+        },
+        "pais": {
+          "type": "string"
+        }
+      }
+    },
+    "referencias": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "numero",
+        "numero_normalizado",
+        "acuerdo_ref"
+      ],
+      "properties": {
+        "numero": {
+          "type": "string"
+        },
+        "numero_normalizado": {
+          "type": "string",
+          "description": "Mayusculas, sin simbolos, sin quitar ceros"
+        },
+        "acuerdo_ref": {
+          "type": "string"
+        }
+      }
+    },
+    "fechas": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "emision",
+        "vencimiento"
+      ],
+      "properties": {
+        "emision": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "vencimiento": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        }
+      }
+    },
+    "montos": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "moneda",
+        "total_menor",
+        "suma_lineas_menor",
+        "lineas"
+      ],
+      "properties": {
+        "moneda": {
+          "type": "string"
+        },
+        "total_menor": {
+          "type": "string",
+          "pattern": "^[0-9]+$"
+        },
+        "suma_lineas_menor": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9]+$",
+          "description": "null si el documento no trae lineas; entonces la verificacion de suma es no_aplica"
+        },
+        "lineas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "descripcion",
+              "total_menor"
+            ],
+            "properties": {
+              "descripcion": {
+                "type": "string"
+              },
+              "total_menor": {
+                "type": "string",
+                "pattern": "^[0-9]+$"
+              }
+            }
+          }
+        }
+      }
+    },
+    "cuenta": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "description": "Cuenta que trae la factura; null si no trae. El pago siempre va a la cuenta registrada.",
+      "required": [
+        "pais",
+        "ultimos4"
+      ],
+      "properties": {
+        "pais": {
+          "type": "string"
+        },
+        "ultimos4": {
+          "type": "string"
+        }
+      }
+    },
+    "proveedor_asignado": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "proveedor_id",
+        "metodo",
+        "pista"
+      ],
+      "properties": {
+        "proveedor_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "metodo": {
+          "type": "string",
+          "enum": [
+            "id_fiscal",
+            "nombre",
+            "ninguno",
+            "conflicto"
+          ]
+        },
+        "pista": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Coincidencia aproximada; solo informa, nunca decide"
+        }
+      }
+    },
+    "evidencia": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "confianza": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "verificaciones": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "esquema",
+        "dinero_presente",
+        "suma_lineas",
+        "cita_evidencia",
+        "tipo",
+        "segunda_lectura"
+      ],
+      "properties": {
+        "esquema": {
+          "type": "string",
+          "enum": [
+            "ok",
+            "falla"
+          ]
+        },
+        "dinero_presente": {
+          "type": "string",
+          "enum": [
+            "ok",
+            "falla"
+          ]
+        },
+        "suma_lineas": {
+          "type": "string",
+          "enum": [
+            "ok",
+            "falla",
+            "no_aplica"
+          ]
+        },
+        "cita_evidencia": {
+          "type": "string",
+          "enum": [
+            "ok",
+            "falla",
+            "no_verificable"
+          ]
+        },
+        "tipo": {
+          "type": "string",
+          "enum": [
+            "ok",
+            "discrepancia"
+          ]
+        },
+        "segunda_lectura": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "estado",
+            "detalle"
+          ],
+          "properties": {
+            "estado": {
+              "type": "string",
+              "enum": [
+                "coincide",
+                "difiere",
+                "sin_segunda_lectura"
+              ]
+            },
+            "detalle": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "campo",
+                  "modelo",
+                  "reglas"
+                ],
+                "properties": {
+                  "campo": {
+                    "type": "string"
+                  },
+                  "modelo": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "reglas": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "lectura": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metodo",
+        "modelo",
+        "reintentos",
+        "tokens_entrada",
+        "tokens_salida",
+        "costo_microusd",
+        "desde_cache",
+        "motivo_falla"
+      ],
+      "properties": {
+        "metodo": {
+          "type": "string",
+          "enum": [
+            "modelo",
+            "parser",
+            "ninguno"
+          ]
+        },
+        "modelo": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reintentos": {
+          "type": "integer"
+        },
+        "tokens_entrada": {
+          "type": "integer"
+        },
+        "tokens_salida": {
+          "type": "integer"
+        },
+        "desde_cache": {
+          "type": "boolean"
+        },
+        "motivo_falla": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "sin_texto",
+            "pdf_cifrado",
+            "fuera_de_limites",
+            "refusal",
+            "truncado",
+            "json_invalido",
+            "http_4xx",
+            "tope_de_gasto",
+            "tipo_no_soportado",
+            "formato_numerico_ambiguo",
+            "moneda_ambigua",
+            null
+          ]
+        },
+        "costo_microusd": {
+          "type": "string",
+          "pattern": "^[0-9]+$",
+          "description": "Millonesimas de dolar (1 USD = 1000000)"
+        }
+      }
+    },
+    "senales": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "texto_dirigido_al_agente": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "p",
+            "origen"
+          ],
+          "properties": {
+            "p": {
+              "type": "number"
+            },
+            "origen": {
+              "type": "string"
+            }
+          }
+        },
+        "duplicado_probable": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "p",
+            "con"
+          ],
+          "properties": {
+            "p": {
+              "type": "number"
+            },
+            "con": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+[Texto extraido de PDF, 1 pagina]
+
+CODIGO VERDE SAS   NIT 901.000.222-1 (ficticio)
+Medellin, Colombia
+
+FACTURA DE VENTA No. CV-12
+Fecha de emision: 2026-10-14    Vencimiento: 2026-11-13
+Referencia de acuerdo: AC-CVERDE-2026-02
+
+Detalle                                    Valor USD
+Plataforma de reportes ambientales, licencia   2.436,97
+Capacitacion al equipo (2 sesiones, incluida)    0,00
+Subtotal                                       2.436,97
+IVA 19%                                          463,03
+TOTAL                                          2.900,00 USD
+
+Banco: Banco Ejemplo Colombia   Pais de la cuenta: Colombia
+Cuenta corriente terminada en 1096

@@ -1,0 +1,30 @@
+{
+  "descripcion": "Unidades menores segun ISO 4217. Todo monto del contrato es un entero en 10^-exponente de la moneda, como texto. El modelo nunca convierte: el codigo lo hace.",
+  "monedas": {
+    "USD": {
+      "exponente": 2
+    },
+    "COP": {
+      "exponente": 2
+    },
+    "BRL": {
+      "exponente": 2
+    },
+    "MXN": {
+      "exponente": 2
+    },
+    "ARS": {
+      "exponente": 2
+    },
+    "EUR": {
+      "exponente": 2
+    },
+    "CLP": {
+      "exponente": 0
+    },
+    "PEN": {
+      "exponente": 2
+    }
+  },
+  "nota": "COP aparece con dos decimales en ISO 4217 aunque en la practica se cobra sin centavos: un monto de COP 6.000.000 se escribe 600000000."
+}

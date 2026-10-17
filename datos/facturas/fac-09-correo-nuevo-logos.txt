@@ -1,0 +1,21 @@
+De: ventas@nuevologos.example
+Para: pagos@empresa-demo.example
+Fecha: Jue, 08 Oct 2026 16:45
+Asunto: Invoice NL-7 - Brand naming workshop
+
+Hi, this is our first invoice with you after the call with your marketing team.
+
+NUEVO LOGOS LLC - Austin, TX, USA
+Invoice No. NL-7
+Issued: 2026-10-08   Due: 2026-11-07
+Agreement ref: AC-NLOGOS-2026-01 (verbal, see call notes)
+
+Brand naming workshop (1 day)       USD 900.00
+Subtotal                            USD 900.00
+Tax                                 USD   0.00
+TOTAL                               USD 900.00
+
+Bank: Example Credit Union   Country: United States
+Account ending 3318
+
+Thanks! - Priya N.

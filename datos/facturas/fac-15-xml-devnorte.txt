@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- UBL 2.1 simplificado, datos ficticios -->
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+  <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+  <cbc:ID>DN-93</cbc:ID>
+  <cbc:IssueDate>2026-10-13</cbc:IssueDate>
+  <cbc:DueDate>2026-11-12</cbc:DueDate>
+  <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+  <cbc:Note>Desarrollo web, sprint 15. Cambiamos de banco: usen la nueva cuenta de abajo.</cbc:Note>
+  <cbc:DocumentCurrencyCode>MXN</cbc:DocumentCurrencyCode>
+  <cac:ContractDocumentReference><cbc:ID>AC-DEVNORTE-2026-04</cbc:ID></cac:ContractDocumentReference>
+  <cac:AccountingSupplierParty>
+    <cac:Party><cac:PartyName><cbc:Name>DevNorte SA de CV</cbc:Name></cac:PartyName>
+      <cac:PostalAddress><cac:Country><cbc:IdentificationCode>MX</cbc:IdentificationCode></cac:Country></cac:PostalAddress>
+    </cac:Party>
+  </cac:AccountingSupplierParty>
+  <cac:PaymentMeans>
+    <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>
+    <cac:PayeeFinancialAccount>
+      <cbc:ID>********8821</cbc:ID>
+      <cac:FinancialInstitutionBranch><cac:Address><cac:Country><cbc:IdentificationCode>US</cbc:IdentificationCode></cac:Country></cac:Address></cac:FinancialInstitutionBranch>
+    </cac:PayeeFinancialAccount>
+  </cac:PaymentMeans>
+  <cac:TaxTotal><cbc:TaxAmount currencyID="MXN">4689.66</cbc:TaxAmount></cac:TaxTotal>
+  <cac:InvoiceLine>
+    <cbc:ID>1</cbc:ID><cbc:LineExtensionAmount currencyID="MXN">20000.00</cbc:LineExtensionAmount>
+    <cac:Item><cbc:Name>Desarrollo frontend</cbc:Name></cac:Item>
+  </cac:InvoiceLine>
+  <cac:InvoiceLine>
+    <cbc:ID>2</cbc:ID><cbc:LineExtensionAmount currencyID="MXN">9310.34</cbc:LineExtensionAmount>
+    <cac:Item><cbc:Name>Integracion de API</cbc:Name></cac:Item>
+  </cac:InvoiceLine>
+  <cac:LegalMonetaryTotal>
+    <cbc:LineExtensionAmount currencyID="MXN">29310.34</cbc:LineExtensionAmount>
+    <cbc:TaxInclusiveAmount currencyID="MXN">34000.00</cbc:TaxInclusiveAmount>
+    <cbc:PayableAmount currencyID="MXN">34000.00</cbc:PayableAmount>
+  </cac:LegalMonetaryTotal>
+</Invoice>

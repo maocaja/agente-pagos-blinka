@@ -1,0 +1,556 @@
+openapi: 3.1.0
+info:
+  title: Agente de Pagos con Garantia, API del nucleo
+  version: 1.0.0-rc1
+  description: |
+    Contrato entre U1 (nucleo), U2 (lectura), U3 (interfaz) y U4 (evaluacion). Escrito primero; cambia solo de comun acuerdo.
+    Cada peticion (menos POST /api/sesion) lleva el encabezado X-Sesion-Id. El rol es simulado y viaja en X-Rol.
+    Dinero en unidades menores, como texto. Ningun modelo decide: todo veredicto sale del motor.
+servers:
+  - url: http://localhost:8000
+tags:
+  - name: sesion
+  - name: facturas
+  - name: decisiones
+  - name: recibos
+  - name: mandato
+  - name: guardian
+  - name: evaluacion
+  - name: ciclo
+security:
+  - sesion: []
+components:
+  securitySchemes:
+    sesion:
+      type: apiKey
+      in: header
+      name: X-Sesion-Id
+  parameters:
+    Rol:
+      name: X-Rol
+      in: header
+      required: true
+      description: Rol simulado de la persona. Se registra en cada accion.
+      schema: {type: string, enum: [analista, cfo]}
+    ClaveIdempotencia:
+      name: Idempotency-Key
+      in: header
+      required: true
+      description: Evita el doble envio; el mismo valor devuelve la misma respuesta sin repetir la accion.
+      schema: {type: string}
+    IdDecision:
+      name: id
+      in: path
+      required: true
+      schema: {type: string}
+  responses:
+    Error:
+      description: Error. Siempre con el mismo formato.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    SesionInvalida:
+      description: Falta la sesion o expiro
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+          example: {codigo: sesion_invalida, mensaje: La sesion no existe o expiro. Inicia una nueva., detalle: null}
+    RolNoPermitido:
+      description: El rol simulado no puede hacer esta accion
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+          example: {codigo: rol_no_permitido, mensaje: El analista no puede aprobar., detalle: null}
+    Conflicto:
+      description: El estado cambio (decision ya resuelta, recibo ya usado, reevaluacion distinta)
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    NoEncontrado:
+      description: No existe
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    Invalido:
+      description: El cuerpo no valida contra el esquema
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    Limite:
+      description: Demasiadas peticiones; la sesion supero el limite de tasa
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    NoDisponible:
+      description: El servidor o un servicio de modelos no responde. Nunca se presenta como exito.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+  schemas:
+    Error:
+      type: object
+      required: [codigo, mensaje]
+      properties:
+        codigo: {type: string}
+        mensaje: {type: string}
+        detalle: {type: [object, 'null']}
+    FacturaCanonica: {$ref: 'factura-canonica.schema.json'}
+    Decision: {$ref: 'decision.schema.json'}
+    Recibo: {$ref: 'recibo.schema.json'}
+    Aprobacion: {$ref: 'aprobacion.schema.json'}
+    Mandato: {$ref: 'mandato.schema.json'}
+    Registro: {$ref: 'registro.schema.json'}
+    Accion:
+      type: object
+      required: [nota]
+      properties:
+        nota: {type: string, description: Obligatoria al rechazar}
+        valor_corregido: {type: object, description: "Solo en corregir: campo y valor nuevo", additionalProperties: {type: string}}
+    VerificacionGuardian:
+      type: object
+      required: [autorizada, verificaciones, motivo]
+      properties:
+        autorizada: {type: boolean}
+        motivo: {type: [string, 'null']}
+        verificaciones:
+          type: array
+          items:
+            type: object
+            required: [n, nombre, estado, motivo]
+            properties:
+              n: {type: integer}
+              nombre: {type: string}
+              estado: {type: string, enum: [ok, falla, no_evaluada]}
+              motivo: {type: [string, 'null']}
+    OrdenDePago:
+      type: object
+      required: [recibo_id, beneficiario_id, monto_menor, moneda, concepto]
+      properties:
+        recibo_id: {type: string}
+        beneficiario_id: {type: string}
+        monto_menor: {type: string}
+        moneda: {type: string}
+        concepto: {type: string}
+paths:
+  /api/sesion:
+    post:
+      tags: [sesion]
+      summary: Crea una sesion con su copia del set y su par de claves
+      security: []
+      responses:
+        '201':
+          description: Sesion creada
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [sesion_id, clave_publica, clave_version, mandato_version, ciclo_id]
+                properties:
+                  sesion_id: {type: string}
+                  clave_publica: {type: string}
+                  clave_version: {type: string}
+                  mandato_version: {type: string}
+                  ciclo_id: {type: string}
+              example: {sesion_id: s_01, clave_publica: base64..., clave_version: k1, mandato_version: v2, ciclo_id: 2026-10}
+        '429': {$ref: '#/components/responses/Limite'}
+        '503': {$ref: '#/components/responses/NoDisponible'}
+  /api/sesion/reiniciar:
+    post:
+      tags: [sesion]
+      summary: Vuelve al set original (copia nueva y claves nuevas)
+      responses:
+        '200': {description: Reiniciada}
+        '401': {$ref: '#/components/responses/SesionInvalida'}
+  /api/marcador:
+    get:
+      tags: [evaluacion]
+      summary: Cifras del marcador
+      responses:
+        '200':
+          description: Marcador
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [casos, verificados, pagos_indebidos, frenadas_escalables, desvios_conservadores, aciertos_reglas, aciertos_extremo_a_extremo, autonomia, escalada_innecesaria, pendientes, costo]
+                properties:
+                  casos: {type: integer}
+                  verificados: {type: integer}
+                  pagos_indebidos: {type: [integer, 'null'], description: null si el verificador independiente no esta disponible}
+                  frenadas_escalables: {type: [integer, 'null']}
+                  desvios_conservadores: {type: [integer, 'null']}
+                  aciertos_reglas: {type: string}
+                  aciertos_extremo_a_extremo: {type: string}
+                  autonomia: {type: string}
+                  escalada_innecesaria: {type: string}
+                  pendientes: {type: integer}
+                  costo:
+                    type: object
+                    required: [lecturas_guardadas_microusd, sesion_microusd]
+                    properties:
+                      lecturas_guardadas_microusd: {type: string}
+                      sesion_microusd: {type: string}
+              example: {casos: 18, verificados: 18, pagos_indebidos: 0, frenadas_escalables: 0, desvios_conservadores: 1, aciertos_reglas: 17/18, aciertos_extremo_a_extremo: 18/18, autonomia: 39%, escalada_innecesaria: 6%, pendientes: 7, costo: {lecturas_guardadas_microusd: '7200', sesion_microusd: '0'}}
+        '401': {$ref: '#/components/responses/SesionInvalida'}
+  /api/ciclo:
+    get:
+      tags: [ciclo]
+      summary: Estado del ciclo de pagos
+      responses:
+        '200':
+          description: Ciclo
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [id, estado, mandato_version, pendientes]
+                properties:
+                  id: {type: string}
+                  estado: {type: string, enum: [abierto, en_proceso, en_revision, aprobado, cerrado]}
+                  mandato_version: {type: string}
+                  pendientes: {type: integer}
+  /api/ciclo/cerrar:
+    post:
+      tags: [ciclo]
+      summary: Cierra el ciclo (solo CFO, con todas las escaladas atendidas) y devuelve la conciliacion
+      parameters: [{$ref: '#/components/parameters/Rol'}, {$ref: '#/components/parameters/ClaveIdempotencia'}]
+      responses:
+        '200': {description: Cerrado; devuelve la conciliacion en CSV, content: {text/csv: {schema: {type: string}}}}
+        '403': {$ref: '#/components/responses/RolNoPermitido'}
+        '409': {$ref: '#/components/responses/Conflicto'}
+  /api/facturas:
+    post:
+      tags: [facturas]
+      summary: U2 entrega una factura canonica; el motor decide
+      description: Si el cuerpo no valida, la respuesta es 422 y la factura queda ESCALADA con el motivo. Nunca se pierde.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/FacturaCanonica'}
+      responses:
+        '201':
+          description: Decision tomada
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Decision'}
+        '422': {$ref: '#/components/responses/Invalido'}
+        '401': {$ref: '#/components/responses/SesionInvalida'}
+        '503': {$ref: '#/components/responses/NoDisponible'}
+  /api/documentos:
+    post:
+      tags: [facturas]
+      summary: Carga un documento y lo lee (U2); solo en local
+      description: En la app publica responde 403 con codigo lectura_en_vivo_deshabilitada; alli solo se usan muestras con lectura guardada. Un documento sin texto verificable se ESCALA sin llamar a la API de modelos.
+      parameters: [{$ref: '#/components/parameters/ClaveIdempotencia'}]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [archivo]
+              properties:
+                archivo: {type: string, format: binary}
+      responses:
+        '201': {description: Decision tomada, content: {application/json: {schema: {$ref: '#/components/schemas/Decision'}}}}
+        '403': {$ref: '#/components/responses/Error'}
+        '422': {$ref: '#/components/responses/Invalido'}
+        '503': {$ref: '#/components/responses/NoDisponible'}
+  /api/muestras:
+    get:
+      tags: [facturas]
+      summary: Muestras nuevas ya extraidas (app publica)
+      responses:
+        '200':
+          description: Lista
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required: [id, titulo, tipo, lectura_guardada]
+                  properties: {id: {type: string}, titulo: {type: string}, tipo: {type: string}, lectura_guardada: {type: boolean}}
+  /api/muestras/{id}/cargar:
+    post:
+      tags: [facturas]
+      summary: Simula la carga de una muestra con su lectura guardada
+      parameters: [{$ref: '#/components/parameters/IdDecision'}]
+      responses:
+        '201': {description: Decision tomada, content: {application/json: {schema: {$ref: '#/components/schemas/Decision'}}}}
+        '404': {$ref: '#/components/responses/NoEncontrado'}
+        '429': {$ref: '#/components/responses/Limite'}
+  /api/decisiones:
+    get:
+      tags: [decisiones]
+      summary: Lista de decisiones
+      parameters:
+        - {name: estado, in: query, schema: {type: string, enum: [pendientes, pagadas, frenadas, registradas, todas]}}
+      responses:
+        '200':
+          description: Lista, con las pendientes ordenadas por riesgo
+          content:
+            application/json:
+              schema: {type: array, items: {$ref: '#/components/schemas/Decision'}}
+  /api/decisiones/{id}:
+    get:
+      tags: [decisiones]
+      parameters: [{$ref: '#/components/parameters/IdDecision'}]
+      summary: Detalle con la factura canonica original
+      responses:
+        '200':
+          description: Detalle
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [decision, factura]
+                properties:
+                  decision: {$ref: '#/components/schemas/Decision'}
+                  factura: {$ref: '#/components/schemas/FacturaCanonica'}
+        '404': {$ref: '#/components/responses/NoEncontrado'}
+  /api/decisiones/{id}/previa:
+    get:
+      tags: [decisiones]
+      parameters: [{$ref: '#/components/parameters/IdDecision'}]
+      summary: Que cambia si se aprueba
+      responses:
+        '200':
+          description: Vista previa
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [presupuesto_restante_antes_menor, presupuesto_restante_despues_menor, acumulado_proveedor_menor, fallas_que_se_aprobarian]
+                properties:
+                  presupuesto_restante_antes_menor: {type: string}
+                  presupuesto_restante_despues_menor: {type: string}
+                  acumulado_proveedor_menor: {type: string}
+                  fallas_que_se_aprobarian: {type: array, items: {type: string}}
+  /api/decisiones/{id}/aprobar:
+    post:
+      tags: [decisiones]
+      summary: Aprueba una escalada (solo CFO). Reevalua y emite un recibo nuevo.
+      description: No cubre fallas FRENAR, la falla de presupuesto R9 ni las fallas de lectura de R1. Si al reevaluar aparece otra falla, la decision vuelve a ESCALAR con el motivo.
+      parameters: [{$ref: '#/components/parameters/IdDecision'}, {$ref: '#/components/parameters/Rol'}, {$ref: '#/components/parameters/ClaveIdempotencia'}]
+      requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/Accion'}}}}
+      responses:
+        '200':
+          description: Reevaluada
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [decision, aprobacion]
+                properties:
+                  decision: {$ref: '#/components/schemas/Decision'}
+                  aprobacion: {$ref: '#/components/schemas/Aprobacion'}
+        '403': {$ref: '#/components/responses/RolNoPermitido'}
+        '409': {$ref: '#/components/responses/Conflicto'}
+  /api/decisiones/{id}/corregir:
+    post:
+      tags: [decisiones]
+      summary: Corrige un campo leido y reevalua (analista). La correccion cuenta como segunda lectura.
+      parameters: [{$ref: '#/components/parameters/IdDecision'}, {$ref: '#/components/parameters/Rol'}, {$ref: '#/components/parameters/ClaveIdempotencia'}]
+      requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/Accion'}}}}
+      responses:
+        '200': {description: Reevaluada, content: {application/json: {schema: {$ref: '#/components/schemas/Decision'}}}}
+        '403': {$ref: '#/components/responses/RolNoPermitido'}
+        '409': {$ref: '#/components/responses/Conflicto'}
+  /api/decisiones/{id}/rechazar:
+    post:
+      tags: [decisiones]
+      summary: Rechaza (solo CFO); la nota es obligatoria
+      parameters: [{$ref: '#/components/parameters/IdDecision'}, {$ref: '#/components/parameters/Rol'}, {$ref: '#/components/parameters/ClaveIdempotencia'}]
+      requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/Accion'}}}}
+      responses:
+        '200': {description: Rechazada, content: {application/json: {schema: {$ref: '#/components/schemas/Decision'}}}}
+        '403': {$ref: '#/components/responses/RolNoPermitido'}
+        '422': {$ref: '#/components/responses/Invalido'}
+  /api/decisiones/{id}/escalar:
+    post:
+      tags: [decisiones]
+      summary: El analista pasa la decision al CFO
+      parameters: [{$ref: '#/components/parameters/IdDecision'}, {$ref: '#/components/parameters/Rol'}, {$ref: '#/components/parameters/ClaveIdempotencia'}]
+      requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/Accion'}}}}
+      responses:
+        '200': {description: Escalada al CFO, content: {application/json: {schema: {$ref: '#/components/schemas/Decision'}}}}
+        '403': {$ref: '#/components/responses/RolNoPermitido'}
+  /api/recibos/{id}:
+    get:
+      tags: [recibos]
+      summary: Recibo firmado; el JSON es el mismo que se firmo
+      parameters: [{$ref: '#/components/parameters/IdDecision'}]
+      responses:
+        '200': {description: Recibo, content: {application/json: {schema: {$ref: '#/components/schemas/Recibo'}}}}
+        '404': {$ref: '#/components/responses/NoEncontrado'}
+  /api/recibos/{id}/verificar:
+    post:
+      tags: [recibos]
+      summary: Recalcula la firma con la clave publica de la sesion
+      parameters: [{$ref: '#/components/parameters/IdDecision'}]
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema: {type: object, required: [valida, clave_version], properties: {valida: {type: boolean}, clave_version: {type: string}}}
+  /api/clave-publica:
+    get:
+      tags: [recibos]
+      summary: Clave publica de la sesion
+      responses:
+        '200': {description: Clave, content: {application/json: {schema: {type: object, required: [clave_publica, clave_version], properties: {clave_publica: {type: string}, clave_version: {type: string}}}}}}
+  /api/mandato:
+    get:
+      tags: [mandato]
+      summary: Mandato vigente
+      responses:
+        '200': {description: Mandato, content: {application/json: {schema: {$ref: '#/components/schemas/Mandato'}}}}
+  /api/mandato/propuestas:
+    post:
+      tags: [mandato]
+      summary: El CFO propone una version nueva
+      parameters: [{$ref: '#/components/parameters/Rol'}]
+      requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/Mandato'}}}}
+      responses:
+        '201': {description: Propuesto, content: {application/json: {schema: {$ref: '#/components/schemas/Mandato'}}}}
+        '403': {$ref: '#/components/responses/RolNoPermitido'}
+        '422': {$ref: '#/components/responses/Invalido'}
+  /api/mandato/contrafirma:
+    post:
+      tags: [mandato]
+      summary: El analista contrafirma; la version pasa a vigente
+      parameters: [{$ref: '#/components/parameters/Rol'}]
+      requestBody: {required: true, content: {application/json: {schema: {type: object, required: [version], properties: {version: {type: string}}}}}}
+      responses:
+        '200': {description: Vigente, content: {application/json: {schema: {$ref: '#/components/schemas/Mandato'}}}}
+        '403': {$ref: '#/components/responses/RolNoPermitido'}
+        '409': {$ref: '#/components/responses/Conflicto'}
+  /api/proveedores:
+    get:
+      tags: [mandato]
+      summary: Registro maestro con nivel de autonomia
+      responses:
+        '200':
+          description: Proveedores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required: [id, nombre, estado, nivel_autonomia]
+                  properties: {id: {type: string}, nombre: {type: string}, estado: {type: string, enum: [activo, bloqueado]}, nivel_autonomia: {type: string, enum: [autonomo, sombra]}}
+  /api/proveedores/{id}/promover:
+    post:
+      tags: [mandato]
+      summary: Promueve un proveedor de sombra a autonomo (solo CFO)
+      parameters: [{$ref: '#/components/parameters/IdDecision'}, {$ref: '#/components/parameters/Rol'}]
+      responses:
+        '200': {description: Promovido}
+        '403': {$ref: '#/components/responses/RolNoPermitido'}
+  /api/guardian/verificar:
+    post:
+      tags: [guardian]
+      summary: Seis verificaciones sobre una orden; autoriza o rechaza con el motivo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [orden, recibo]
+              properties:
+                orden: {$ref: '#/components/schemas/OrdenDePago'}
+                recibo: {$ref: '#/components/schemas/Recibo'}
+                aprobacion: {oneOf: [{$ref: '#/components/schemas/Aprobacion'}, {type: 'null'}]}
+      responses:
+        '200':
+          description: Resultado; autorizada puede ser false
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/VerificacionGuardian'}
+              example:
+                autorizada: false
+                motivo: La firma no corresponde al contenido del recibo.
+                verificaciones:
+                  - {n: 1, nombre: La firma del recibo es valida, estado: falla, motivo: La firma no corresponde al contenido del recibo.}
+                  - {n: 2, nombre: El hash de la factura coincide, estado: no_evaluada, motivo: null}
+        '422': {$ref: '#/components/responses/Invalido'}
+  /api/pentest/ejecutar:
+    post:
+      tags: [evaluacion]
+      summary: Seis estrategias por codigo sobre una copia temporal; no toca el registro de la sesion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mandato_base: {type: string, enum: [v1, v2, vigente], default: v1}
+                semilla: {type: integer}
+      responses:
+        '200':
+          description: Resultado por estrategia
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [semilla, mandato_base, estrategias]
+                properties:
+                  semilla: {type: integer}
+                  mandato_base: {type: string}
+                  estrategias:
+                    type: array
+                    items:
+                      type: object
+                      required: [nombre, esperado, resultado, hueco]
+                      properties: {nombre: {type: string}, esperado: {type: string}, resultado: {type: string}, hueco: {type: boolean}, pagado_menor: {type: string}}
+        '429': {$ref: '#/components/responses/Limite'}
+  /api/arena/ejecutar:
+    post:
+      tags: [evaluacion]
+      summary: Variantes de nivel 1 (campos) y 2 (texto contra lecturas guardadas); sin llamar al modelo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                semilla: {type: integer, default: 7}
+                lotes: {type: integer}
+                nivel: {type: integer, enum: [1, 2]}
+      responses:
+        '200':
+          description: Recuento
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [semilla, nivel, lanzadas, verificadas, pagos_indebidos, frenadas_escalables, desvios_conservadores, ms, no_prueba]
+                properties:
+                  semilla: {type: integer}
+                  nivel: {type: integer}
+                  lanzadas: {type: integer}
+                  verificadas: {type: integer}
+                  pagos_indebidos: {type: integer}
+                  frenadas_escalables: {type: integer}
+                  desvios_conservadores: {type: integer}
+                  ms: {type: integer}
+                  no_prueba: {type: array, items: {type: string}}
+        '429': {$ref: '#/components/responses/Limite'}
+  /api/costo:
+    get:
+      tags: [evaluacion]
+      summary: Contador de costo y tope de gasto
+      responses:
+        '200':
+          description: Costo
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [lecturas_guardadas_microusd, sesion_microusd, tope_microusd]
+                properties: {lecturas_guardadas_microusd: {type: string}, sesion_microusd: {type: string}, tope_microusd: {type: string}}

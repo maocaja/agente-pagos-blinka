@@ -1,0 +1,18 @@
+{
+  "caso": "f_11",
+  "archivo": "facturas/fac-11.txt",
+  "grupo": "visible",
+  "esperado_reglas": {
+    "veredicto": "ESCALAR",
+    "reglas_que_fallan": [
+      "R4"
+    ],
+    "explicacion": "Cuenta distinta a la registrada."
+  },
+  "esperado_extremo_a_extremo": {
+    "veredicto": "ESCALAR",
+    "lectura_esperada": "dos_lecturas_coinciden",
+    "explicacion": "Correo con texto; las dos lecturas coinciden y R4 escala."
+  },
+  "sello": null
+}

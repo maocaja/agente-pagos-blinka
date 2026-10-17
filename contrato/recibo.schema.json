@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "recibo.schema.json",
+  "title": "Recibo firmado",
+  "description": "El JSON que se firma es exactamente este, sin la propiedad firma, serializado con claves ordenadas. La interfaz muestra ese mismo JSON.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "decision_id", "factura_id", "hash_documento", "beneficiario_id", "monto_menor", "moneda", "monto_base_menor", "veredicto", "modo_autonomia", "reglas", "fallas_aprobadas", "mandato_version", "nonce", "emitido_en", "vence_en", "clave_version", "firma"],
+  "properties": {
+    "id": {"type": "string"},
+    "decision_id": {"type": "string"},
+    "factura_id": {"type": "string"},
+    "hash_documento": {"type": "string"},
+    "beneficiario_id": {"type": "string"},
+    "monto_menor": {"type": "string", "pattern": "^[0-9]+$"},
+    "moneda": {"type": "string"},
+    "monto_base_menor": {"type": "string", "pattern": "^[0-9]+$"},
+    "veredicto": {"type": "string", "enum": ["PAGAR", "ESCALAR"], "description": "Solo se emite recibo para PAGAR y para una ESCALAR reevaluada tras aprobacion. FRENAR y REGISTRAR no tienen recibo de pago."},
+    "modo_autonomia": {"type": "string", "enum": ["autonomo", "sombra"]},
+    "reglas": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["id", "estado"], "properties": {"id": {"type": "string"}, "estado": {"type": "string", "enum": ["cumple", "falla", "omitida"]}}}},
+    "fallas_aprobadas": {"type": "array", "items": {"type": "string"}},
+    "mandato_version": {"type": "string"},
+    "nonce": {"type": "string", "description": "Aleatorio; se consume una sola vez (UNIQUE)"},
+    "emitido_en": {"type": "string", "format": "date-time"},
+    "vence_en": {"type": "string", "format": "date-time"},
+    "clave_version": {"type": "string"},
+    "firma": {"type": "string"}
+  }
+}

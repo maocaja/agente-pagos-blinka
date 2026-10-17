@@ -1,0 +1,315 @@
+<title>Modelo Canónico de Facturas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap">
+<style>
+/* Documento de una página para el equipo: papel frío, tinta azul, color solo para los tres veredictos */
+:root{
+  --bg:#f5f7f9; --panel:#ffffff; --panel2:#eceff3; --line:#d5dbe3;
+  --fg:#141b26; --mut:#566173; --accent:#1f4fd8;
+  --pay:#12804f; --stop:#c23030; --wait:#a86a00;
+  --pay-bg:#e3f4ec; --stop-bg:#fbe6e6; --wait-bg:#fbf0d9;
+  --display:"Newsreader",Georgia,serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e131b; --panel:#151c27; --panel2:#1d2633; --line:#2a3546;
+  --fg:#e6ebf2; --mut:#9aa6b8; --accent:#7f9dff;
+  --pay:#4cc38a; --stop:#ff7b7b; --wait:#f0b84f;
+  --pay-bg:#12291f; --stop-bg:#331a1c; --wait-bg:#33270f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e131b; --panel:#151c27; --panel2:#1d2633; --line:#2a3546;
+  --fg:#e6ebf2; --mut:#9aa6b8; --accent:#7f9dff;
+  --pay:#4cc38a; --stop:#ff7b7b; --wait:#f0b84f;
+  --pay-bg:#12291f; --stop-bg:#331a1c; --wait-bg:#33270f; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 64px}
+.wrap{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:600;text-wrap:balance;margin:0}
+h1{font-size:clamp(32px,6vw,48px);line-height:1.08;letter-spacing:-.01em}
+h2{font-size:26px;line-height:1.2}
+h3{font-size:15px;margin:0 0 6px;font-weight:600}
+p{margin:0 0 12px;max-width:68ch}
+.lede{font-family:var(--display);font-size:clamp(20px,3.4vw,26px);line-height:1.3;color:var(--accent);margin:14px 0 18px;max-width:30ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;font:500 12px var(--mono);color:var(--mut);letter-spacing:.04em;text-transform:uppercase}
+section{display:flex;flex-direction:column;gap:14px;min-width:0}
+.kicker{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.callout{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px 22px;font-size:18px;line-height:1.5}
+.callout p{max-width:none;margin:0}
+.chain{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.chain>div{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px;min-width:0}
+.chain small{display:block;color:var(--mut);font-size:13.5px;line-height:1.45}
+.chain .who{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.tag{display:inline-block;font:500 11px var(--mono);padding:2px 8px;border-radius:99px;letter-spacing:.04em}
+.t-agent{background:var(--wait-bg);color:var(--wait)}.t-code{background:var(--panel2);color:var(--fg)}
+.v-pay{background:var(--pay-bg);color:var(--pay)}.v-stop{background:var(--stop-bg);color:var(--stop)}.v-wait{background:var(--wait-bg);color:var(--wait)}
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.three>div{border-top:2px solid var(--accent);padding-top:10px;min-width:0}
+.flow{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px;min-width:0}
+.flow ol{margin:10px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.flow li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:baseline}
+.flow li .n{font:500 12px var(--mono);color:var(--mut);min-width:1.4em}
+.flow .result{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);color:var(--mut);font-size:14.5px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.cols>div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;min-width:0}
+ul{margin:6px 0 0;padding-left:18px}li{margin:4px 0}
+.note{background:var(--panel2);border-radius:8px;padding:12px 14px;font-size:14.5px;color:var(--mut)}
+.note b{color:var(--fg)}
+a{color:var(--accent)}
+.src{font-size:14px;color:var(--mut)}.src li{margin:6px 0}
+code,.mono{font-family:var(--mono);font-size:.9em}
+dl.defs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin:0}
+dl.defs>div{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;min-width:0}
+dl.defs dt{font-weight:600;margin:0 0 4px}dl.defs dd{margin:0;color:var(--mut);font-size:14.5px;line-height:1.5}
+.num{font-variant-numeric:tabular-nums}
+.fig{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.fig .scroll{overflow-x:auto}
+.fig svg{display:block;width:100%;min-width:780px;height:auto;color:var(--fg)}
+.fig svg text{fill:currentColor;font-family:var(--body);font-size:12px}
+.fig svg .t{font-weight:600;font-size:13px}.fig svg .s{fill:var(--mut);font-size:11px}.fig svg .l{fill:var(--mut);font-size:11px}
+.fig svg .c{text-anchor:middle}.fig svg .x{font-size:13px}
+.fig svg .b-code{fill:var(--panel2);stroke:var(--line);stroke-width:1.3}
+.fig svg .b-agent{fill:var(--wait-bg);stroke:var(--wait);stroke-width:1.3}
+.fig svg .b-ext{fill:none;stroke:var(--mut);stroke-width:1.3;stroke-dasharray:5 4}
+.fig svg .b-key{fill:var(--panel2);stroke:var(--accent);stroke-width:2}
+.fig svg .b-pay{fill:var(--pay-bg);stroke:var(--pay);stroke-width:1.5}
+.fig svg .b-stop{fill:var(--stop-bg);stroke:var(--stop);stroke-width:1.5}
+.fig svg .ln{stroke:currentColor;stroke-width:1.3;fill:none}
+.fig figcaption{font-size:14px;color:var(--mut);margin-top:10px;max-width:none}
+section figure.fig+figure.fig{margin-top:2px}
+
+@media (max-width:480px){.callout{font-size:17px;padding:16px}}
+
+details{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:0}
+details+details{margin-top:10px}
+summary{cursor:pointer;padding:12px 16px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary .cnt{font:500 12px var(--mono);color:var(--mut);white-space:nowrap}
+details[open] summary{border-bottom:1px solid var(--line)}
+details .tablewrap{padding:0 8px 8px}
+pre.code{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:14px 16px;overflow-x:auto;font:13px/1.55 var(--mono);margin:0}
+.f-demo{background:var(--pay-bg);color:var(--pay)}.f-mod{background:var(--wait-bg);color:var(--wait)}.f-fut{background:var(--panel2);color:var(--mut)}
+.a-stop{color:var(--stop)}.a-wait{color:var(--wait)}.a-info{color:var(--mut)}
+.fig svg .zone{fill:none;stroke:var(--accent);stroke-width:1.2;stroke-dasharray:2 4}
+.fig svg .b-code{fill:var(--panel2);stroke:var(--line);stroke-width:1.3}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="meta"><span>Reto Blinka</span><span>Línea de trabajo de datos</span><span>Contrato 1.0.0-rc1</span></div>
+  <h1 style="margin-top:14px">Modelo Canónico de Facturas</h1>
+  <p class="lede">Cada factura entra por un adaptador, se vuelve un solo formato y recién ahí se decide.</p>
+</header>
+
+<section>
+  <div class="kicker">La idea, tomada de Instaleap</div>
+  <p>La prueba de Instaleap que revisamos (carpeta <code>instaleap-asgard-interview</code>, archivo <code>FLOW.md</code>) describe a Asgar como una <b>capa de traducción sin estado</b>: recibe un evento del sistema interno, lo traduce al contrato de cada marketplace y llama a su API. Aplicamos el mismo patrón a las facturas, en las dos direcciones.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Lo que hace Asgar</th><th>Lo que hacemos nosotros</th></tr>
+    <tr><td>Traduce el vocabulario interno al contrato de cada marketplace</td><td>Traduce cada formato de factura a una factura canónica, y la orden canónica al contrato de cada ruta de pago</td></tr>
+    <tr><td>Sin estado: traduce y reenvía</td><td>Los adaptadores no guardan nada; el estado vive en el registro</td></tr>
+    <tr><td>Clasifica cada ítem por estado antes de mapearlo</td><td>Clasifica cada documento por tipo antes de leerlo</td></tr>
+    <tr><td>Define cuándo un sustituto es válido con cinco condiciones explícitas</td><td>Cada regla tiene condiciones explícitas y deja evidencia</td></tr>
+    <tr><td>Su propio análisis marca un caso que "nadie mapea" y se pierde</td><td>Un caso sin mapeo nunca se pierde: se ESCALA</td></tr>
+    <tr><td>Se prueba contra un mock y una colección de Postman</td><td>Se prueba contra un set de facturas con veredicto esperado y una plataforma de pagos simulada</td></tr>
+  </table></div>
+  <p class="note"><b>Aclaración.</b> Es la línea de trabajo, no una copia. Instaleap resuelve pedidos de marketplaces, no cuentas por pagar; aquí tomamos solo el patrón de adaptadores alrededor de un modelo interno.</p>
+</section>
+
+<section>
+  <div class="kicker">Cómo fluye</div>
+  <figure class="fig"><div class="scroll"><svg viewBox="0 0 1110 420" role="img" aria-label="Seis adaptadores de entrada convierten cada formato en una factura canónica; el motor decide; una orden de pago canónica sale por adaptadores de salida según la ruta.">
+<defs><marker id="c1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+<text class="l" x="16" y="18">Adaptadores de entrada</text>
+<g>
+<rect class="b-code" x="16" y="30" width="190" height="48" rx="6"/><text class="t" x="28" y="51">XML fiscal</text><text class="s" x="28" y="68">parser, sin modelo</text>
+<rect class="b-agent" x="16" y="92" width="190" height="48" rx="6"/><text class="t" x="28" y="113">PDF</text><text class="s" x="28" y="130">texto local + Claude</text>
+<rect class="b-ext" x="16" y="154" width="190" height="48" rx="6"/><text class="t" x="28" y="175">Imagen o foto</text><text class="s" x="28" y="192">no se lee en el MVP: escala</text>
+<rect class="b-agent" x="16" y="216" width="190" height="48" rx="6"/><text class="t" x="28" y="237">Correo</text><text class="s" x="28" y="254">cuerpo y adjuntos</text>
+<rect class="b-agent" x="16" y="278" width="190" height="48" rx="6"/><text class="t" x="28" y="299">Chat</text><text class="s" x="28" y="316">mensajes informales</text>
+<rect class="b-code" x="16" y="340" width="190" height="48" rx="6"/><text class="t" x="28" y="361">Hoja de cálculo</text><text class="s" x="28" y="378">parser, sin modelo</text>
+</g>
+<path class="ln" d="M206,54 L270,178" marker-end="url(#c1)"/><path class="ln" d="M206,116 L270,190" marker-end="url(#c1)"/><path class="ln" d="M206,178 L270,202" marker-end="url(#c1)"/>
+<path class="ln" d="M206,240 L270,214" marker-end="url(#c1)"/><path class="ln" d="M206,302 L270,226" marker-end="url(#c1)"/><path class="ln" d="M206,364 L270,238" marker-end="url(#c1)"/>
+<rect class="zone" x="254" y="118" width="624" height="190" rx="12"/>
+<text class="l" x="266" y="136">Núcleo: no conoce formatos ni bancos</text>
+<rect class="b-key" x="270" y="150" width="170" height="130" rx="8"/>
+<text class="t c" x="355" y="190">Factura canónica</text><text class="s c" x="355" y="212">un solo formato</text><text class="s c" x="355" y="227">campos, confianza</text><text class="s c" x="355" y="242">y señales</text>
+<path class="ln" d="M440,215 H500" marker-end="url(#c1)"/>
+<rect class="b-key" x="500" y="150" width="150" height="130" rx="8"/>
+<text class="t c" x="575" y="195">Motor de reglas</text><text class="s c" x="575" y="217">aplica el mandato</text><text class="s c" x="575" y="232">y emite el recibo</text>
+<path class="ln" d="M650,215 H700" marker-end="url(#c1)"/><text class="l c" x="675" y="207">PAGAR</text>
+<rect class="b-key" x="700" y="150" width="160" height="130" rx="8"/>
+<text class="t c" x="780" y="190">Orden de pago</text><text class="t c" x="780" y="206">canónica</text><text class="s c" x="780" y="228">beneficiario, monto,</text><text class="s c" x="780" y="243">moneda, ruta, recibo</text>
+<text class="l" x="900" y="44">Adaptadores de salida</text>
+<rect class="b-ext" x="900" y="56" width="194" height="56" rx="6"/><text class="t" x="912" y="78">ACH y wire</text><text class="s" x="912" y="96">USD</text>
+<rect class="b-ext" x="900" y="136" width="194" height="56" rx="6"/><text class="t" x="912" y="158">SWIFT</text><text class="s" x="912" y="176">más de 200 países</text>
+<rect class="b-ext" x="900" y="216" width="194" height="56" rx="6"/><text class="t" x="912" y="238">Rutas locales</text><text class="s" x="912" y="256">COP, BRL, MXN y otras</text>
+<rect class="b-ext" x="900" y="296" width="194" height="56" rx="6"/><text class="t" x="912" y="318">USDC</text><text class="s" x="912" y="336">Base, Solana y otras</text>
+<path class="ln" d="M860,200 L900,84" marker-end="url(#c1)"/><path class="ln" d="M860,210 L900,164" marker-end="url(#c1)"/><path class="ln" d="M860,220 L900,244" marker-end="url(#c1)"/><path class="ln" d="M860,230 L900,324" marker-end="url(#c1)"/>
+</svg></div>
+  <figcaption>Todo lo de los extremos es un adaptador intercambiable. Los formatos fiscales y las hojas de cálculo se leen con un parser, sin modelo y sin costo de tokens; solo el texto y el PDF van a un modelo. Las fotos no se leen en el MVP y se escalan sin llamar a la API. Las rutas de salida son las que lista blinka.co.</figcaption></figure>
+</section>
+
+<section>
+  <div class="kicker">Ciclo de pagos</div>
+  <p>La unidad de trabajo es el <b>ciclo de pagos</b>: una empresa y un periodo. De ahí cuelgan las facturas, las decisiones, los recibos, el presupuesto y la conciliación. Es el equivalente del "engagement" de Caseware, pero con cadencia mensual.</p>
+  <div class="flow"><ol>
+    <li><span class="n">1</span><span><b>Abierto.</b> Llegan facturas y se leen.</span></li>
+    <li><span class="n">2</span><span><b>En proceso.</b> El motor decide cada factura; el presupuesto se reserva.</span></li>
+    <li><span class="n">3</span><span><b>En revisión.</b> Una persona atiende la bandeja de escaladas.</span></li>
+    <li><span class="n">4</span><span><b>Aprobado.</b> Se emiten las órdenes de pago con sus recibos.</span></li>
+    <li><span class="n">5</span><span><b>Cerrado.</b> Instantánea inmutable y exportación de la conciliación.</span></li>
+  </ol></div>
+  <p class="note">Tres reglas tomadas de Caseware: el archivo original no se modifica nunca; toda decisión apunta a su factura de origen; y el presupuesto restante se deriva de las reservas, no se edita a mano.</p>
+</section>
+
+<section>
+  <div class="kicker">Perfil por proveedor (extra, no está en el contrato 1.0.0-rc1)</div>
+  <p>Cada proveedor acumula un perfil versionado con el formato de sus facturas, los campos que suele traer, su cuenta habitual y los montos típicos. Se aprende de facturas ya aprobadas por una persona. Sirve para leer mejor y para detectar que una factura "no se parece a las anteriores". Es el equivalente de la plantilla de mapeo por cliente de Caseware, y lo que más cuesta mantener si no se diseña desde el inicio.</p>
+</section>
+
+<section>
+  <div class="kicker">Acciones sobre una escalada</div>
+  <div class="tablewrap"><table>
+    <tr><th>Acción</th><th>Qué hace</th><th>Qué queda en el registro</th></tr>
+    <tr><td><b>Aprobar</b> (CFO)</td><td>Autoriza lo que la persona vio: cubre las fallas de tipo ESCALAR listadas. Reevalúa y emite un recibo nuevo. No cubre una frenada, la falla de presupuesto (R9) ni las fallas de lectura de R1</td><td>Firma, nota, fallas cubiertas y versión del mandato</td></tr>
+    <tr><td><b>Corregir</b> (analista)</td><td>Arregla un campo mal leído viendo el original; la corrección cuenta como segunda lectura y se reevalúa</td><td>Valor leído, valor corregido y quién lo cambió</td></tr>
+    <tr><td><b>Rechazar</b> (CFO)</td><td>Cierra la factura sin pagar</td><td>Motivo obligatorio</td></tr>
+    <tr><td><b>Escalar</b> (analista al CFO)</td><td>La pasa al CFO cuando excede la autoridad de quien la revisa</td><td>De quién a quién, y por qué</td></tr>
+  </table></div>
+  <p class="note">Una factura frenada no tiene la acción "aprobar". Corregir un campo nunca salta las reglas: siempre se reevalúa.</p>
+</section>
+
+<section>
+  <div class="kicker">Tipos de documento</div>
+  <p>No todo lo que llega es una factura. El tipo viene en la lectura, con su cita de evidencia, y una política por tipo decide qué se hace. El tipo nunca relaja una regla. Son siete tipos en el contrato; otras variantes (recurrente, por hitos, con o sin orden de compra) son una factura con más datos.</p>
+  <div class="tablewrap"><table><tr><th>Tipo</th><th>Cómo llega</th><th>Qué se hace</th></tr><tr><td><b>Factura</b></td><td>PDF, correo, XML fiscal, chat</td><td>Con o sin orden de compra; se evalúan todas las reglas. Una factura electrónica fiscal en XML se lee con un parser, sin modelo</td></tr><tr><td><b>Cuenta de cobro</b></td><td>PDF simple, correo, chat</td><td>Persona natural; todas las reglas. Sin acuerdo registrado, ESCALAR</td></tr><tr><td><b>Nota de crédito</b></td><td>PDF, XML</td><td>Si pasa todas las reglas, REGISTRAR: crédito a favor y nunca lleva orden de pago</td></tr><tr><td><b>Estado de cuenta</b></td><td>PDF, correo</td><td>FRENAR: no es una factura y no se puede aprobar</td></tr><tr><td><b>Proforma</b></td><td>PDF</td><td>ESCALAR siempre; las reglas se evalúan solo para dar evidencia</td></tr><tr><td><b>Anticipo</b></td><td>PDF, correo</td><td>ESCALAR siempre</td></tr><tr><td><b>Desconocido o dudoso</b></td><td>Cualquiera</td><td>ESCALAR como tipo no soportado: reembolsos de gastos, cobros informales, órdenes de compra enviadas como factura</td></tr></table></div>
+  <p class="note"><b>Verificación.</b> Los formatos fiscales por país vienen de blogs de proveedores, no de las autoridades; hay que confirmar cada formato antes de construir su adaptador. En la demo el set cubre: facturas con y sin orden, cuentas de cobro, un XML simulado, una nota de crédito, un estado de cuenta, un cobro por chat y cuatro muestras nuevas de tipos no vistos.</p>
+</section>
+
+<section>
+  <div class="kicker">El proceso interno de cuentas por pagar</div>
+  <p>Así lo hacen las empresas y dónde entra el sistema. Una factura con orden de compra se empareja con la orden (y con la recepción en tres vías); una sin orden depende de la matriz de aprobación, porque no hay un documento previo que la valide.</p>
+  <div class="tablewrap"><table><tr><th>Etapa</th><th>Qué pasa hoy</th><th>Qué hace el sistema</th><th>Alcance del reto</th></tr><tr><td><b>1. Recepción</b></td><td>Llega por correo, chat o portal</td><td>Adaptador de entrada; guarda el archivo y su hash</td><td>Entra</td></tr><tr><td><b>2. Captura y lectura</b></td><td>Alguien digita los datos</td><td>Lector o parser entrega la factura canónica</td><td>Entra</td></tr><tr><td><b>3. Validación</b></td><td>Revisa formato, duplicados y que el proveedor exista</td><td>Reglas R1 a R4</td><td>Entra</td></tr><tr><td><b>4. Emparejamiento</b></td><td>Compara con orden, contrato y recepción, con tolerancias</td><td>Regla R5 con tolerancias configurables</td><td>Entra</td></tr><tr><td><b>5. Codificación</b></td><td>Asigna cuenta contable, centro de costo, proyecto</td><td>El clasificador propone la categoría; una persona la corrige</td><td>Parcial</td></tr><tr><td><b>6. Aprobación</b></td><td>Aprueba quien corresponda según monto y rol</td><td>ESCALAR con aprobación firmada</td><td>Entra</td></tr><tr><td><b>7. Programación</b></td><td>Mira vencimiento, descuentos y caja</td><td>Prioridad y presupuesto (R9, R10)</td><td>Parcial</td></tr><tr><td><b>8. Ejecución</b></td><td>Crea el pago a mano en la plataforma, a veces en otra moneda</td><td>Orden de pago canónica y guardián</td><td>Fuera: solo la orden</td></tr><tr><td><b>9. Conciliación</b></td><td>Anota en una hoja qué se pagó y por qué</td><td>Registro exportable con el porqué</td><td>Entra</td></tr></table></div>
+</section>
+
+<section>
+  <div class="kicker">La factura canónica</div>
+  <p>Un solo formato interno, tal como lo fija el contrato 1.0.0-rc1 (ejemplo real de `contrato/ejemplos`). Los montos van en unidades menores, como texto, con el exponente de cada moneda. <b>El modelo no convierte unidades:</b> extrae el monto como está impreso y el código lo convierte. Cada campo trae su cita de evidencia y su confianza, y las verificaciones de lectura (incluida la segunda lectura) viajan con la factura.</p>
+  <pre class="code">{
+  &quot;id&quot;: &quot;f_11&quot;,
+  &quot;ciclo_id&quot;: &quot;2026-10&quot;,
+  &quot;documento&quot;: {
+    &quot;id&quot;: &quot;d_11&quot;,
+    &quot;hash&quot;: &quot;a3f1c2d4e5b60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90&quot;,
+    &quot;canal&quot;: &quot;correo&quot;,
+    &quot;formato&quot;: &quot;texto&quot;,
+    &quot;tipo_documento&quot;: &quot;factura&quot;,
+    &quot;recibido_en&quot;: &quot;2026-10-12T14:02:11Z&quot;
+  },
+  &quot;emisor&quot;: {
+    &quot;nombre&quot;: &quot;Pixel Studio Ltda&quot;,
+    &quot;nombre_normalizado&quot;: &quot;PIXELSTUDIOLTDA&quot;,
+    &quot;id_fiscal&quot;: &quot;BR-00.000.000/0001-00&quot;,
+    &quot;pais&quot;: &quot;BR&quot;
+  },
+  &quot;referencias&quot;: {
+    &quot;numero&quot;: &quot;PX-2211&quot;,
+    &quot;numero_normalizado&quot;: &quot;PX2211&quot;,
+    &quot;acuerdo_ref&quot;: &quot;AC-PIXEL-01&quot;
+  },
+  &quot;fechas&quot;: {
+    &quot;emision&quot;: &quot;2026-10-10&quot;,
+    &quot;vencimiento&quot;: &quot;2026-11-10&quot;
+  },
+  &quot;montos&quot;: {
+    &quot;moneda&quot;: &quot;BRL&quot;,
+    &quot;total_menor&quot;: &quot;750000&quot;,
+    &quot;suma_lineas_menor&quot;: &quot;750000&quot;,
+    &quot;lineas&quot;: [
+      {
+        &quot;descripcion&quot;: &quot;Edicion de video&quot;,
+        &quot;total_menor&quot;: &quot;750000&quot;
+      }
+    ]
+  },
+  &quot;cuenta&quot;: {
+    &quot;pais&quot;: &quot;CO&quot;,
+    &quot;ultimos4&quot;: &quot;4821&quot;
+  },
+  &quot;proveedor_asignado&quot;: {
+    &quot;proveedor_id&quot;: &quot;prov_pixel&quot;,
+    &quot;metodo&quot;: &quot;id_fiscal&quot;,
+    &quot;pista&quot;: null
+  },
+  &quot;evidencia&quot;: {
+    &quot;monto_total&quot;: &quot;Total: R$ 7.500,00&quot;,
+    &quot;proveedor&quot;: &quot;Pixel Studio Ltda&quot;,
+    &quot;cuenta&quot;: &quot;Conta: CO ****4821&quot;
+  },
+  &quot;confianza&quot;: {
+    &quot;monto_total&quot;: 0.97,
+    &quot;moneda&quot;: 0.99,
+    &quot;proveedor&quot;: 0.98,
+    &quot;cuenta&quot;: 0.95
+  },
+  &quot;verificaciones&quot;: {
+    &quot;esquema&quot;: &quot;ok&quot;,
+    &quot;dinero_presente&quot;: &quot;ok&quot;,
+    &quot;suma_lineas&quot;: &quot;ok&quot;,
+    &quot;cita_evidencia&quot;: &quot;ok&quot;,
+    &quot;tipo&quot;: &quot;ok&quot;,
+    &quot;segunda_lectura&quot;: {
+      &quot;estado&quot;: &quot;coincide&quot;,
+      &quot;detalle&quot;: []
+    }
+  },
+  &quot;lectura&quot;: {
+    &quot;metodo&quot;: &quot;modelo&quot;,
+    &quot;modelo&quot;: &quot;haiku-5.5&quot;,
+    &quot;reintentos&quot;: 0,
+    &quot;tokens_entrada&quot;: 1850,
+    &quot;tokens_salida&quot;: 410,
+    &quot;costo_microusd&quot;: &quot;390&quot;,
+    &quot;desde_cache&quot;: true,
+    &quot;motivo_falla&quot;: null
+  }
+}</pre>
+</section>
+
+<section>
+  <div class="kicker">Catálogo de parámetros</div>
+  <p>Todo lo que una empresa puede querer configurar para decidir un pago. Son <b>92 parámetros</b> en 12 grupos: <b>34</b> se evalúan en la demo, <b>37</b> existen en el esquema y la pantalla pero la demo no los evalúa, y <b>21</b> quedan para después. Es el universo posible de parámetros. <b>El mandato del contrato implementa 22</b> (límites y umbrales, tolerancias, confianza, duplicados, periodo y presupuesto, tope acumulado, monedas y tasas, redondeo, vigencias, autonomía, tope de gasto y reintentos); el resto queda para después. Todos son <b>por empresa</b> y ninguno está quemado en el código.</p>
+  <details><summary><span>A. Documento y lectura</span><span class="cnt">10 parámetros, 3 en la demo</span></summary><div class="tablewrap"><table><tr><th>Parámetro</th><th>Qué controla</th><th>Si falla</th><th>Fase</th></tr><tr><td>Tipos de documento aceptados</td><td>Qué se paga: factura, cuenta de cobro, nota de crédito. Un estado de cuenta no se paga</td><td><span class="a-stop">FRENAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Confianza mínima por campo</td><td>Lectura segura de monto, moneda, beneficiario y cuenta</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Tolerancia de la suma de líneas</td><td>Diferencia permitida entre las líneas y el total</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Antigüedad máxima de emisión</td><td>Facturas demasiado viejas</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Fecha de emisión futura</td><td>Fechas imposibles o manipuladas</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Vencimiento</td><td>Atrasada, por vencer o pago anticipado; define la prioridad</td><td><span class="a-info">Informa</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Idiomas aceptados</td><td>Documentos que el sistema sabe leer</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Tamaño y páginas máximas</td><td>Límites del adjunto (la API de Claude acepta hasta 100 páginas por petición en contexto estándar)</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Formato fiscal exigido por país</td><td>Por ejemplo, XML fiscal del país del emisor</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-fut">Futuro</span></td></tr><tr><td>Identificador fiscal de la factura</td><td>Verificar su autenticidad con la autoridad (compliance queda fuera del alcance)</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-fut">Futuro</span></td></tr></table></div></details><details><summary><span>B. Proveedor y beneficiario</span><span class="cnt">13 parámetros, 2 en la demo</span></summary><div class="tablewrap"><table><tr><th>Parámetro</th><th>Qué controla</th><th>Si falla</th><th>Fase</th></tr><tr><td>Lista de beneficiarios permitidos</td><td>Solo se paga a quien está en la lista</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Estado del proveedor</td><td>Activo, en revisión o bloqueado</td><td><span class="a-stop">FRENAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Antigüedad del proveedor</td><td>Un proveedor nuevo tiene menos autonomía durante N días</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Países de beneficiario permitidos</td><td>Lista configurable por la empresa</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Tipo de beneficiario</td><td>Empresa o persona natural; cambia los documentos exigidos</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Documentos tributarios vigentes</td><td>Por ejemplo W-9, W-8BEN o W-8BEN-E para empresas de EE. UU. que pagan a contratistas; equivalentes locales</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Cuenta bancaria registrada</td><td>La factura debe pedir pagar a la cuenta ya registrada</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Enfriamiento tras cambio de cuenta</td><td>N días sin pagar a una cuenta nueva</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Verificación fuera de banda</td><td>Confirmar el cambio de cuenta por un canal ya registrado</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Remitente y dominio coherentes</td><td>El correo viene del dominio registrado, no de uno parecido</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Nivel de riesgo del proveedor</td><td>Bajo, medio o alto; define cuánta autonomía tiene</td><td><span class="a-info">Informa</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Perfil del proveedor</td><td>Formato, campos y cuenta habituales, aprendidos de facturas ya aprobadas</td><td><span class="a-info">Informa</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Listas internas de restricción</td><td>Listas que define la empresa; las decisiones de cumplimiento quedan fuera del alcance</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-fut">Futuro</span></td></tr></table></div></details><details><summary><span>C. Acuerdo, orden de compra y contrato</span><span class="cnt">10 parámetros, 2 en la demo</span></summary><div class="tablewrap"><table><tr><th>Parámetro</th><th>Qué controla</th><th>Si falla</th><th>Fase</th></tr><tr><td>Referencia al acuerdo u orden requerida</td><td>Por categoría de gasto</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Monto acordado y tolerancia</td><td>Diferencia permitida en porcentaje y en valor absoluto</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Saldo restante de la orden o contrato</td><td>La factura no puede exceder lo que queda</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Vigencia del contrato</td><td>La fecha del servicio cae dentro del contrato</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Tarifa por cantidad</td><td>Horas o unidades por tarifa igual al monto</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Hito aprobado</td><td>Pago por hitos: el hito existe y está aprobado</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Recepción confirmada (tres vías)</td><td>Factura, orden y recepción coinciden</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-fut">Futuro</span></td></tr><tr><td>Moneda pactada</td><td>La factura usa la moneda del acuerdo</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Términos de pago</td><td>Por ejemplo neto 30; define la fecha de pago</td><td><span class="a-info">Informa</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Descuento por pronto pago</td><td>Si conviene pagar antes</td><td><span class="a-info">Informa</span></td><td><span class="tag f-fut">Futuro</span></td></tr></table></div></details><details><summary><span>D. Montos y moneda</span><span class="cnt">10 parámetros, 8 en la demo</span></summary><div class="tablewrap"><table><tr><th>Parámetro</th><th>Qué controla</th><th>Si falla</th><th>Fase</th></tr><tr><td>Tope por pago</td><td>Sobre este monto no se paga</td><td><span class="a-stop">FRENAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Umbral de aprobación humana</td><td>Sobre este monto decide una persona</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Tope por periodo</td><td>Día, semana o mes</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Tope acumulado por proveedor y periodo</td><td>Cierra el hueco de las facturas partidas</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Tope por categoría o centro de costo</td><td>Gasto máximo por área</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Monedas permitidas</td><td>Lista por empresa</td><td><span class="a-stop">FRENAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Moneda base y fuente de la tasa</td><td>En la demo, tasas fijas y visibles</td><td><span class="a-info">Informa</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Margen de variación de la tasa</td><td>Si la tasa cambió más de x% entre lectura y pago</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-fut">Futuro</span></td></tr><tr><td>Coherencia moneda, país y cuenta</td><td>La cuenta destino es del país y la moneda esperados</td><td><span class="a-stop">FRENAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Redondeo y decimales por moneda</td><td>Cálculo en unidades menores, sin decimales flotantes</td><td><span class="a-info">Informa</span></td><td><span class="tag f-demo">Demo</span></td></tr></table></div></details><details><summary><span>E. Duplicados</span><span class="cnt">5 parámetros, 4 en la demo</span></summary><div class="tablewrap"><table><tr><th>Parámetro</th><th>Qué controla</th><th>Si falla</th><th>Fase</th></tr><tr><td>Ventana en días</td><td>Cuánto atrás se buscan cobros repetidos</td><td><span class="a-stop">FRENAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Tolerancia de monto del duplicado difuso</td><td>Mismo proveedor, monto parecido, número distinto</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Normalización del número de factura</td><td>Sin mayúsculas, guiones ni ceros a la izquierda</td><td><span class="a-info">Informa</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Hash del archivo</td><td>El mismo archivo recibido dos veces</td><td><span class="a-stop">FRENAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Orden o hito ya pagado</td><td>Dos facturas contra el mismo hito</td><td><span class="a-stop">FRENAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr></table></div></details><details><summary><span>F. Presupuesto y caja</span><span class="cnt">6 parámetros, 2 en la demo</span></summary><div class="tablewrap"><table><tr><th>Parámetro</th><th>Qué controla</th><th>Si falla</th><th>Fase</th></tr><tr><td>Presupuesto del periodo</td><td>Tope total de pagos</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Pagos ya comprometidos</td><td>Reserva del presupuesto al decidir</td><td><span class="a-info">Informa</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Presupuesto por proyecto</td><td>Gasto máximo por proyecto</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Saldo disponible mínimo</td><td>El enunciado menciona saldo insuficiente</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Colchón de caja</td><td>Dinero que no se toca</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Calendario de ingresos esperados</td><td>Pagos que dependen de cobros futuros</td><td><span class="a-info">Informa</span></td><td><span class="tag f-fut">Futuro</span></td></tr></table></div></details><details><summary><span>G. Aprobación</span><span class="cnt">9 parámetros, 2 en la demo</span></summary><div class="tablewrap"><table><tr><th>Parámetro</th><th>Qué controla</th><th>Si falla</th><th>Fase</th></tr><tr><td>Nota obligatoria al aprobar o rechazar</td><td>Deja el porqué en el registro</td><td><span class="a-info">Informa</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Acciones permitidas en una escalada</td><td>Aprobar, corregir, rechazar o escalar, y quién puede cada una</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Matriz de autoridad</td><td>Qué rol aprueba hasta qué monto</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Segundo aprobador</td><td>Sobre un monto Y aprueban dos personas</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Separación de funciones</td><td>Quien carga no aprueba; quien edita reglas no aprueba escaladas</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Caducidad de la aprobación</td><td>Una aprobación vence tras N horas</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Delegación y ausencias</td><td>Quién aprueba si el titular no está</td><td><span class="a-info">Informa</span></td><td><span class="tag f-fut">Futuro</span></td></tr><tr><td>Recordatorios y escalamiento por inacción</td><td>Qué pasa si nadie responde</td><td><span class="a-info">Informa</span></td><td><span class="tag f-fut">Futuro</span></td></tr><tr><td>Canal de aprobación</td><td>Pantalla, correo o chat</td><td><span class="a-info">Informa</span></td><td><span class="tag f-fut">Futuro</span></td></tr></table></div></details><details><summary><span>H. Ejecución propuesta (no se mueve dinero)</span><span class="cnt">6 parámetros, 1 en la demo</span></summary><div class="tablewrap"><table><tr><th>Parámetro</th><th>Qué controla</th><th>Si falla</th><th>Fase</th></tr><tr><td>Referencia o concepto del pago</td><td>Texto que viaja en la orden</td><td><span class="a-info">Informa</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Ruta preferida por país y moneda</td><td>Local, SWIFT o USDC</td><td><span class="a-info">Informa</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Costo y tiempo estimados por ruta</td><td>Para elegir la ruta</td><td><span class="a-info">Informa</span></td><td><span class="tag f-fut">Futuro</span></td></tr><tr><td>Fecha de pago sugerida</td><td>Vencimiento menos días de proceso, cortes bancarios y feriados</td><td><span class="a-info">Informa</span></td><td><span class="tag f-fut">Futuro</span></td></tr><tr><td>Campos obligatorios por país</td><td>Identificadores de cuenta locales; hay que verificarlos por ruta</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-fut">Futuro</span></td></tr><tr><td>Agrupar pagos al mismo proveedor</td><td>Una sola orden</td><td><span class="a-info">Informa</span></td><td><span class="tag f-fut">Futuro</span></td></tr></table></div></details><details><summary><span>I. Señales de riesgo</span><span class="cnt">7 parámetros, 2 en la demo</span></summary><div class="tablewrap"><table><tr><th>Parámetro</th><th>Qué controla</th><th>Si falla</th><th>Fase</th></tr><tr><td>Texto dirigido al agente</td><td>Instrucciones dentro del documento</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Fraccionamiento de facturas</td><td>Varias facturas bajo el umbral del mismo proveedor</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Primera factura de monto alto</td><td>Proveedor nuevo con un cobro grande</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Urgencia artificial</td><td>&quot;Pague hoy&quot; y presión similar</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Formato distinto al histórico</td><td>La factura no se parece a las anteriores del proveedor</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-fut">Futuro</span></td></tr><tr><td>Monto redondo sospechoso</td><td>Patrones poco naturales</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-fut">Futuro</span></td></tr><tr><td>Fuera de patrón</td><td>Frecuencia u horario inusuales</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-fut">Futuro</span></td></tr></table></div></details><details><summary><span>J. Impuestos y retenciones (solo registro)</span><span class="cnt">3 parámetros, 0 en la demo</span></summary><div class="tablewrap"><table><tr><th>Parámetro</th><th>Qué controla</th><th>Si falla</th><th>Fase</th></tr><tr><td>Impuestos y retenciones leídos</td><td>Se extraen de la factura y se guardan</td><td><span class="a-info">Informa</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Tasa esperada por país y tipo</td><td>La empresa define qué espera ver</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-fut">Futuro</span></td></tr><tr><td>Diferencia con lo esperado</td><td>Si la retención no coincide, una persona decide; el cálculo fiscal queda fuera del alcance</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-fut">Futuro</span></td></tr></table></div></details><details><summary><span>K. Ciclo de pagos</span><span class="cnt">5 parámetros, 3 en la demo</span></summary><div class="tablewrap"><table><tr><th>Parámetro</th><th>Qué controla</th><th>Si falla</th><th>Fase</th></tr><tr><td>Periodo y fecha de corte</td><td>Qué facturas pertenecen a cada ciclo</td><td><span class="a-info">Informa</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Estados del ciclo</td><td>Abierto, en proceso, en revisión, aprobado y cerrado</td><td><span class="a-info">Informa</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Exportación de la conciliación</td><td>Hoja con qué se pagó, frenó o escaló, y por qué</td><td><span class="a-info">Informa</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Instantánea al cierre</td><td>Copia inmutable de decisiones, recibos y versión del mandato</td><td><span class="a-info">Informa</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Reapertura controlada</td><td>Reabrir un ciclo cerrado exige motivo y firma</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-fut">Futuro</span></td></tr></table></div></details><details><summary><span>L. Operación del agente</span><span class="cnt">8 parámetros, 5 en la demo</span></summary><div class="tablewrap"><table><tr><th>Parámetro</th><th>Qué controla</th><th>Si falla</th><th>Fase</th></tr><tr><td>Acción ante error o duda</td><td>Siempre ESCALAR; no se puede configurar a PAGAR</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Costo máximo por decisión</td><td>Corta la cascada de modelos</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Tope de gasto por corrida</td><td>Interruptor de corte</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Modelo por defecto y de reserva</td><td>Haiku 5.5, luego Sonnet 5.5</td><td><span class="a-info">Informa</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Umbrales del clasificador</td><td>Probabilidad a partir de la cual una señal cuenta</td><td><span class="a-wait">ESCALAR</span></td><td><span class="tag f-demo">Demo</span></td></tr><tr><td>Modo sombra</td><td>Decide en paralelo a finanzas sin pagar</td><td><span class="a-info">Informa</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Retención de datos</td><td>Cuánto se guardan facturas y recibos</td><td><span class="a-info">Informa</span></td><td><span class="tag f-mod">Modelo</span></td></tr><tr><td>Autonomía por proveedor</td><td>Sube con evidencia y con firma de una persona</td><td><span class="a-info">Informa</span></td><td><span class="tag f-fut">Futuro</span></td></tr></table></div></details>
+  <p class="note"><b>Cómo se lee.</b> "Si falla" es la acción por defecto y la empresa puede endurecerla, pero ninguna regla puede relajarse hasta PAGAR ante un error o una duda. La columna "Fase" es una propuesta mía de qué construir; hay que confirmarla con el equipo.</p>
+</section>
+
+<section>
+  <div class="kicker">Perfiles de arranque</div>
+  <p>Para no pedirle a una empresa decenas de valores el primer día, tres perfiles precargan los parámetros clave. Los valores son de ejemplo y se calibran con el set de facturas.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Parámetro</th><th>Conservador</th><th>Balanceado</th><th>Ágil</th></tr>
+    <tr><td>Umbral de aprobación humana</td><td class="num">USD 1.000</td><td class="num">USD 3.000</td><td class="num">USD 10.000</td></tr>
+    <tr><td>Tolerancia frente a lo acordado</td><td class="num">2%</td><td class="num">5%</td><td class="num">10%</td></tr>
+    <tr><td>Confianza mínima de lectura</td><td class="num">0,90</td><td class="num">0,80</td><td class="num">0,70</td></tr>
+    <tr><td>Proveedor nuevo</td><td>ESCALAR siempre</td><td>ESCALAR hasta 30 días</td><td>ESCALAR hasta 7 días</td></tr>
+    <tr><td>Cambio de cuenta</td><td>ESCALAR y verificar fuera de banda</td><td>ESCALAR</td><td>ESCALAR</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <div class="kicker">Fuentes y verificación</div>
+  <ul class="src">
+    <li>Carpeta local <code>/Users/mauricio/Documents/instacart/tessy/instaleap-asgard-interview</code> (<code>README</code> y <code>FLOW.md</code>): patrón de traducción sin estado, clasificación y caso sin mapeo. Leída el 2026-10-16.</li>
+    <li><a href="https://start.docuware.com/en-gb/blog/what-is-a-po-invoice-po-vs-non-po-invoices-explained">DocuWare</a> y <a href="https://www.stampli.com/resources/po-and-non-po-workflow-design/">Stampli</a>: facturas con y sin orden, emparejamiento de dos y tres vías, tolerancias, matriz de autoridad. Blogs de proveedores. Faltan fuentes sobre notas de crédito y umbrales de aprobación.</li>
+    <li><a href="https://www.e-invoice.app/blog/global-e-invoicing-compliance-2026">e-invoice.app</a>, <a href="https://invoicedataextraction.com/blog/mexico-cfdi-electronic-invoicing-guide">guía de CFDI</a> y <a href="https://www.cedalio.com/def-fiscal-compliance-latam">Cedalio</a>: formatos fiscales de la región. Blogs de proveedores; sin verificar contra las autoridades.</li>
+    <li><a href="https://blog.taxbandits.com/w-9-vs-w-8-a-simple-guide-for-u-s-businesses-paying-international-contractors/">TaxBandits</a>: formularios W-9 y W-8 para pagar a contratistas del exterior. Resumen general, no asesoría fiscal. No encontré fuentes sobre cómo encaja una cuenta de cobro colombiana.</li>
+    <li><a href="https://www.caseware.com/us/capabilities/confident-completion">Caseware</a> (revisión dirigida, trazabilidad, estado del trabajo): de su sitio de marketing; ver la página de la propuesta.</li>
+    <li><a href="https://blinka.co/">blinka.co</a>: rutas y monedas de pago (leída el 2026-10-16).</li>
+    <li><a href="https://claude.ai/artifact/8gQrCp5ZMCxPDVMN4B9xHF">Página de la propuesta</a>: problema, solución, costos, MCP y diagramas C4.</li>
+  </ul>
+</section>
+</div>

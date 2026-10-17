@@ -1,0 +1,18 @@
+[Texto extraido de PDF, 1 pagina]
+
+LOGISTICA SUR SpA   RUT 76.000.000-0 (ficticio)
+Santiago, Chile
+
+FACTURA No. LS-90
+Fecha de emision: 2026-10-10   Vencimiento: 2026-11-09
+Referencia de acuerdo: AC-LSUR-2026-05
+
+Detalle                                      Monto USD
+Flete maritimo consolidado, contenedor 1      9.000,00
+Flete maritimo consolidado, contenedor 2      5.000,00
+Subtotal                                     14.000,00
+Impuestos                                         0,00
+TOTAL                                        14.000,00 USD
+
+Banco: Banco Ejemplo de Chile   Pais de la cuenta: Chile
+Cuenta corriente terminada en 7745

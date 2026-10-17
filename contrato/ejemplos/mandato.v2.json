@@ -1,0 +1,62 @@
+{
+  "version": "v2",
+  "empresa_id": "empresa-demo",
+  "estado": "vigente",
+  "creado_en": "2026-10-16T00:00:00Z",
+  "firmas": [
+    {
+      "rol": "cfo",
+      "fecha": "2026-10-16T00:00:00Z",
+      "firma": "sembrada"
+    },
+    {
+      "rol": "analista",
+      "fecha": "2026-10-16T00:00:00Z",
+      "firma": "sembrada"
+    }
+  ],
+  "parametros": {
+    "moneda_base": "USD",
+    "tope_pago_menor": "1000000",
+    "umbral_aprobacion_menor": "300000",
+    "tolerancia_acuerdo_pct": 5,
+    "conf_min_dinero": 0.9,
+    "conf_min_general": 0.8,
+    "tolerancia_lineas_menor": "0",
+    "dup_tolerancia_monto_pct": 2,
+    "dup_ventana_dias": 30,
+    "periodo": "mes_calendario",
+    "presupuesto_periodo_menor": "900000",
+    "tope_acumulado_proveedor": {
+      "activo": true,
+      "monto_menor": "300000"
+    },
+    "monedas_permitidas": [
+      "USD",
+      "COP",
+      "BRL",
+      "MXN"
+    ],
+    "tasas_cambio": {
+      "fecha": "2026-10-16",
+      "unidades_por_usd": {
+        "USD": "1",
+        "COP": "4000",
+        "BRL": "5",
+        "MXN": "17",
+        "ARS": "1000"
+      }
+    },
+    "redondeo": "al_alza",
+    "umbral_senal_texto": 0.5,
+    "vigencia_recibo_h": 24,
+    "vigencia_aprobacion_h": 24,
+    "dias_proveedor_nuevo": 30,
+    "nivel_autonomia_defecto": {
+      "conocido": "autonomo",
+      "nuevo": "sombra"
+    },
+    "max_retries": 2,
+    "tope_gasto_corrida_microusd": "5000000"
+  }
+}

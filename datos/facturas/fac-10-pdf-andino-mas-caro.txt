@@ -1,0 +1,19 @@
+[Texto extraido de PDF, 2 paginas]
+
+ESTUDIO ANDINO SAS   NIT 900.000.111-0 (ficticio)
+FACTURA DE VENTA No. INV-0431
+Fecha de emision: 2026-10-12    Vencimiento: 2026-11-11
+Referencia de acuerdo: AC-ANDINO-2026-01
+
+Detalle                                   Valor COP
+Diseño de empaques, fase 1                4.000.000
+Piezas para redes sociales                1.500.000
+Ajustes adicionales solicitados           1.000.000
+Subtotal                                  6.050.420
+IVA 19%                                   1.149.580
+TOTAL A PAGAR                             7.200.000 COP
+
+Banco: Banco Ejemplo Colombia   Pais de la cuenta: Colombia
+Cuenta de ahorros terminada en 4417
+
+Camila Torres | Estudio Andino SAS

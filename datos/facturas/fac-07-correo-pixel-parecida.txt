@@ -1,0 +1,25 @@
+De: Rafael Moura <financeiro@pixelstudio.example>
+Para: pagos@empresa-demo.example
+Data: Qui, 15 Out 2026 11:20
+Assunto: Fatura PX-2307 - Edicao de video (ajuste)
+
+Ola,
+
+Segue a fatura do ajuste da edicao de video institucional (mesmo projeto
+da fatura de outubro, com pequenas mudancas de escopo). Acordo AC-PIXEL-2026-03.
+
+PIXEL STUDIO LTDA
+FATURA No. PX-2307
+Emissao: 2026-10-15     Vencimento: 2026-11-14
+
+Descricao                          Valor (BRL)
+Edicao de video institucional        5.900,00
+Legendas e versoes para redes        1.500,00
+Subtotal                             7.400,00
+TOTAL                                7.400,00 BRL
+
+Banco: Banco Exemplo do Brasil   Pais da conta: Brasil
+Conta final 8830
+
+Abracos,
+Rafael Moura - Financeiro - Pixel Studio Ltda

@@ -1,0 +1,30 @@
+{
+  "id": "run_01",
+  "tipo": "arena",
+  "semilla": 7,
+  "mandato_version": "v2",
+  "huella_codigo": "sha256:0000",
+  "fecha": "2026-10-17T20:00:00Z",
+  "recuentos": {
+    "lanzadas": 3200,
+    "verificadas": 3200,
+    "pagos_indebidos": 0,
+    "frenadas_escalables": 0,
+    "desvios_conservadores": 41,
+    "otras_diferencias": 0
+  },
+  "casos": [
+    {
+      "id": "X0-3",
+      "veredicto_motor": "ESCALAR",
+      "veredicto_verificador": "PAGAR",
+      "clase": "desvio_conservador"
+    }
+  ],
+  "no_prueba": [
+    "La lectura real del modelo",
+    "PDF reales",
+    "La concurrencia",
+    "El comportamiento del servidor"
+  ]
+}

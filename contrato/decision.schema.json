@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "decision.schema.json",
+  "title": "Decision",
+  "description": "Salida del motor. La escribe solo codigo, nunca el modelo. Prioridad: FRENAR > ESCALAR > PAGAR o REGISTRAR. Una reevaluacion es otra decision (el registro es de solo adicion).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "factura_id", "ciclo_id", "mandato_version", "veredicto", "motivo_corto", "reglas", "modo_autonomia", "estado", "creada_en", "reevaluacion_de", "recibo_id"],
+  "properties": {
+    "id": {"type": "string"},
+    "factura_id": {"type": "string"},
+    "ciclo_id": {"type": "string"},
+    "mandato_version": {"type": "string"},
+    "veredicto": {"type": "string", "enum": ["PAGAR", "FRENAR", "ESCALAR", "REGISTRAR"], "description": "REGISTRAR solo para una nota de credito que pasa todas las reglas; nunca lleva orden de pago"},
+    "motivo_corto": {"type": "string", "description": "Una frase para la bandeja"},
+    "reglas": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "estado", "accion_si_falla", "aprobable", "evidencia"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^R(1|2a|2b|3|4|5|6|7|8|9|10)$"},
+          "estado": {"type": "string", "enum": ["cumple", "falla", "omitida"]},
+          "accion_si_falla": {"type": ["string", "null"], "enum": ["FRENAR", "ESCALAR", null]},
+          "aprobable": {"type": "boolean", "description": "false para R9, para las fallas de lectura de R1 y para toda falla FRENAR"},
+          "evidencia": {"type": "string"},
+          "campo_origen": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "modo_autonomia": {"type": "string", "enum": ["autonomo", "sombra"]},
+    "estado": {"type": "string", "enum": ["evaluada", "pendiente", "reevaluada", "con_recibo", "autorizada", "denegada", "frenada", "rechazada", "vencida", "registrada"]},
+    "creada_en": {"type": "string", "format": "date-time"},
+    "reevaluacion_de": {"type": ["string", "null"]},
+    "recibo_id": {"type": ["string", "null"]},
+    "sin_orden": {"type": "boolean", "description": "true cuando el veredicto es REGISTRAR o FRENAR: no puede existir una orden de pago"}
+  }
+}

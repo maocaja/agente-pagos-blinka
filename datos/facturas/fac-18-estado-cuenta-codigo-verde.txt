@@ -1,0 +1,15 @@
+CODIGO VERDE SAS - ESTADO DE CUENTA AL 15/10/2026
+Cliente: Empresa Demo Inc.     (Este documento NO es una factura)
+Referencia de acuerdo: AC-CVERDE-2026-02
+
+Fecha        Documento     Movimiento        Valor USD
+2026-08-12   CV-08         Factura             1.100,00
+2026-09-12   CV-10         Factura             1.800,00
+2026-09-20   PAGO-0914     Pago recibido      -1.100,00
+2026-10-14   CV-12         Factura             2.900,00
+                                               ---------
+Suma de movimientos facturados                 5.800,00
+Saldo informativo a la fecha                   1.000,00 USD (sujeto a conciliacion)
+
+Cuenta para pagos: Banco Ejemplo Colombia, Colombia, terminada en 1096
+Contacto: cartera@codigoverde.example

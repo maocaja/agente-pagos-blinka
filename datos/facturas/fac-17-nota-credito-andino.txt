@@ -1,0 +1,16 @@
+ESTUDIO ANDINO SAS   NIT 900.000.111-0 (ficticio)
+NOTA CREDITO No. NC-0007
+Fecha: 2026-10-13
+Factura afectada: INV-0412
+Motivo: descuento posterior por entrega anticipada de la fase 2
+Referencia de acuerdo: AC-ANDINO-2026-01
+
+Concepto                                  Valor COP
+Descuento comercial (5% de INV-0412)       -252.101
+IVA 19% del descuento                       -47.899
+TOTAL NOTA CREDITO                         -300.000 COP
+
+Este documento reduce el saldo a favor de Estudio Andino. No genera pago.
+El saldo se descuenta de la proxima factura.
+
+Banco: Banco Ejemplo Colombia   Pais: Colombia   Cuenta terminada en 4417

@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "extraccion.schema.json",
+  "title": "Salida del extractor (modelo)",
+  "description": "Lo que devuelve el modelo con salida estructurada. Sin minimum, maximum, minLength ni maxLength (la salida estructurada no los admite). Un valor ausente se escribe como cadena vacia. Todo se valida de nuevo en codigo.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "tipo_documento",
+    "proveedor",
+    "numero_factura",
+    "fechas",
+    "moneda",
+    "monto_total",
+    "cuenta",
+    "lineas",
+    "suma_lineas",
+    "referencia_acuerdo",
+    "evidencia",
+    "confianza",
+    "texto_dirigido_al_agente"
+  ],
+  "properties": {
+    "tipo_documento": {
+      "type": "string",
+      "enum": [
+        "factura",
+        "cuenta_de_cobro",
+        "nota_de_credito",
+        "estado_de_cuenta",
+        "proforma",
+        "anticipo",
+        "desconocido"
+      ]
+    },
+    "proveedor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "nombre",
+        "id_fiscal",
+        "pais"
+      ],
+      "properties": {
+        "nombre": {
+          "type": "string"
+        },
+        "id_fiscal": {
+          "type": "string"
+        },
+        "pais": {
+          "type": "string"
+        }
+      }
+    },
+    "numero_factura": {
+      "type": "string"
+    },
+    "fechas": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "emision",
+        "vencimiento"
+      ],
+      "properties": {
+        "emision": {
+          "type": "string"
+        },
+        "vencimiento": {
+          "type": "string"
+        }
+      }
+    },
+    "moneda": {
+      "type": "string",
+      "enum": [
+        "USD",
+        "COP",
+        "BRL",
+        "MXN",
+        "ARS",
+        "EUR",
+        "OTRA",
+        ""
+      ]
+    },
+    "cuenta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pais",
+        "ultimos4"
+      ],
+      "properties": {
+        "pais": {
+          "type": "string"
+        },
+        "ultimos4": {
+          "type": "string"
+        }
+      }
+    },
+    "lineas": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "descripcion",
+          "total"
+        ],
+        "properties": {
+          "descripcion": {
+            "type": "string"
+          },
+          "total": {
+            "type": "string",
+            "description": "Tal como aparece impreso"
+          }
+        }
+      }
+    },
+    "referencia_acuerdo": {
+      "type": "string"
+    },
+    "evidencia": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Cita textual del documento para cada campo; se comprueba que aparezca en el texto local",
+      "required": [
+        "tipo_documento",
+        "numero_factura",
+        "monto_total",
+        "moneda",
+        "proveedor",
+        "cuenta"
+      ],
+      "properties": {
+        "tipo_documento": {
+          "type": "string"
+        },
+        "numero_factura": {
+          "type": "string"
+        },
+        "monto_total": {
+          "type": "string"
+        },
+        "moneda": {
+          "type": "string"
+        },
+        "proveedor": {
+          "type": "string"
+        },
+        "cuenta": {
+          "type": "string"
+        }
+      }
+    },
+    "confianza": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Numeros entre 0 y 1; el rango se valida en codigo",
+      "required": [
+        "tipo_documento",
+        "numero_factura",
+        "monto_total",
+        "moneda",
+        "proveedor",
+        "cuenta"
+      ],
+      "properties": {
+        "tipo_documento": {
+          "type": "number"
+        },
+        "numero_factura": {
+          "type": "number"
+        },
+        "monto_total": {
+          "type": "number"
+        },
+        "moneda": {
+          "type": "number"
+        },
+        "proveedor": {
+          "type": "number"
+        },
+        "cuenta": {
+          "type": "number"
+        }
+      }
+    },
+    "texto_dirigido_al_agente": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "presente",
+        "cita"
+      ],
+      "properties": {
+        "presente": {
+          "type": "boolean"
+        },
+        "cita": {
+          "type": "string"
+        }
+      }
+    },
+    "monto_total": {
+      "type": "string",
+      "description": "Tal como aparece impreso (por ejemplo '1.200,50'). El codigo lo convierte a unidades menores; un formato ambiguo cuenta como 'sin segunda lectura'. El modelo no hace conversiones."
+    },
+    "suma_lineas": {
+      "type": "string",
+      "description": "Suma de lineas tal como aparece impresa; vacia si el documento no trae lineas"
+    }
+  }
+}

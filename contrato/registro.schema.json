@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "registro.schema.json",
+  "title": "Entrada del registro (solo adicion)",
+  "description": "Formato estable del registro: lo lee el verificador independiente para reconstruir el estado. UPDATE y DELETE estan bloqueados.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["seq", "tipo", "sesion_id", "ciclo_id", "ts", "payload"],
+  "properties": {
+    "seq": {"type": "integer"},
+    "tipo": {"type": "string", "enum": ["factura", "decision", "reserva", "compensacion", "recibo", "aprobacion", "mandato", "autonomia", "evento"]},
+    "sesion_id": {"type": "string"},
+    "ciclo_id": {"type": "string"},
+    "ts": {"type": "string", "format": "date-time"},
+    "payload": {"type": "object", "description": "El objeto completo segun su esquema: factura-canonica, decision, recibo, aprobacion, mandato. Una reserva lleva proveedor_id, periodo, monto_base_menor y decision_id."}
+  }
+}

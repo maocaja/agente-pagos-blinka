@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "esperado.schema.json",
+  "title": "Veredicto esperado de un caso del set",
+  "description": "Dos esperados escritos a mano antes de generar las lecturas, por quien lee solo el texto de las reglas. Ninguno sale del motor.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "caso",
+    "archivo",
+    "grupo",
+    "esperado_reglas",
+    "esperado_extremo_a_extremo"
+  ],
+  "properties": {
+    "caso": {
+      "type": "string"
+    },
+    "archivo": {
+      "type": "string"
+    },
+    "grupo": {
+      "type": "string",
+      "enum": [
+        "visible",
+        "oculta"
+      ]
+    },
+    "esperado_reglas": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "veredicto",
+        "reglas_que_fallan",
+        "explicacion"
+      ],
+      "properties": {
+        "veredicto": {
+          "type": "string",
+          "enum": [
+            "PAGAR",
+            "FRENAR",
+            "ESCALAR",
+            "REGISTRAR"
+          ]
+        },
+        "reglas_que_fallan": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "explicacion": {
+          "type": "string"
+        }
+      }
+    },
+    "esperado_extremo_a_extremo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "veredicto",
+        "lectura_esperada",
+        "explicacion"
+      ],
+      "properties": {
+        "veredicto": {
+          "type": "string",
+          "enum": [
+            "PAGAR",
+            "FRENAR",
+            "ESCALAR",
+            "REGISTRAR"
+          ]
+        },
+        "lectura_esperada": {
+          "type": "string",
+          "enum": [
+            "dos_lecturas_coinciden",
+            "difieren",
+            "sin_segunda_lectura",
+            "sin_texto_verificable",
+            "tipo_no_soportado"
+          ]
+        },
+        "explicacion": {
+          "type": "string"
+        }
+      }
+    },
+    "sello": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "sha256_archivo": {
+          "type": "string"
+        },
+        "sha256_esperado": {
+          "type": "string"
+        },
+        "fecha": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

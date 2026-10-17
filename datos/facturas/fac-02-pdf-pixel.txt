@@ -1,0 +1,25 @@
+[Texto extraido de PDF, 1 pagina]
+
+PIXEL STUDIO LTDA
+CNPJ 00.000.000/0001-00 (ficticio)
+Sao Paulo - SP - Brasil
+
+FATURA / INVOICE No. PX-2301
+Data de emissao: 08/10/2026      Vencimento: 07/11/2026
+Referencia do acordo: AC-PIXEL-2026-03
+
+Cliente: Empresa Demo Inc.
+
+Descricao                          Qtd     Valor (BRL)
+Edicao de video institucional       3        6.000,00
+Legendas e versoes para redes       1        1.500,00
+Subtotal                                     7.500,00
+Impostos (incluidos)                             0,00
+TOTAL                                        7.500,00 BRL
+
+Dados bancarios para pagamento
+Banco: Banco Exemplo do Brasil   Pais da conta: Brasil
+Conta final 8830   Agencia 0001
+
+Obrigado pela parceria!
+Pixel Studio Ltda - financeiro@pixelstudio.example

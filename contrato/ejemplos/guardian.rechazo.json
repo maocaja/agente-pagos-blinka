@@ -1,0 +1,42 @@
+{
+  "autorizada": false,
+  "motivo": "La firma no corresponde al contenido del recibo.",
+  "verificaciones": [
+    {
+      "n": 1,
+      "nombre": "La firma del recibo es valida",
+      "estado": "falla",
+      "motivo": "La firma no corresponde al contenido del recibo."
+    },
+    {
+      "n": 2,
+      "nombre": "El hash de la factura coincide",
+      "estado": "no_evaluada",
+      "motivo": null
+    },
+    {
+      "n": 3,
+      "nombre": "Monto y beneficiario son los del recibo",
+      "estado": "no_evaluada",
+      "motivo": null
+    },
+    {
+      "n": 4,
+      "nombre": "PAGAR en modo autonomo, o ESCALAR con aprobacion vigente, o PAGAR en sombra con aprobacion; nunca FRENAR",
+      "estado": "no_evaluada",
+      "motivo": null
+    },
+    {
+      "n": 5,
+      "nombre": "El mandato del recibo sigue vigente",
+      "estado": "no_evaluada",
+      "motivo": null
+    },
+    {
+      "n": 6,
+      "nombre": "El recibo no se uso antes",
+      "estado": "no_evaluada",
+      "motivo": null
+    }
+  ]
+}

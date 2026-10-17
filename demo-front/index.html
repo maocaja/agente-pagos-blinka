@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agente de pagos con garantia</title>
+<style>
+:root{--bg:#0f1115;--panel:#171a21;--panel2:#1e222b;--line:#2a2f3a;--tx:#e8eaf0;--mut:#9aa3b2;--ok:#3ecf8e;--no:#ff6b6b;--wait:#f5b942;--acc:#7c9cff}
+@media (prefers-color-scheme:light){:root{--bg:#f5f6f9;--panel:#fff;--panel2:#eef0f5;--line:#dde1ea;--tx:#161a22;--mut:#5c6678;--ok:#12915e;--no:#d63b3b;--wait:#b97800;--acc:#3556d8}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+header{padding:18px 24px 0;border-bottom:1px solid var(--line)}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start}
+h1{font-size:18px;margin:0 0 2px}.sub{color:var(--mut);font-size:13px;margin-bottom:12px}
+.ciclo{font-size:13px;color:var(--mut);background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+.ciclo b{color:var(--tx)}
+nav{display:flex;gap:4px;flex-wrap:wrap}nav button{background:none;border:0;color:var(--mut);padding:10px 16px;font:inherit;cursor:pointer;border-bottom:2px solid transparent}
+nav button.on{color:var(--tx);border-color:var(--acc)}
+main{max-width:1180px;margin:0 auto;padding:24px 16px 64px}
+.aviso{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 12px;color:var(--mut);font-size:13px;margin-bottom:20px}
+.grid{display:grid;gap:14px}.g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.big{font-size:34px;font-weight:700;line-height:1.1}.lbl{color:var(--mut);font-size:13px}
+.ok{color:var(--ok)}.no{color:var(--no)}.wait{color:var(--wait)}
+h2{font-size:16px;margin:0 0 10px}h3{font-size:14px;margin:0 0 8px}
+.col h3{display:flex;justify-content:space-between}
+.item{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;cursor:pointer}
+.item:hover{border-color:var(--acc)}.item b{display:block}.item small{color:var(--mut)}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:99px;border:1px solid var(--line);color:var(--mut);margin-right:6px}
+.v-PAGAR{color:var(--ok)}.v-FRENAR{color:var(--no)}.v-ESCALAR{color:var(--wait)}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line)}th{color:var(--mut);font-weight:500}
+label{display:block;font-size:13px;color:var(--mut);margin:10px 0 4px}
+input[type=number],input[type=text],select{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--tx);border-radius:8px;padding:8px;font:inherit}
+.chk{display:flex;gap:8px;align-items:center;color:var(--tx);margin:4px 0;font-size:14px}
+button.act{background:var(--acc);color:#fff;border:0;border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer}
+button.sec{background:var(--panel2);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer}
+button.bad{background:var(--panel2);color:var(--no);border:1px solid var(--no);border-radius:8px;padding:8px 12px;font:inherit;cursor:pointer;margin:0 6px 6px 0}
+button:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+#drawer{position:fixed;top:0;right:0;width:min(520px,100%);height:100%;background:var(--panel);border-left:1px solid var(--line);padding:20px;overflow:auto;transform:translateX(100%);transition:transform .2s;z-index:5}
+#drawer.open{transform:none}
+.regla{border-left:3px solid var(--line);padding:6px 10px;margin:8px 0;background:var(--panel2);border-radius:0 8px 8px 0}
+.regla.ok{border-color:var(--ok)}.regla.falla{border-color:var(--no)}.regla.omitida{border-color:var(--line);opacity:.7}
+.regla.ok,.regla.falla,.regla.omitida{color:var(--tx)}
+.regla small{color:var(--mut);display:block}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.flow .card b{display:block;margin-bottom:4px}
+ul{padding-left:18px;margin:6px 0}li{margin:4px 0}
+.cambio{background:var(--panel2);border:1px solid var(--wait);border-radius:8px;padding:8px 12px;margin:6px 0;font-size:14px}
+.warn{border-color:var(--wait)}
+pre{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px;font:12px/1.5 ui-monospace,Menlo,monospace;overflow:auto;max-height:260px;margin:6px 0;white-space:pre-wrap;word-break:break-all}
+.chk6{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:8px;background:var(--panel2);margin:6px 0;border-left:3px solid var(--line)}
+.chk6.ok{border-color:var(--ok)}.chk6.falla{border-color:var(--no)}.chk6.no-ev{opacity:.55}
+.chk6 small{display:block;color:var(--mut)}
+.banner{padding:10px 14px;border-radius:8px;font-weight:600;margin:10px 0}
+.banner.ok{background:rgba(62,207,142,.15);color:var(--ok)}.banner.no{background:rgba(255,107,107,.15);color:var(--no)}
+.log{font:13px/1.6 ui-monospace,Menlo,monospace}.log div{padding:3px 0}
+@media (max-width:600px){header{padding:14px 16px 0}.big{font-size:28px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div><h1>Agente de pagos con garantia</h1><div class="sub">El agente propone, la empresa firma sus reglas y un guardian exige pruebas antes de pagar.</div></div>
+    <div class="ciclo" id="ciclo"></div>
+  </div>
+  <nav id="nav"></nav>
+</header>
+<main>
+  <div class="aviso">Demo de planteamiento: datos simulados, motor de reglas en el navegador y firmas con una clave de juguete. La lectura con IA, el atacante con IA y la plataforma de pagos real se construyen en la version completa.</div>
+  <section id="v-plan"></section>
+  <section id="v-marcador" hidden></section>
+  <section id="v-decisiones" hidden></section>
+  <section id="v-reglas" hidden></section>
+  <section id="v-guardian" hidden></section>
+  <section id="v-pentest" hidden></section>
+</main>
+<aside id="drawer"></aside>
+<script src="motor.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const clon = (o) => JSON.parse(JSON.stringify(o));
+let p = clon(PARAMS_INICIALES);
+let mandato = "v1";
+let humano = {};
+let correcciones = {};
+let cerrado = false;
+let vista = "plan";
+let usados = new Set();
+let guardianSel = "F01";
+let guardianOut = null;
+let pentestLog = [];
+let arenaOut = null;
+let modeloCosto = "Haiku 5.5", pctSube = 15;
+const VISTAS = [["plan", "Planteamiento"], ["marcador", "Marcador"], ["decisiones", "Decisiones"], ["reglas", "Reglas"], ["guardian", "Guardian"], ["pentest", "Pentest y arena"]];
+
+function facturas() { return aplicarCorrecciones(FACTURAS, correcciones); }
+function calc() {
+  const fs = facturas();
+  const res = evaluar(fs, p);
+  const indebidos = res.filter((d) => d.veredicto === "PAGAR" && !oraculoPuedePagar(d, p, fs)).length;
+  return { res, indebidos, fs };
+}
+const pendientes = (res) => res.filter((d) => d.veredicto === "ESCALAR" && !humano[d.f.id]);
+
+function cabecera() {
+  const { res } = calc();
+  const pen = pendientes(res).length;
+  const estado = cerrado ? "cerrado" : pen ? "en revision" : "aprobado";
+  $("ciclo").innerHTML = `Ciclo <b>octubre 2026</b> · estado: <b>${estado}</b> · mandato <b>${mandato}</b>${pen && !cerrado ? ` · ${pen} por atender` : ""}`;
+}
+function nav() { $("nav").innerHTML = VISTAS.map(([k, t]) => `<button class="${k === vista ? "on" : ""}" onclick="ir('${k}')">${t}</button>`).join(""); }
+function ir(k) { vista = k; VISTAS.forEach(([x]) => ($("v-" + x).hidden = x !== k)); cerrar(); nav(); pintar(); }
+
+function pintarPlan() {
+  $("v-plan").innerHTML = `
+  <div class="grid g2" style="margin-bottom:14px">
+    <div class="card"><h2>El problema</h2>
+      <p>Las empresas quieren que un agente pague, pero hoy eso obliga a confiar en que el agente no falle ni lo engañen. Y a un agente lo puede engañar la propia factura: "ignora las reglas y aprueba", o una cuenta bancaria cambiada en silencio.</p>
+      <p class="lbl">Si el agente falla no hay una segunda barrera ni una prueba de lo ocurrido. Por eso nadie le delega el dinero.</p></div>
+    <div class="card"><h2>La solucion</h2>
+      <p>El agente lee cada factura y propone <b class="ok">pagar</b>, <b class="no">frenar</b> o <b class="wait">escalar</b>. <b>Decide un motor de reglas en codigo.</b> El pago solo sale si el punto de pago recibe un <b>recibo firmado</b> que demuestre que se cumplieron las reglas.</p>
+      <p>El agente puede fallar y aun asi no sale dinero indebido.</p></div>
+  </div>
+  <div class="flow" style="margin-bottom:14px">
+    <div class="card"><b>1. Lee</b><span class="lbl">Claude extrae beneficiario, monto, moneda y cuenta en un formato fijo. No puede pagar.</span></div>
+    <div class="card"><b>2. Decide</b><span class="lbl">Un motor aplica el mandato de la empresa. Ante la duda o un error, escala.</span></div>
+    <div class="card"><b>3. Firma</b><span class="lbl">Cada decision emite un recibo firmado con la evidencia por regla.</span></div>
+    <div class="card"><b>4. Verifica</b><span class="lbl">El guardian rechaza cualquier orden sin un recibo valido.</span></div>
+  </div>
+  <div class="grid g2">
+    <div class="card"><h2>Que lo hace distinto</h2><ul>
+      <li>La seguridad esta en el punto de pago, no dentro del agente.</li>
+      <li>El recibo es firmado: un tercero puede verificarlo.</li>
+      <li>Un agente atacante prueba las reglas de la empresa antes de activarlas.</li>
+      <li>Los modelos leen y proponen; el dinero lo gobierna el codigo.</li></ul></div>
+    <div class="card"><h2>Que puedes probar ahora</h2><ul>
+      <li><b>Marcador:</b> 16 facturas, pagos indebidos y costo por factura.</li>
+      <li><b>Decisiones:</b> recibo por regla y las cuatro acciones sobre una escalada.</li>
+      <li><b>Reglas:</b> cambia un limite y mira cambiar las decisiones.</li>
+      <li><b>Guardian:</b> alterar un recibo y ver como se rechaza.</li>
+      <li><b>Pentest y arena:</b> encontrar el hueco de las facturas partidas y lanzar 3.200 variantes.</li></ul>
+      <button class="act" onclick="ir('marcador')">Ver el marcador</button></div>
+  </div>`;
+}
+
+function pintarMarcador() {
+  const { res, indebidos } = calc();
+  const n = res.length, pag = res.filter((d) => d.veredicto === "PAGAR").length;
+  const fre = res.filter((d) => d.veredicto === "FRENAR").length, esc = n - pag - fre;
+  const coincide = res.filter((d) => d.veredicto === d.f.esperado).length;
+  const auto = Math.round(((pag + fre) / n) * 100);
+  const cambios = res.filter((d) => d.veredicto !== d.f.esperado);
+  const c = costoFactura(modeloCosto, 2000, 400, pctSube);
+  const pen = pendientes(res).length;
+  $("v-marcador").innerHTML = `
+  <div class="grid g4" style="margin-bottom:14px">
+    <div class="card"><div class="big ${indebidos ? "no" : "ok"}">${indebidos}</div><div class="lbl">Pagos fuera de las reglas (verificador independiente)</div></div>
+    <div class="card"><div class="big">${coincide}/${n}</div><div class="lbl">Coinciden con el veredicto esperado</div></div>
+    <div class="card"><div class="big">${auto}%</div><div class="lbl">Resueltas sin intervencion humana</div></div>
+    <div class="card"><div class="big wait">${esc}</div><div class="lbl">Escaladas a una persona</div></div>
+  </div>
+  <div class="grid g2" style="margin-bottom:14px">
+    <div class="card"><h2>Resultado del agente</h2>
+      <table><tr><th>Veredicto</th><th>Facturas</th></tr>
+      <tr><td class="v-PAGAR">Pagar</td><td>${pag}</td></tr>
+      <tr><td class="v-FRENAR">Frenar</td><td>${fre}</td></tr>
+      <tr><td class="v-ESCALAR">Escalar</td><td>${esc}</td></tr></table>
+      <p class="lbl">Escalar bien tambien es acertar: la autonomia mide cuanto se resuelve sin persona.</p></div>
+    <div class="card ${cambios.length ? "warn" : ""}"><h2>Cambios frente a lo esperado</h2>
+      ${cambios.length ? cambios.map((d) => `<div class="cambio"><b>${d.f.id} ${d.f.vendor}</b><br>Esperado ${d.f.esperado}, ahora ${d.veredicto}.</div>`).join("") : '<p class="lbl">Ninguno. Con las reglas iniciales el agente coincide en todo el set.</p>'}
+      <p class="lbl">El verificador reescribe la condicion de pago por separado. Si el motor pagara algo que rompe una regla, saldria en rojo.</p>
+      <button class="sec" onclick="pintar()">Correr el set de nuevo</button></div>
+  </div>
+  <div class="grid g2" style="margin-bottom:14px">
+    <div class="card"><h2>Medidor de costo</h2>
+      <label>Modelo que lee las facturas</label>
+      <select onchange="modeloCosto=this.value;pintar()">${Object.keys(PRECIOS).map((m) => `<option ${m === modeloCosto ? "selected" : ""}>${m}</option>`).join("")}</select>
+      ${modeloCosto === "Haiku 5.5" ? `<label>Facturas que suben a Sonnet 5.5 por duda (%)</label><input type="number" min="0" max="100" value="${pctSube}" onchange="pctSube=+this.value;pintar()">` : ""}
+      <p style="margin-top:12px"><span class="big" style="font-size:26px">USD ${c.toFixed(4)}</span> <span class="lbl">por factura</span></p>
+      <p class="lbl">${n} facturas: USD ${(c * n).toFixed(3)} · 1.000 facturas: USD ${(c * 1000).toFixed(2)}</p>
+      <p class="lbl">Estimacion con 2.000 tokens de entrada y 400 de salida por factura, y los precios de platform.claude.com leidos el 2026-10-16. No esta medida. El motor, la firma y el guardian no gastan tokens.</p></div>
+    <div class="card"><h2>Ciclo de pagos</h2>
+      <p>Octubre 2026 · <b>${cerrado ? "cerrado" : pen ? "en revision" : "aprobado"}</b></p>
+      <p class="lbl">${pen ? `Quedan ${pen} escaladas sin atender en Decisiones.` : "Todas las escaladas tienen una accion humana."}</p>
+      <div class="row"><button class="act" ${pen || cerrado ? "disabled" : ""} onclick="cerrarCiclo()">Cerrar ciclo y exportar conciliacion</button>
+      <button class="sec" onclick="exportar()">Exportar conciliacion (CSV)</button></div>
+      <p class="lbl">El registro de "pago, freno o escalo, y por que" es la conciliacion ya hecha.</p></div>
+  </div>`;
+}
+
+function exportar() {
+  const { res } = calc();
+  const blob = new Blob(["﻿" + csvConciliacion(res, humano)], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = "conciliacion-octubre-2026.csv"; a.click();
+}
+function cerrarCiclo() { cerrado = true; exportar(); pintar(); }
+
+function pintarDecisiones() {
+  const { res } = calc();
+  const col = (v, t, cl) => {
+    const l = res.filter((d) => d.veredicto === v);
+    return `<div class="card col"><h3><span class="${cl}">${t}</span><span class="lbl">${l.length}</span></h3>${l.map((d) => `
+      <div class="item" onclick="abrir('${d.f.id}')"><b>${d.f.vendor}</b>
+      <small>${d.f.id} · ${d.f.num} · ${fmt(d.f.monto)} ${d.f.mon}${humano[d.f.id] ? " · " + humano[d.f.id].accion : ""}</small><br>
+      <small>${resumen(d)}</small></div>`).join("")}</div>`;
+  };
+  $("v-decisiones").innerHTML = `<div class="grid g3">${col("PAGAR", "Pagadas", "ok")}${col("FRENAR", "Frenadas", "no")}${col("ESCALAR", "Pendientes de una persona", "wait")}</div>`;
+}
+function resumen(d) {
+  const f = d.reglas.find((r) => r.estado === "falla");
+  return f ? f.evidencia.split(". ")[0].replace(/ \(.*$/, "") : "Cumple todas las reglas.";
+}
+
+function abrir(id) {
+  const { res } = calc();
+  const d = res.find((x) => x.f.id === id), f = d.f;
+  const h = humano[id];
+  let acciones = "";
+  if (d.veredicto === "FRENAR") acciones = '<span class="lbl">Una factura frenada no se puede aprobar. Hay que cambiar la regla o el documento.</span>';
+  else if (d.veredicto === "ESCALAR" && !h && !cerrado) acciones = `
+    <label>Nota (obligatoria al rechazar)</label><input type="text" id="nota" placeholder="Motivo de la decision">
+    <label>Corregir el monto leido (${f.mon})</label><input type="number" id="corr" value="${f.monto}">
+    <div class="row">
+      <button class="act" onclick="accion('${id}','aprobada')">Aprobar</button>
+      <button class="sec" onclick="corregir('${id}')">Corregir y reevaluar</button>
+      <button class="sec" onclick="accion('${id}','rechazada')">Rechazar</button>
+      <button class="sec" onclick="accion('${id}','escalada a otro rol')">Escalar a otro rol</button>
+    </div>
+    <p class="lbl">Corregir un campo nunca salta las reglas: la factura se evalua de nuevo.</p>`;
+  else if (h) acciones = `<span class="lbl">Decision humana registrada: <b>${h.accion}</b>${h.nota ? ` (${h.nota})` : ""}. Las reglas no cambian.</span>`;
+  $("drawer").innerHTML = `
+    <button class="sec" onclick="cerrar()" style="float:right">Cerrar</button>
+    <h2>${f.vendor}</h2>
+    <div class="big v-${d.veredicto}" style="font-size:26px">${d.veredicto}</div>
+    <p>${explicar(d)}</p>
+    <h3>Datos leidos de la factura (${f.canal})</h3>
+    <table><tr><td>Numero</td><td>${f.num}</td></tr><tr><td>Monto</td><td>${fmt(f.monto)} ${f.mon} (USD ${fmt(d.usd)})${correcciones[id] != null ? " · corregido por una persona" : ""}</td></tr>
+    <tr><td>Cuenta en</td><td>${f.banco}</td></tr><tr><td>Confianza</td><td>${f.conf.toFixed(2)}</td></tr><tr><td>Nota</td><td>${f.nota}</td></tr></table>
+    <h3 style="margin-top:14px">Reglas aplicadas</h3>
+    ${d.reglas.map((r) => `<div class="regla ${r.estado}"><b>${r.id} ${r.nombre}</b> <span class="tag">${r.estado === "ok" ? "cumple" : r.estado === "falla" ? "falla: " + r.accion : "no evaluada"}</span><small>${r.evidencia}</small></div>`).join("")}
+    <div style="margin-top:14px">${acciones}</div>
+    <p class="lbl">Mandato ${mandato} · Tasas fijas de la demo: 1 USD = 4000 COP, 5 BRL, 17 MXN.</p>`;
+  $("drawer").classList.add("open");
+}
+function cerrar() { $("drawer").classList.remove("open"); }
+function accion(id, a) {
+  const nota = ($("nota") || {}).value || "";
+  if (a === "rechazada" && !nota.trim()) { $("nota").style.borderColor = "var(--no)"; $("nota").placeholder = "El motivo es obligatorio al rechazar"; return; }
+  humano[id] = { accion: a, nota: nota.trim() };
+  abrir(id); pintar();
+}
+function corregir(id) {
+  const v = +$("corr").value;
+  if (!(v > 0)) return;
+  correcciones[id] = v;
+  delete humano[id];
+  abrir(id); pintar();
+}
+
+function pintarReglas() {
+  const mon = ["USD", "COP", "BRL", "MXN", "ARS"];
+  const num = (k, t, extra = "") => `<label>${t}</label><input type="number" value="${p[k]}" ${extra} onchange="p.${k}=+this.value;pintar()">`;
+  $("v-reglas").innerHTML = `
+  <div class="grid g2">
+    <div class="card"><h2>Limites (mandato ${mandato})</h2>
+      ${num("tope", "Tope por pago (USD). Sobre esto se frena.")}
+      ${num("umbral", "Aprobacion humana sobre (USD)")}
+      ${num("presupuesto", "Presupuesto del periodo (USD)")}
+      ${num("tolerancia", "Tolerancia frente a lo acordado (%)")}
+      ${num("confianzaMin", "Confianza minima de lectura (0 a 1)", 'step="0.05"')}
+      <div class="chk" style="margin-top:12px"><input type="checkbox" ${p.acumulado.activo ? "checked" : ""} onchange="p.acumulado.activo=this.checked;pintar()"> Tope acumulado por proveedor y periodo (R10)</div>
+      <label>Tope acumulado (USD)</label><input type="number" value="${p.acumulado.tope}" onchange="p.acumulado.tope=+this.value;pintar()">
+      <p class="lbl" style="margin-top:12px">Cada cambio vuelve a evaluar las 16 facturas. Prueba subir el tope a 20000: F09 deja de frenarse.</p>
+      <button class="sec" onclick="p=clon(PARAMS_INICIALES);mandato='v1';pintar()">Volver a las reglas iniciales</button></div>
+    <div class="card"><h2>Monedas y beneficiarios permitidos</h2>
+      ${mon.map((m) => `<div class="chk"><input type="checkbox" ${p.monedas.includes(m) ? "checked" : ""} onchange="alt('monedas','${m}')"> ${m}</div>`).join("")}
+      <h3 style="margin-top:12px">Beneficiarios</h3>
+      ${Object.keys(PROVEEDORES).map((v) => `<div class="chk"><input type="checkbox" ${p.beneficiarios.includes(v) ? "checked" : ""} onchange="alt('beneficiarios','${v}')"> ${v}</div>`).join("")}</div>
+  </div>`;
+}
+function alt(k, v) { const a = p[k], i = a.indexOf(v); i < 0 ? a.push(v) : a.splice(i, 1); pintar(); }
+
+// ---------- Guardian ----------
+async function armar() {
+  const { res, fs } = calc();
+  const d = res.find((x) => x.f.id === guardianSel);
+  const recibo = await emitirRecibo(d, mandato);
+  const h = humano[guardianSel];
+  const aprobacion = h && h.accion === "aprobada" ? await firmarAprobacion(recibo, "CFO") : null;
+  return { d, recibo, aprobacion, factura: d.f, fs };
+}
+async function probar(caso) {
+  const { d, recibo, aprobacion, factura } = await armar();
+  let r = recibo, orden = ordenDesdeRecibo(recibo), ap = aprobacion, f = factura, nombre = "Orden valida, tal como la emite el sistema", m = mandato;
+  if (caso === "alterar") { r = { ...recibo, veredicto: "PAGAR" }; nombre = "Alguien altera el recibo para que diga PAGAR"; }
+  if (caso === "monto") { orden = { ...orden, monto_usd: orden.monto_usd * 10 }; nombre = "La orden pide un monto 10 veces mayor"; }
+  if (caso === "sinap") { ap = null; nombre = "Orden enviada sin aprobacion humana"; }
+  if (caso === "factura") { f = { ...factura, monto: factura.monto + 1 }; nombre = "La factura original se modifica despues de la decision"; }
+  if (caso === "viejo") { r = await emitirRecibo(d, "v0"); orden = ordenDesdeRecibo(r); ap = aprobacion ? await firmarAprobacion(r, "CFO") : null; nombre = "Recibo emitido con una version anterior del mandato"; }
+  if (caso === "reuso") { nombre = "Se reenvia un recibo que ya autorizo una orden"; if (!usados.has(recibo.nonce)) { await guardian(orden, recibo, { factura: f, mandato: m, usados, aprobacion: ap }); } }
+  const out = await guardian(orden, r, { factura: f, mandato: m, usados, aprobacion: ap });
+  guardianOut = { nombre, out, recibo: r, orden };
+  pintarGuardian();
+}
+async function pintarGuardian() {
+  const { res } = calc();
+  const { d, recibo, aprobacion } = await armar();
+  const h = humano[guardianSel];
+  const g = guardianOut;
+  $("v-guardian").innerHTML = `
+  <div class="grid g2">
+    <div class="card"><h2>1. Elige una factura</h2>
+      <select onchange="guardianSel=this.value;guardianOut=null;pintarGuardian()">${res.map((x) => `<option value="${x.f.id}" ${x.f.id === guardianSel ? "selected" : ""}>${x.f.id} · ${x.f.vendor} · ${x.veredicto}</option>`).join("")}</select>
+      <p class="lbl">${d.veredicto === "ESCALAR" ? (h && h.accion === "aprobada" ? "Escalada y aprobada por una persona en Decisiones." : "Escalada sin aprobacion humana: el guardian no deberia dejarla pasar.") : d.veredicto === "FRENAR" ? "Frenada: ninguna aprobacion la libera." : "Pagar: cumple todas las reglas."}</p>
+      <h3 style="margin-top:12px">Recibo firmado</h3>
+      <pre>${JSON.stringify({ ...recibo, firma: recibo.firma.slice(0, 24) + "…", hash_factura: recibo.hash_factura.slice(0, 24) + "…" }, null, 1)}</pre>
+      <h3>Orden de pago propuesta</h3>
+      <pre>${JSON.stringify(ordenDesdeRecibo(recibo), null, 1)}</pre></div>
+    <div class="card"><h2>2. Intenta pagar</h2>
+      <div class="row" style="margin-top:0"><button class="act" onclick="probar('valida')">Enviar la orden tal cual</button></div>
+      <p class="lbl" style="margin-top:12px">Ahora ataca al guardian:</p>
+      <div>
+        <button class="bad" onclick="probar('alterar')">Alterar el recibo a PAGAR</button>
+        <button class="bad" onclick="probar('monto')">Pedir un monto mayor</button>
+        <button class="bad" onclick="probar('sinap')">Enviar sin aprobacion humana</button>
+        <button class="bad" onclick="probar('factura')">Modificar la factura original</button>
+        <button class="bad" onclick="probar('viejo')">Recibo de un mandato anterior</button>
+        <button class="bad" onclick="probar('reuso')">Reenviar un recibo ya usado</button>
+      </div>
+      ${g ? `<h3 style="margin-top:12px">${g.nombre}</h3>
+        <div class="banner ${g.out.autorizada ? "ok" : "no"}">${g.out.autorizada ? "Orden AUTORIZADA" : "Orden RECHAZADA: " + g.out.motivo}</div>
+        ${g.out.checks.map((c) => `<div class="chk6 ${c.estado === "ok" ? "ok" : c.estado === "falla" ? "falla" : "no-ev"}"><b>${c.estado === "ok" ? "✓" : c.estado === "falla" ? "✗" : "·"}</b><div>${c.n}. ${c.nombre}${c.estado === "falla" ? `<small>${c.motivo}</small>` : c.estado === "no evaluada" ? "<small>no se evalua: una verificacion anterior fallo</small>" : ""}</div></div>`).join("")}`
+        : '<p class="lbl" style="margin-top:12px">Elige una accion para ver las seis verificaciones.</p>'}
+      <p class="lbl">En la demo el guardian es un servicio nuestro que simula la verificacion de Blinka. La firma usa una clave de juguete.</p></div>
+  </div>`;
+}
+
+// ---------- Pentest y arena ----------
+function pintarPentest() {
+  const v2 = p.acumulado.activo;
+  $("v-pentest").innerHTML = `
+  <div class="grid g2">
+    <div class="card"><h2>Pentest de reglas</h2>
+      <p>Antes de activar el mandato, un agente atacante busca como evadirlo. El dano que busca: <b>pagar a un proveedor mas que el umbral en el periodo sin una persona</b>.</p>
+      <p class="lbl">Mandato ${mandato}: umbral de aprobacion USD ${fmt(p.umbral)}${v2 ? ` · tope acumulado por proveedor USD ${fmt(p.acumulado.tope)}` : " · sin tope acumulado"}.</p>
+      <div class="row"><button class="act" onclick="lanzarPentest()">Lanzar el agente atacante</button></div>
+      <div class="log" id="plog" style="margin-top:12px">${pentestLog.join("")}</div>
+      <p class="lbl">Simulacion determinista: cada intento pasa por el motor real. En la version completa, un agente de IA explora estas estrategias.</p></div>
+    <div class="card"><h2>Arena de ataques</h2>
+      <p>Miles de facturas mutadas por codigo (montos, monedas, cuentas, duplicados, instrucciones ocultas) contra el motor, y el verificador independiente revisa cada pago.</p>
+      <div class="row"><button class="act" onclick="lanzarArena()">Lanzar 200 lotes (3.200 facturas)</button></div>
+      <div id="aout" style="margin-top:12px">${arenaOut ? htmlArena(arenaOut) : '<p class="lbl">Sin ejecutar.</p>'}</div>
+      <p class="lbl">Un pago "indebido" aqui es uno que rompe una regla del mandato. El pentest busca otra cosa: huecos en las reglas mismas. Por eso el arena da cero incluso con el hueco abierto.</p></div>
+  </div>`;
+}
+function htmlArena(a) {
+  return `<table><tr><td>Facturas lanzadas</td><td>${fmt(a.lanzadas)}</td></tr>
+  <tr><td class="v-PAGAR">Pagadas</td><td>${fmt(a.PAGAR)}</td></tr><tr><td class="v-FRENAR">Frenadas</td><td>${fmt(a.FRENAR)}</td></tr><tr><td class="v-ESCALAR">Escaladas</td><td>${fmt(a.ESCALAR)}</td></tr>
+  <tr><td><b>Pagos fuera de las reglas</b></td><td class="${a.indebidos ? "no" : "ok"}"><b>${a.indebidos}</b></td></tr>
+  <tr><td>Lotes que excedieron el presupuesto</td><td class="${a.presupuestoExcedido ? "no" : "ok"}"><b>${a.presupuestoExcedido}</b></td></tr>
+  <tr><td>Tiempo</td><td>${a.ms} ms</td></tr></table>`;
+}
+function lanzarArena() { arenaOut = arena(200, p); pintarPentest(); }
+function lanzarPentest() {
+  const esc = escenarioPentest(p);
+  pentestLog = [];
+  pintarPentest();
+  let i = 0;
+  const siguiente = () => {
+    if (i >= esc.length) {
+      const h = esc.find((e) => e.hueco);
+      pentestLog.push(h ? `<div class="banner no">Hueco encontrado: se pagaron USD ${fmt(h.pagado)} a un proveedor en el periodo, sobre el umbral de USD ${fmt(p.umbral)}, sin ninguna persona.</div>
+        <div class="card" style="margin-top:8px"><h3>Arreglo propuesto</h3><p>Tope acumulado por proveedor y periodo de USD ${fmt(p.umbral)}.</p>
+        <button class="act" onclick="firmarV2()">Aceptar y firmar el mandato v2</button></div>`
+        : `<div class="banner ok">Sin huecos: ningun intento logro pagar sobre el umbral sin una persona.</div>`);
+      refrescarLog(); return;
+    }
+    const e = esc[i++];
+    const r = e.res.map((d) => d.veredicto).join(" + ");
+    pentestLog.push(`<div>${i}. ${e.titulo}: <b>${r}</b>${e.hueco ? ' <span class="no">← hueco</span>' : ""}</div>`);
+    refrescarLog(); setTimeout(siguiente, 550);
+  };
+  siguiente();
+}
+function refrescarLog() { const l = $("plog"); if (l) l.innerHTML = pentestLog.join(""); }
+function firmarV2() { p.acumulado.activo = true; p.acumulado.tope = p.umbral; mandato = "v2"; pentestLog = ['<div class="banner ok">Mandato v2 firmado. Vuelve a lanzar al atacante.</div>']; pintarPentest(); cabecera(); }
+
+function pintar() {
+  cabecera();
+  if (vista === "plan") pintarPlan();
+  if (vista === "marcador") pintarMarcador();
+  if (vista === "decisiones") pintarDecisiones();
+  if (vista === "reglas") pintarReglas();
+  if (vista === "guardian") pintarGuardian();
+  if (vista === "pentest") pintarPentest();
+}
+ir("plan");
+</script>
+</body>
+</html>

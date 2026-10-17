@@ -1,0 +1,104 @@
+{
+  "id": "dec_11",
+  "factura_id": "f_11",
+  "ciclo_id": "2026-10",
+  "mandato_version": "v2",
+  "veredicto": "ESCALAR",
+  "motivo_corto": "La factura trae una cuenta en CO y la registrada es de BR.",
+  "reglas": [
+    {
+      "id": "R1",
+      "estado": "cumple",
+      "accion_si_falla": null,
+      "aprobable": true,
+      "evidencia": "Lecturas coinciden y la confianza supera el minimo.",
+      "campo_origen": null
+    },
+    {
+      "id": "R2a",
+      "estado": "cumple",
+      "accion_si_falla": null,
+      "aprobable": true,
+      "evidencia": "Sin duplicado exacto.",
+      "campo_origen": null
+    },
+    {
+      "id": "R2b",
+      "estado": "cumple",
+      "accion_si_falla": null,
+      "aprobable": true,
+      "evidencia": "Sin duplicado difuso.",
+      "campo_origen": null
+    },
+    {
+      "id": "R3",
+      "estado": "cumple",
+      "accion_si_falla": null,
+      "aprobable": true,
+      "evidencia": "Pixel Studio Ltda esta en el registro.",
+      "campo_origen": null
+    },
+    {
+      "id": "R4",
+      "estado": "falla",
+      "accion_si_falla": "ESCALAR",
+      "aprobable": true,
+      "evidencia": "La cuenta esta en CO y la registrada es de BR. Cambio de cuenta de un proveedor conocido.",
+      "campo_origen": null
+    },
+    {
+      "id": "R5",
+      "estado": "cumple",
+      "accion_si_falla": null,
+      "aprobable": true,
+      "evidencia": "USD 1.500 frente a USD 1.500 acordados.",
+      "campo_origen": null
+    },
+    {
+      "id": "R6",
+      "estado": "cumple",
+      "accion_si_falla": null,
+      "aprobable": true,
+      "evidencia": "Bajo el umbral de USD 3.000.",
+      "campo_origen": null
+    },
+    {
+      "id": "R7",
+      "estado": "cumple",
+      "accion_si_falla": null,
+      "aprobable": true,
+      "evidencia": "BRL esta permitida.",
+      "campo_origen": null
+    },
+    {
+      "id": "R8",
+      "estado": "cumple",
+      "accion_si_falla": null,
+      "aprobable": true,
+      "evidencia": "Sin instrucciones dentro del documento.",
+      "campo_origen": null
+    },
+    {
+      "id": "R9",
+      "estado": "omitida",
+      "accion_si_falla": null,
+      "aprobable": false,
+      "evidencia": "No se evalua: otra regla ya fallo.",
+      "campo_origen": null
+    },
+    {
+      "id": "R10",
+      "estado": "cumple",
+      "accion_si_falla": null,
+      "aprobable": true,
+      "evidencia": "Acumulado del periodo bajo el tope.",
+      "campo_origen": null
+    }
+  ],
+  "modo_autonomia": "autonomo",
+  "estado": "pendiente",
+  "creada_en": "2026-10-12T14:02:12Z",
+  "reevaluacion_de": null,
+  "recibo_id": null,
+  "sin_orden": false
+}

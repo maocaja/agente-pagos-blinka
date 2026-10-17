@@ -1,0 +1,79 @@
+{
+  "id": "f_11",
+  "ciclo_id": "2026-10",
+  "documento": {
+    "id": "d_11",
+    "hash": "a3f1c2d4e5b60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90",
+    "canal": "correo",
+    "formato": "texto",
+    "tipo_documento": "factura",
+    "recibido_en": "2026-10-12T14:02:11Z"
+  },
+  "emisor": {
+    "nombre": "Pixel Studio Ltda",
+    "nombre_normalizado": "PIXELSTUDIOLTDA",
+    "id_fiscal": "BR-00.000.000/0001-00",
+    "pais": "BR"
+  },
+  "referencias": {
+    "numero": "PX-2211",
+    "numero_normalizado": "PX2211",
+    "acuerdo_ref": "AC-PIXEL-01"
+  },
+  "fechas": {
+    "emision": "2026-10-10",
+    "vencimiento": "2026-11-10"
+  },
+  "montos": {
+    "moneda": "BRL",
+    "total_menor": "750000",
+    "suma_lineas_menor": "750000",
+    "lineas": [
+      {
+        "descripcion": "Edicion de video",
+        "total_menor": "750000"
+      }
+    ]
+  },
+  "cuenta": {
+    "pais": "CO",
+    "ultimos4": "4821"
+  },
+  "proveedor_asignado": {
+    "proveedor_id": "prov_pixel",
+    "metodo": "id_fiscal",
+    "pista": null
+  },
+  "evidencia": {
+    "monto_total": "Total: R$ 7.500,00",
+    "proveedor": "Pixel Studio Ltda",
+    "cuenta": "Conta: CO ****4821"
+  },
+  "confianza": {
+    "monto_total": 0.97,
+    "moneda": 0.99,
+    "proveedor": 0.98,
+    "cuenta": 0.95
+  },
+  "verificaciones": {
+    "esquema": "ok",
+    "dinero_presente": "ok",
+    "suma_lineas": "ok",
+    "cita_evidencia": "ok",
+    "tipo": "ok",
+    "segunda_lectura": {
+      "estado": "coincide",
+      "detalle": []
+    }
+  },
+  "lectura": {
+    "metodo": "modelo",
+    "modelo": "haiku-5.5",
+    "reintentos": 0,
+    "tokens_entrada": 1850,
+    "tokens_salida": 410,
+    "costo_microusd": "390",
+    "desde_cache": true,
+    "motivo_falla": null
+  }
+}

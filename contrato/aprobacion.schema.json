@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "aprobacion.schema.json",
+  "title": "Aprobacion o accion humana",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "decision_id", "recibo_id", "accion", "rol", "usuario_simulado", "nota", "fallas_cubiertas", "emitida_en", "vence_en", "firma"],
+  "properties": {
+    "id": {"type": "string"},
+    "decision_id": {"type": "string"},
+    "recibo_id": {"type": ["string", "null"]},
+    "accion": {"type": "string", "enum": ["aprobar", "corregir", "rechazar", "escalar"]},
+    "rol": {"type": "string", "enum": ["analista", "cfo"]},
+    "usuario_simulado": {"type": "boolean", "description": "true en la demo: el usuario es la sesion mas el rol elegido, no una autenticacion real"},
+    "nota": {"type": "string"},
+    "fallas_cubiertas": {"type": "array", "items": {"type": "string"}, "description": "Ids de las reglas ESCALAR que la persona vio al aprobar"},
+    "emitida_en": {"type": "string", "format": "date-time"},
+    "vence_en": {"type": "string", "format": "date-time"},
+    "firma": {"type": "string"}
+  }
+}

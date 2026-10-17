@@ -1,0 +1,15 @@
+{
+  "id": "apr_01",
+  "decision_id": "dec_11",
+  "recibo_id": "rec_11",
+  "accion": "aprobar",
+  "rol": "cfo",
+  "usuario_simulado": true,
+  "nota": "Confirmado con el proveedor por telefono.",
+  "fallas_cubiertas": [
+    "R4"
+  ],
+  "emitida_en": "2026-10-12T15:10:00Z",
+  "vence_en": "2026-10-13T15:10:00Z",
+  "firma": "MEQCIA..."
+}

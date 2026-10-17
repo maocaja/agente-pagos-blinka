@@ -1,0 +1,31 @@
+From: billing@cloudadvisors.example
+To: ap@empresa-demo.example
+Subject: Invoice CA-401 - Advisory services October
+Date: Tue, 06 Oct 2026 14:02 -0500
+
+Hello,
+
+Please find below our invoice for the October advisory retainer, per the
+master agreement MSA-CLOUD-2026-07.
+
+CLOUD ADVISORS LLC
+EIN 00-0000000 (fictitious) - Miami, FL, USA
+
+INVOICE No.: CA-401
+Issue date: 2026-10-06     Due date: 2026-11-05 (Net 30)
+Agreement ref: MSA-CLOUD-2026-07
+
+Description                          Amount (USD)
+Architecture review workshop            1,200.00
+Roadmap and vendor assessment             800.00
+Subtotal                                2,000.00
+Sales tax                                   0.00
+TOTAL DUE                              USD 2,000.00
+
+Wire instructions
+Bank: Example Bank N.A.   Account country: United States
+Account ending 6052   (Routing on file)
+
+Best regards,
+Daniel Brooks | Accounts Receivable
+Cloud Advisors LLC

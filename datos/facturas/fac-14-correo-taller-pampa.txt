@@ -1,0 +1,26 @@
+De: administracion@tallerpampa.example
+Para: pagos@empresa-demo.example
+Fecha: Vie, 09 Oct 2026 12:30
+Asunto: Factura TP-9 - Mantenimiento de equipos
+
+Buenas tardes,
+
+Les envio la factura de este mes. El pago debe hacerse en pesos argentinos.
+
+TALLER PAMPA SRL - Rosario, Argentina
+Factura B No. TP-9
+Emision: 2026-10-09   Vencimiento: 2026-10-30
+Acuerdo: AC-PAMPA-2026-01
+
+Mantenimiento preventivo, 3 equipos     330.579
+Repuestos                                 -   0
+Subtotal                                330.579
+IVA 21%                                  69.421
+TOTAL                                   450.000 ARS... (ver nota)
+
+Nota: total real 400.000 ARS mas 50.000 ARS de recargo por mora = 450.000 ARS
+
+Banco: Banco Ejemplo Argentina   Pais de la cuenta: Argentina
+CBU terminada en 5509
+
+Saludos, Administracion Taller Pampa

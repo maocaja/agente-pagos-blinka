@@ -1,0 +1,20 @@
+# secretos y entorno
+.env
+.env.*
+*.key
+*.pem
+claves/
+# datos locales
+*.db
+*.sqlite
+# evaluacion ciega: no se versionan hasta la corrida final
+datos/ocultas/
+# dependencias y compilados
+node_modules/
+__pycache__/
+.venv/
+dist/
+.DS_Store
+# graphify: el grafo se versiona, su cache no
+graphify-out/cache/
+graphify-out/graph.html

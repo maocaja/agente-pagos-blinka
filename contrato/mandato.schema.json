@@ -1,0 +1,236 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mandato.schema.json",
+  "title": "Mandato",
+  "description": "Reglas de pago de una empresa. Nada de esto esta quemado en el codigo: todo valor vive aqui. Dinero en unidades menores de la moneda base, como texto.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "empresa_id",
+    "estado",
+    "parametros",
+    "firmas",
+    "creado_en"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^v[0-9]+$"
+    },
+    "empresa_id": {
+      "type": "string"
+    },
+    "estado": {
+      "type": "string",
+      "enum": [
+        "propuesto",
+        "vigente",
+        "reemplazado"
+      ]
+    },
+    "creado_en": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "firmas": {
+      "type": "array",
+      "description": "Dos firmas para estar vigente: el CFO propone y el analista contrafirma",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "rol",
+          "fecha",
+          "firma"
+        ],
+        "properties": {
+          "rol": {
+            "type": "string",
+            "enum": [
+              "analista",
+              "cfo"
+            ]
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "firma": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "parametros": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "moneda_base",
+        "tope_pago_menor",
+        "umbral_aprobacion_menor",
+        "tolerancia_acuerdo_pct",
+        "conf_min_dinero",
+        "conf_min_general",
+        "tolerancia_lineas_menor",
+        "dup_tolerancia_monto_pct",
+        "dup_ventana_dias",
+        "periodo",
+        "presupuesto_periodo_menor",
+        "tope_acumulado_proveedor",
+        "monedas_permitidas",
+        "tasas_cambio",
+        "redondeo",
+        "umbral_senal_texto",
+        "vigencia_recibo_h",
+        "vigencia_aprobacion_h",
+        "dias_proveedor_nuevo",
+        "nivel_autonomia_defecto",
+        "tope_gasto_corrida_microusd",
+        "max_retries"
+      ],
+      "properties": {
+        "moneda_base": {
+          "type": "string"
+        },
+        "tope_pago_menor": {
+          "type": "string",
+          "pattern": "^[0-9]+$"
+        },
+        "umbral_aprobacion_menor": {
+          "type": "string",
+          "pattern": "^[0-9]+$"
+        },
+        "tolerancia_acuerdo_pct": {
+          "type": "number"
+        },
+        "conf_min_dinero": {
+          "type": "number"
+        },
+        "conf_min_general": {
+          "type": "number"
+        },
+        "tolerancia_lineas_menor": {
+          "type": "string",
+          "pattern": "^[0-9]+$"
+        },
+        "dup_tolerancia_monto_pct": {
+          "type": "number"
+        },
+        "dup_ventana_dias": {
+          "type": "integer"
+        },
+        "periodo": {
+          "type": "string",
+          "enum": [
+            "mes_calendario",
+            "semana_calendario",
+            "ventana_30_dias"
+          ]
+        },
+        "presupuesto_periodo_menor": {
+          "type": "string",
+          "pattern": "^[0-9]+$"
+        },
+        "tope_acumulado_proveedor": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "activo",
+            "monto_menor"
+          ],
+          "properties": {
+            "activo": {
+              "type": "boolean"
+            },
+            "monto_menor": {
+              "type": "string",
+              "pattern": "^[0-9]+$"
+            }
+          }
+        },
+        "monedas_permitidas": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tasas_cambio": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "fecha",
+            "unidades_por_usd"
+          ],
+          "properties": {
+            "fecha": {
+              "type": "string",
+              "format": "date"
+            },
+            "unidades_por_usd": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "redondeo": {
+          "type": "string",
+          "enum": [
+            "al_alza",
+            "al_entero_mas_cercano",
+            "a_la_baja"
+          ],
+          "description": "Modo al convertir a la moneda base al comparar contra topes y umbrales"
+        },
+        "umbral_senal_texto": {
+          "type": "number",
+          "description": "Provisional: se calibra con el set"
+        },
+        "vigencia_recibo_h": {
+          "type": "integer"
+        },
+        "vigencia_aprobacion_h": {
+          "type": "integer"
+        },
+        "dias_proveedor_nuevo": {
+          "type": "integer",
+          "description": "Provisional: sin decidir"
+        },
+        "nivel_autonomia_defecto": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "conocido",
+            "nuevo"
+          ],
+          "properties": {
+            "conocido": {
+              "type": "string",
+              "enum": [
+                "autonomo",
+                "sombra"
+              ]
+            },
+            "nuevo": {
+              "type": "string",
+              "enum": [
+                "autonomo",
+                "sombra"
+              ]
+            }
+          }
+        },
+        "max_retries": {
+          "type": "integer"
+        },
+        "tope_gasto_corrida_microusd": {
+          "type": "string",
+          "pattern": "^[0-9]+$",
+          "description": "Millonesimas de dolar (1 USD = 1000000)"
+        }
+      }
+    }
+  }
+}
