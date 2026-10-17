@@ -1,6 +1,7 @@
 import base64
 import importlib.util
 import json
+import os
 from pathlib import Path
 
 from cryptography.hazmat.primitives import serialization
@@ -10,6 +11,7 @@ from fastapi.staticfiles import StaticFiles
 
 from ..dominio.mandato import RAIZ_CONTRATO
 from .rutas_acciones import rutas_acciones
+from .rutas_evaluacion import rutas_evaluacion
 from .rutas_informes import rutas_informes
 from .sesiones import Sesiones
 
@@ -47,7 +49,7 @@ def _rutas_sesion(sesiones: Sesiones) -> APIRouter:
         sid = sesiones.crear(mandato)
         s = sesiones.obtener(sid)
         return {"sesion_id": sid, **_clave_publica(s), "mandato_version": s.m.version,
-                "ciclo_id": s.reg.ciclo_id}
+                "ciclo_id": s.reg.ciclo_id, "lectura": "en_vivo" if os.environ.get("ANTHROPIC_API_KEY") else "guardada"}
 
     @r.post("/api/sesion/reiniciar")
     def reiniciar(x_sesion_id: str | None = Header(None)):
@@ -148,6 +150,7 @@ def crear_app(sesiones: Sesiones, ruta_resultados: Path = RESULTADOS_SET, ruta_i
     app.include_router(_rutas_recibos(servicio_de))
     app.include_router(rutas_acciones(servicio_de, ruta_resultados))
     app.include_router(rutas_informes(servicio_de, _clave_publica))
+    app.include_router(rutas_evaluacion(ruta_resultados.parent))
     if ruta_interfaz.is_dir():
         app.mount("/", StaticFiles(directory=ruta_interfaz, html=True), name="interfaz")  # al final: /api manda
     return app

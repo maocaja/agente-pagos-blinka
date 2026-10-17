@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Agente de Pagos con Garantia, API del nucleo
-  version: 1.1.0-rc1
+  version: 1.1.0-rc2
   description: |
     Contrato entre U1 (nucleo), U2 (lectura), U3 (interfaz) y U4 (evaluacion). Escrito primero; cambia solo de comun acuerdo.
     Cada peticion (menos POST /api/sesion) lleva el encabezado X-Sesion-Id. El rol es simulado y viaja en X-Rol.
@@ -151,6 +151,7 @@ paths:
                   clave_version: {type: string}
                   mandato_version: {type: string}
                   ciclo_id: {type: string}
+                  lectura: {type: string, enum: [en_vivo, guardada], description: en_vivo si el servidor tiene clave del modelo}
               example: {sesion_id: s_01, clave_publica: base64..., clave_version: k1, mandato_version: v2, ciclo_id: 2026-10}
         '429': {$ref: '#/components/responses/Limite'}
         '503': {$ref: '#/components/responses/NoDisponible'}
